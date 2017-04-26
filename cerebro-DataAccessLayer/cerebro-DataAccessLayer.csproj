@@ -40,7 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DALAgrupacion.cs" />
+    <Compile Include="DALFuenteDeDato.cs" />
+    <Compile Include="DALMunicipalidad.cs" />
+    <Compile Include="DALTipoDeFuenteDeDato.cs" />
+    <Compile Include="DALUsuario.cs" />
+    <Compile Include="IDALAgrupacion.cs" />
+    <Compile Include="IDALFuenteDeDato.cs" />
+    <Compile Include="IDALMunicipalidad.cs" />
+    <Compile Include="IDALTipoDeFuenteDeDato.cs" />
+    <Compile Include="IDALUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
