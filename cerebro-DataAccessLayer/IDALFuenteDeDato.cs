@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cerebro_DataAccessLayer
 {
-    public class Class1
+    interface IDALFuenteDeDato
     {
     }
 }
