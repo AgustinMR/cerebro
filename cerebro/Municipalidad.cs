@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cerebro
 {
-    public class Class1
+    public class Municipalidad
     {
     }
 }
