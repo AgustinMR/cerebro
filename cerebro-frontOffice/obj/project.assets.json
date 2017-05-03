@@ -7075,15 +7075,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Agustin\\.nuget\\packages\\": {}
+    "C:\\Users\\bruno\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
+      "projectUniqueName": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
       "projectName": "cerebro-frontOffice",
-      "projectPath": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
-      "outputPath": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\obj\\",
+      "projectPath": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
+      "outputPath": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
