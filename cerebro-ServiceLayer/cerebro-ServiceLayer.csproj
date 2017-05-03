@@ -85,6 +85,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AgrupacionController.cs" />
+    <Compile Include="Controllers\EventoController.cs" />
+    <Compile Include="Controllers\FuenteDeDatoController.cs" />
+    <Compile Include="Controllers\ISLAgrupacion.cs" />
+    <Compile Include="Controllers\ISLEvento.cs" />
+    <Compile Include="Controllers\ISLFuenteDeDato.cs" />
+    <Compile Include="Controllers\ISLMunicipalidad.cs" />
+    <Compile Include="Controllers\ISLTipoDeFuenteDeDato.cs" />
+    <Compile Include="Controllers\ISLUsuario.cs" />
+    <Compile Include="Controllers\MunicipalidadController.cs" />
+    <Compile Include="Controllers\TipoDeFuenteDeDatoController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -101,7 +113,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
