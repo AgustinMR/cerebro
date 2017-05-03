@@ -12,11 +12,9 @@ namespace cerebro_DataAccessLayer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class VISITANTES
+    public partial class VISITANTES : USUARIOS
     {
         public string visitante_email { get; set; }
-        public string nombre_municipalidad { get; set; }
-    
-        public virtual USUARIOS USUARIOS { get; set; }
+        public string nombre_municipalidad_visitante { get; set; }
     }
 }

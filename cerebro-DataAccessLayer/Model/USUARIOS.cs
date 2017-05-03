@@ -24,11 +24,8 @@ namespace cerebro_DataAccessLayer.Model
         public string nombre_municipalidad { get; set; }
         public string nombre { get; set; }
     
-        public virtual ADMINISTRADOR ADMINISTRADOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AGRUPACIONES_USUARIOS> AGRUPACIONES_USUARIOS { get; set; }
         public virtual MUNICIPALIDADES MUNICIPALIDADES { get; set; }
-        public virtual OPERADORES OPERADORES { get; set; }
-        public virtual VISITANTES VISITANTES { get; set; }
     }
 }

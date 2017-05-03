@@ -12,7 +12,7 @@ namespace cerebro_DataAccessLayer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class OPERADORES
+    public partial class OPERADORES : USUARIOS
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OPERADORES()
@@ -22,9 +22,8 @@ namespace cerebro_DataAccessLayer.Model
     
         public string operador_email { get; set; }
         public string password { get; set; }
-        public string nombre_municipalidad { get; set; }
+        public string nombre_municipalidad_operadores { get; set; }
     
-        public virtual USUARIOS USUARIOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EVENTOS> EVENTOS { get; set; }
     }

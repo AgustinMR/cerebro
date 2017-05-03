@@ -12,13 +12,11 @@ namespace cerebro_DataAccessLayer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ENVIO_MAIL
+    public partial class ENVIO_MAIL : ACCIONES
     {
-        public string nombre_evento { get; set; }
-        public string nombre_municipalidad_evento { get; set; }
+        public string nombre_evento_email { get; set; }
+        public string nombre_municipalidad_evento_mail { get; set; }
         public string destinos { get; set; }
         public string mensaje { get; set; }
-    
-        public virtual ACCIONES ACCIONES { get; set; }
     }
 }

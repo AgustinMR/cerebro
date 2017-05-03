@@ -12,14 +12,12 @@ namespace cerebro_DataAccessLayer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class INVOCAR_WS
+    public partial class INVOCAR_WS : ACCIONES
     {
-        public string nombre_evento { get; set; }
-        public string nombre_municipalidad_evento { get; set; }
+        public string nombre_evento_ws { get; set; }
+        public string nombre_municipalidad_evento_ws { get; set; }
         public string url_web_service { get; set; }
         public string parametros { get; set; }
         public string metodo { get; set; }
-    
-        public virtual ACCIONES ACCIONES { get; set; }
     }
 }

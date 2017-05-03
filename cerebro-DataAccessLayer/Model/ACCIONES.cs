@@ -18,7 +18,5 @@ namespace cerebro_DataAccessLayer.Model
         public string nombre_municipalidad_evento { get; set; }
     
         public virtual EVENTOS EVENTOS { get; set; }
-        public virtual ENVIO_MAIL ENVIO_MAIL { get; set; }
-        public virtual INVOCAR_WS INVOCAR_WS { get; set; }
     }
 }

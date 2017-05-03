@@ -12,12 +12,10 @@ namespace cerebro_DataAccessLayer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ADMINISTRADOR
+    public partial class ADMINISTRADOR : USUARIOS
     {
         public string admin_email { get; set; }
         public string password { get; set; }
-        public string nombre_municipalidad { get; set; }
-    
-        public virtual USUARIOS USUARIOS { get; set; }
+        public string nombre_municipalidad_administrador { get; set; }
     }
 }

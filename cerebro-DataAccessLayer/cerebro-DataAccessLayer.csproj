@@ -59,15 +59,62 @@
     <Compile Include="IDALMunicipalidad.cs" />
     <Compile Include="IDALTipoDeFuenteDeDato.cs" />
     <Compile Include="IDALUsuario.cs" />
+    <Compile Include="Model\ACCIONES.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ADMINISTRADOR.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AGRUPACIONES.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AGRUPACIONES_USUARIOS.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\cerebroADOModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>cerebroADOModel.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\cerebroADOModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\cerebroADOModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>cerebroADOModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ENVIO_MAIL.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EVENTOS.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EVENTOS_FUENTES_DE_DATOS.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FUENTES_DE_DATOS.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\INVOCAR_WS.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MUNICIPALIDADES.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\OPERADORES.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TIPOS_DE_FUENTES_DE_DATOS.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\USUARIOS.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\VISITANTES.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -89,6 +136,12 @@
     <Content Include="Model\cerebroADOModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>cerebroADOModel.Context.cs</LastGenOutput>
+      <DependentUpon>cerebroADOModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\cerebroADOModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>cerebroADOModel.edmx</DependentUpon>
+      <LastGenOutput>cerebroADOModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

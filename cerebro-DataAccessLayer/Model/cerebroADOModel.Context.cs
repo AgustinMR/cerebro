@@ -26,18 +26,13 @@ namespace cerebro_DataAccessLayer.Model
         }
     
         public virtual DbSet<ACCIONES> ACCIONES { get; set; }
-        public virtual DbSet<ADMINISTRADOR> ADMINISTRADOR { get; set; }
         public virtual DbSet<AGRUPACIONES> AGRUPACIONES { get; set; }
         public virtual DbSet<AGRUPACIONES_USUARIOS> AGRUPACIONES_USUARIOS { get; set; }
-        public virtual DbSet<ENVIO_MAIL> ENVIO_MAIL { get; set; }
         public virtual DbSet<EVENTOS> EVENTOS { get; set; }
         public virtual DbSet<EVENTOS_FUENTES_DE_DATOS> EVENTOS_FUENTES_DE_DATOS { get; set; }
         public virtual DbSet<FUENTES_DE_DATOS> FUENTES_DE_DATOS { get; set; }
-        public virtual DbSet<INVOCAR_WS> INVOCAR_WS { get; set; }
         public virtual DbSet<MUNICIPALIDADES> MUNICIPALIDADES { get; set; }
-        public virtual DbSet<OPERADORES> OPERADORES { get; set; }
         public virtual DbSet<TIPOS_DE_FUENTES_DE_DATOS> TIPOS_DE_FUENTES_DE_DATOS { get; set; }
         public virtual DbSet<USUARIOS> USUARIOS { get; set; }
-        public virtual DbSet<VISITANTES> VISITANTES { get; set; }
     }
 }
