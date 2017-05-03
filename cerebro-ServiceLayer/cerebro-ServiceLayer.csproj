@@ -43,11 +43,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="cerebro">
+      <HintPath>..\cerebro\bin\Debug\cerebro.dll</HintPath>
+    </Reference>
+    <Reference Include="cerebro-BusinessLogicLayer">
+      <HintPath>..\cerebro-BusinessLogicLayer\bin\Debug\cerebro-BusinessLogicLayer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -57,6 +66,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -88,12 +100,6 @@
     <Compile Include="Controllers\AgrupacionController.cs" />
     <Compile Include="Controllers\EventoController.cs" />
     <Compile Include="Controllers\FuenteDeDatoController.cs" />
-    <Compile Include="Controllers\ISLAgrupacion.cs" />
-    <Compile Include="Controllers\ISLEvento.cs" />
-    <Compile Include="Controllers\ISLFuenteDeDato.cs" />
-    <Compile Include="Controllers\ISLMunicipalidad.cs" />
-    <Compile Include="Controllers\ISLTipoDeFuenteDeDato.cs" />
-    <Compile Include="Controllers\ISLUsuario.cs" />
     <Compile Include="Controllers\MunicipalidadController.cs" />
     <Compile Include="Controllers\TipoDeFuenteDeDatoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />

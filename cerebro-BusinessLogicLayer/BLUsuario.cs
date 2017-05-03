@@ -8,7 +8,7 @@ using cerebro_DataAccessLayer;
 
 namespace cerebro_BusinessLogicLayer
 {
-    public class BLUsuario
+    public class BLUsuario : IBLUsuario
     {
 
         IDALUsuario dal = null;

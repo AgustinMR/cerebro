@@ -13,7 +13,7 @@ namespace cerebro_BusinessLogicLayer
         bool addOperador(Operador op);
         bool addAdministrador(Administrador admin);
         bool deleteVisitante(Visitante vis);
-        bool daleteOperador(Operador op);
+        bool deleteOperador(Operador op);
         bool deleteAdministrador(Administrador admin);
         bool updateVisitante(Visitante vis);
         bool updateOperador(Operador op);
