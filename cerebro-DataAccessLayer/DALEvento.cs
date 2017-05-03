@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace cerebro_DataAccessLayer
 {
-    class DALEvento : IDALEvento
+    public class DALEvento : IDALEvento
     {
         public bool addEvento(Evento e)
         {
