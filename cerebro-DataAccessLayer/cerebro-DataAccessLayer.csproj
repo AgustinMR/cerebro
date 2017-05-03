@@ -30,17 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,93 +50,7 @@
     <Compile Include="IDALMunicipalidad.cs" />
     <Compile Include="IDALTipoDeFuenteDeDato.cs" />
     <Compile Include="IDALUsuario.cs" />
-    <Compile Include="Model\ACCIONES.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ADMINISTRADOR.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\AGRUPACIONES.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\AGRUPACIONES_USUARIOS.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\cerebroADOModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>cerebroADOModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\cerebroADOModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\cerebroADOModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>cerebroADOModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ENVIO_MAIL.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\EVENTOS.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\EVENTOS_FUENTES_DE_DATOS.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\FUENTES_DE_DATOS.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\INVOCAR_WS.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\MUNICIPALIDADES.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\OPERADORES.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\TIPOS_DE_FUENTES_DE_DATOS.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\USUARIOS.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\VISITANTES.cs">
-      <DependentUpon>cerebroADOModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <EntityDeploy Include="Model\cerebroADOModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>cerebroADOModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="Model\cerebroADOModel.edmx.diagram">
-      <DependentUpon>cerebroADOModel.edmx</DependentUpon>
-    </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Model\cerebroADOModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>cerebroADOModel.Context.cs</LastGenOutput>
-      <DependentUpon>cerebroADOModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Model\cerebroADOModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>cerebroADOModel.edmx</DependentUpon>
-      <LastGenOutput>cerebroADOModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
