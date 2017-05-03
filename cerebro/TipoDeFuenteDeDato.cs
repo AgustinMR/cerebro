@@ -11,7 +11,7 @@ namespace cerebro
     public class TipoDeFuenteDeDato
     {
         [BsonId]
-        private ObjectId Id { set; get; }
+        public ObjectId Id { set; get; }
         [BsonElement]
         public string nombre { set; get; }
         [BsonElement]

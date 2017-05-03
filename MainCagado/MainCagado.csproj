@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="cerebro-DataAccessLayer">
-      <HintPath>..\cerebro-DataAccessLayer\bin\Debug\cerebro-DataAccessLayer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cerebro-DataAccessLayer\cerebro-DataAccessLayer.csproj">
+      <Project>{e67c1317-1652-4c2e-af7f-4774805e6b18}</Project>
+      <Name>cerebro-DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cerebro\cerebro.csproj">
+      <Project>{A3EBC65B-1BA2-49D2-8578-F21E93659ECF}</Project>
+      <Name>cerebro</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
