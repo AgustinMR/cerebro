@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cerebro_DataAccessLayer
 {
-    interface IDALUsuario
+    public interface IDALUsuario
     {
     }
 }

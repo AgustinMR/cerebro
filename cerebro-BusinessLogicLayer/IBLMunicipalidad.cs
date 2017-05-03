@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cerebro_DataAccessLayer
+namespace cerebro_BusinessLogicLayer
 {
-    public class DALAgrupacion
+    interface IBLMunicipalidad
     {
     }
 }
