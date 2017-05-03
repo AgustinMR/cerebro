@@ -1,1 +1,3 @@
 *.cache
+*.suo
+.vs/cerebro-gr17/v15/.suo
