@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace cerebro
 {
-    public class EnvioMail : Accion
+    public class Parametro
     {
         [BsonElement]
-        public List<string> destinos { get; set; }
+        public string nombre { get; set; }
         [BsonElement]
-        public string mensaje { get; set; }
+        public string valor { get; set; }
     }
 }
