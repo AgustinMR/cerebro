@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="cerebro">
+      <HintPath>..\cerebro\bin\Debug\cerebro.dll</HintPath>
+    </Reference>
     <Reference Include="cerebro-DataAccessLayer">
       <HintPath>..\cerebro-DataAccessLayer\bin\Debug\cerebro-DataAccessLayer.dll</HintPath>
     </Reference>

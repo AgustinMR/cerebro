@@ -1,8 +1,16 @@
+CREATE TABLE MUNICIPALIDADES (
+  nombre varchar(30) NOT NULL,
+  ubicacion text NOT NULL,
+  estado BOOLEAN NOT NULL default TRUE,
+  PRIMARY KEY (nombre)
+);
+
 CREATE TABLE USUARIOS (
   email varchar(30) NOT NULL,
   nombre_municipalidad varchar(30) NOT NULL,
   nombre varchar(30) NULL,
-  PRIMARY KEY (email, nombre_municipalidad)
+  PRIMARY KEY (email, nombre_municipalidad),
+  FOREIGN KEY (nombre_municipalidad) REFERENCES MUNICIPALIDADES (nombre)
 );
 
 CREATE TABLE VISITANTES (
@@ -31,7 +39,8 @@ CREATE TABLE ADMINISTRADOR (
 CREATE TABLE AGRUPACIONES (
   nombre varchar(30) NOT NULL,
   nombre_municipalidad varchar(30) NOT NULL,
-  PRIMARY KEY (nombre, nombre_municipalidad)
+  PRIMARY KEY (nombre, nombre_municipalidad),
+  FOREIGN KEY (nombre_municipalidad) REFERENCES MUNICIPALIDADES (nombre)
 );
 
 CREATE TABLE AGRUPACIONES_USUARIOS (
