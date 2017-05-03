@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cerebro_BusinessLogicLayer
 {
-    public class Class1
+    class BLUsuario
     {
     }
 }

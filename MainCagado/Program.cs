@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using cerebro;
 using cerebro_DataAccessLayer;
-using cerebro;
+using System;
 
 namespace MainCagado
 {
@@ -12,7 +8,11 @@ namespace MainCagado
     {
         static void Main(string[] args)
         {
+            IDALTipoDeFuenteDeDato dalf = new DALTipoDeFuenteDeDato();
 
+            
+            Console.WriteLine(dalf.addTipoDeFuenteDeDato(t));
+            Console.ReadLine();
         }
     }
 }

@@ -59,12 +59,10 @@
   <ItemGroup>
     <Compile Include="Accion.cs" />
     <Compile Include="Administrador.cs" />
-    <Compile Include="Agrupacion.cs" />
     <Compile Include="EnvioMail.cs" />
     <Compile Include="Evento.cs" />
     <Compile Include="FuenteDeDato.cs" />
     <Compile Include="InvocacionWS.cs" />
-    <Compile Include="Municipalidad.cs" />
     <Compile Include="Operador.cs" />
     <Compile Include="Parametro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
