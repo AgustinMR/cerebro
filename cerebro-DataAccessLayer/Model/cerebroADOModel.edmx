@@ -1,0 +1,1139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="cerebroDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ACCIONES">
+          <Key>
+            <PropertyRef Name="nombre_evento" />
+            <PropertyRef Name="nombre_municipalidad_evento" />
+          </Key>
+          <Property Name="nombre_evento" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_evento" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ADMINISTRADOR">
+          <Key>
+            <PropertyRef Name="admin_email" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="admin_email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AGRUPACIONES">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AGRUPACIONES_USUARIOS">
+          <Key>
+            <PropertyRef Name="nombre_agrupacion" />
+            <PropertyRef Name="nombre_municipalidad_agrupacion" />
+            <PropertyRef Name="usuario_email" />
+            <PropertyRef Name="nombre_municipalidad_usuario" />
+          </Key>
+          <Property Name="nombre_agrupacion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_agrupacion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="usuario_email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_usuario" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="admin" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ENVIO_MAIL">
+          <Key>
+            <PropertyRef Name="nombre_evento" />
+            <PropertyRef Name="nombre_municipalidad_evento" />
+          </Key>
+          <Property Name="nombre_evento" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_evento" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="destinos" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="mensaje" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EVENTOS">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EVENTOS_FUENTES_DE_DATOS">
+          <Key>
+            <PropertyRef Name="nombre_evento" />
+            <PropertyRef Name="nombre_municipalidad_evento" />
+            <PropertyRef Name="id_fuente_de_datos" />
+            <PropertyRef Name="nombre_municipalidad_fuente_de_datos" />
+          </Key>
+          <Property Name="nombre_evento" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_evento" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_fuente_de_datos" Type="int" Nullable="false" />
+          <Property Name="nombre_municipalidad_fuente_de_datos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="umbral" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EVENTOS_OPERADORES">
+          <Key>
+            <PropertyRef Name="nombre_evento" />
+            <PropertyRef Name="nombre_municipalidad_evento" />
+            <PropertyRef Name="operador_email" />
+            <PropertyRef Name="nombre_municipalidad_operador" />
+          </Key>
+          <Property Name="nombre_evento" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_evento" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="operador_email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_operador" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FUENTES_DE_DATOS">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="ubicacion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="dirIP" Type="varchar" MaxLength="39" Nullable="false" />
+          <Property Name="user_agent" Type="varchar" MaxLength="100" />
+          <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_tipo_de_fuente_de_datos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_tipo_de_fuente_de_datos" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INVOCAR_WS">
+          <Key>
+            <PropertyRef Name="nombre_evento" />
+            <PropertyRef Name="nombre_municipalidad_evento" />
+          </Key>
+          <Property Name="nombre_evento" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_evento" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="url_web_service" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="parametros" Type="varchar" MaxLength="255" />
+          <Property Name="metodo" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MUNICIPALIDADES">
+          <Key>
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ubicacion" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OPERADORES">
+          <Key>
+            <PropertyRef Name="operador_email" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="operador_email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TIPOS_DE_FUENTES_DE_DATOS">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="frecuencia_de_lectura" Type="int" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="url_web_service" Type="varchar" MaxLength="300" />
+          <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="email" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="VISITANTES">
+          <Key>
+            <PropertyRef Name="visitante_email" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="visitante_email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__ACCIONES__69FBBC1F">
+          <End Role="EVENTOS" Type="Self.EVENTOS" Multiplicity="1" />
+          <End Role="ACCIONES" Type="Self.ACCIONES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="EVENTOS">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="ACCIONES">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ADMINISTRADOR__4F47C5E3">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="ADMINISTRADOR" Type="Self.ADMINISTRADOR" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="ADMINISTRADOR">
+              <PropertyRef Name="admin_email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AGRUPACIO__nombr__5224328E">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="AGRUPACIONES" Type="Self.AGRUPACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AGRUPACIONES_USU__55009F39">
+          <End Role="AGRUPACIONES" Type="Self.AGRUPACIONES" Multiplicity="1" />
+          <End Role="AGRUPACIONES_USUARIOS" Type="Self.AGRUPACIONES_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGRUPACIONES">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES_USUARIOS">
+              <PropertyRef Name="nombre_agrupacion" />
+              <PropertyRef Name="nombre_municipalidad_agrupacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AGRUPACIONES_USU__55F4C372">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="AGRUPACIONES_USUARIOS" Type="Self.AGRUPACIONES_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES_USUARIOS">
+              <PropertyRef Name="usuario_email" />
+              <PropertyRef Name="nombre_municipalidad_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ENVIO_MAIL__6FB49575">
+          <End Role="ACCIONES" Type="Self.ACCIONES" Multiplicity="1" />
+          <End Role="ENVIO_MAIL" Type="Self.ENVIO_MAIL" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ACCIONES">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Principal>
+            <Dependent Role="ENVIO_MAIL">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EVENTOS__nombre___58D1301D">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="EVENTOS" Type="Self.EVENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="EVENTOS">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EVENTOS_FUENTES___662B2B3B">
+          <End Role="EVENTOS" Type="Self.EVENTOS" Multiplicity="1" />
+          <End Role="EVENTOS_FUENTES_DE_DATOS" Type="Self.EVENTOS_FUENTES_DE_DATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EVENTOS">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="EVENTOS_FUENTES_DE_DATOS">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EVENTOS_FUENTES___671F4F74">
+          <End Role="FUENTES_DE_DATOS" Type="Self.FUENTES_DE_DATOS" Multiplicity="1" />
+          <End Role="EVENTOS_FUENTES_DE_DATOS" Type="Self.EVENTOS_FUENTES_DE_DATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUENTES_DE_DATOS">
+              <PropertyRef Name="id" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="EVENTOS_FUENTES_DE_DATOS">
+              <PropertyRef Name="id_fuente_de_datos" />
+              <PropertyRef Name="nombre_municipalidad_fuente_de_datos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EVENTOS_OPERADOR__5BAD9CC8">
+          <End Role="EVENTOS" Type="Self.EVENTOS" Multiplicity="1" />
+          <End Role="EVENTOS_OPERADORES" Type="Self.EVENTOS_OPERADORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EVENTOS">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="EVENTOS_OPERADORES">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EVENTOS_OPERADOR__5CA1C101">
+          <End Role="OPERADORES" Type="Self.OPERADORES" Multiplicity="1" />
+          <End Role="EVENTOS_OPERADORES" Type="Self.EVENTOS_OPERADORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPERADORES">
+              <PropertyRef Name="operador_email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="EVENTOS_OPERADORES">
+              <PropertyRef Name="operador_email" />
+              <PropertyRef Name="nombre_municipalidad_operador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FUENTES_D__nombr__634EBE90">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="FUENTES_DE_DATOS" Type="Self.FUENTES_DE_DATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="FUENTES_DE_DATOS">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FUENTES_DE_DATOS__625A9A57">
+          <End Role="TIPOS_DE_FUENTES_DE_DATOS" Type="Self.TIPOS_DE_FUENTES_DE_DATOS" Multiplicity="1" />
+          <End Role="FUENTES_DE_DATOS" Type="Self.FUENTES_DE_DATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOS_DE_FUENTES_DE_DATOS">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="FUENTES_DE_DATOS">
+              <PropertyRef Name="nombre_tipo_de_fuente_de_datos" />
+              <PropertyRef Name="nombre_municipalidad_tipo_de_fuente_de_datos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__INVOCAR_WS__6CD828CA">
+          <End Role="ACCIONES" Type="Self.ACCIONES" Multiplicity="1" />
+          <End Role="INVOCAR_WS" Type="Self.INVOCAR_WS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ACCIONES">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Principal>
+            <Dependent Role="INVOCAR_WS">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OPERADORES__4C6B5938">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="OPERADORES" Type="Self.OPERADORES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="OPERADORES">
+              <PropertyRef Name="operador_email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TIPOS_DE___nombr__5F7E2DAC">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="TIPOS_DE_FUENTES_DE_DATOS" Type="Self.TIPOS_DE_FUENTES_DE_DATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="TIPOS_DE_FUENTES_DE_DATOS">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USUARIOS__nombre__46B27FE2">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VISITANTES__498EEC8D">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="VISITANTES" Type="Self.VISITANTES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="VISITANTES">
+              <PropertyRef Name="visitante_email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cerebroDBModelStoreContainer">
+          <EntitySet Name="ACCIONES" EntityType="Self.ACCIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ADMINISTRADOR" EntityType="Self.ADMINISTRADOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AGRUPACIONES" EntityType="Self.AGRUPACIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AGRUPACIONES_USUARIOS" EntityType="Self.AGRUPACIONES_USUARIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ENVIO_MAIL" EntityType="Self.ENVIO_MAIL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EVENTOS" EntityType="Self.EVENTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EVENTOS_FUENTES_DE_DATOS" EntityType="Self.EVENTOS_FUENTES_DE_DATOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EVENTOS_OPERADORES" EntityType="Self.EVENTOS_OPERADORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FUENTES_DE_DATOS" EntityType="Self.FUENTES_DE_DATOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INVOCAR_WS" EntityType="Self.INVOCAR_WS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MUNICIPALIDADES" EntityType="Self.MUNICIPALIDADES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OPERADORES" EntityType="Self.OPERADORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPOS_DE_FUENTES_DE_DATOS" EntityType="Self.TIPOS_DE_FUENTES_DE_DATOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VISITANTES" EntityType="Self.VISITANTES" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ACCIONES__69FBBC1F" Association="Self.FK__ACCIONES__69FBBC1F">
+            <End Role="EVENTOS" EntitySet="EVENTOS" />
+            <End Role="ACCIONES" EntitySet="ACCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ADMINISTRADOR__4F47C5E3" Association="Self.FK__ADMINISTRADOR__4F47C5E3">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="ADMINISTRADOR" EntitySet="ADMINISTRADOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AGRUPACIO__nombr__5224328E" Association="Self.FK__AGRUPACIO__nombr__5224328E">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AGRUPACIONES_USU__55009F39" Association="Self.FK__AGRUPACIONES_USU__55009F39">
+            <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+            <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AGRUPACIONES_USU__55F4C372" Association="Self.FK__AGRUPACIONES_USU__55F4C372">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ENVIO_MAIL__6FB49575" Association="Self.FK__ENVIO_MAIL__6FB49575">
+            <End Role="ACCIONES" EntitySet="ACCIONES" />
+            <End Role="ENVIO_MAIL" EntitySet="ENVIO_MAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EVENTOS__nombre___58D1301D" Association="Self.FK__EVENTOS__nombre___58D1301D">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="EVENTOS" EntitySet="EVENTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EVENTOS_FUENTES___662B2B3B" Association="Self.FK__EVENTOS_FUENTES___662B2B3B">
+            <End Role="EVENTOS" EntitySet="EVENTOS" />
+            <End Role="EVENTOS_FUENTES_DE_DATOS" EntitySet="EVENTOS_FUENTES_DE_DATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EVENTOS_FUENTES___671F4F74" Association="Self.FK__EVENTOS_FUENTES___671F4F74">
+            <End Role="FUENTES_DE_DATOS" EntitySet="FUENTES_DE_DATOS" />
+            <End Role="EVENTOS_FUENTES_DE_DATOS" EntitySet="EVENTOS_FUENTES_DE_DATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EVENTOS_OPERADOR__5BAD9CC8" Association="Self.FK__EVENTOS_OPERADOR__5BAD9CC8">
+            <End Role="EVENTOS" EntitySet="EVENTOS" />
+            <End Role="EVENTOS_OPERADORES" EntitySet="EVENTOS_OPERADORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EVENTOS_OPERADOR__5CA1C101" Association="Self.FK__EVENTOS_OPERADOR__5CA1C101">
+            <End Role="OPERADORES" EntitySet="OPERADORES" />
+            <End Role="EVENTOS_OPERADORES" EntitySet="EVENTOS_OPERADORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FUENTES_D__nombr__634EBE90" Association="Self.FK__FUENTES_D__nombr__634EBE90">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="FUENTES_DE_DATOS" EntitySet="FUENTES_DE_DATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FUENTES_DE_DATOS__625A9A57" Association="Self.FK__FUENTES_DE_DATOS__625A9A57">
+            <End Role="TIPOS_DE_FUENTES_DE_DATOS" EntitySet="TIPOS_DE_FUENTES_DE_DATOS" />
+            <End Role="FUENTES_DE_DATOS" EntitySet="FUENTES_DE_DATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__INVOCAR_WS__6CD828CA" Association="Self.FK__INVOCAR_WS__6CD828CA">
+            <End Role="ACCIONES" EntitySet="ACCIONES" />
+            <End Role="INVOCAR_WS" EntitySet="INVOCAR_WS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OPERADORES__4C6B5938" Association="Self.FK__OPERADORES__4C6B5938">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="OPERADORES" EntitySet="OPERADORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TIPOS_DE___nombr__5F7E2DAC" Association="Self.FK__TIPOS_DE___nombr__5F7E2DAC">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="TIPOS_DE_FUENTES_DE_DATOS" EntitySet="TIPOS_DE_FUENTES_DE_DATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USUARIOS__nombre__46B27FE2" Association="Self.FK__USUARIOS__nombre__46B27FE2">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VISITANTES__498EEC8D" Association="Self.FK__VISITANTES__498EEC8D">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="VISITANTES" EntitySet="VISITANTES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cerebroDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ACCIONES">
+          <Key>
+            <PropertyRef Name="nombre_evento" />
+            <PropertyRef Name="nombre_municipalidad_evento" />
+          </Key>
+          <Property Name="nombre_evento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad_evento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EVENTOS" Relationship="Self.FK__ACCIONES__69FBBC1F" FromRole="ACCIONES" ToRole="EVENTOS" />
+          <NavigationProperty Name="ENVIO_MAIL" Relationship="Self.FK__ENVIO_MAIL__6FB49575" FromRole="ACCIONES" ToRole="ENVIO_MAIL" />
+          <NavigationProperty Name="INVOCAR_WS" Relationship="Self.FK__INVOCAR_WS__6CD828CA" FromRole="ACCIONES" ToRole="INVOCAR_WS" />
+        </EntityType>
+        <EntityType Name="ADMINISTRADOR">
+          <Key>
+            <PropertyRef Name="admin_email" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="admin_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__ADMINISTRADOR__4F47C5E3" FromRole="ADMINISTRADOR" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="AGRUPACIONES">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__AGRUPACIO__nombr__5224328E" FromRole="AGRUPACIONES" ToRole="MUNICIPALIDADES" />
+          <NavigationProperty Name="AGRUPACIONES_USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__55009F39" FromRole="AGRUPACIONES" ToRole="AGRUPACIONES_USUARIOS" />
+        </EntityType>
+        <EntityType Name="AGRUPACIONES_USUARIOS">
+          <Key>
+            <PropertyRef Name="nombre_agrupacion" />
+            <PropertyRef Name="nombre_municipalidad_agrupacion" />
+            <PropertyRef Name="usuario_email" />
+            <PropertyRef Name="nombre_municipalidad_usuario" />
+          </Key>
+          <Property Name="nombre_agrupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad_agrupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad_usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AGRUPACIONES" Relationship="Self.FK__AGRUPACIONES_USU__55009F39" FromRole="AGRUPACIONES_USUARIOS" ToRole="AGRUPACIONES" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__55F4C372" FromRole="AGRUPACIONES_USUARIOS" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="ENVIO_MAIL">
+          <Key>
+            <PropertyRef Name="nombre_evento" />
+            <PropertyRef Name="nombre_municipalidad_evento" />
+          </Key>
+          <Property Name="nombre_evento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad_evento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="destinos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mensaje" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ACCIONES" Relationship="Self.FK__ENVIO_MAIL__6FB49575" FromRole="ENVIO_MAIL" ToRole="ACCIONES" />
+        </EntityType>
+        <EntityType Name="EVENTOS">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ACCIONES" Relationship="Self.FK__ACCIONES__69FBBC1F" FromRole="EVENTOS" ToRole="ACCIONES" />
+          <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__EVENTOS__nombre___58D1301D" FromRole="EVENTOS" ToRole="MUNICIPALIDADES" />
+          <NavigationProperty Name="EVENTOS_FUENTES_DE_DATOS" Relationship="Self.FK__EVENTOS_FUENTES___662B2B3B" FromRole="EVENTOS" ToRole="EVENTOS_FUENTES_DE_DATOS" />
+          <NavigationProperty Name="OPERADORES" Relationship="Self.EVENTOS_OPERADORES" FromRole="EVENTOS" ToRole="OPERADORES" />
+        </EntityType>
+        <EntityType Name="EVENTOS_FUENTES_DE_DATOS">
+          <Key>
+            <PropertyRef Name="nombre_evento" />
+            <PropertyRef Name="nombre_municipalidad_evento" />
+            <PropertyRef Name="id_fuente_de_datos" />
+            <PropertyRef Name="nombre_municipalidad_fuente_de_datos" />
+          </Key>
+          <Property Name="nombre_evento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad_evento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_fuente_de_datos" Type="Int32" Nullable="false" />
+          <Property Name="nombre_municipalidad_fuente_de_datos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="umbral" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EVENTOS" Relationship="Self.FK__EVENTOS_FUENTES___662B2B3B" FromRole="EVENTOS_FUENTES_DE_DATOS" ToRole="EVENTOS" />
+          <NavigationProperty Name="FUENTES_DE_DATOS" Relationship="Self.FK__EVENTOS_FUENTES___671F4F74" FromRole="EVENTOS_FUENTES_DE_DATOS" ToRole="FUENTES_DE_DATOS" />
+        </EntityType>
+        <EntityType Name="FUENTES_DE_DATOS">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="ubicacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dirIP" Type="String" MaxLength="39" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_agent" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_tipo_de_fuente_de_datos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad_tipo_de_fuente_de_datos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EVENTOS_FUENTES_DE_DATOS" Relationship="Self.FK__EVENTOS_FUENTES___671F4F74" FromRole="FUENTES_DE_DATOS" ToRole="EVENTOS_FUENTES_DE_DATOS" />
+          <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__FUENTES_D__nombr__634EBE90" FromRole="FUENTES_DE_DATOS" ToRole="MUNICIPALIDADES" />
+          <NavigationProperty Name="TIPOS_DE_FUENTES_DE_DATOS" Relationship="Self.FK__FUENTES_DE_DATOS__625A9A57" FromRole="FUENTES_DE_DATOS" ToRole="TIPOS_DE_FUENTES_DE_DATOS" />
+        </EntityType>
+        <EntityType Name="INVOCAR_WS">
+          <Key>
+            <PropertyRef Name="nombre_evento" />
+            <PropertyRef Name="nombre_municipalidad_evento" />
+          </Key>
+          <Property Name="nombre_evento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad_evento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="url_web_service" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="parametros" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metodo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ACCIONES" Relationship="Self.FK__INVOCAR_WS__6CD828CA" FromRole="INVOCAR_WS" ToRole="ACCIONES" />
+        </EntityType>
+        <EntityType Name="MUNICIPALIDADES">
+          <Key>
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ubicacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AGRUPACIONES" Relationship="Self.FK__AGRUPACIO__nombr__5224328E" FromRole="MUNICIPALIDADES" ToRole="AGRUPACIONES" />
+          <NavigationProperty Name="EVENTOS" Relationship="Self.FK__EVENTOS__nombre___58D1301D" FromRole="MUNICIPALIDADES" ToRole="EVENTOS" />
+          <NavigationProperty Name="FUENTES_DE_DATOS" Relationship="Self.FK__FUENTES_D__nombr__634EBE90" FromRole="MUNICIPALIDADES" ToRole="FUENTES_DE_DATOS" />
+          <NavigationProperty Name="TIPOS_DE_FUENTES_DE_DATOS" Relationship="Self.FK__TIPOS_DE___nombr__5F7E2DAC" FromRole="MUNICIPALIDADES" ToRole="TIPOS_DE_FUENTES_DE_DATOS" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__USUARIOS__nombre__46B27FE2" FromRole="MUNICIPALIDADES" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="OPERADORES">
+          <Key>
+            <PropertyRef Name="operador_email" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="operador_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__OPERADORES__4C6B5938" FromRole="OPERADORES" ToRole="USUARIOS" />
+          <NavigationProperty Name="EVENTOS" Relationship="Self.EVENTOS_OPERADORES" FromRole="OPERADORES" ToRole="EVENTOS" />
+        </EntityType>
+        <EntityType Name="TIPOS_DE_FUENTES_DE_DATOS">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="frecuencia_de_lectura" Type="Int32" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="url_web_service" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FUENTES_DE_DATOS" Relationship="Self.FK__FUENTES_DE_DATOS__625A9A57" FromRole="TIPOS_DE_FUENTES_DE_DATOS" ToRole="FUENTES_DE_DATOS" />
+          <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__TIPOS_DE___nombr__5F7E2DAC" FromRole="TIPOS_DE_FUENTES_DE_DATOS" ToRole="MUNICIPALIDADES" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="email" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ADMINISTRADOR" Relationship="Self.FK__ADMINISTRADOR__4F47C5E3" FromRole="USUARIOS" ToRole="ADMINISTRADOR" />
+          <NavigationProperty Name="AGRUPACIONES_USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__55F4C372" FromRole="USUARIOS" ToRole="AGRUPACIONES_USUARIOS" />
+          <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__USUARIOS__nombre__46B27FE2" FromRole="USUARIOS" ToRole="MUNICIPALIDADES" />
+          <NavigationProperty Name="OPERADORES" Relationship="Self.FK__OPERADORES__4C6B5938" FromRole="USUARIOS" ToRole="OPERADORES" />
+          <NavigationProperty Name="VISITANTES" Relationship="Self.FK__VISITANTES__498EEC8D" FromRole="USUARIOS" ToRole="VISITANTES" />
+        </EntityType>
+        <EntityType Name="VISITANTES">
+          <Key>
+            <PropertyRef Name="visitante_email" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="visitante_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__VISITANTES__498EEC8D" FromRole="VISITANTES" ToRole="USUARIOS" />
+        </EntityType>
+        <Association Name="FK__ACCIONES__69FBBC1F">
+          <End Role="EVENTOS" Type="Self.EVENTOS" Multiplicity="1" />
+          <End Role="ACCIONES" Type="Self.ACCIONES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="EVENTOS">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="ACCIONES">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ENVIO_MAIL__6FB49575">
+          <End Role="ACCIONES" Type="Self.ACCIONES" Multiplicity="1" />
+          <End Role="ENVIO_MAIL" Type="Self.ENVIO_MAIL" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ACCIONES">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Principal>
+            <Dependent Role="ENVIO_MAIL">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__INVOCAR_WS__6CD828CA">
+          <End Role="ACCIONES" Type="Self.ACCIONES" Multiplicity="1" />
+          <End Role="INVOCAR_WS" Type="Self.INVOCAR_WS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ACCIONES">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Principal>
+            <Dependent Role="INVOCAR_WS">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ADMINISTRADOR__4F47C5E3">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="ADMINISTRADOR" Type="Self.ADMINISTRADOR" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="ADMINISTRADOR">
+              <PropertyRef Name="admin_email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AGRUPACIO__nombr__5224328E">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="AGRUPACIONES" Type="Self.AGRUPACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AGRUPACIONES_USU__55009F39">
+          <End Role="AGRUPACIONES" Type="Self.AGRUPACIONES" Multiplicity="1" />
+          <End Role="AGRUPACIONES_USUARIOS" Type="Self.AGRUPACIONES_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGRUPACIONES">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES_USUARIOS">
+              <PropertyRef Name="nombre_agrupacion" />
+              <PropertyRef Name="nombre_municipalidad_agrupacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AGRUPACIONES_USU__55F4C372">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="AGRUPACIONES_USUARIOS" Type="Self.AGRUPACIONES_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES_USUARIOS">
+              <PropertyRef Name="usuario_email" />
+              <PropertyRef Name="nombre_municipalidad_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EVENTOS__nombre___58D1301D">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="EVENTOS" Type="Self.EVENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="EVENTOS">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EVENTOS_FUENTES___662B2B3B">
+          <End Role="EVENTOS" Type="Self.EVENTOS" Multiplicity="1" />
+          <End Role="EVENTOS_FUENTES_DE_DATOS" Type="Self.EVENTOS_FUENTES_DE_DATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EVENTOS">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="EVENTOS_FUENTES_DE_DATOS">
+              <PropertyRef Name="nombre_evento" />
+              <PropertyRef Name="nombre_municipalidad_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EVENTOS_FUENTES___671F4F74">
+          <End Role="FUENTES_DE_DATOS" Type="Self.FUENTES_DE_DATOS" Multiplicity="1" />
+          <End Role="EVENTOS_FUENTES_DE_DATOS" Type="Self.EVENTOS_FUENTES_DE_DATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUENTES_DE_DATOS">
+              <PropertyRef Name="id" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="EVENTOS_FUENTES_DE_DATOS">
+              <PropertyRef Name="id_fuente_de_datos" />
+              <PropertyRef Name="nombre_municipalidad_fuente_de_datos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FUENTES_D__nombr__634EBE90">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="FUENTES_DE_DATOS" Type="Self.FUENTES_DE_DATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="FUENTES_DE_DATOS">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FUENTES_DE_DATOS__625A9A57">
+          <End Role="TIPOS_DE_FUENTES_DE_DATOS" Type="Self.TIPOS_DE_FUENTES_DE_DATOS" Multiplicity="1" />
+          <End Role="FUENTES_DE_DATOS" Type="Self.FUENTES_DE_DATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOS_DE_FUENTES_DE_DATOS">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="FUENTES_DE_DATOS">
+              <PropertyRef Name="nombre_tipo_de_fuente_de_datos" />
+              <PropertyRef Name="nombre_municipalidad_tipo_de_fuente_de_datos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TIPOS_DE___nombr__5F7E2DAC">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="TIPOS_DE_FUENTES_DE_DATOS" Type="Self.TIPOS_DE_FUENTES_DE_DATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="TIPOS_DE_FUENTES_DE_DATOS">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USUARIOS__nombre__46B27FE2">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OPERADORES__4C6B5938">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="OPERADORES" Type="Self.OPERADORES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="OPERADORES">
+              <PropertyRef Name="operador_email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VISITANTES__498EEC8D">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="VISITANTES" Type="Self.VISITANTES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="VISITANTES">
+              <PropertyRef Name="visitante_email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EVENTOS_OPERADORES">
+          <End Role="EVENTOS" Type="Self.EVENTOS" Multiplicity="*" />
+          <End Role="OPERADORES" Type="Self.OPERADORES" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="cerebroDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ACCIONES" EntityType="Self.ACCIONES" />
+          <EntitySet Name="ADMINISTRADOR" EntityType="Self.ADMINISTRADOR" />
+          <EntitySet Name="AGRUPACIONES" EntityType="Self.AGRUPACIONES" />
+          <EntitySet Name="AGRUPACIONES_USUARIOS" EntityType="Self.AGRUPACIONES_USUARIOS" />
+          <EntitySet Name="ENVIO_MAIL" EntityType="Self.ENVIO_MAIL" />
+          <EntitySet Name="EVENTOS" EntityType="Self.EVENTOS" />
+          <EntitySet Name="EVENTOS_FUENTES_DE_DATOS" EntityType="Self.EVENTOS_FUENTES_DE_DATOS" />
+          <EntitySet Name="FUENTES_DE_DATOS" EntityType="Self.FUENTES_DE_DATOS" />
+          <EntitySet Name="INVOCAR_WS" EntityType="Self.INVOCAR_WS" />
+          <EntitySet Name="MUNICIPALIDADES" EntityType="Self.MUNICIPALIDADES" />
+          <EntitySet Name="OPERADORES" EntityType="Self.OPERADORES" />
+          <EntitySet Name="TIPOS_DE_FUENTES_DE_DATOS" EntityType="Self.TIPOS_DE_FUENTES_DE_DATOS" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" />
+          <EntitySet Name="VISITANTES" EntityType="Self.VISITANTES" />
+          <AssociationSet Name="FK__ACCIONES__69FBBC1F" Association="Self.FK__ACCIONES__69FBBC1F">
+            <End Role="EVENTOS" EntitySet="EVENTOS" />
+            <End Role="ACCIONES" EntitySet="ACCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ENVIO_MAIL__6FB49575" Association="Self.FK__ENVIO_MAIL__6FB49575">
+            <End Role="ACCIONES" EntitySet="ACCIONES" />
+            <End Role="ENVIO_MAIL" EntitySet="ENVIO_MAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__INVOCAR_WS__6CD828CA" Association="Self.FK__INVOCAR_WS__6CD828CA">
+            <End Role="ACCIONES" EntitySet="ACCIONES" />
+            <End Role="INVOCAR_WS" EntitySet="INVOCAR_WS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ADMINISTRADOR__4F47C5E3" Association="Self.FK__ADMINISTRADOR__4F47C5E3">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="ADMINISTRADOR" EntitySet="ADMINISTRADOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AGRUPACIO__nombr__5224328E" Association="Self.FK__AGRUPACIO__nombr__5224328E">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AGRUPACIONES_USU__55009F39" Association="Self.FK__AGRUPACIONES_USU__55009F39">
+            <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+            <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AGRUPACIONES_USU__55F4C372" Association="Self.FK__AGRUPACIONES_USU__55F4C372">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EVENTOS__nombre___58D1301D" Association="Self.FK__EVENTOS__nombre___58D1301D">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="EVENTOS" EntitySet="EVENTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EVENTOS_FUENTES___662B2B3B" Association="Self.FK__EVENTOS_FUENTES___662B2B3B">
+            <End Role="EVENTOS" EntitySet="EVENTOS" />
+            <End Role="EVENTOS_FUENTES_DE_DATOS" EntitySet="EVENTOS_FUENTES_DE_DATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EVENTOS_FUENTES___671F4F74" Association="Self.FK__EVENTOS_FUENTES___671F4F74">
+            <End Role="FUENTES_DE_DATOS" EntitySet="FUENTES_DE_DATOS" />
+            <End Role="EVENTOS_FUENTES_DE_DATOS" EntitySet="EVENTOS_FUENTES_DE_DATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FUENTES_D__nombr__634EBE90" Association="Self.FK__FUENTES_D__nombr__634EBE90">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="FUENTES_DE_DATOS" EntitySet="FUENTES_DE_DATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FUENTES_DE_DATOS__625A9A57" Association="Self.FK__FUENTES_DE_DATOS__625A9A57">
+            <End Role="TIPOS_DE_FUENTES_DE_DATOS" EntitySet="TIPOS_DE_FUENTES_DE_DATOS" />
+            <End Role="FUENTES_DE_DATOS" EntitySet="FUENTES_DE_DATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TIPOS_DE___nombr__5F7E2DAC" Association="Self.FK__TIPOS_DE___nombr__5F7E2DAC">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="TIPOS_DE_FUENTES_DE_DATOS" EntitySet="TIPOS_DE_FUENTES_DE_DATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USUARIOS__nombre__46B27FE2" Association="Self.FK__USUARIOS__nombre__46B27FE2">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OPERADORES__4C6B5938" Association="Self.FK__OPERADORES__4C6B5938">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="OPERADORES" EntitySet="OPERADORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VISITANTES__498EEC8D" Association="Self.FK__VISITANTES__498EEC8D">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="VISITANTES" EntitySet="VISITANTES" />
+          </AssociationSet>
+          <AssociationSet Name="EVENTOS_OPERADORES" Association="Self.EVENTOS_OPERADORES">
+            <End Role="EVENTOS" EntitySet="EVENTOS" />
+            <End Role="OPERADORES" EntitySet="OPERADORES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cerebroDBModelStoreContainer" CdmEntityContainer="cerebroDBEntities">
+          <EntitySetMapping Name="ACCIONES">
+            <EntityTypeMapping TypeName="cerebroDBModel.ACCIONES">
+              <MappingFragment StoreEntitySet="ACCIONES">
+                <ScalarProperty Name="nombre_evento" ColumnName="nombre_evento" />
+                <ScalarProperty Name="nombre_municipalidad_evento" ColumnName="nombre_municipalidad_evento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ADMINISTRADOR">
+            <EntityTypeMapping TypeName="cerebroDBModel.ADMINISTRADOR">
+              <MappingFragment StoreEntitySet="ADMINISTRADOR">
+                <ScalarProperty Name="admin_email" ColumnName="admin_email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AGRUPACIONES">
+            <EntityTypeMapping TypeName="cerebroDBModel.AGRUPACIONES">
+              <MappingFragment StoreEntitySet="AGRUPACIONES">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AGRUPACIONES_USUARIOS">
+            <EntityTypeMapping TypeName="cerebroDBModel.AGRUPACIONES_USUARIOS">
+              <MappingFragment StoreEntitySet="AGRUPACIONES_USUARIOS">
+                <ScalarProperty Name="nombre_agrupacion" ColumnName="nombre_agrupacion" />
+                <ScalarProperty Name="nombre_municipalidad_agrupacion" ColumnName="nombre_municipalidad_agrupacion" />
+                <ScalarProperty Name="usuario_email" ColumnName="usuario_email" />
+                <ScalarProperty Name="nombre_municipalidad_usuario" ColumnName="nombre_municipalidad_usuario" />
+                <ScalarProperty Name="admin" ColumnName="admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENVIO_MAIL">
+            <EntityTypeMapping TypeName="cerebroDBModel.ENVIO_MAIL">
+              <MappingFragment StoreEntitySet="ENVIO_MAIL">
+                <ScalarProperty Name="nombre_evento" ColumnName="nombre_evento" />
+                <ScalarProperty Name="nombre_municipalidad_evento" ColumnName="nombre_municipalidad_evento" />
+                <ScalarProperty Name="destinos" ColumnName="destinos" />
+                <ScalarProperty Name="mensaje" ColumnName="mensaje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EVENTOS">
+            <EntityTypeMapping TypeName="cerebroDBModel.EVENTOS">
+              <MappingFragment StoreEntitySet="EVENTOS">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EVENTOS_FUENTES_DE_DATOS">
+            <EntityTypeMapping TypeName="cerebroDBModel.EVENTOS_FUENTES_DE_DATOS">
+              <MappingFragment StoreEntitySet="EVENTOS_FUENTES_DE_DATOS">
+                <ScalarProperty Name="nombre_evento" ColumnName="nombre_evento" />
+                <ScalarProperty Name="nombre_municipalidad_evento" ColumnName="nombre_municipalidad_evento" />
+                <ScalarProperty Name="id_fuente_de_datos" ColumnName="id_fuente_de_datos" />
+                <ScalarProperty Name="nombre_municipalidad_fuente_de_datos" ColumnName="nombre_municipalidad_fuente_de_datos" />
+                <ScalarProperty Name="umbral" ColumnName="umbral" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUENTES_DE_DATOS">
+            <EntityTypeMapping TypeName="cerebroDBModel.FUENTES_DE_DATOS">
+              <MappingFragment StoreEntitySet="FUENTES_DE_DATOS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+                <ScalarProperty Name="dirIP" ColumnName="dirIP" />
+                <ScalarProperty Name="user_agent" ColumnName="user_agent" />
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+                <ScalarProperty Name="nombre_tipo_de_fuente_de_datos" ColumnName="nombre_tipo_de_fuente_de_datos" />
+                <ScalarProperty Name="nombre_municipalidad_tipo_de_fuente_de_datos" ColumnName="nombre_municipalidad_tipo_de_fuente_de_datos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INVOCAR_WS">
+            <EntityTypeMapping TypeName="cerebroDBModel.INVOCAR_WS">
+              <MappingFragment StoreEntitySet="INVOCAR_WS">
+                <ScalarProperty Name="nombre_evento" ColumnName="nombre_evento" />
+                <ScalarProperty Name="nombre_municipalidad_evento" ColumnName="nombre_municipalidad_evento" />
+                <ScalarProperty Name="url_web_service" ColumnName="url_web_service" />
+                <ScalarProperty Name="parametros" ColumnName="parametros" />
+                <ScalarProperty Name="metodo" ColumnName="metodo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MUNICIPALIDADES">
+            <EntityTypeMapping TypeName="cerebroDBModel.MUNICIPALIDADES">
+              <MappingFragment StoreEntitySet="MUNICIPALIDADES">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OPERADORES">
+            <EntityTypeMapping TypeName="cerebroDBModel.OPERADORES">
+              <MappingFragment StoreEntitySet="OPERADORES">
+                <ScalarProperty Name="operador_email" ColumnName="operador_email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPOS_DE_FUENTES_DE_DATOS">
+            <EntityTypeMapping TypeName="cerebroDBModel.TIPOS_DE_FUENTES_DE_DATOS">
+              <MappingFragment StoreEntitySet="TIPOS_DE_FUENTES_DE_DATOS">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="frecuencia_de_lectura" ColumnName="frecuencia_de_lectura" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="url_web_service" ColumnName="url_web_service" />
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOS">
+            <EntityTypeMapping TypeName="cerebroDBModel.USUARIOS">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISITANTES">
+            <EntityTypeMapping TypeName="cerebroDBModel.VISITANTES">
+              <MappingFragment StoreEntitySet="VISITANTES">
+                <ScalarProperty Name="visitante_email" ColumnName="visitante_email" />
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="EVENTOS_OPERADORES" TypeName="cerebroDBModel.EVENTOS_OPERADORES" StoreEntitySet="EVENTOS_OPERADORES">
+            <EndProperty Name="EVENTOS">
+              <ScalarProperty Name="nombre" ColumnName="nombre_evento" />
+              <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad_evento" />
+            </EndProperty>
+            <EndProperty Name="OPERADORES">
+              <ScalarProperty Name="operador_email" ColumnName="operador_email" />
+              <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad_operador" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
