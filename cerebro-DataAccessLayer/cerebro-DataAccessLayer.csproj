@@ -59,11 +59,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALAgrupacion.cs" />
+    <Compile Include="DALEvento.cs" />
     <Compile Include="DALFuenteDeDato.cs" />
     <Compile Include="DALMunicipalidad.cs" />
     <Compile Include="DALTipoDeFuenteDeDato.cs" />
     <Compile Include="DALUsuario.cs" />
     <Compile Include="IDALAgrupacion.cs" />
+    <Compile Include="IDALEvento.cs" />
     <Compile Include="IDALFuenteDeDato.cs" />
     <Compile Include="IDALMunicipalidad.cs" />
     <Compile Include="IDALTipoDeFuenteDeDato.cs" />

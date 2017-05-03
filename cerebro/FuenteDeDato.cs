@@ -19,6 +19,6 @@ namespace cerebro
         [BsonElement]
         public string direccionIP { get; set; }
         [BsonElement]
-        public TipoDeFuenteDeDato tipo { get; set; }
+        public ObjectId tipo { get; set; }
     }
 }

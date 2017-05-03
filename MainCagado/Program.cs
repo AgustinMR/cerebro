@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using cerebro;
 using cerebro_DataAccessLayer;
+using System;
 
 namespace MainCagado
 {
@@ -11,16 +8,11 @@ namespace MainCagado
     {
         static void Main(string[] args)
         {
-            DALUsuario dalUsu = new DALUsuario();
-            if (dalUsu.agregarVisitante("bruno.carballido@gmail.com", "Bruno", "Mdeo2") == true)
-            {
-                Console.WriteLine("YEEEES");
-                Console.ReadLine();
-            }
-            else {
-                Console.WriteLine(":(");
-                Console.ReadLine();
-            }
+            IDALTipoDeFuenteDeDato dalf = new DALTipoDeFuenteDeDato();
+
+            
+            Console.WriteLine(dalf.addTipoDeFuenteDeDato(t));
+            Console.ReadLine();
         }
     }
 }
