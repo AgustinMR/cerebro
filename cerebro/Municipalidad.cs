@@ -8,5 +8,10 @@ namespace cerebro
 {
     public class Municipalidad
     {
+        string nombre { set; get; }
+        string ubicacion { set; get; }
+        List<FuenteDeDato> dispositivos { get; set; }
+
+        public Municipalidad() { }
     }
 }
