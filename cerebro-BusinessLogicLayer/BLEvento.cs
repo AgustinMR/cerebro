@@ -9,7 +9,7 @@ using cerebro_DataAccessLayer;
 
 namespace cerebro_BusinessLogicLayer
 {
-    class BLEvento : IBLEvento
+    public class BLEvento : IBLEvento
     {
 
         IDALEvento dal = null;

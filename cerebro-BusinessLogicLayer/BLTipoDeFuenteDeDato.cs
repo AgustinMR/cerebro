@@ -9,7 +9,7 @@ using cerebro_DataAccessLayer;
 
 namespace cerebro_BusinessLogicLayer
 {
-    class BLTipoDeFuenteDeDato : IBLTipoDeFuenteDeDato
+    public class BLTipoDeFuenteDeDato : IBLTipoDeFuenteDeDato
     {
 
         IDALTipoDeFuenteDeDato dal = null;
