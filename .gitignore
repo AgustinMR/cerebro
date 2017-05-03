@@ -4,3 +4,5 @@
 .vs/config/applicationhost.config
 cerebro-frontOffice/obj/cerebro-frontOffice.csproj.nuget.g.props
 cerebro-frontOffice/obj/project.assets.json
+.vs/cerebro-gr17/v15/.suo
+*.suo
