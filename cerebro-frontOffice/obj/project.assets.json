@@ -7080,10 +7080,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\GitHub\\cerebro-gr17\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
+      "projectUniqueName": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
       "projectName": "cerebro-frontOffice",
-      "projectPath": "C:\\GitHub\\cerebro-gr17\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
-      "outputPath": "C:\\GitHub\\cerebro-gr17\\cerebro-frontOffice\\obj\\",
+      "projectPath": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
+      "outputPath": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
