@@ -1,4 +1,5 @@
-﻿using System;
+﻿using cerebro;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace cerebro_BusinessLogicLayer
 {
-    interface IBLMunicipalidad
+    public interface IBLMunicipalidad
     {
+
+        bool addMunicipalidad(Municipalidad muni);
+        bool deleteMunicipalidad(Municipalidad muni);
     }
 }
