@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace cerebro
 {
-    class TipoDeDatos
+    public enum TipoDeDato
     {
+        TEXTO,
+        NUMERICO,
+        IMAGEN,
+        VIDEO
     }
 }
