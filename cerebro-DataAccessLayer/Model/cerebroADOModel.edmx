@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="cerebroADOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AGRUPACIONES">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AGRUPACIONES_USUARIOS">
+          <Key>
+            <PropertyRef Name="nombre_agrupacion" />
+            <PropertyRef Name="nombre_municipalidad_agrupacion" />
+            <PropertyRef Name="usuario_email" />
+            <PropertyRef Name="nombre_municipalidad_usuario" />
+          </Key>
+          <Property Name="nombre_agrupacion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_agrupacion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="usuario_email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad_usuario" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="admin" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MUNICIPALIDADES">
+          <Key>
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ubicacion" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="email" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" />
+          <Property Name="password" Type="varchar" MaxLength="30" />
+          <Property Name="tipo" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__AGRUPACIO__nombr__286302EC">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="AGRUPACIONES" Type="Self.AGRUPACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AGRUPACIONES_USU__2B3F6F97">
+          <End Role="AGRUPACIONES" Type="Self.AGRUPACIONES" Multiplicity="1" />
+          <End Role="AGRUPACIONES_USUARIOS" Type="Self.AGRUPACIONES_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGRUPACIONES">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES_USUARIOS">
+              <PropertyRef Name="nombre_agrupacion" />
+              <PropertyRef Name="nombre_municipalidad_agrupacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AGRUPACIONES_USU__2C3393D0">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="AGRUPACIONES_USUARIOS" Type="Self.AGRUPACIONES_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES_USUARIOS">
+              <PropertyRef Name="usuario_email" />
+              <PropertyRef Name="nombre_municipalidad_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USUARIOS__nombre__25869641">
+          <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cerebroADOModelStoreContainer">
+          <EntitySet Name="AGRUPACIONES" EntityType="Self.AGRUPACIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AGRUPACIONES_USUARIOS" EntityType="Self.AGRUPACIONES_USUARIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MUNICIPALIDADES" EntityType="Self.MUNICIPALIDADES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AGRUPACIO__nombr__286302EC" Association="Self.FK__AGRUPACIO__nombr__286302EC">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AGRUPACIONES_USU__2B3F6F97" Association="Self.FK__AGRUPACIONES_USU__2B3F6F97">
+            <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+            <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AGRUPACIONES_USU__2C3393D0" Association="Self.FK__AGRUPACIONES_USU__2C3393D0">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USUARIOS__nombre__25869641" Association="Self.FK__USUARIOS__nombre__25869641">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cerebroADOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agrupacion">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__AGRUPACIO__nombr__286302EC" FromRole="AGRUPACIONES" ToRole="MUNICIPALIDADES" />
+          <NavigationProperty Name="AGRUPACIONES_USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__2B3F6F97" FromRole="AGRUPACIONES" ToRole="AGRUPACIONES_USUARIOS" />
+        </EntityType>
+        <EntityType Name="Agrupacion_Usuario">
+          <Key>
+            <PropertyRef Name="nombre_agrupacion" />
+            <PropertyRef Name="nombre_municipalidad_agrupacion" />
+            <PropertyRef Name="usuario_email" />
+            <PropertyRef Name="nombre_municipalidad_usuario" />
+          </Key>
+          <Property Name="nombre_agrupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad_agrupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad_usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AGRUPACIONES" Relationship="Self.FK__AGRUPACIONES_USU__2B3F6F97" FromRole="AGRUPACIONES_USUARIOS" ToRole="AGRUPACIONES" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__2C3393D0" FromRole="AGRUPACIONES_USUARIOS" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="Municipalidad">
+          <Key>
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ubicacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AGRUPACIONES" Relationship="Self.FK__AGRUPACIO__nombr__286302EC" FromRole="MUNICIPALIDADES" ToRole="AGRUPACIONES" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__USUARIOS__nombre__25869641" FromRole="MUNICIPALIDADES" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="email" />
+            <PropertyRef Name="nombre_municipalidad" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AGRUPACIONES_USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__2C3393D0" FromRole="USUARIOS" ToRole="AGRUPACIONES_USUARIOS" />
+          <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__USUARIOS__nombre__25869641" FromRole="USUARIOS" ToRole="MUNICIPALIDADES" />
+        </EntityType>
+        <Association Name="FK__AGRUPACIO__nombr__286302EC">
+          <End Role="MUNICIPALIDADES" Type="cerebroADOModel.Municipalidad" Multiplicity="1" />
+          <End Role="AGRUPACIONES" Type="cerebroADOModel.Agrupacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AGRUPACIONES_USU__2B3F6F97">
+          <End Role="AGRUPACIONES" Type="cerebroADOModel.Agrupacion" Multiplicity="1" />
+          <End Role="AGRUPACIONES_USUARIOS" Type="cerebroADOModel.Agrupacion_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGRUPACIONES">
+              <PropertyRef Name="nombre" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES_USUARIOS">
+              <PropertyRef Name="nombre_agrupacion" />
+              <PropertyRef Name="nombre_municipalidad_agrupacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AGRUPACIONES_USU__2C3393D0">
+          <End Role="USUARIOS" Type="cerebroADOModel.Usuario" Multiplicity="1" />
+          <End Role="AGRUPACIONES_USUARIOS" Type="cerebroADOModel.Agrupacion_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="email" />
+              <PropertyRef Name="nombre_municipalidad" />
+            </Principal>
+            <Dependent Role="AGRUPACIONES_USUARIOS">
+              <PropertyRef Name="usuario_email" />
+              <PropertyRef Name="nombre_municipalidad_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USUARIOS__nombre__25869641">
+          <End Role="MUNICIPALIDADES" Type="cerebroADOModel.Municipalidad" Multiplicity="1" />
+          <End Role="USUARIOS" Type="cerebroADOModel.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MUNICIPALIDADES">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="nombre_municipalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cerebroConnectionString" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AGRUPACIONES" EntityType="cerebroADOModel.Agrupacion" />
+          <EntitySet Name="AGRUPACIONES_USUARIOS" EntityType="cerebroADOModel.Agrupacion_Usuario" />
+          <EntitySet Name="MUNICIPALIDADES" EntityType="cerebroADOModel.Municipalidad" />
+          <EntitySet Name="USUARIOS" EntityType="cerebroADOModel.Usuario" />
+          <AssociationSet Name="FK__AGRUPACIO__nombr__286302EC" Association="Self.FK__AGRUPACIO__nombr__286302EC">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AGRUPACIONES_USU__2B3F6F97" Association="Self.FK__AGRUPACIONES_USU__2B3F6F97">
+            <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+            <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AGRUPACIONES_USU__2C3393D0" Association="Self.FK__AGRUPACIONES_USU__2C3393D0">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USUARIOS__nombre__25869641" Association="Self.FK__USUARIOS__nombre__25869641">
+            <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Visitante" BaseType="cerebroADOModel.Usuario" >
+        </EntityType>
+        <EntityType Name="Operador" BaseType="cerebroADOModel.Usuario" >
+          <Property Name="password" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Administrador" BaseType="cerebroADOModel.Usuario" >
+          <Property Name="password" Type="String" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cerebroADOModelStoreContainer" CdmEntityContainer="cerebroConnectionString">
+          <EntitySetMapping Name="AGRUPACIONES">
+            <EntityTypeMapping TypeName="cerebroADOModel.Agrupacion">
+              <MappingFragment StoreEntitySet="AGRUPACIONES">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AGRUPACIONES_USUARIOS">
+            <EntityTypeMapping TypeName="cerebroADOModel.Agrupacion_Usuario">
+              <MappingFragment StoreEntitySet="AGRUPACIONES_USUARIOS">
+                <ScalarProperty Name="nombre_agrupacion" ColumnName="nombre_agrupacion" />
+                <ScalarProperty Name="nombre_municipalidad_agrupacion" ColumnName="nombre_municipalidad_agrupacion" />
+                <ScalarProperty Name="usuario_email" ColumnName="usuario_email" />
+                <ScalarProperty Name="nombre_municipalidad_usuario" ColumnName="nombre_municipalidad_usuario" />
+                <ScalarProperty Name="admin" ColumnName="admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MUNICIPALIDADES">
+            <EntityTypeMapping TypeName="cerebroADOModel.Municipalidad">
+              <MappingFragment StoreEntitySet="MUNICIPALIDADES">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOS">
+            <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.Usuario)">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.Visitante)">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <Condition ColumnName="tipo" Value="0" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.Operador)">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <Condition ColumnName="tipo" Value="1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.Administrador)">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <Condition ColumnName="tipo" Value="2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
