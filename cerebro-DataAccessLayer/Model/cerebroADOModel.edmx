@@ -157,7 +157,7 @@
           <NavigationProperty Name="AGRUPACIONES" Relationship="Self.FK__AGRUPACIO__nombr__286302EC" FromRole="MUNICIPALIDADES" ToRole="AGRUPACIONES" />
           <NavigationProperty Name="USUARIOS" Relationship="Self.FK__USUARIOS__nombre__25869641" FromRole="MUNICIPALIDADES" ToRole="USUARIOS" />
         </EntityType>
-        <EntityType Name="Usuario">
+        <EntityType Name="Usuario" Abstract="true">
           <Key>
             <PropertyRef Name="email" />
             <PropertyRef Name="nombre_municipalidad" />

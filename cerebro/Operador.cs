@@ -14,7 +14,7 @@ namespace cerebro
         public Operador(String email, String nombre_muni, String nombre, String password)
         {
             this.email = email;
-            this.nombre_muni = nombre_muni;
+            this.nombre_municipalidad = nombre_muni;
             this.nombre = nombre;
             this.password = password;
         }

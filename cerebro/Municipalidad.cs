@@ -12,6 +12,9 @@ namespace cerebro
         public String nombre { get; set; }
         public String ubicacion { get; set; }
 
+        public ICollection<Agrupacion> AGRUPACIONES { get; set; }
+        public ICollection<Usuario> USUARIOS { get; set; }
+
         public Municipalidad(){
         }
 

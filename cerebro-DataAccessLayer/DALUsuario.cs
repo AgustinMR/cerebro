@@ -5,9 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using cerebro;
+using System.Data.Entity;
 
 namespace cerebro_DataAccessLayer
 {
+    public class UsuariosDbContext : DbContext
+    {
+        public UsuariosDbContext() : base("name=cerebroConnectionString") { }
+        public DbSet<Usuario> Usuarios { get; set; }
+    }
+
     public class DALUsuario : IDALUsuario
     { 
 
@@ -16,6 +23,13 @@ namespace cerebro_DataAccessLayer
 
         public bool agregarVisitante(Visitante vis)
         {
+            if (vis != null)
+            {
+                UsuariosDbContext context = new UsuariosDbContext();
+                context.Usuarios.Add(vis);
+                context.SaveChanges();
+                return true;
+            }
             return false;
         }
 
