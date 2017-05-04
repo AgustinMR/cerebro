@@ -9,12 +9,15 @@ namespace cerebro
     public class Agrupacion
     {
         public String nombre { get; set; }
-        public String nombre_muni { get; set; }
+        public String nombre_municipalidad { get; set; }
+
+        public Municipalidad MUNICIPALIDADES { get; set; }
+        public ICollection<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }
 
         public Agrupacion(){ }
         public Agrupacion(String nombre, String nombre_muni) {
             this.nombre = nombre;
-            this.nombre_muni = nombre_muni;
+            this.nombre_municipalidad = nombre_muni;
         }
     }
 }

@@ -9,10 +9,10 @@ namespace cerebro_DataAccessLayer
 {
     public interface IDALAgrupacion
     {
-        bool agregarAgrupacion(Agrupacion grupo, Usuario usu);
-        bool agregarUsuariosAgrupacion(Agrupacion grupo, Usuario usu);
-        bool cambiarAdminAgrupacion(Agrupacion grupo, Usuario usu, bool esAdmin);
-        bool borrarUsuarioAgrupacion(Agrupacion grupo, Usuario usu);
+        bool agregarAgrupacion(Agrupacion_Usuario AUsu);
+        bool agregarUsuariosAgrupacion(Agrupacion_Usuario AUsu);
+        bool cambiarAdminAgrupacion(Agrupacion_Usuario AUsu);
+        bool borrarUsuarioAgrupacion(Agrupacion_Usuario AUsu);
         bool borrarAgrupacion(Agrupacion grupo);
 
     }

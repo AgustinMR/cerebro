@@ -60,6 +60,7 @@
     <Compile Include="Accion.cs" />
     <Compile Include="Administrador.cs" />
     <Compile Include="Agrupacion.cs" />
+    <Compile Include="Agrupacion_Usuario.cs" />
     <Compile Include="EnvioMail.cs" />
     <Compile Include="Evento.cs" />
     <Compile Include="FuenteDeDato.cs" />
