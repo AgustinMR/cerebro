@@ -16,74 +16,50 @@ namespace cerebro_DataAccessLayer
     }
 
     public class DALUsuario : IDALUsuario
-    { 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //AGREGAR
-
-        public bool agregarVisitante(Visitante vis)
+    {
+        public bool agregarUsuario(Usuario usu)
         {
-            if (vis != null)
+            if (usu != null)
             {
                 UsuariosDbContext context = new UsuariosDbContext();
-                context.Usuarios.Add(vis);
+                context.Usuarios.Add(usu);
                 context.SaveChanges();
                 return true;
             }
             return false;
         }
 
-        public bool agregarOperador(Operador op)
+        public bool borrarUsuario(Usuario usu)
         {
-            
+            if (usu != null)
+            {
+                DALAgrupacion dalAgru = new DALAgrupacion();
+                dalAgru.borrarUsuarioAgrupaciones(usu);
+                UsuariosDbContext context = new UsuariosDbContext();
+                Usuario UsuDB = context.Usuarios.Find(usu.email, usu.nombre_municipalidad);
+                context.Usuarios.Remove(UsuDB);
+                context.SaveChanges();
+                return true;
+            }
             return false;
         }
 
-        public bool agregarAdministrador(Administrador admin)
+        public bool modificarUsuario(Usuario usu)
         {
-            
+            if (usu != null)
+            {
+                UsuariosDbContext context = new UsuariosDbContext();
+                Usuario UsuDB = context.Usuarios.Find(usu.email, usu.nombre_municipalidad);
+                if (usu.nombre != null)
+                    UsuDB.nombre = usu.nombre;
+                if (usu.GetType() == typeof(Operador))
+                    ((Operador)UsuDB).password = ((Operador)usu).password;
+                if (usu.GetType() == typeof(Administrador))
+                    ((Administrador)UsuDB).password = ((Administrador)usu).password;
+                context.SaveChanges();
+            }
             return false;
         }
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //BORRAR
-
-        public bool borrarVisitante(Visitante vis)
-        { 
-            return false;
-        }
-
-        public bool borrarOperador(Operador op)
-        {
-            return false;
-        }
-
-        public bool borrarAdministrador(Administrador admin)
-        { 
-            return false;
-        }
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //MODIFICAR
-
-        public bool modificarVisitante(Visitante vis)
-        {
-            return false;
-        }
-
-        public bool modificarOperador(Operador op)
-        {      
-            return false;
-        }
-
-        public bool modificarAdministrador(Administrador admin)
-        {
-            return false;
-        }
-
-
 
     }
 }

@@ -9,14 +9,8 @@ namespace cerebro_DataAccessLayer
 {
     public interface IDALUsuario
     {
-        bool agregarVisitante(Visitante vis);
-        bool agregarOperador(Operador op);
-        bool agregarAdministrador(Administrador admin);
-        bool borrarVisitante(Visitante vis);
-        bool borrarOperador(Operador op);
-        bool borrarAdministrador(Administrador admin);
-        bool modificarVisitante(Visitante vis);
-        bool modificarOperador(Operador op);
-        bool modificarAdministrador(Administrador admin);
+        bool agregarUsuario(Usuario usu);
+        bool borrarUsuario(Usuario usu);
+        bool modificarUsuario(Usuario usu);
     }
 }

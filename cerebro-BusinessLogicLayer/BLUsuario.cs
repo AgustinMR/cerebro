@@ -18,41 +18,17 @@ namespace cerebro_BusinessLogicLayer
             dal = new DALUsuario();
         }
 
-        public bool addVisitante(Visitante vis)
+        public bool addUsuario(Usuario usu)
         {
-            return dal.agregarVisitante(vis);
+            return dal.agregarUsuario(usu);
         }
 
-        public bool addOperador(Operador op){
-            return dal.agregarOperador(op);
+        public bool deleteUsuario(Usuario usu) {
+            return dal.borrarUsuario(usu);
         }
 
-        public bool addAdministrador(Administrador admin) {
-            return dal.agregarAdministrador(admin);
-        }
-
-        public bool deleteVisitante(Visitante vis) {
-            return dal.borrarVisitante(vis);
-        }
-
-        public bool deleteOperador(Operador op) {
-            return dal.borrarOperador(op);
-        }
-
-        public bool deleteAdministrador(Administrador admin) {
-            return dal.borrarAdministrador(admin);
-        }
-
-        public bool updateVisitante(Visitante vis) {
-            return dal.modificarVisitante(vis);
-        }
-
-        public bool updateOperador(Operador op) {
-            return dal.modificarOperador(op);
-        }
-
-        public bool updateAdministrador(Administrador admin) {
-            return dal.modificarAdministrador(admin);
+        public bool updateUsuario(Usuario usu) {
+            return dal.modificarUsuario(usu);
         }
     }
 }
