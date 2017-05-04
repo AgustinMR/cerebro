@@ -12,7 +12,7 @@ namespace cerebro
         public Visitante(String email, String nombre_muni, String nombre)
         {
             this.email = email;
-            this.nombre_muni = nombre_muni;
+            this.nombre_municipalidad = nombre_muni;
             this.nombre = nombre;
         }
     }

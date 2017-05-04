@@ -18,24 +18,24 @@ namespace cerebro_BusinessLogicLayer
             dal = new DALAgrupacion();
         }
 
-        public bool addAgrupacion(Agrupacion grupo, Usuario usu)
+        public bool addAgrupacion(Agrupacion_Usuario AUsu)
         {
-            return dal.agregarAgrupacion(grupo, usu);
+            return dal.agregarAgrupacion(AUsu);
         }
 
-        public bool addUsuariosAgrupacion(Agrupacion grupo, Usuario usu)
+        public bool addUsuariosAgrupacion(Agrupacion_Usuario AUsu)
         {
-            return dal.agregarUsuariosAgrupacion(grupo, usu);
+            return dal.agregarUsuariosAgrupacion(AUsu);
         }
 
-        public bool updateAdminAgrupacion(Agrupacion grupo, Usuario usu, bool esAdmin)
+        public bool updateAdminAgrupacion(Agrupacion_Usuario AUsu)
         {
-            return dal.cambiarAdminAgrupacion(grupo, usu, esAdmin);
+            return dal.cambiarAdminAgrupacion(AUsu);
         }
 
-        public bool deleteUsuarioAgrupacion(Agrupacion grupo, Usuario usu)
+        public bool deleteUsuarioAgrupacion(Agrupacion_Usuario AUsu)
         {
-            return dal.borrarUsuarioAgrupacion(grupo, usu);
+            return dal.borrarUsuarioAgrupacion(AUsu);
         }
 
         public bool deleteAgrupacion(Agrupacion grupo)

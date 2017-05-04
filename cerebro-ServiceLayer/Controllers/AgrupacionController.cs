@@ -16,13 +16,12 @@ namespace cerebro_ServiceLayer.Controllers
     {
         [HttpPost]
         [Route("nueva")]
-        //si esto da problemas separar los artributos de las dos calses y recivirlos por como si fuesen muchos datos sin relacion
-        public IHttpActionResult addAgrupacion([FromUri]Agrupacion grupo, [FromUri]Usuario usu)
+        public IHttpActionResult addAgrupacion([FromUri]Agrupacion_Usuario AUsu)
         {
-            if (grupo != null && usu != null)
+            if (AUsu != null)
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
-                IBLAgru.addAgrupacion(grupo, usu);
+                IBLAgru.addAgrupacion(AUsu);
                 return Ok();
             }
             return BadRequest();
@@ -30,13 +29,12 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpPost]
         [Route("nuevoUsuario")]
-        //si esto da problemas separar los artributos de las dos calses y recivirlos por como si fuesen muchos datos sin relacion
-        public IHttpActionResult addUsuarioAgrupacion([FromUri]Agrupacion grupo, [FromUri]Usuario usu)
+        public IHttpActionResult addUsuarioAgrupacion([FromUri]Agrupacion_Usuario AUsu)
         {
-            if (grupo != null && usu != null)
+            if (AUsu != null)
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
-                IBLAgru.addUsuariosAgrupacion(grupo, usu);
+                IBLAgru.addUsuariosAgrupacion(AUsu;
                 return Ok();
             }
             return BadRequest();
@@ -44,13 +42,12 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpPut]
         [Route("")]
-        //si esto da problemas separar los artributos de las dos calses y recivirlos por como si fuesen muchos datos sin relacion
-        public IHttpActionResult updateAdminAgrupacion([FromUri]Agrupacion grupo, [FromUri]Usuario usu, [FromUri] bool esAdmin)
+        public IHttpActionResult updateAdminAgrupacion([FromUri]Agrupacion_Usuario AUsu)
         {
-            if (grupo != null && usu != null)
+            if (AUsu != null)
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
-                IBLAgru.updateAdminAgrupacion(grupo, usu, esAdmin);
+                IBLAgru.updateAdminAgrupacion(AUsu);
                 return Ok();
             }
             return BadRequest();
@@ -58,13 +55,12 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpDelete]
         [Route("deleteUsuario")]
-        //si esto da problemas separar los artributos de las dos calses y recivirlos por como si fuesen muchos datos sin relacion
-        public IHttpActionResult deleteUsuarioAgrupacion([FromUri]Agrupacion grupo, [FromUri]Usuario usu)
+        public IHttpActionResult deleteUsuarioAgrupacion([FromUri]Agrupacion_Usuario AUsu)
         {
-            if (grupo != null && usu != null)
+            if (AUsu != null)
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
-                IBLAgru.deleteUsuarioAgrupacion(grupo, usu);
+                IBLAgru.deleteUsuarioAgrupacion(AUsu);
                 return Ok();
             }
             return BadRequest();
@@ -72,7 +68,6 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpDelete]
         [Route("deleteAgrupacion")]
-        //si esto da problemas separar los artributos de las dos calses y recivirlos por como si fuesen muchos datos sin relacion
         public IHttpActionResult deleteAgrupacion([FromUri]Agrupacion grupo)
         {
             if (grupo != null)

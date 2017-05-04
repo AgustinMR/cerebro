@@ -9,10 +9,10 @@ namespace cerebro_BusinessLogicLayer
 {
     public interface IBLAgrupacion
     {
-        bool addAgrupacion(Agrupacion grupo, Usuario usu);
-        bool addUsuariosAgrupacion(Agrupacion grupo, Usuario usu);
-        bool updateAdminAgrupacion(Agrupacion grupo, Usuario usu, bool esAdmin);
-        bool deleteUsuarioAgrupacion(Agrupacion grupo, Usuario usu);
+        bool addAgrupacion(Agrupacion_Usuario AUsu);
+        bool addUsuariosAgrupacion(Agrupacion_Usuario AUsu);
+        bool updateAdminAgrupacion(Agrupacion_Usuario AUsu);
+        bool deleteUsuarioAgrupacion(Agrupacion_Usuario AUsu);
         bool deleteAgrupacion(Agrupacion grupo);
     }
 }
