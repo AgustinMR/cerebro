@@ -24,19 +24,18 @@ import { UsuarioService } from './usuario/usuario.service'
 import { EstadisticaComponent } from './estadistica/estadistica.component'
 import { EstadisticaService } from './estadistica/estadistica.service'
 
-/*
-import { EmployeeService } from './employee/employee.service';
-import { EmployeeTaskService, ChannelConfig, SignalrWindow } from './employee/employee.task.service';
-let channelConfig = new ChannelConfig();
-channelConfig.url = "http://localhost:9123/signalr";
-channelConfig.hubName = "EmployeeHub";*/
+//import { EmployeeService } from './employee/employee.service';
+//import { EmployeeTaskService, ChannelConfig, SignalrWindow } from './employee/employee.task.service';
+//let channelConfig = new ChannelConfig();
+//channelConfig.url = "http://localhost:9123/signalr";
+//channelConfig.hubName = "EmployeeHub";
 
 @NgModule({
     imports: [BrowserModule, AppRoutingModule, CommonModule, ReactiveFormsModule, FormsModule, HttpModule],
     declarations: [AppComponent, FuenteDeDatoComponent, TipoDeFuenteDeDatoComponent, EventoComponent, UsuarioComponent, EstadisticaComponent],
-    /*providers: [EmployeeService, HttpModule, EmployeeTaskService,
-        { provide: SignalrWindow, useValue: window },
-        { provide: 'channel.config', useValue: channelConfig }],*/
+    //providers: [EmployeeService, HttpModule, EmployeeTaskService,
+    //    { provide: SignalrWindow, useValue: window },
+    //    { provide: 'channel.config', useValue: channelConfig }],
     providers: [FuenteDeDatoService, TipoDeFuenteDeDatoService, EventoService, UsuarioService, EstadisticaService, HttpModule],
     bootstrap: [AppComponent]
 })
