@@ -2,7 +2,7 @@
 //import { EmployeeTaskService, ConnectionState, ChannelEvent } from "./employee/employee.task.service";
 import { Observable } from "rxjs/Observable";
 import { Http, HttpModule, Response } from '@angular/http';
-import { FuenteDeDatoComponent } from './dispositivo/dispositivo.component'
+import { FuenteDeDatoService } from './dispositivo/dispositivo.service'
 
 @Component({
     selector: 'tsi1-cerebro-gr17',
@@ -10,7 +10,7 @@ import { FuenteDeDatoComponent } from './dispositivo/dispositivo.component'
     styleUrls: ['app.component.css'],
     moduleId: module.id,
     //providers: [EmployeeTaskService]
-    providers: []
+    providers: [FuenteDeDatoService]
 })
 export class AppComponent {
 
