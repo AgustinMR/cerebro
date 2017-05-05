@@ -34,7 +34,7 @@ namespace cerebro_ServiceLayer.Controllers
             if (AUsu != null)
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
-                IBLAgru.addUsuariosAgrupacion(AUsu;
+                IBLAgru.addUsuariosAgrupacion(AUsu);
                 return Ok();
             }
             return BadRequest();

@@ -16,126 +16,43 @@ namespace cerebro_ServiceLayer.Controllers
     {
 
         [HttpPost]
-        [Route("vistante")]
-        public IHttpActionResult addAgrupacion([FromUri]Visitante vis)
+        [Route("")]
+        public IHttpActionResult addAgrupacion([FromUri]Usuario usu)
         {
-            if (vis != null)
+            if (usu != null)
             {
                 IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.addVisitante(vis);
+                IBLAgru.addUsuario(usu);
                 return Ok();
             }
             return BadRequest();
         }
-
-        [HttpPost]
-        [Route("operador")]
-        public IHttpActionResult addOperador([FromUri]Operador op)
-        {
-            if (op != null)
-            {
-                IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.addOperador(op);
-                return Ok();
-            }
-            return BadRequest();
-        }
-
-        [HttpPost]
-        [Route("administrador")]
-        public IHttpActionResult addAdministrador([FromUri]Administrador admin)
-        {
-            if (admin != null)
-            {
-                IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.addAdministrador(admin);
-                return Ok();
-            }
-            return BadRequest();
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+        
         [HttpDelete]
-        [Route("vistante")]
-        public IHttpActionResult deleteVisitante([FromUri]Visitante vis)
+        [Route("")]
+        public IHttpActionResult deleteVisitante([FromUri]Usuario usu)
         {
-            if (vis != null)
+            if (usu != null)
             {
                 IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.deleteVisitante(vis);
+                IBLAgru.deleteUsuario(usu);
                 return Ok();
             }
             return BadRequest();
         }
-
-        [HttpDelete]
-        [Route("operador")]
-        public IHttpActionResult deleteOperador([FromUri]Operador op)
-        {
-            if (op != null)
-            {
-                IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.deleteOperador(op);
-                return Ok();
-            }
-            return BadRequest();
-        }
-
-        [HttpDelete]
-        [Route("administrador")]
-        public IHttpActionResult deleteAdministrador([FromUri]Administrador admin)
-        {
-            if (admin != null)
-            {
-                IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.deleteAdministrador(admin);
-                return Ok();
-            }
-            return BadRequest();
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+        
         [HttpPut]
-        [Route("vistante")]
-        public IHttpActionResult updateVisitante([FromUri]Visitante vis)
+        [Route("")]
+        public IHttpActionResult updateVisitante([FromUri]Usuario usu)
         {
-            if (vis != null)
+            if (usu != null)
             {
                 IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.updateVisitante(vis);
+                IBLAgru.updateUsuario(usu);
                 return Ok();
             }
             return BadRequest();
         }
 
-        [HttpPut]
-        [Route("operador")]
-        public IHttpActionResult updateOperador([FromUri]Operador op)
-        {
-            if (op != null)
-            {
-                IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.updateOperador(op);
-                return Ok();
-            }
-            return BadRequest();
-        }
-
-        [HttpPut]
-        [Route("administrador")]
-        public IHttpActionResult updateAdministrador([FromUri]Administrador admin)
-        {
-            if (admin != null)
-            {
-                IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.updateAdministrador(admin);
-                return Ok();
-            }
-            return BadRequest();
-        }
     }
 }

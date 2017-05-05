@@ -14,6 +14,7 @@ namespace cerebro_DataAccessLayer
         bool cambiarAdminAgrupacion(Agrupacion_Usuario AUsu);
         bool borrarUsuarioAgrupacion(Agrupacion_Usuario AUsu);
         bool borrarAgrupacion(Agrupacion grupo);
+        bool borrarUsuarioAgrupaciones(Usuario usu);
 
     }
 }

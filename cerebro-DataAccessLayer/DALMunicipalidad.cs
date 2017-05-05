@@ -33,7 +33,15 @@ namespace cerebro_DataAccessLayer
 
         public bool borrarMunicipalidad(Municipalidad muni)
         {
-            return true;
+            if (muni != null)
+            {
+                MunicipalidadesDbContext context = new MunicipalidadesDbContext();
+                Municipalidad muniDB = context.Municipalidades.Find(muni.nombre);
+                context.Municipalidades.Remove(muniDB);
+                context.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
     }
