@@ -9,3 +9,6 @@ cerebro-frontOffice/obj/project.assets.json
 cerebro-backOffice/node_modules
 packages/Npm.3.5.2
 packages/NoGit.0.1.0
+*.suo
+cerebro-ServiceLayer/obj/Debug/CoreCompileInputs.cache
+*.suo
