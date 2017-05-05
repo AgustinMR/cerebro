@@ -20,12 +20,12 @@ export class UsuarioComponent implements OnInit {
     ngOnInit(): void {
         //this.getEmployees();
     }
-    /*
-    getEmployees() {
-        this.employeeService.getEmployees().subscribe(
-            (data: Response) => this.employees = data,
-            responseError => console.log(responseError),
-            () => console.log("Employee Fetching operation completed")
-        );
-    }*/
+    
+    //getEmployees() {
+    //    this.employeeService.getEmployees().subscribe(
+    //        (data: Response) => this.employees = data,
+    //        responseError => console.log(responseError),
+    //        () => console.log("Employee Fetching operation completed")
+    //    );
+    //}
 }

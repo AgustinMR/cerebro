@@ -20,15 +20,15 @@ export class AppComponent {
     ngOnInit() {
         // Start the connection up!
         //
-        /*console.log("Starting the channel service");
+        //console.log("Starting the channel service");
 
-        this.channelService.start();
-        this.channelService.sub("USUARIO_CONECTADO").map(response => {
-            if (response.Name === "user.registred") {
-                this.showNotification();
-            }
-        }).subscribe(response => console.log("incomming message at USUARIO_CONECTADO channel with Name:", response), error => console.log("Ha ocurrido un error: ", error), () => { });
-        */
+        //this.channelService.start();
+        //this.channelService.sub("USUARIO_CONECTADO").map(response => {
+        //    if (response.Name === "user.registred") {
+        //        this.showNotification();
+        //    }
+        //}).subscribe(response => console.log("incomming message at USUARIO_CONECTADO channel with Name:", response), error => console.log("Ha ocurrido un error: ", error), () => { });
+        
     }
 
 }
