@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainCagado", "MainCagado\Ma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cerebro-frontOffice", "cerebro-frontOffice\cerebro-frontOffice.csproj", "{7E6F859B-95B8-4DDE-B22B-4B20BB00ECD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-backOffice", "cerebro-BackOffice-2\cerebro-backOffice.csproj", "{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-backOffice", "cerebro-backOffice\cerebro-backOffice.csproj", "{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
