@@ -7,3 +7,5 @@ cerebro-frontOffice/obj/project.assets.json
 .vs/cerebro-gr17/v15/.suo
 *.suo
 cerebro-backOffice/node_modules
+packages/Npm.3.5.2
+packages/NoGit.0.1.0
