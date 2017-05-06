@@ -21,7 +21,5 @@ namespace cerebro
         [BsonElement]
         [DataMember]
         public string nombre;
-        [BsonElement]
-        public List<Accion> acciones;
     }
 }
