@@ -3,6 +3,10 @@
 import { Observable } from "rxjs/Observable";
 import { Http, HttpModule, Response } from '@angular/http';
 import { FuenteDeDatoService } from './dispositivo/dispositivo.service'
+import { EstadisticaService } from './estadistica/estadistica.service'
+import { EventoService } from './evento/evento.service'
+import { TipoDeFuenteDeDatoService } from './tipo/tipo.service'
+import { UsuarioService } from './usuario/usuario.service'
 
 @Component({
     selector: 'tsi1-cerebro-gr17',
@@ -10,7 +14,7 @@ import { FuenteDeDatoService } from './dispositivo/dispositivo.service'
     styleUrls: ['app.component.css'],
     moduleId: module.id,
     //providers: [EmployeeTaskService]
-    providers: [FuenteDeDatoService]
+    providers: [FuenteDeDatoService, EstadisticaService, EventoService, TipoDeFuenteDeDatoService, UsuarioService]
 })
 export class AppComponent {
 
@@ -73,7 +77,6 @@ export class AppComponent {
         //        this.showNotification();
         //    }
         //}).subscribe(response => console.log("incomming message at USUARIO_CONECTADO channel with Name:", response), error => console.log("Ha ocurrido un error: ", error), () => { });
-        
     }
 
 }
