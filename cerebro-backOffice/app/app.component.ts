@@ -14,6 +14,51 @@ import { FuenteDeDatoService } from './dispositivo/dispositivo.service'
 })
 export class AppComponent {
 
+    dispositivo = false;
+    evento = false;
+    tipo = false;
+    usuario = false;
+    estadistica = true;
+
+    showEstadistica() {
+        this.dispositivo = false;
+        this.evento = false;
+        this.tipo = false;
+        this.usuario = false;
+        this.estadistica = true;
+    }
+
+    showDispositivo() {
+        this.dispositivo = true;
+        this.evento = false;
+        this.tipo = false;
+        this.usuario = false;
+        this.estadistica = false;
+    }
+
+    showEvento() {
+        this.dispositivo = false;
+        this.evento = true;
+        this.tipo = false;
+        this.usuario = false;
+        this.estadistica = false;
+    }
+
+    showTipo() {
+        this.dispositivo = false;
+        this.evento = false;
+        this.tipo = true;
+        this.usuario = false;
+        this.estadistica = false;
+    }
+
+    showUsuario() {
+        this.dispositivo = false;
+        this.evento = false;
+        this.tipo = false;
+        this.usuario = true;
+        this.estadistica = false;
+    }
 
     constructor(private http: Http) { }
 

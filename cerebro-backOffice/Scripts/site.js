@@ -21,3 +21,48 @@ function changeTab(evt, tab) {
 	document.getElementById(tab).style.display = "block";
 	evt.currentTarget.className += " w3-light-grey w3-text-cerebro-red";
 }
+function dispositivo() {
+    "use strict";
+    var disp = document.createElement("cerebro-dispositivo");
+    var node = document.getElementById("main");
+    while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
+    }
+    node.appendChild(disp);
+}
+function usuario() {
+    "use strict";
+    var disp = document.createElement("cerebro-usuario");
+    var node = document.getElementById("main");
+    while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
+    }
+    node.appendChild(disp);
+}
+function estadistica() {
+    "use strict";
+    var disp = document.createElement("cerebro-estadistica");
+    var node = document.getElementById("main");
+    while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
+    }
+    node.appendChild(disp);
+}
+function evento() {
+    "use strict";
+    var disp = document.createElement("cerebro-evento");
+    var node = document.getElementById("main");
+    while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
+    }
+    node.appendChild(disp);
+}
+function tipo() {
+    "use strict";
+    var disp = document.createElement("cerebro-tipo-de-fuente-de-dato");
+    var node = document.getElementById("main");
+    while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
+    }
+    node.appendChild(disp);
+}
