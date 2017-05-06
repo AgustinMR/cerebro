@@ -23,10 +23,10 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpDelete]
-        [Route("{id:ObjectId}")]
-        public bool deleteFuenteDeDato(ObjectId id)
+        [Route("{id}")]
+        public bool deleteFuenteDeDato(string id)
         {
-            return new BLFuenteDeDato().deleteFuenteDeDato(id);
+            return new BLFuenteDeDato().deleteFuenteDeDato(ObjectId.Parse(id));
         }
 
         [HttpGet]
@@ -37,10 +37,10 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpGet]
-        [Route("{id:ObjectId}")]
-        public FuenteDeDato getFuenteDeDato(ObjectId id)
+        [Route("{id}")]
+        public FuenteDeDato getFuenteDeDato(string id)
         {
-            return new BLFuenteDeDato().getFuenteDeDato(id);
+            return new BLFuenteDeDato().getFuenteDeDato(ObjectId.Parse(id));
         }
 
         [HttpPut]
