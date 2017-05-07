@@ -3,6 +3,25 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+export class TipoDeFuenteDeDato {
+
+    Id: string;
+    nombre: string;
+    municipalidad: string;
+    frecuenciaLectura: string;
+    uriWebService: string;
+    tipo: TipoDeDato;
+
+    constructor() { }
+}
+
+export enum TipoDeDato {
+    TEXTO,
+    NUMERICO,
+    IMAGEN,
+    VIDEO
+}
+
 @Injectable()
 export class TipoDeFuenteDeDatoService {
 

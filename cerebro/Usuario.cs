@@ -11,11 +11,11 @@ namespace cerebro
     public abstract class Usuario
     {
         [DataMember]
-        public String email { get; set; }
+        public string email { get; set; }
         [DataMember]
-        public String nombre_municipalidad { get; set; }
+        public string nombre_municipalidad { get; set; }
         [DataMember]
-        public String nombre { get; set; }
+        public string nombre { get; set; }
         [DataMember]
         public ICollection<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }
         [DataMember]
