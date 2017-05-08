@@ -23,10 +23,10 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpDelete]
-        [Route("{id:ObjectId}")]
-        public bool deleteEvento(ObjectId id)
+        [Route("{id}")]
+        public bool deleteEvento(string id)
         {
-            return new BLEvento().deleteEvento(id);
+            return new BLEvento().deleteEvento(ObjectId.Parse(id));
         }
 
         [HttpGet]
@@ -37,10 +37,10 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpPost]
-        [Route("{id:ObjectId}")]
-        public Evento getEvento(ObjectId id)
+        [Route("{id}")]
+        public Evento getEvento(string id)
         {
-            return new BLEvento().getEvento(id);
+            return new BLEvento().getEvento(ObjectId.Parse(id));
         }
 
         [HttpPut]

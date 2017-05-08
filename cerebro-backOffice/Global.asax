@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="cerebro_backOffice.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="cerebro_BackOffice_2.MvcApplication" Language="C#" %>

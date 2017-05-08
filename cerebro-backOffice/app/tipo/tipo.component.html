@@ -1,0 +1,53 @@
+﻿<div class="w3-panel w3-white w3-round w3-display-container w3-padding w3-topbar w3-card">
+    <h3 class="w3-text-gray w3-center">Tipo de Dispositivo</h3>
+    <img src="../../Content/cerebro-logo.png" alt="Nuevo" class="w3-image w3-display-topmiddle" style="margin-top: -23px; height: 40px">
+    <div class="w3-round w3-bar w3-display-container" style="height:47px">
+        <div class="w3-display-middle">
+            <button class="w3-bar-item w3-button w3-hover-light-gray w3-text-grey w3-hover-text-cerebro-red tabButtons w3-light-grey w3-text-cerebro-red" onclick="changeTab(event, 'nuevo')">Nuevo</button>
+            <button class="w3-bar-item w3-button w3-hover-light-grey tabButtons w3-text-grey w3-hover-text-cerebro-red" onclick="changeTab(event, 'modificar')">Modificar</button>
+            <button class="w3-bar-item w3-button w3-hover-light-grey tabButtons w3-text-grey w3-hover-text-cerebro-red" onclick="changeTab(event, 'quitar')">Listar</button>
+        </div>
+    </div>
+    <div id="nuevo" class="tab w3-container w3-padding">
+        <div class="w3-form w3-padding w3-padding-16">
+            <label class="w3-text-grey" for="nombre"><strong>Nombre de Dispositivo:</strong></label>
+            <input type="text" name="nombre" id="nombre" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Nombre o tipo de dispositivo...">
+            <label class="w3-text-grey" for="tipo"><strong>Tipo de Dato a Ingresar:</strong></label>
+            <select name="tipo" id="tipo" class="w3-select w3-text-grey w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+                <option value="NUMERICO">Numerico</option>
+                <option value="TEXTO">Texto</option>
+                <option value="IMAGEN">Imagen</option>
+                <option value="IMAGEN">Seleccionar opci&oacute;n...</option>
+            </select>
+            <label class="w3-text-grey" for="ws"><strong>Endpoint WS:</strong></label>
+            <input type="text" name="ws" id="ws" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Endpoint Web Service a invocar...">
+            <label class="w3-text-grey" for="frecuencia"><strong>Frecuencia de Lectura:</strong></label>
+            <input type="text" name="frecuencia" id="frecuencia" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Frecuencia de Lectura..."><hr>
+            <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" value="Guardar">
+            <input type="button" class="w3-button w3-right w3-margin-bottom w3-border w3-border-cerebro-red w3-hover-cerebro-red w3-text-cerebro-red w3-round w3-margin-right" value="Eliminar">
+        </div>
+    </div>
+    <div id="modificar" class="tab w3-container" style="display:none">
+        <div class="w3-form w3-padding w3-padding-16">
+            <label class="w3-text-grey" for="nombre"><strong>Nombre del Dispositivo:</strong></label>
+            <input type="text" name="nombre" id="nombre_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <label class="w3-text-grey" for="tipo_mod"><strong>Tipo de Dato a Ingresar:</strong></label>
+            <select name="tipo" id="tipo" class="w3-select w3-text-grey w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+                <option value="NUMERICO">Numerico</option>
+                <option value="TEXTO">Texto</option>
+                <option value="IMAGEN">Imagen</option>
+                <option value="IMAGEN">Seleccionar opci&oacute;n...</option>
+            </select>
+            <label class="w3-text-grey" for="ws_mod"><strong>Endpoint WS:</strong></label>
+            <input type="text" name="ws_mod" id="ws_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <label class="w3-text-grey" for="ubicacion_mod"><strong>Frecuencia de Lectura:</strong></label>
+            <input type="text" name="ubicacion_mod" id="ubicacion_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round"><hr>
+            <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" value="Guardar">
+            <input type="button" class="w3-button w3-right w3-margin-bottom w3-border w3-border-cerebro-red w3-hover-cerebro-red w3-text-cerebro-red w3-round w3-margin-right" value="Eliminar">
+        </div>
+    </div>
+    <div id="quitar" class="tab w3-container" style="display:none">
+        <h2>Tokyo</h2>
+        <p>Tokyo is the capital of Japan.</p>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿<header class="w3-cerebro-blue w3-card-4 w3-display-container w3-topbar w3-border-cerebro-red">
+    <div class="bgimg-2 w3-opacity"></div>
+    <nav class="w3-bar w3-display-topmiddle w3-text-white">
+        <a href="javascript:void(0);" class="w3-bar-item w3-button w3-padding w3-hover-none w3-margin-left"><img src="../Content/cerebro-text.png" alt="CEREBRO" style="height: 27px"></a>
+        <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow"><img src="../Content/exit.png" alt="Salir"></a>
+    </nav>
+    <div>
+        <div class="w3-bar w3-display-bottommiddle w3-cerebro-blue w3-opacity" style="height: 50px"></div>
+        <nav class="w3-bar w3-text-white w3-display-bottommiddle w3-bottombar w3-border-cerebro-red">
+            <div class="w3-content">
+                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-padding w3-hover-none w3-margin-left w3-cerebro-red w3-hover-cerebro-red">Montevideo</a>
+                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow w3-hide-large w3-hide-medium" onclick="toggleFunction()"><strong>&#9776;</strong></a>
+                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow w3-hide-small" (click)="showUsuario()">Usuarios</a>
+                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow w3-hide-small" (click)="showEvento()">Eventos</a>
+                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow w3-hide-small" (click)="showDispositivo()">Dispositivos</a>
+                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow w3-hide-small" (click)="showTipo()">Tipos</a>
+            </div>
+        </nav>
+    </div>
+</header>
+<div id="navMobile" class="w3-bar-block w3-cerebro-blue w3-hide w3-hide-medium w3-hide-large">
+    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-opacity w3-hover-light-grey" (click)="showTipo()">Tipos</a>
+    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-opacity w3-hover-light-grey" (click)="showDispositivo()">Dispositivos</a>
+    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-opacity w3-hover-light-grey" (click)="showEvento()">Eventos</a>
+    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-opacity w3-hover-light-grey" (click)="showUsuario()">Usuarios</a>
+</div>
+<div class="w3-container w3-padding w3-padding-24">
+    <div class="w3-content">
+        <cerebro-estadistica *ngIf="estadistica"></cerebro-estadistica>
+        <cerebro-dispositivo *ngIf="dispositivo"></cerebro-dispositivo>
+        <cerebro-tipo-de-fuente-de-dato *ngIf="tipo"></cerebro-tipo-de-fuente-de-dato>
+        <cerebro-evento *ngIf="evento"></cerebro-evento>
+        <cerebro-usuario *ngIf="usuario"></cerebro-usuario>
+    </div>
+</div>

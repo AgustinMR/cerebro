@@ -1,12 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-frontOffice", "cerebro-frontOffice\cerebro-frontOffice.csproj", "{1E940599-EC4F-427A-8BDD-3CEF5E5366E5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-backOffice", "cerebro-backOffice\cerebro-backOffice.csproj", "{00E8F192-5DCB-4FEB-AE21-24EE31660603}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro", "cerebro\cerebro.csproj", "{A3EBC65B-1BA2-49D2-8578-F21E93659ECF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-DataAccessLayer", "cerebro-DataAccessLayer\cerebro-DataAccessLayer.csproj", "{E67C1317-1652-4C2E-AF7F-4774805E6B18}"
@@ -17,20 +13,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-ServiceLayer", "cer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainCagado", "MainCagado\MainCagado.csproj", "{3D79FA42-2A04-4794-8C71-6D031550D2A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-backOffice", "cerebro-backOffice\cerebro-backOffice.csproj", "{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-frontOffice", "cerebro-frontOffice\cerebro-frontOffice.csproj", "{B93B7644-42DA-4B95-A888-CDECA4990F4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1E940599-EC4F-427A-8BDD-3CEF5E5366E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E940599-EC4F-427A-8BDD-3CEF5E5366E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E940599-EC4F-427A-8BDD-3CEF5E5366E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E940599-EC4F-427A-8BDD-3CEF5E5366E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00E8F192-5DCB-4FEB-AE21-24EE31660603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00E8F192-5DCB-4FEB-AE21-24EE31660603}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00E8F192-5DCB-4FEB-AE21-24EE31660603}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00E8F192-5DCB-4FEB-AE21-24EE31660603}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A3EBC65B-1BA2-49D2-8578-F21E93659ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A3EBC65B-1BA2-49D2-8578-F21E93659ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3EBC65B-1BA2-49D2-8578-F21E93659ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +43,14 @@ Global
 		{3D79FA42-2A04-4794-8C71-6D031550D2A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D79FA42-2A04-4794-8C71-6D031550D2A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D79FA42-2A04-4794-8C71-6D031550D2A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B93B7644-42DA-4B95-A888-CDECA4990F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93B7644-42DA-4B95-A888-CDECA4990F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B93B7644-42DA-4B95-A888-CDECA4990F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B93B7644-42DA-4B95-A888-CDECA4990F4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
