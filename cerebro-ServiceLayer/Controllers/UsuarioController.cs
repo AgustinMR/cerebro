@@ -12,12 +12,12 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult addAgrupacion([FromUri]Usuario usu)
+        public IHttpActionResult addUsuario([FromUri]Usuario usu)
         {
             if (usu != null)
             {
-                IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.addUsuario(usu);
+                IBLUsuario IBLUsu = new BLUsuario();
+                IBLUsu.addUsuario(usu);
                 return Ok();
             }
             return BadRequest();
@@ -25,12 +25,12 @@ namespace cerebro_ServiceLayer.Controllers
         
         [HttpDelete]
         [Route("")]
-        public IHttpActionResult deleteVisitante([FromUri]Usuario usu)
+        public IHttpActionResult deleteUsuario([FromUri]Usuario usu)
         {
             if (usu != null)
             {
-                IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.deleteUsuario(usu);
+                IBLUsuario IBLUsu = new BLUsuario();
+                IBLUsu.deleteUsuario(usu);
                 return Ok();
             }
             return BadRequest();
@@ -38,12 +38,12 @@ namespace cerebro_ServiceLayer.Controllers
         
         [HttpPut]
         [Route("")]
-        public IHttpActionResult updateVisitante([FromUri]Usuario usu)
+        public IHttpActionResult updateUsuario([FromUri]Usuario usu)
         {
             if (usu != null)
             {
-                IBLUsuario IBLAgru = new BLUsuario();
-                IBLAgru.updateUsuario(usu);
+                IBLUsuario IBLUsu = new BLUsuario();
+                IBLUsu.updateUsuario(usu);
                 return Ok();
             }
             return BadRequest();
