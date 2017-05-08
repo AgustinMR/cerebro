@@ -8,11 +8,7 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>True</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
-<<<<<<< HEAD
-    <IISExpressSSLPort>44374</IISExpressSSLPort>
-=======
     <IISExpressSSLPort>44332</IISExpressSSLPort>
->>>>>>> origin/master
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
