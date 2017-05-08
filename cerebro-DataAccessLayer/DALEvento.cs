@@ -55,7 +55,7 @@ namespace cerebro_DataAccessLayer
             {
                 var mongo = new MongoClient();
                 var bd = mongo.GetDatabase("cerebroDB");
-                var update = Builders<Evento>.Update.Set(e => e.nombre, t.nombre).Set(e => e.municipalidad, t.municipalidad).Set(e => e.acciones, t.acciones);
+                var update = Builders<Evento>.Update.Set(e => e.nombre, t.nombre).Set(e => e.municipalidad, t.municipalidad);
                 var filter = Builders<Evento>.Filter.Eq("Id", t.Id);
                 bd.GetCollection<Evento>("Evento").FindOneAndUpdate(filter, update);
                 return true;
