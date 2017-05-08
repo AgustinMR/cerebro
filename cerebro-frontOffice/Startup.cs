@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace cerebro_frontOffice
 {
@@ -18,15 +19,21 @@ namespace cerebro_frontOffice
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+            
+            if (env.IsDevelopment())
+            {
+                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+                builder.AddUserSecrets<Startup>();
+            }
 
+            builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runti me. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
@@ -35,6 +42,10 @@ namespace cerebro_frontOffice
                 options.SslPort = 44392;
                 options.Filters.Add(new RequireHttpsAttribute());
             });
+
+            /*services.AddAuthentication(options => {
+                options.SignInScheme = "MyCookieMiddlewareInstance";
+            });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,12 +66,33 @@ namespace cerebro_frontOffice
 
             app.UseStaticFiles();
 
+            /*
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AuthenticationScheme = "MyCookieMiddlewareInstance",
+                LoginPath = new PathString("/signin-facebook"),
+                AccessDeniedPath = new PathString("/login"),
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true
+            });*/
+
+            FacebookOptions fb = new FacebookOptions();
+            fb.AppId = Configuration["Authentication:Facebook:AppId"];
+            fb.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            fb.AutomaticAuthenticate = true;
+            fb.AutomaticChallenge = true;
+            //fb.SignInScheme = "MyCookieMiddlewareInstance";
+            fb.CallbackPath = "/Home/About";
+
+            app.UseFacebookAuthentication(fb);
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }
