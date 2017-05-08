@@ -15,6 +15,40 @@
 </head>
 
 <body style="background-color: #F9F9F9">
+    <div id="fb-root"></div>
+    <script>
+(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.9&appId=623498791182427";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                testAPI();
+            } else {
+                // The person is not logged into your app or we are unable to tell.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                    'into this app.';
+            }
+        }
+
+    </script>
     <div class="w3-top">
         <div class="w3-bar" id="nav">
             <div class="w3-content">
@@ -53,7 +87,7 @@
                         <input type="email" name="email" class="w3-input w3-padding w3-border w3-round w3-hover-border-cerebro-red w3-margin-bottom" placeholder="Ingrese su direcci&oacute;n de correo">
                         <label for="pass" class="w3-text-cerebro-blue"><strong>Contrase&ntilde;a:</strong></label>
                         <input type="password" name="pass" class="w3-input w3-padding w3-border w3-round w3-hover-border-cerebro-red w3-margin-bottom" placeholder="Ingrese su contrase&ntilde;a"><hr>
-                        <button class="w3-button w3-input w3-border w3-border-facebook w3-round w3-text-facebook w3-hover-facebook"><img src="~/images/facebook1.png" class="w3-left" style="height: 27px">Registrarse con Facebook</button>
+                        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
                         <a href="/signin-facebook" class="w3-button w3-input w3-border w3-border-facebook w3-round w3-text-facebook w3-hover-facebook"><img src="~/images/facebook1.png" class="w3-left" style="height: 27px">Registrarse con Facebook</a>
                         <button class="w3-button w3-input w3-margin-top w3-margin-bottom w3-border w3-round w3-border-twitter w3-text-twitter w3-hover-twitter"><img src="~/images/twitter1.png" class="w3-left" style="height: 27px">Registrarse con Twitter</button>
                     </div>
