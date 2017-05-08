@@ -86,6 +86,13 @@ namespace cerebro_frontOffice
 
             app.UseFacebookAuthentication(fb);
 
+            app.UseTwitterAuthentication(new TwitterOptions()
+            {
+                ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"],
+                ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"],
+                SignInScheme = "MyCookieMiddlewareInstance"
+        });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
