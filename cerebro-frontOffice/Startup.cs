@@ -66,22 +66,22 @@ namespace cerebro_frontOffice
 
             app.UseStaticFiles();
 
-            /*
+            
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
                 AuthenticationScheme = "MyCookieMiddlewareInstance",
-                LoginPath = new PathString("/signin-facebook"),
-                AccessDeniedPath = new PathString("/login"),
+                LoginPath = new PathString("/"),
+                //AccessDeniedPath = new PathString("/login"),
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true
-            });*/
+            });
 
             FacebookOptions fb = new FacebookOptions();
             fb.AppId = Configuration["Authentication:Facebook:AppId"];
             fb.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
             fb.AutomaticAuthenticate = true;
             fb.AutomaticChallenge = true;
-            //fb.SignInScheme = "MyCookieMiddlewareInstance";
+            fb.SignInScheme = "MyCookieMiddlewareInstance";
             fb.CallbackPath = "/Home/About";
 
             app.UseFacebookAuthentication(fb);
