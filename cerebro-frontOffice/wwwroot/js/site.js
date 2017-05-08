@@ -38,7 +38,15 @@ function addNavbarTop() {
         navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-cerebro-blue", "");
     }
 }
+
+function registrarOperador() {
+    $.post("https://localhost:44332/api/usuarios/operador?email= " + document.getElementById("email").value + "&nombre_municipalidad=Mdeo&nombre=" + document.getElementById("nom").value + "&password=" + document.getElementById("pass").value, function (result) {
+        alert("Usuario registrado");
+    });
+}
+
 window.onscroll = function () {
     "use strict";
     addNavbarTop();
 };
+
