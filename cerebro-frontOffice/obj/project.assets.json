@@ -3845,7 +3845,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication/1.1.1": {
-      "sha512": "XyK2NjHzwcLB9ed/Bv13pfO61JeAIWZQXn45XAS29fkomHPq+jeBFE43Ff3xWHZNa5YmKd8db5jIuf1rixWMcg==",
+      "sha512": "DzKkQgXMph3+SCVqEbm2AW2ImQBZRVF11XlPmo4fXZDXQrZ3oel8YvA2o7Ic6f4iPMW8/YtjcXgC8e7jICXBwQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication/1.1.1",
       "files": [
@@ -3858,7 +3858,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication.Cookies/1.1.1": {
-      "sha512": "0ktKflvDXi1bAWRG2fNX1E8/J9B5IXi6Ww+vt3poE+Oxn5ohIqE9hsCOzH1JYw4il77K8l1oGaO4zU30pcBh0Q==",
+      "sha512": "FibHJ10IQX7QzgvEQeCmFBfha1hZJq8Jasb2Sm4Eg0CfVg6TQv6mCuY/lBETXXsFQA4NKQ5ebtCsKn60vfkWHw==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication.cookies/1.1.1",
       "files": [
@@ -4659,7 +4659,7 @@
       ]
     },
     "Microsoft.Extensions.Configuration.UserSecrets/1.1.1": {
-      "sha512": "ky/GB2znjjZ7ouCN1i96HxliYJM0mUnXFqJcTeDRb3FwTGXO+ZFJH3JfrtWgpbPG3UIHO+S+i6deJNctUoNs7A==",
+      "sha512": "37JvCP1jHEBZBfdedGHDd5JyPROS1R1bKQyXt1oC++LHwdYpnQQhKsYbgXST0yF8/NeN1Yxt+LNUfmJINbMzrA==",
       "type": "package",
       "path": "microsoft.extensions.configuration.usersecrets/1.1.1",
       "files": [
@@ -9983,15 +9983,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\bruno\\.nuget\\packages\\": {}
+    "C:\\Users\\Agustin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
+      "projectUniqueName": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
       "projectName": "cerebro-frontOffice",
-      "projectPath": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
-      "outputPath": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\obj\\",
+      "projectPath": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
+      "outputPath": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
