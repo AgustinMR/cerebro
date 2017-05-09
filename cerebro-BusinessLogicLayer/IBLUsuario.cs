@@ -12,5 +12,6 @@ namespace cerebro_BusinessLogicLayer
         bool addUsuario(Usuario usu);
         bool deleteUsuario(Usuario usu);
         bool updateUsuario(Usuario usu);
+        bool loginUsuario(Usuario usu);
     }
 }
