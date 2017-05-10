@@ -132,5 +132,41 @@ namespace cerebro_ServiceLayer.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost]
+        [Route("loginVisitante")]
+        public bool loginVisitante([FromUri]Visitante vis)
+        {
+            if (vis != null)
+            {
+                IBLUsuario IBLUsu = new BLUsuario();
+                return IBLUsu.loginUsuario(vis);
+            }
+            return false;
+        }
+
+        [HttpPost]
+        [Route("loginOperador")]
+        public bool loginOperador([FromUri]Operador op)
+        {
+            if (op != null)
+            {
+                IBLUsuario IBLUsu = new BLUsuario();
+                return IBLUsu.loginUsuario(op);
+            }
+            return false;
+        }
+
+        [HttpPost]
+        [Route("loginAdministrador")]
+        public bool loginAdministrador([FromUri]Administrador admin)
+        {
+            if (admin != null)
+            {
+                IBLUsuario IBLUsu = new BLUsuario();
+                return IBLUsu.loginUsuario(admin);
+            }
+            return false;
+        }
     }
 }
