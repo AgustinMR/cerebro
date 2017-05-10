@@ -30,5 +30,10 @@ namespace cerebro_BusinessLogicLayer
         public bool updateUsuario(Usuario usu) {
             return dal.modificarUsuario(usu);
         }
+
+        public bool loginUsuario(Usuario usu)
+        {
+            return dal.loginUsuario(usu);
+        }
     }
 }
