@@ -3,14 +3,14 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-export class Evento {
+//export class Evento {
 
-    Id: string;
-    municipalidad: string;
-    nombre: string;
+//    Id: string;
+//    municipalidad: string;
+//    nombre: string;
 
-    constructor() { }
-}
+//    constructor() { }
+//}
 
 @Injectable()
 export class EventoService {

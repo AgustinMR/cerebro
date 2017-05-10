@@ -40,5 +40,12 @@ namespace cerebro_ServiceLayer.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet]
+        [Route("")]
+        public string getMdeo()
+        {
+            return "Mdeo";
+        }
     }
 }

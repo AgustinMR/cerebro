@@ -6,17 +6,17 @@ import { HashLocationStrategy, Location, LocationStrategy } from '@angular/commo
 import { FuenteDeDatoComponent } from './dispositivo/dispositivo.component';
 import { FuenteDeDatoService } from './dispositivo/dispositivo.service';
 // Eventos
-import { EventoComponent } from './evento/evento.component'
-import { EventoService } from './evento/evento.service'
+import { EventoComponent } from './evento/evento.component';
+import { EventoService } from './evento/evento.service';
 // Tipos de Fuentes de Datos
-import { TipoDeFuenteDeDatoComponent } from './tipo/tipo.component'
-import { TipoDeFuenteDeDatoService } from './tipo/tipo.service'
+import { TipoDeFuenteDeDatoComponent } from './tipo/tipo.component';
+import { TipoDeFuenteDeDatoService } from './tipo/tipo.service';
 // Usuarios
-import { UsuarioComponent } from './usuario/usuario.component'
-import { UsuarioService } from './usuario/usuario.service'
+import { UsuarioComponent } from './usuario/usuario.component';
+import { UsuarioService } from './usuario/usuario.service';
 // Estadistica
-import { EstadisticaComponent } from './estadistica/estadistica.component'
-import { EstadisticaService } from './estadistica/estadistica.service'
+import { EstadisticaComponent } from './estadistica/estadistica.component';
+import { EstadisticaService } from './estadistica/estadistica.service';
 
 const routes: Routes = [
     { path: 'dispositivos', component: FuenteDeDatoComponent },

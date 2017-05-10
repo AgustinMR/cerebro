@@ -3,31 +3,31 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-export class TipoDeFuenteDeDato {
+//export class TipoDeFuenteDeDato {
 
-    Id: string;
-    nombre: string;
-    municipalidad: string;
-    frecuenciaLectura: string;
-    uriWebService: string;
-    tipo: TipoDeDato;
+//    Id: string;
+//    nombre: string;
+//    municipalidad: string;
+//    frecuenciaLectura: string;
+//    uriWebService: string;
+//    tipo: TipoDeDato;
 
-    constructor() { }
-}
+//    constructor() { }
+//}
 
-export enum TipoDeDato {
-    TEXTO,
-    NUMERICO,
-    IMAGEN,
-    VIDEO
-}
+//export enum TipoDeDato {
+//    TEXTO,
+//    NUMERICO,
+//    IMAGEN,
+//    VIDEO
+//}
 
 @Injectable()
 export class TipoDeFuenteDeDatoService {
 
     constructor(private http: Http) { }
 
-    
+
     //public addEmployee(Name: string, StartDate: string, Salary: string, HourlyRate: string, isFullTime: boolean) {
     //    let headers = new Headers({ 'Content-Type': 'application/json' });
     //    let options = new RequestOptions({ headers: headers });
