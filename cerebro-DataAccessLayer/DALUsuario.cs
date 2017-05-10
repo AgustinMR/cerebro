@@ -61,5 +61,36 @@ namespace cerebro_DataAccessLayer
             return false;
         }
 
+        public bool loginUsuario(Usuario usu)
+        {
+            if (usu.GetType() == typeof(Visitante))
+            {
+                UsuariosDbContext context = new UsuariosDbContext();
+                Usuario UsuDB = context.Usuarios.Find(usu.email, usu.nombre_municipalidad);
+                if (UsuDB.GetType() == typeof(Visitante))
+                    return true;
+                else
+                    return false;
+            }
+            else if (usu.GetType() == typeof(Operador)) {
+                UsuariosDbContext context = new UsuariosDbContext();
+                Usuario UsuDB = context.Usuarios.Find(usu.email, usu.nombre_municipalidad);
+                if (UsuDB.GetType() == typeof(Operador) && ((Operador)UsuDB).password == ((Operador)usu).password)
+                    return true;
+                else
+                    return false;
+            }
+            else if (usu.GetType() == typeof(Administrador))
+            {
+                UsuariosDbContext context = new UsuariosDbContext();
+                Usuario UsuDB = context.Usuarios.Find(usu.email, usu.nombre_municipalidad);
+                if (UsuDB.GetType() == typeof(Administrador) && ((Administrador)UsuDB).password == ((Administrador)usu).password)
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
+
     }
 }

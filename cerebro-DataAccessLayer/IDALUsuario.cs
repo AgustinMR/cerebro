@@ -12,5 +12,6 @@ namespace cerebro_DataAccessLayer
         bool agregarUsuario(Usuario usu);
         bool borrarUsuario(Usuario usu);
         bool modificarUsuario(Usuario usu);
+        bool loginUsuario(Usuario usu);
     }
 }
