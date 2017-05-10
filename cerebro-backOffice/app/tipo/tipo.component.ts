@@ -12,7 +12,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class TipoDeFuenteDeDatoComponent implements OnInit {
 
-    employees: any;
+    repuesta: any;
 
     constructor(private tipos: TipoDeFuenteDeDatoService) {
     }
@@ -20,12 +20,38 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
     ngOnInit(): void {
         //this.getEmployees();
     }
-    
-    //getEmployees() {
-    //    this.employeeService.getEmployees().subscribe(
-    //        (data: Response) => this.employees = data,
-    //        responseError => console.log(responseError),
-    //        () => console.log("Employee Fetching operation completed")
-    //    );
-    //}
+
+    nombre = "";
+    tipoDeDato = "";
+    endpointWS = "";
+    frecLectura = "";
+
+    agregarTipoDeFuenteDeDato() {
+        this.tipos.agregarTipo(this.nombre, this.tipoDeDato , this.endpointWS, this.frecLectura).subscribe(
+            (data: Response) => this.repuesta = data,
+            responseError => console.log("Error: " + responseError),
+            () => console.log(this.repuesta)
+        );
+        this.nombre = "";
+        this.tipoDeDato = "";
+        this.endpointWS = "";
+        this.frecLectura = "";
+    }
+
+    nombreMod = "";
+    tipoDeDatoMod = "";
+    endpointWSMod = "";
+    frecLecturaMod = "";
+
+    modificarTipoDeFuenteDeDato() {
+        this.tipos.modificarTipo(this.nombreMod, this.tipoDeDatoMod, this.endpointWSMod, this.frecLecturaMod).subscribe(
+            (data: Response) => this.repuesta = data,
+            responseError => console.log("Error: " + responseError),
+            () => console.log(this.repuesta)
+        );
+        this.nombreMod = "";
+        this.tipoDeDatoMod = "";
+        this.endpointWSMod = "";
+        this.frecLecturaMod = "";
+    }
 }

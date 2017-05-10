@@ -27,23 +27,23 @@ export class TipoDeFuenteDeDatoService {
 
     constructor(private http: Http) { }
 
+    nombre_municipalidad : any = "Medo"
 
-    //public addEmployee(Name: string, StartDate: string, Salary: string, HourlyRate: string, isFullTime: boolean) {
-    //    let headers = new Headers({ 'Content-Type': 'application/json' });
-    //    let options = new RequestOptions({ headers: headers });
-    //    if (isFullTime) {
-    //        return this.http.post("http://localhost:49222/api/employees/full?" + "Name=" + Name + "&StartDate=" + StartDate + "&Salary=" + Salary, {}, options).map(response => { });
-    //    }
-    //    else {
-    //        return this.http.post("http://localhost:49222/api/employees/part?" + "Name=" + Name + "&StartDate=" + StartDate + "&HourlyRate=" + HourlyRate, {}, options).map(response => { });
-    //    }
-    //}
+    public agregarTipo(nombre: string, tipoDeDato: string, endpointWS: string, frecLectura: string) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        var postInfo = "nombre=" + nombre + "&municipalidad=" + this.nombre_municipalidad + "&frecuenciaLectura=" + frecLectura + "&tipo=" + tipoDeDato + "&uriWebService=" + endpointWS;
+        return this.http.post("http://localhost:58326/api/tipos?" + postInfo, {}, options).map(data => data.json());
+    }
 
-    //public editEmployee() {
-    //    console.log('edit employee');
-    //}
+    public modificarTipo(nombre: string, tipoDeDato: string, endpointWS: string, frecLectura: string) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        var postInfo = "nombre=" + nombre + "&municipalidad=" + this.nombre_municipalidad + "&frecuenciaLectura=" + frecLectura + "&tipo=" + tipoDeDato + "&uriWebService=" + endpointWS;
+        return this.http.put("http://localhost:58326/api/tipos?" + postInfo, {}, options).map(data => data.json());
+    }
 
-    //public getEmployees() {
-    //    return this.http.get("http://localhost:49222/api/employees").map(data => data.json());
-    //}
+    public obtenerTipos() {
+        return this.http.get("http://localhost:58326/api/tipos").map(data => data.json());
+    }
 }
