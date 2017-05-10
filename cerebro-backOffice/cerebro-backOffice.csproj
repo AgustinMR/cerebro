@@ -98,6 +98,8 @@
     <Content Include="app\estadistica\estadistica.component.html" />
     <Content Include="app\evento\evento.component.css" />
     <Content Include="app\evento\evento.component.html" />
+    <Content Include="app\inicio\inicio.component.css" />
+    <Content Include="app\inicio\inicio.component.html" />
     <Content Include="app\login\login.component.css" />
     <Content Include="app\login\login.component.html" />
     <Content Include="app\tipo\tipo.component.css" />
@@ -164,6 +166,8 @@
     <TypeScriptCompile Include="app\estadistica\estadistica.service.ts" />
     <TypeScriptCompile Include="app\evento\evento.component.ts" />
     <TypeScriptCompile Include="app\evento\evento.service.ts" />
+    <TypeScriptCompile Include="app\inicio\inicio.component.ts" />
+    <TypeScriptCompile Include="app\inicio\inicio.service.ts" />
     <TypeScriptCompile Include="app\login\login.component.ts" />
     <TypeScriptCompile Include="app\login\login.service.ts" />
     <TypeScriptCompile Include="app\tipo\tipo.component.ts" />

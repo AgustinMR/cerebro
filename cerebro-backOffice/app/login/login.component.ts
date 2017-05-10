@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Http, HttpModule, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
@@ -13,24 +14,40 @@ import 'rxjs/add/operator/toPromise';
 
 export class LoginComponent implements OnInit {
 
-    employees: any;
+    autenticado: any;
+    login = true;
+    inicio = false;
 
-    constructor(private loginService: LoginService) {
+    constructor(private loginService: LoginService, private router: Router) {
     }
 
+    //ingresar() {
+    //    this.loginService.loginAdmin("sda","asdasd","asdsad").subscribe(
+    //        (data: Response) => this.autenticado = data,
+    //        responseError => console.log("Error: " + responseError),
+    //        () => console.log(this.autenticado)
+    //    );
+    //}
+
     ingresar() {
-        //this.loginService.loginAdmin("sda","asdasd","asdsad");
-        this.loginService.getGET().subscribe(
-            (data: Response) => this.employees = data,
+        this.loginService.loginAdmin("sda", "asdasd", "asdsad").subscribe(
+            (data: Response) => {
+                if (data) {
+                    this.autenticado = data;
+                    alert();
+                    this.login = false;
+                    this.inicio = true;
+                }
+            },
             responseError => console.log("Error: " + responseError),
-            () => console.log("ok")
+            () => console.log(this.autenticado)
         );
     }
 
     ngOnInit(): void {
         //this.getEmployees();
     }
-    
+
     //getEmployees() {
     //    this.employeeService.getEmployees().subscribe(
     //        (data: Response) => this.employees = data,
