@@ -25,5 +25,9 @@ namespace cerebro_BusinessLogicLayer
             return dal.borrarMunicipalidad(muni);
         }
 
+        public List<Municipalidad> getMunicipalidades() {
+            return dal.getMunicipalidades();
+        }
+
     }
 }
