@@ -43,9 +43,10 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpGet]
         [Route("")]
-        public string getMdeo()
+        public List<Municipalidad> getMunicipalidades()
         {
-            return "Mdeo";
+            IBLMunicipalidad IBLMuni = new BLMunicipalidad();
+            return IBLMuni.getMunicipalidades();
         }
     }
 }

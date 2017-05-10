@@ -44,5 +44,10 @@ namespace cerebro_DataAccessLayer
             return false;
         }
 
+        public List<Municipalidad> getMunicipalidades()
+        {
+            return new MunicipalidadesDbContext().Municipalidades.ToList();
+        }
+
     }
 }
