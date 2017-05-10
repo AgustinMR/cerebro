@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
             (data: Response) => {
                 if (data) {
                     this.autenticado = data;
-                    alert();
                     this.login = false;
                     this.inicio = true;
                 }

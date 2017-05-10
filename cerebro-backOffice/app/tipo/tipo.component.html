@@ -11,38 +11,38 @@
     <div id="nuevo" class="tab w3-container w3-padding">
         <div class="w3-form w3-padding w3-padding-16">
             <label class="w3-text-grey" for="nombre"><strong>Nombre de Dispositivo:</strong></label>
-            <input type="text" name="nombre" id="nombre" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Nombre o tipo de dispositivo...">
+            <input type="text" [(ngModel)]="nombre" name="nombre" id="nombre" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Nombre o tipo de dispositivo...">
             <label class="w3-text-grey" for="tipo"><strong>Tipo de Dato a Ingresar:</strong></label>
-            <select name="tipo" id="tipo" class="w3-select w3-text-grey w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <select name="tipo" [(ngModel)]="tipoDeDato" id="tipo" class="w3-select w3-text-grey w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
                 <option value="NUMERICO">Numerico</option>
                 <option value="TEXTO">Texto</option>
                 <option value="IMAGEN">Imagen</option>
-                <option value="IMAGEN">Seleccionar opci&oacute;n...</option>
+                <option value="VIDEO">Video</option>
             </select>
             <label class="w3-text-grey" for="ws"><strong>Endpoint WS:</strong></label>
-            <input type="text" name="ws" id="ws" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Endpoint Web Service a invocar...">
+            <input type="text" [(ngModel)]="endpointWS" name="ws" id="ws" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Endpoint Web Service a invocar...">
             <label class="w3-text-grey" for="frecuencia"><strong>Frecuencia de Lectura:</strong></label>
-            <input type="text" name="frecuencia" id="frecuencia" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Frecuencia de Lectura..."><hr>
-            <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" value="Guardar">
+            <input type="text" [(ngModel)]="frecLectura" name="frecuencia" id="frecuencia" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Frecuencia de Lectura..."><hr>
+            <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" (click)="agregarTipoDeFuenteDeDato()" value="Guardar">
             <input type="button" class="w3-button w3-right w3-margin-bottom w3-border w3-border-cerebro-red w3-hover-cerebro-red w3-text-cerebro-red w3-round w3-margin-right" value="Eliminar">
         </div>
     </div>
     <div id="modificar" class="tab w3-container" style="display:none">
         <div class="w3-form w3-padding w3-padding-16">
             <label class="w3-text-grey" for="nombre"><strong>Nombre del Dispositivo:</strong></label>
-            <input type="text" name="nombre" id="nombre_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <input type="text" [(ngModel)]="nombreMod" name="nombre" id="nombre_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Nombre o tipo de dispositivo...">
             <label class="w3-text-grey" for="tipo_mod"><strong>Tipo de Dato a Ingresar:</strong></label>
-            <select name="tipo" id="tipo" class="w3-select w3-text-grey w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <select name="tipo" [(ngModel)]="tipoDeDatoMod" id="tipo" class="w3-select w3-text-grey w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
                 <option value="NUMERICO">Numerico</option>
                 <option value="TEXTO">Texto</option>
                 <option value="IMAGEN">Imagen</option>
-                <option value="IMAGEN">Seleccionar opci&oacute;n...</option>
+                <option value="VIDEO">Video</option>
             </select>
             <label class="w3-text-grey" for="ws_mod"><strong>Endpoint WS:</strong></label>
-            <input type="text" name="ws_mod" id="ws_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <input type="text" [(ngModel)]="endpointWSMod" name="ws_mod" id="ws_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Endpoint Web Service a invocar...">
             <label class="w3-text-grey" for="ubicacion_mod"><strong>Frecuencia de Lectura:</strong></label>
-            <input type="text" name="ubicacion_mod" id="ubicacion_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round"><hr>
-            <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" value="Guardar">
+            <input type="text" [(ngModel)]="frecLecturaMod" name="ubicacion_mod" id="ubicacion_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Frecuencia de Lectura..."><hr>
+            <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" (click)="modificarTipoDeFuenteDeDato()" value="Guardar">
             <input type="button" class="w3-button w3-right w3-margin-bottom w3-border w3-border-cerebro-red w3-hover-cerebro-red w3-text-cerebro-red w3-round w3-margin-right" value="Eliminar">
         </div>
     </div>
