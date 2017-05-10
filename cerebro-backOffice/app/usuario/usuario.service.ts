@@ -3,18 +3,18 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-export class Usuario {
+//export class Usuario {
     
-    email: string;
-    nombre_municipalidad: string;
-    nombre: string;
+//    email: string;
+//    nombre_municipalidad: string;
+//    nombre: string;
 
-    constructor() { }
-}
+//    constructor() { }
+//}
 
-export class Agrupacion {
+//export class Agrupacion {
 
-}
+//}
 
 @Injectable()
 export class UsuarioService {

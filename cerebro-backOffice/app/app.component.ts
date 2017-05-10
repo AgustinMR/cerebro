@@ -7,6 +7,7 @@ import { EstadisticaService } from './estadistica/estadistica.service'
 import { EventoService } from './evento/evento.service'
 import { TipoDeFuenteDeDatoService } from './tipo/tipo.service'
 import { UsuarioService } from './usuario/usuario.service'
+import { LoginService } from './login/login.service'
 
 @Component({
     selector: 'tsi1-cerebro-gr17',
@@ -14,7 +15,7 @@ import { UsuarioService } from './usuario/usuario.service'
     styleUrls: ['app.component.css'],
     moduleId: module.id,
     //providers: [EmployeeTaskService]
-    providers: [FuenteDeDatoService, EstadisticaService, EventoService, TipoDeFuenteDeDatoService, UsuarioService]
+    providers: [FuenteDeDatoService, EstadisticaService, EventoService, TipoDeFuenteDeDatoService, UsuarioService, LoginService]
 })
 export class AppComponent {
 
@@ -23,6 +24,7 @@ export class AppComponent {
     tipo = false;
     usuario = false;
     estadistica = true;
+    login = false;
 
     showEstadistica() {
         this.dispositivo = false;
@@ -62,6 +64,15 @@ export class AppComponent {
         this.tipo = false;
         this.usuario = true;
         this.estadistica = false;
+    }
+
+    showLogin() {
+        this.dispositivo = false;
+        this.evento = false;
+        this.tipo = false;
+        this.usuario = false;
+        this.estadistica = false;
+        this.login = true;
     }
 
     constructor(private http: Http) { }
