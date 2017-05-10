@@ -12,5 +12,6 @@ namespace cerebro_BusinessLogicLayer
 
         bool addMunicipalidad(Municipalidad muni);
         bool deleteMunicipalidad(Municipalidad muni);
+        List<Municipalidad> getMunicipalidades();
     }
 }
