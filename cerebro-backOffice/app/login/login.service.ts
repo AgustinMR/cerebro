@@ -11,10 +11,12 @@ export class LoginService {
     public loginAdmin(email: string, nombre_municipalidad: string, password: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-
-        //var postInfo = "email=" + email + "&nombre_municipalidad=" + nombre_municipalidad + "&password=" + password;
-        var postInfo = "email=admin&nombre_municipalidad=Mdeo&password=hola";
+        var postInfo = "email=" + email + "&nombre_municipalidad=" + nombre_municipalidad + "&password=" + password;
+        //var postInfo = "email=admin&nombre_municipalidad=Mdeo&password=hola";
         return this.http.post("http://localhost:58326/api/usuarios/loginAdministrador?" + postInfo, {}, options).map(data => data.json());
     }
 
+    public obtenerMunicipalidades() {
+        return this.http.get("http://localhost:58326/api/municipalidades").map(data => data.json());
+    }
 }
