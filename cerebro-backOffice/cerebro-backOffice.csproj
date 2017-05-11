@@ -113,8 +113,10 @@
     <Content Include="Content\add-plus-button.png" />
     <Content Include="Content\cerebro-logo.png" />
     <Content Include="Content\cerebro-text.png" />
+    <Content Include="Content\cerebro.png" />
     <Content Include="Content\Connected_World2.jpg" />
     <Content Include="Content\exit.png" />
+    <Content Include="Content\gplay.png" />
     <Content Include="Content\internetofthings-1200x800.jpg" />
     <Content Include="Content\iStock_87614919_LARGE.jpg" />
     <Content Include="Content\night-8771.jpg" />
