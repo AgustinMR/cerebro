@@ -18,6 +18,8 @@ namespace cerebro
         public ICollection<Agrupacion> AGRUPACIONES { get; set; }
         [DataMember]
         public ICollection<Usuario> USUARIOS { get; set; }
+        [DataMember]
+        public ICollection<Privilegio> PRIVILEGIOS { get; set; }
 
         public Municipalidad(){
         }
