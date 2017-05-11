@@ -17,10 +17,11 @@ namespace cerebro_DataAccessLayer
             {
                 var mongo = new MongoClient();
                 var bd = mongo.GetDatabase("cerebroDB");
-                var filter = Builders<TipoDeFuenteDeDato>.Filter.Eq("nombre", t.nombre) & Builders<TipoDeFuenteDeDato>.Filter.Eq("municipalidad", t.municipalidad);
-                if (filter != null)
-                    return false;
                 var tipos = bd.GetCollection<TipoDeFuenteDeDato>("TipoDeFuenteDeDato");
+                var filter = Builders<TipoDeFuenteDeDato>.Filter.Eq("nombre", t.nombre) & Builders<TipoDeFuenteDeDato>.Filter.Eq("municipalidad", t.municipalidad);
+                Console.WriteLine(filter);
+                if (tipos.Find(filter).FirstOrDefault() != null)
+                    return false;                
                 tipos.InsertOne(t);
                 return true;
             }
