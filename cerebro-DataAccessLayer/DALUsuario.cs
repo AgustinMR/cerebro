@@ -67,7 +67,7 @@ namespace cerebro_DataAccessLayer
             {
                 UsuariosDbContext context = new UsuariosDbContext();
                 Usuario UsuDB = context.Usuarios.Find(usu.email, usu.nombre_municipalidad);
-                if (UsuDB.GetType() == typeof(Visitante))
+                if (UsuDB != null && UsuDB.GetType() == typeof(Visitante))
                     return true;
                 else
                     return false;
@@ -75,7 +75,7 @@ namespace cerebro_DataAccessLayer
             else if (usu.GetType() == typeof(Operador)) {
                 UsuariosDbContext context = new UsuariosDbContext();
                 Usuario UsuDB = context.Usuarios.Find(usu.email, usu.nombre_municipalidad);
-                if (UsuDB.GetType() == typeof(Operador) && ((Operador)UsuDB).password == ((Operador)usu).password)
+                if (UsuDB != null && UsuDB.GetType() == typeof(Operador) && ((Operador)UsuDB).password == ((Operador)usu).password)
                     return true;
                 else
                     return false;
@@ -84,7 +84,7 @@ namespace cerebro_DataAccessLayer
             {
                 UsuariosDbContext context = new UsuariosDbContext();
                 Usuario UsuDB = context.Usuarios.Find(usu.email, usu.nombre_municipalidad);
-                if (UsuDB.GetType() == typeof(Administrador) && ((Administrador)UsuDB).password == ((Administrador)usu).password)
+                if (UsuDB != null && UsuDB.GetType() == typeof(Administrador) && ((Administrador)UsuDB).password == ((Administrador)usu).password)
                     return true;
                 else
                     return false;

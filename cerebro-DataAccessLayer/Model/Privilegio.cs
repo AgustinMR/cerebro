@@ -12,24 +12,19 @@ namespace cerebro_DataAccessLayer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Municipalidad
+    public partial class Privilegio
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Municipalidad()
+        public Privilegio()
         {
-            this.AGRUPACIONES = new HashSet<Agrupacion>();
             this.USUARIOS = new HashSet<Usuario>();
-            this.PRIVILEGIOS = new HashSet<Privilegio>();
         }
     
         public string nombre { get; set; }
-        public string ubicacion { get; set; }
+        public string nombre_municipalidad { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Agrupacion> AGRUPACIONES { get; set; }
+        public virtual Municipalidad MUNICIPALIDADES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> USUARIOS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Privilegio> PRIVILEGIOS { get; set; }
     }
 }

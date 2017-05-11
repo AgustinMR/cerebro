@@ -69,6 +69,7 @@
     <Compile Include="Municipalidad.cs" />
     <Compile Include="Operador.cs" />
     <Compile Include="Parametro.cs" />
+    <Compile Include="Privilegio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistroBD.cs" />
     <Compile Include="TipoDeDato.cs" />

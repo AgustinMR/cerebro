@@ -29,5 +29,6 @@ namespace cerebro_DataAccessLayer.Model
         public virtual DbSet<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }
         public virtual DbSet<Municipalidad> MUNICIPALIDADES { get; set; }
         public virtual DbSet<Usuario> USUARIOS { get; set; }
+        public virtual DbSet<Privilegio> PRIVILEGIOS { get; set; }
     }
 }
