@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="cerebroADOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="cerebroADOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AGRUPACIONES">
           <Key>
             <PropertyRef Name="nombre" />
@@ -43,6 +43,7 @@
           <Property Name="nombre" Type="varchar" MaxLength="30" />
           <Property Name="password" Type="varchar" MaxLength="30" />
           <Property Name="tipo" Type="int" Nullable="false" />
+          <Property Name="habilitado" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK__AGRUPACIO__nombr__286302EC">
           <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
@@ -118,8 +119,7 @@
             <End Role="USUARIOS" EntitySet="USUARIOS" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="cerebroADOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -167,6 +167,7 @@
           <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AGRUPACIONES_USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__2C3393D0" FromRole="USUARIOS" ToRole="AGRUPACIONES_USUARIOS" />
           <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__USUARIOS__nombre__25869641" FromRole="USUARIOS" ToRole="MUNICIPALIDADES" />
+          <Property Name="habilitado" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK__AGRUPACIO__nombr__286302EC">
           <End Role="MUNICIPALIDADES" Type="cerebroADOModel.Municipalidad" Multiplicity="1" />
@@ -245,10 +246,10 @@
         <EntityType Name="Visitante" BaseType="cerebroADOModel.Usuario" >
         </EntityType>
         <EntityType Name="Operador" BaseType="cerebroADOModel.Usuario" >
-          <Property Name="password" Type="String" Nullable="false" />
+          <Property Name="password" Type="String" Unicode="false" FixedLength="false" MaxLength="30" />
         </EntityType>
         <EntityType Name="Administrador" BaseType="cerebroADOModel.Usuario" >
-          <Property Name="password" Type="String" Nullable="false" />
+          <Property Name="password" Type="String" Unicode="false" FixedLength="false" MaxLength="30" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -286,6 +287,7 @@
           <EntitySetMapping Name="USUARIOS">
             <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.Usuario)">
               <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="habilitado" ColumnName="habilitado" />
                 <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
