@@ -17,7 +17,6 @@ export class InicioComponent implements OnInit {
     tipo = false;
     usuario = false;
     estadistica = true;
-    login = false;
 
     showEstadistica() {
         this.dispositivo = false;
@@ -57,15 +56,6 @@ export class InicioComponent implements OnInit {
         this.tipo = false;
         this.usuario = true;
         this.estadistica = false;
-    }
-
-    showLogin() {
-        this.dispositivo = false;
-        this.evento = false;
-        this.tipo = false;
-        this.usuario = false;
-        this.estadistica = false;
-        this.login = true;
     }
 
     constructor(private http: Http) { }
