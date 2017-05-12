@@ -15,15 +15,6 @@
     <Content Include="wwwroot\app\agrupacion\agrupacion.service.ts" />
     <Content Include="wwwroot\app\app.component.ts" />
     <Content Include="wwwroot\app\app.module.ts" />
-    <Content Include="wwwroot\app\chat\agrupacion.component.html">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\app\chat\agrupacion.component.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\app\chat\agrupacion.component.js.map">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="wwwroot\app\chat\chat.service.js" />
     <Content Include="wwwroot\app\chat\chat.service.js.map" />
     <Content Include="wwwroot\app\chat\chat.service.ts" />
@@ -32,21 +23,6 @@
     <Content Include="wwwroot\app\chat\chat.component.js" />
     <Content Include="wwwroot\app\chat\chat.component.js.map" />
     <Content Include="wwwroot\app\chat\chat.component.ts" />
-    <Content Include="wwwroot\app\index\agrupacion.component.html">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\app\index\agrupacion.service.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\app\index\agrupacion.service.ts" />
-    <Content Include="wwwroot\app\index\chat.component.css" />
-    <Content Include="wwwroot\app\index\chat.component.html" />
-    <Content Include="wwwroot\app\index\chat.component.js" />
-    <Content Include="wwwroot\app\index\chat.component.js.map" />
-    <Content Include="wwwroot\app\index\chat.component.ts" />
-    <Content Include="wwwroot\app\index\chat.service.js" />
-    <Content Include="wwwroot\app\index\chat.service.js.map" />
-    <Content Include="wwwroot\app\index\chat.service.ts" />
     <Content Include="wwwroot\app\index\index.component.css" />
     <Content Include="wwwroot\app\index\index.component.html" />
     <Content Include="wwwroot\app\index\index.component.js" />
@@ -77,7 +53,6 @@
     <Content Include="wwwroot\app\inicio\inicio.component.ts" />
     <Content Include="wwwroot\app\main.ts" />
     <Content Include="wwwroot\index.html" />
-    <Content Include="wwwroot\styles.css" />
     <Content Include="wwwroot\systemjs-angular-loader.js" />
     <Content Include="wwwroot\systemjs.config.extras.js" />
     <Content Include="wwwroot\systemjs.config.js" />
