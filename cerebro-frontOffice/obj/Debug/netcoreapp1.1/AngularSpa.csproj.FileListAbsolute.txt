@@ -1,8 +1,0 @@
-C:\Users\Agustin\Downloads\AngularSpa\AngularSpa\bin\Debug\netcoreapp1.1\AngularSpa.deps.json
-C:\Users\Agustin\Downloads\AngularSpa\AngularSpa\bin\Debug\netcoreapp1.1\AngularSpa.runtimeconfig.json
-C:\Users\Agustin\Downloads\AngularSpa\AngularSpa\bin\Debug\netcoreapp1.1\AngularSpa.runtimeconfig.dev.json
-C:\Users\Agustin\Downloads\AngularSpa\AngularSpa\bin\Debug\netcoreapp1.1\AngularSpa.dll
-C:\Users\Agustin\Downloads\AngularSpa\AngularSpa\bin\Debug\netcoreapp1.1\AngularSpa.pdb
-C:\Users\Agustin\Downloads\AngularSpa\AngularSpa\obj\Debug\netcoreapp1.1\AngularSpa.AssemblyInfo.cs
-C:\Users\Agustin\Downloads\AngularSpa\AngularSpa\obj\Debug\netcoreapp1.1\AngularSpa.dll
-C:\Users\Agustin\Downloads\AngularSpa\AngularSpa\obj\Debug\netcoreapp1.1\AngularSpa.pdb
