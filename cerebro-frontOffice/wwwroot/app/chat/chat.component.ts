@@ -4,7 +4,7 @@ import { Http, HttpModule, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    selector: 'cerebro-chat',
+    selector: 'frontOffice-chat',
     templateUrl: 'chat.component.html',
     styleUrls: ['chat.component.css'],
     moduleId: module.id,
@@ -12,11 +12,20 @@ import 'rxjs/add/operator/toPromise';
 })
 export class ChatComponent implements OnInit {
 
-    constructor(private chat: ChatService) {
+    employees: any;
+
+    constructor(private service: ChatService) {
     }
 
     ngOnInit(): void {
         //this.getEmployees();
     }
 
+    //getEmployees() {
+    //    this.employeeService.getEmployees().subscribe(
+    //        (data: Response) => this.employees = data,
+    //        responseError => console.log(responseError),
+    //        () => console.log("Employee Fetching operation completed")
+    //    );
+    //}
 }
