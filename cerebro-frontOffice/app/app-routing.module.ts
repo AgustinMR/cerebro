@@ -17,18 +17,23 @@ import { ReporteService } from './reporte/reporte.service';
 // Visitante
 import { VisitanteComponent } from './visitante/visitante.component';
 import { VisitanteService } from './visitante/visitante.service';
+// Index
+import { IndexComponent } from './index/index.component';
+import { IndexService } from './index/index.service';
 
 const routes: Routes = [
-    { path: 'agrupaciones', component: AgrupacionComponent },
-    { path: 'chats', component: ChatComponent },
-    { path: 'operadores', component: OperadorComponent },
-    { path: 'reportes', component: ReporteComponent },
-    { path: 'visitantes', component: VisitanteComponent },
+    { path: 'agrupacion', component: AgrupacionComponent },
+    { path: 'chat', component: ChatComponent },
+    { path: 'operador', component: OperadorComponent },
+    { path: 'reporte', component: ReporteComponent },
+    { path: 'visitante', component: VisitanteComponent },
+    { path: 'index', component: IndexComponent },
+    { path: '', redirectTo: 'index', pathMatch: 'full' }
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
-    providers: [Location, { provide: LocationStrategy, useClass: HashLocationStrategy }, AgrupacionService, ChatService, OperadorService, ReporteService, VisitanteService]
+    providers: [Location, { provide: LocationStrategy, useClass: HashLocationStrategy }, AgrupacionService, ChatService, OperadorService, ReporteService, VisitanteService, IndexService]
 })
 export class AppRoutingModule { }
