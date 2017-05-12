@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
+    <AssemblyName>cerebro-frontOffice</AssemblyName>
+    <RootNamespace>AngularSpa</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\app\agrupacion.component.js" />
+    <Content Include="wwwroot\app\agrupacion.component.js.map" />
+    <Content Include="wwwroot\app\agrupacion.component.ts" />
+    <Content Include="wwwroot\app\agrupacionComponent.js" />
+    <Content Include="wwwroot\app\agrupacionComponent.js.map" />
+    <Content Include="wwwroot\app\agrupacionComponent.ts" />
+    <Content Include="wwwroot\app\app.component.ts" />
+    <Content Include="wwwroot\app\app.module.ts" />
+    <Content Include="wwwroot\app\app.routing.ts" />
+    <Content Include="wwwroot\app\chat.component.ts" />
+    <Content Include="wwwroot\app\index.component.ts" />
+    <Content Include="wwwroot\app\main.ts" />
+    <Content Include="wwwroot\app\operador.component.ts" />
+    <Content Include="wwwroot\app\reporte.component.ts" />
+    <Content Include="wwwroot\app\visitante.component.ts" />
+    <Content Include="wwwroot\styles.css" />
+    <Content Include="wwwroot\systemjs-angular-loader.js" />
+    <Content Include="wwwroot\systemjs.config.extras.js" />
+    <Content Include="wwwroot\systemjs.config.js" />
+    <Content Include="wwwroot\tsconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>
