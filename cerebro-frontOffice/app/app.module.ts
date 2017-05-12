@@ -1,4 +1,5 @@
 ﻿import { NgModule } from '@angular/core';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -23,6 +24,9 @@ import { ReporteService } from './reporte/reporte.service';
 // Visitante
 import { VisitanteComponent } from './visitante/visitante.component';
 import { VisitanteService } from './visitante/visitante.service';
+// Index
+import { IndexComponent } from './index/index.component';
+import { IndexService } from './index/index.service';
 
 //import { EmployeeService } from './employee/employee.service';
 //import { EmployeeTaskService, ChannelConfig, SignalrWindow } from './employee/employee.task.service';
@@ -31,12 +35,12 @@ import { VisitanteService } from './visitante/visitante.service';
 //channelConfig.hubName = "EmployeeHub";
 
 @NgModule({
-    imports: [BrowserModule, AppRoutingModule, CommonModule, ReactiveFormsModule, FormsModule, HttpModule],
-    declarations: [AppComponent, AgrupacionComponent, ChatComponent, OperadorComponent, ReporteComponent, VisitanteComponent],
+    imports: [BrowserModule, AppRoutingModule, CommonModule, ReactiveFormsModule, FormsModule, HttpModule, InMemoryWebApiModule],
+    declarations: [AppComponent, AgrupacionComponent, ChatComponent, OperadorComponent, ReporteComponent, VisitanteComponent, IndexComponent],
     //providers: [EmployeeService, HttpModule, EmployeeTaskService,
     //    { provide: SignalrWindow, useValue: window },
     //    { provide: 'channel.config', useValue: channelConfig }],
-    providers: [AgrupacionService, ChatService, OperadorService, ReporteService, VisitanteService, HttpModule],
+    providers: [AgrupacionService, ChatService, OperadorService, ReporteService, VisitanteService, IndexService, HttpModule],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

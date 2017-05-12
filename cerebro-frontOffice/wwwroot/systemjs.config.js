@@ -2,6 +2,7 @@
     System.config({
         paths: {
             'npm:': 'node_modules/'
+            //'npm':'wwwroot/node_modules/'
             //'npm':'C:\Program Files\nodejs\node_modules\npm\node_modules'
         },
         map: {

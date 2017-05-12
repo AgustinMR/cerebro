@@ -12,8 +12,6 @@ import 'rxjs/add/operator/toPromise';
 })
 export class AgrupacionComponent implements OnInit {
 
-    employees: any;
-
     constructor(private dispositivos: AgrupacionService) {
     }
 
@@ -21,11 +19,4 @@ export class AgrupacionComponent implements OnInit {
         //this.getEmployees();
     }
 
-    //getEmployees() {
-    //    this.employeeService.getEmployees().subscribe(
-    //        (data: Response) => this.employees = data,
-    //        responseError => console.log(responseError),
-    //        () => console.log("Employee Fetching operation completed")
-    //    );
-    //}
 }

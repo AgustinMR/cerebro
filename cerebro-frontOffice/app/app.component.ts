@@ -2,11 +2,12 @@
 //import { EmployeeTaskService, ConnectionState, ChannelEvent } from "./employee/employee.task.service";
 import { Observable } from "rxjs/Observable";
 import { Http, HttpModule, Response } from '@angular/http';
-import { AgrupacionService } from './agrupacion/agrupacion.service'
-import { ChatService } from './chat/chat.service'
-import { OperadorService } from './operador/operador.service'
-import { ReporteService } from './reporte/reporte.service'
-import { VisitanteService } from './visitante/visitante.service'
+import { AgrupacionService } from './agrupacion/agrupacion.service';
+import { ChatService } from './chat/chat.service';
+import { OperadorService } from './operador/operador.service';
+import { ReporteService } from './reporte/reporte.service';
+import { VisitanteService } from './visitante/visitante.service';
+import { IndexService } from './index/index.service';
 
 @Component({
     selector: 'tsi1-cerebro-gr17',
@@ -14,7 +15,7 @@ import { VisitanteService } from './visitante/visitante.service'
     styleUrls: ['app.component.css'],
     moduleId: module.id,
     //providers: [EmployeeTaskService]
-    providers: [AgrupacionService, ChatService, OperadorService, ReporteService, VisitanteService]
+    providers: [AgrupacionService, ChatService, OperadorService, ReporteService, VisitanteService, IndexService]
 })
 export class AppComponent {
 
