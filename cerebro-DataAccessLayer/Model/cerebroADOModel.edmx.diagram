@@ -12,7 +12,7 @@
         <AssociationConnector Association="cerebroADOModel.FK__AGRUPACIO__nombr__286302EC" ManuallyRouted="false" />
         <AssociationConnector Association="cerebroADOModel.FK__AGRUPACIONES_USU__2B3F6F97" ManuallyRouted="false" />
         <AssociationConnector Association="cerebroADOModel.FK__AGRUPACIONES_USU__2C3393D0" ManuallyRouted="false" />
-        <AssociationConnector Association="cerebroADOModel.FK__USUARIOS__nombre__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="cerebroADOModel.FK__USUARIOS__nombre__25869641" ManuallyRouted="false" ></AssociationConnector>
         <EntityTypeShape EntityType="cerebroADOModel.Visitante" Width="1.5" PointX="0.625" PointY="7.375" />
         <InheritanceConnector EntityType="cerebroADOModel.Visitante" />
         <EntityTypeShape EntityType="cerebroADOModel.Operador" Width="1.5" PointX="3" PointY="7.375" />
@@ -22,6 +22,9 @@
         <InheritanceConnector EntityType="cerebroADOModel.Administrador" />
         <InheritanceConnector EntityType="cerebroADOModel.Visitante" />
         <InheritanceConnector EntityType="cerebroADOModel.Operador" />
+        <EntityTypeShape EntityType="cerebroADOModel.Privilegio" Width="1.5" PointX="7.875" PointY="0.75" />
+        <AssociationConnector Association="cerebroADOModel.FK__PRIVILEGI__nombr__286302EC" />
+        <AssociationConnector Association="cerebroADOModel.PRIVILEGIOS_USUARIOS" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

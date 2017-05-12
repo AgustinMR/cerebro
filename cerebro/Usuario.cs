@@ -20,6 +20,7 @@ namespace cerebro
         public ICollection<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }
         [DataMember]
         public Municipalidad MUNICIPALIDADES { get; set; }
+        public ICollection<Privilegio> PRIVILEGIOS { get; set; }
 
     }
 }

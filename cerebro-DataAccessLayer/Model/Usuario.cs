@@ -18,6 +18,7 @@ namespace cerebro_DataAccessLayer.Model
         public Usuario()
         {
             this.AGRUPACIONES_USUARIOS = new HashSet<Agrupacion_Usuario>();
+            this.PRIVILEGIOS = new HashSet<Privilegio>();
         }
     
         public string email { get; set; }
@@ -27,5 +28,7 @@ namespace cerebro_DataAccessLayer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }
         public virtual Municipalidad MUNICIPALIDADES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Privilegio> PRIVILEGIOS { get; set; }
     }
 }

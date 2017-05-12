@@ -14,6 +14,23 @@ CREATE TABLE USUARIOS (
   FOREIGN KEY (nombre_municipalidad) REFERENCES MUNICIPALIDADES (nombre)
 );
 
+CREATE TABLE PRIVILEGIOS  (
+  nombre varchar(30) NOT NULL,
+  nombre_municipalidad varchar(30) NOT NULL,
+  PRIMARY KEY (nombre, nombre_municipalidad),
+  FOREIGN KEY (nombre_municipalidad) REFERENCES MUNICIPALIDADES (nombre)
+);
+
+CREATE TABLE PRIVILEGIOS_USUARIOS  (
+  nombre_privilegio varchar(30) NOT NULL,
+  nombre_municipalidad_privilegio varchar(30) NOT NULL,
+  usuario_email varchar(30) NOT NULL,
+  nombre_municipalidad_usuario varchar(30) NOT NULL,
+  PRIMARY KEY (nombre_privilegio, nombre_municipalidad_privilegio, usuario_email, nombre_municipalidad_usuario),
+  FOREIGN KEY (nombre_privilegio, nombre_municipalidad_privilegio) REFERENCES PRIVILEGIOS (nombre, nombre_municipalidad),
+  FOREIGN KEY (usuario_email, nombre_municipalidad_usuario) REFERENCES USUARIOS (email, nombre_municipalidad)
+);
+
 CREATE TABLE AGRUPACIONES (
   nombre varchar(30) NOT NULL,
   nombre_municipalidad varchar(30) NOT NULL,
