@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="node_modules\**" />
+    <Content Remove="node_modules\**" />
+    <EmbeddedResource Remove="node_modules\**" />
+    <None Remove="node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\systemjs.config.js" />
     <Content Include="wwwroot\tsconfig.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -32,10 +39,38 @@
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
-    <Folder Include="node_modules\" />
-    <Folder Include="app\" />
+    <Folder Include="wwwroot\app\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="wwwroot\app\agrupacion\agrupacion.component.css" />
+    <None Include="wwwroot\app\agrupacion\agrupacion.component.html" />
+    <None Include="wwwroot\app\agrupacion\agrupacion.component.ts" />
+    <None Include="wwwroot\app\agrupacion\agrupacion.service.ts" />
+    <None Include="wwwroot\app\app-routing.module.ts" />
+    <None Include="wwwroot\app\app.component.css" />
+    <None Include="wwwroot\app\app.component.html" />
+    <None Include="wwwroot\app\app.component.ts" />
+    <None Include="wwwroot\app\app.module.ts" />
+    <None Include="wwwroot\app\chat\chat.component.css" />
+    <None Include="wwwroot\app\chat\chat.component.html" />
+    <None Include="wwwroot\app\chat\chat.component.ts" />
+    <None Include="wwwroot\app\chat\chat.service.ts" />
+    <None Include="wwwroot\app\index\index.component.css" />
+    <None Include="wwwroot\app\index\index.component.html" />
+    <None Include="wwwroot\app\index\index.component.ts" />
+    <None Include="wwwroot\app\index\index.service.ts" />
+    <None Include="wwwroot\app\operador\operador.component.css" />
+    <None Include="wwwroot\app\operador\operador.component.html" />
+    <None Include="wwwroot\app\operador\operador.component.ts" />
+    <None Include="wwwroot\app\operador\operador.service.ts" />
+    <None Include="wwwroot\app\reporte\reporte.component.css" />
+    <None Include="wwwroot\app\reporte\reporte.component.html" />
+    <None Include="wwwroot\app\reporte\reporte.component.ts" />
+    <None Include="wwwroot\app\reporte\reporte.service.ts" />
+    <None Include="wwwroot\app\visitante\visitante.component.css" />
+    <None Include="wwwroot\app\visitante\visitante.component.html" />
+    <None Include="wwwroot\app\visitante\visitante.component.ts" />
+    <None Include="wwwroot\app\visitante\visitante.service.ts" />
     <None Include="wwwroot\main.ts" />
   </ItemGroup>
 
