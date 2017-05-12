@@ -4,7 +4,7 @@ import { Http, HttpModule, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    selector: 'cerebro-agrupacion',
+    selector: 'frontOffice-agrupacion',
     templateUrl: 'agrupacion.component.html',
     styleUrls: ['agrupacion.component.css'],
     moduleId: module.id,
@@ -12,11 +12,12 @@ import 'rxjs/add/operator/toPromise';
 })
 export class AgrupacionComponent implements OnInit {
 
-    constructor(private dispositivos: AgrupacionService) {
+    employees: any;
+
+    constructor(private service: AgrupacionService) {
     }
 
     ngOnInit(): void {
         //this.getEmployees();
     }
-
 }
