@@ -6,53 +6,27 @@
 
   <PropertyGroup>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
+    <AssemblyName>cerebro-frontOffice</AssemblyName>
+    <RootNamespace>AngularSpa</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\app\agrupacion\agrupacion.component.css" />
-    <Content Include="wwwroot\app\agrupacion\agrupacion.component.html" />
-    <Content Include="wwwroot\app\agrupacion\agrupacion.component.ts" />
-    <Content Include="wwwroot\app\agrupacion\agrupacion.service.ts" />
+    <Content Include="wwwroot\app\agrupacion.component.js" />
+    <Content Include="wwwroot\app\agrupacion.component.js.map" />
+    <Content Include="wwwroot\app\agrupacion.component.ts" />
+    <Content Include="wwwroot\app\agrupacionComponent.js" />
+    <Content Include="wwwroot\app\agrupacionComponent.js.map" />
+    <Content Include="wwwroot\app\agrupacionComponent.ts" />
     <Content Include="wwwroot\app\app.component.ts" />
     <Content Include="wwwroot\app\app.module.ts" />
-    <Content Include="wwwroot\app\chat\chat.service.js" />
-    <Content Include="wwwroot\app\chat\chat.service.js.map" />
-    <Content Include="wwwroot\app\chat\chat.service.ts" />
-    <Content Include="wwwroot\app\chat\chat.component.css" />
-    <Content Include="wwwroot\app\chat\chat.component.html" />
-    <Content Include="wwwroot\app\chat\chat.component.js" />
-    <Content Include="wwwroot\app\chat\chat.component.js.map" />
-    <Content Include="wwwroot\app\chat\chat.component.ts" />
-    <Content Include="wwwroot\app\index\index.component.css" />
-    <Content Include="wwwroot\app\index\index.component.html" />
-    <Content Include="wwwroot\app\index\index.component.js" />
-    <Content Include="wwwroot\app\index\index.component.js.map" />
-    <Content Include="wwwroot\app\index\index.component.ts" />
-    <Content Include="wwwroot\app\index\index.service.js" />
-    <Content Include="wwwroot\app\index\index.service.js.map" />
-    <Content Include="wwwroot\app\index\index.service.ts" />
-    <Content Include="wwwroot\app\inicio\inicio.component.css" />
-    <Content Include="wwwroot\app\inicio\inicio.component.html">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\app\inicio\agrupacion.component.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\app\inicio\agrupacion.component.js.map">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\app\inicio\agrupacion.component.ts" />
-    <Content Include="wwwroot\app\inicio\agrupacion.service.js.map">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\app\inicio\inicio.service.js" />
-    <Content Include="wwwroot\app\inicio\inicio.service.js.map" />
-    <Content Include="wwwroot\app\inicio\inicio.service.ts" />
-    <Content Include="wwwroot\app\inicio\inicio.component.js" />
-    <Content Include="wwwroot\app\inicio\inicio.component.js.map" />
-    <Content Include="wwwroot\app\inicio\inicio.component.ts" />
+    <Content Include="wwwroot\app\app.routing.ts" />
+    <Content Include="wwwroot\app\chat.component.ts" />
+    <Content Include="wwwroot\app\index.component.ts" />
     <Content Include="wwwroot\app\main.ts" />
-    <Content Include="wwwroot\index.html" />
+    <Content Include="wwwroot\app\operador.component.ts" />
+    <Content Include="wwwroot\app\reporte.component.ts" />
+    <Content Include="wwwroot\app\visitante.component.ts" />
+    <Content Include="wwwroot\styles.css" />
     <Content Include="wwwroot\systemjs-angular-loader.js" />
     <Content Include="wwwroot\systemjs.config.extras.js" />
     <Content Include="wwwroot\systemjs.config.js" />
@@ -64,8 +38,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
