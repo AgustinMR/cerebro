@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 body, html {
 	font-size: 16px;
     height: 100%;
@@ -7,7 +7,7 @@ body, html {
 }
 @font-face{
 	font-family: 'Roboto';
-	src: url('Roboto-Regular.ttf');
+	src: url(Roboto-Regular.ttf);
 }
 body, h1, h2, h3, h4, h5, h6, p {
 	font-family: Roboto;
@@ -19,11 +19,11 @@ body, h1, h2, h3, h4, h5, h6, p {
     background-size: cover;
 }
 .bgimg-1 {
-    background-image: url(../img/ub1604v2.jpg);
+    background-image: url(../images/ub1604v2.jpg);
     min-height: 100%;
 }
 .bgimg-2 {
-    background-image: url(../img/arches.png);
+    background-image: url(../images/arches.png);
     min-height: 500px;
 }
 .bgimg-3 {
@@ -31,11 +31,11 @@ body, h1, h2, h3, h4, h5, h6, p {
     min-height: 400px;
 }
 .bgimg-4 {
-    background-image: url(../img/gplay.png);
+    background-image: url(../images/gplay.png);
     min-height: 800px;
 }
 .bgimg-5 {
-    background-image: url(../img/gplay.png);
+    background-image: url(../images/gplay.png);
     min-height: 130px;
 }
 .w3-wide {letter-spacing: 10px;}
@@ -53,16 +53,16 @@ body, h1, h2, h3, h4, h5, h6, p {
 	background-size: contain
 }
 .home1 {
-	background-image: url(../img/roaming-end.svg);
+	background-image: url(../images/roaming-end.svg);
 }
 .home2 {
-	background-image: url(../img/connect.svg);
+	background-image: url(../images/connect.svg);
 }
 .home3 {
-	background-image: url(../img/automatic.svg);
+	background-image: url(../images/automatic.svg);
 }
 .home4 {
-	background-image: url(../img/control.svg);
+	background-image: url(../images/control.svg);
 }
 .w3-cerebro-red{color:#F5F5F5;background-color:#a84e3d!important}
 .w3-cerebro-blue{color:#F5F5F5!important;background-color:#40485a!important}
