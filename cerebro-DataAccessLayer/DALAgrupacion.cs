@@ -21,11 +21,15 @@ namespace cerebro_DataAccessLayer
         {
             if (AUsu != null)
             {
-                AgrupacionesDbContext context = new AgrupacionesDbContext();
                 Agrupacion a = new Agrupacion(AUsu.nombre_agrupacion, AUsu.nombre_municipalidad_agrupacion);
+
+                AgrupacionesDbContext context = new AgrupacionesDbContext();
                 context.Agrupaciones.Add(a);
-                context.Agrupaciones_Usuarios.Add(AUsu);
                 context.SaveChanges();
+
+                AgrupacionesDbContext context2 = new AgrupacionesDbContext();
+                context2.Agrupaciones_Usuarios.Add(AUsu);
+                context2.SaveChanges();
                 return true;
             }
             return false;

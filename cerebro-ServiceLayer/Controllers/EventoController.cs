@@ -19,7 +19,12 @@ namespace cerebro_ServiceLayer.Controllers
         [Route("addEvento")]
         public bool addEvento([FromUri]Evento e)
         {
-            return new BLEvento().addEvento(e);
+            if (e != null)
+            {
+                BLEvento IBLEve = new BLEvento();
+                return IBLEve.addEvento(e);
+            }
+            return false;
         }
 
         [HttpPost]
