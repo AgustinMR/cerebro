@@ -24,6 +24,11 @@ namespace cerebro_BusinessLogicLayer
             return dal.addEvento(e);
         }
 
+        public bool addUmbral(Umbral u)
+        {
+            return dal.addUmbral(u);
+        }
+
         public bool deleteEvento(ObjectId id)
         {
             return dal.deleteEvento(id);

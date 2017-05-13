@@ -14,12 +14,12 @@ namespace cerebro
     {
         [BsonId]
         [DataMember]
-        public ObjectId Id;
+        public ObjectId Id { get; set; }
         [BsonElement]
         [DataMember]
-        public string municipalidad;
+        public string municipalidad { get; set; }
         [BsonElement]
         [DataMember]
-        public string nombre;
+        public string nombre { get; set; }
     }
 }

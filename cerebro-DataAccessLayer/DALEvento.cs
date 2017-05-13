@@ -24,6 +24,19 @@ namespace cerebro_DataAccessLayer
             return false;
         }
 
+        public bool addUmbral(Umbral u)
+        {
+            if (u != null)
+            {
+                var mongo = new MongoClient();
+                var bd = mongo.GetDatabase("cerebroDB");
+                var umbrales = bd.GetCollection<Umbral>("Umbral");
+                umbrales.InsertOne(u);
+                return true;
+            }
+            return false;
+        }
+
         public bool deleteEvento(ObjectId id)
         {
             var mongo = new MongoClient();
