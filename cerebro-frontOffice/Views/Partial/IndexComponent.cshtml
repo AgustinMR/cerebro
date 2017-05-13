@@ -1,8 +1,6 @@
 ﻿﻿@{
     Layout = null;
 }
-<link href="~/css/w3.css" rel="stylesheet" />
-<link href="~/css/site.css" rel="stylesheet" />
 <div class="w3-top">
     <div class="w3-bar" id="nav">
         <div class="w3-content">
@@ -45,7 +43,7 @@
                     <input type="password" name="pass" class="w3-input w3-padding w3-border w3-round w3-hover-border-cerebro-red w3-margin-bottom" placeholder="Ingrese su contrase&ntilde;a"><hr>
                     <button class="w3-button w3-input w3-border w3-border-cerebro-red w3-round w3-text-cerebro-red w3-margin-bottom w3-hover-cerebro-red">Registrarse en Cerebro</button>
                     <button class="w3-button w3-input w3-border w3-border-cerebro-red w3-round w3-text-cerebro-red w3-margin-bottom w3-hover-cerebro-red" routerLink="/chat">Registrarse en Cerebro</button>
-                    <button class="w3-button w3-input w3-border w3-border-facebook w3-round w3-text-facebook w3-hover-facebook"><img src="~/images/facebook1.png" class="w3-left w3-centered" style="height: 27px">Registrarse con Facebook</button>
+                    <button onclick="registrarFacebook()" class="w3-button w3-input w3-border w3-border-facebook w3-round w3-text-facebook w3-hover-facebook"><img src="~/images/facebook1.png" class="w3-left w3-centered" style="height: 27px">Registrarse con Facebook</button>
                     <button class="w3-button w3-input w3-margin-top w3-margin-bottom w3-border w3-round w3-border-twitter w3-text-twitter w3-hover-twitter w3-centered"><img src="~/images/twitter1.png" class="w3-left" style="height: 27px">Registrarse con Twitter</button>
                 </div>
             </div>
@@ -135,9 +133,3 @@
     <img src="~/images/cerebro-logo.png" class="w3-image w3-padding w3-display-middle" style="height: 80px">
     <h4 class="w3-display-middle" style="margin-top: 80px">&copy; 2017 - UrbeInteligentzia<br><strong>TSI1 - Grupo 17</strong></h4>
 </footer>
-<script>
-    $(document).ready(function () {
-        "use strict";
-        blurBackground();
-    });
-</script>
