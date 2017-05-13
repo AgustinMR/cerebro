@@ -10,16 +10,23 @@ using System.Threading.Tasks;
 namespace cerebro
 {
     [DataContract]
-    public class Evento
+    public class Umbral
     {
         [BsonId]
         [DataMember]
         public ObjectId Id { get; set; }
         [BsonElement]
         [DataMember]
-        public string municipalidad { get; set; }
+        public string nombreEvento { get; set; }
         [BsonElement]
         [DataMember]
-        public string nombre { get; set; }
+        public string nombreMunicipalidadEvento { get; set; }
+        [BsonElement]
+        [DataMember]
+        public ObjectId IdFuenteDeDato { get; set; }
+        [BsonElement]
+        [DataMember]
+        public string valorLimite { get; set; }
+
     }
 }

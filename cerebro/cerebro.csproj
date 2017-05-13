@@ -74,6 +74,7 @@
     <Compile Include="RegistroBD.cs" />
     <Compile Include="TipoDeDato.cs" />
     <Compile Include="TipoDeFuenteDeDato.cs" />
+    <Compile Include="Umbral.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Visitante.cs" />
   </ItemGroup>
