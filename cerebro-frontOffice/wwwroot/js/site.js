@@ -42,3 +42,6 @@ window.onscroll = function () {
     "use strict";
     addNavbarTop();
 };
+
+
+blurBackground();

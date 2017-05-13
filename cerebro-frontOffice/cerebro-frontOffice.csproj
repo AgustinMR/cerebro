@@ -14,9 +14,6 @@
     <Content Include="wwwroot\app\agrupacion.component.js" />
     <Content Include="wwwroot\app\agrupacion.component.js.map" />
     <Content Include="wwwroot\app\agrupacion.component.ts" />
-    <Content Include="wwwroot\app\agrupacionComponent.js" />
-    <Content Include="wwwroot\app\agrupacionComponent.js.map" />
-    <Content Include="wwwroot\app\agrupacionComponent.ts" />
     <Content Include="wwwroot\app\app.component.ts" />
     <Content Include="wwwroot\app\app.module.ts" />
     <Content Include="wwwroot\app\app.routing.ts" />
@@ -26,7 +23,6 @@
     <Content Include="wwwroot\app\operador.component.ts" />
     <Content Include="wwwroot\app\reporte.component.ts" />
     <Content Include="wwwroot\app\visitante.component.ts" />
-    <Content Include="wwwroot\styles.css" />
     <Content Include="wwwroot\systemjs-angular-loader.js" />
     <Content Include="wwwroot\systemjs.config.extras.js" />
     <Content Include="wwwroot\systemjs.config.js" />
