@@ -14,11 +14,14 @@
     <Content Include="wwwroot\app\agrupacion.component.js" />
     <Content Include="wwwroot\app\agrupacion.component.js.map" />
     <Content Include="wwwroot\app\agrupacion.component.ts" />
+    <Content Include="wwwroot\app\agrupacion.service.ts" />
     <Content Include="wwwroot\app\app.component.ts" />
     <Content Include="wwwroot\app\app.module.ts" />
     <Content Include="wwwroot\app\app.routing.ts" />
     <Content Include="wwwroot\app\chat.component.ts" />
+    <Content Include="wwwroot\app\chat.service.ts" />
     <Content Include="wwwroot\app\index.component.ts" />
+    <Content Include="wwwroot\app\index.service.ts" />
     <Content Include="wwwroot\app\main.ts" />
     <Content Include="wwwroot\app\operador.component.ts" />
     <Content Include="wwwroot\app\reporte.component.ts" />
