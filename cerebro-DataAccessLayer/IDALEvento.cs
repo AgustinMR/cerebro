@@ -11,6 +11,7 @@ namespace cerebro_DataAccessLayer
     public interface IDALEvento
     {
         bool addEvento(Evento e);
+        bool addUmbral(Umbral u);
         bool updateEvento(Evento e);
         bool deleteEvento(ObjectId id);
         Evento getEvento(ObjectId id);

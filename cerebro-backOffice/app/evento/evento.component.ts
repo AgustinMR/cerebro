@@ -12,7 +12,8 @@ import 'rxjs/add/operator/toPromise';
 })
 export class EventoComponent implements OnInit {
 
-    employees: any;
+    eventoAgregado: any;
+    umbralAgregado: any;
 
     constructor(private eventos: EventoService) {
     }
@@ -21,11 +22,18 @@ export class EventoComponent implements OnInit {
         //this.getEmployees();
     }
     
-    //getEmployees() {
-    //    this.employeeService.getEmployees().subscribe(
-    //        (data: Response) => this.employees = data,
-    //        responseError => console.log(responseError),
-    //        () => console.log("Employee Fetching operation completed")
-    //    );
-    //}
+    addEvento() {
+        this.eventos.addEvento("vientos fuertes","Mdeo").subscribe(
+            (data: Response) => this.eventoAgregado = data,
+            responseError => console.log(responseError),
+            () => {
+                console.log(this.eventoAgregado);
+                this.eventos.addUmbral("vientos fuertes", "Mdeo", "59174a23277b658f30a00bc5", "120").subscribe(
+                    (data: Response) => this.umbralAgregado = data,
+                    responseError => console.log(responseError),
+                    () => console.log("ok " + this.umbralAgregado)
+                );
+            }
+        );
+    }
 }

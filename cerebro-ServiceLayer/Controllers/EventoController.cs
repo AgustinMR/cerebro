@@ -16,10 +16,17 @@ namespace cerebro_ServiceLayer.Controllers
     public class EventoController : ApiController
     {
         [HttpPost]
-        [Route("")]
+        [Route("addEvento")]
         public bool addEvento([FromUri]Evento e)
         {
             return new BLEvento().addEvento(e);
+        }
+
+        [HttpPost]
+        [Route("addUmbral")]
+        public bool addUmbral([FromUri]Umbral u)
+        {
+            return new BLEvento().addUmbral(u);
         }
 
         [HttpDelete]

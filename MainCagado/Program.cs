@@ -1,6 +1,8 @@
 ﻿using cerebro;
 using cerebro_DataAccessLayer;
 using System;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MainCagado
 {
@@ -9,27 +11,25 @@ namespace MainCagado
         static void Main(string[] args)
         {
 
-            Municipalidad muni = new Municipalidad("Mdeo", "ni idea...");
-            Municipalidad muni2 = new Municipalidad("Florida", "en una galaxia muy muy lejana");
-            DALMunicipalidad dalMuni = new DALMunicipalidad();
-            dalMuni.agregarMunicipalidad(muni);
-            dalMuni.agregarMunicipalidad(muni2);
+            //Municipalidad muni = new Municipalidad("Mdeo", "ni idea...");
+            //Municipalidad muni2 = new Municipalidad("Florida", "en una galaxia muy muy lejana");
+            //DALMunicipalidad dalMuni = new DALMunicipalidad();
+            //dalMuni.agregarMunicipalidad(muni);
+            //dalMuni.agregarMunicipalidad(muni2);
 
-            Visitante vis = new Visitante("gmail","Mdeo",null);
-            Visitante vis2 = new Visitante("hotmail", "Mdeo", null);
-            Visitante vis3 = new Visitante("email", "Mdeo", null);
-            Administrador admin = new Administrador("admin", "Mdeo", null, "hola");
-            Operador vis4 = new Operador("email", "Florida", "Agustin","hola");
-            DALUsuario dal = new DALUsuario();
+            //Visitante vis = new Visitante("gmail","Mdeo",null);
+            //Visitante vis2 = new Visitante("hotmail", "Mdeo", null);
+            //Visitante vis3 = new Visitante("email", "Mdeo", null);
+            //Administrador admin = new Administrador("admin", "Mdeo", null, "hola");
+            //Operador vis4 = new Operador("email", "Florida", "Agustin","hola");
+            //DALUsuario dal = new DALUsuario();
 
-            dal.agregarUsuario(vis);
-            dal.agregarUsuario(vis2);
-            dal.agregarUsuario(vis3);
-            dal.agregarUsuario(vis4);
-            dal.agregarUsuario(admin);
+            //dal.agregarUsuario(vis);
+            //dal.agregarUsuario(vis2);
+            //dal.agregarUsuario(vis3);
+            //dal.agregarUsuario(vis4);
+            //dal.agregarUsuario(admin);
 
-            //vis3 = new Visitante("email", "Mdeo", "Agustin");
-            //dal.borrarUsuario(vis3);
 
             /*Agrupacion_Usuario agru = new Agrupacion_Usuario("TSI.Net", "Mdeo", "hotmail", "Mdeo", false);
             Agrupacion_Usuario agruVis = new Agrupacion_Usuario("TSI.Net", "Mdeo", "email", "Mdeo", false);
@@ -43,6 +43,19 @@ namespace MainCagado
             Agrupacion ag = new Agrupacion("TSI.2", "Mdeo");
             dalAgru.borrarAgrupacion(ag);
             */
+
+            FuenteDeDato viento = new FuenteDeDato();
+            viento.municipalidad = "Mdeo";
+            viento.ubicacion = "rambla";
+            viento.direccionIP = "127.0.0.1";
+            viento.tipo = new ObjectId("59174810277b664fdc7f2cf8");
+            DALFuenteDeDato dalFuente = new DALFuenteDeDato();
+            dalFuente.addFuenteDeDato(viento);
+            
+            
+            //Console.ReadLine();
+
+
         }
     }
 }
