@@ -23,6 +23,6 @@ export class AgrupacionService {
     public EliminarAgrupacion(Nombre: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post("http://localhost:58326/api/agrupaciones/nueva?" + "nombre_agrupacion=" + Nombre, {}, options).map(response => { });
+        return this.http.post("http://localhost:58326/api/agrupaciones/nueva?" + "nombre_agrupacion=" + Nombre + "&", {}, options).map(response => { });
     }
 }

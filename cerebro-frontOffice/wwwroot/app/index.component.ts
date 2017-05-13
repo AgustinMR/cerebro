@@ -17,5 +17,4 @@ export class IndexComponent implements OnInit{
         alert();
     }
 
-    
 }
