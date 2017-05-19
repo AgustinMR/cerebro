@@ -2,6 +2,7 @@
 *.suo
 .vs/*
 cerebro-backOffice/node_modules
+cerebro-backOffice/obj
 cerebro-frontOffice/node_modules
 packages/Npm.3.5.2
 packages/NoGit.0.1.0
