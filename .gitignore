@@ -4,6 +4,7 @@
 cerebro-backOffice/node_modules
 cerebro-backOffice/obj
 cerebro-frontOffice/node_modules
+cerebro-frontOffice/obj
 packages/Npm.3.5.2
 packages/NoGit.0.1.0
 cerebro-ServiceLayer/obj/Debug/CoreCompileInputs.cache
