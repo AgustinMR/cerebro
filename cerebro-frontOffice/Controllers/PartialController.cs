@@ -18,7 +18,7 @@ namespace AngularSpa.Controllers
 
         public IActionResult ReporteComponent() => PartialView();
 
-        public IActionResult VisitanteComponent() => PartialView();
+        public IActionResult InicioComponent() => PartialView();
 
         public IActionResult IndexComponent() => PartialView();
     }

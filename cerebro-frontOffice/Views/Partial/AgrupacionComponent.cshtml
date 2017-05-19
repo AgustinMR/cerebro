@@ -1,3 +1,78 @@
-﻿<div>
-    <button class="w3-button w3-input w3-border w3-border-cerebro-red w3-round w3-text-cerebro-red w3-margin-bottom w3-hover-cerebro-red" (click)="addAgrupacion1()">addAgrupacion</button>
+﻿<div class="w3-top">
+    <div class="w3-bar" id="nav">
+        <div class="w3-content">
+            <a class="w3-bar-item w3-button w3-cerebro-red w3-hover-cerebro-red w3-hover-shadow w3-text-white w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()"><strong>&#9776;</strong></a>
+            <img src="img/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
+            <div class="w3-display-middle">
+                <a href="#intro" class="w3-bar-item w3-button w3-padding w3-hover-white w3-padding-12 w3-hover-opacity w3-text-white w3-hide-small">INTRO</a>
+                <a href="#" class="w3-bar-item w3-button w3-padding w3-hover-light-grey w3-padding-12 w3-hover-opacity w3-text-white w3-hide-small">OFERTAS</a>
+                <a href="#" class="w3-bar-item w3-button w3-padding w3-hover-light-grey w3-hover-opacity w3-padding-12 w3-text-white w3-hide-small">CONTACTO</a>
+            </div>
+            <a href="#" class="w3-bar-item w3-right"><img src="img/exit.png"></a>
+        </div>
+    </div>
+    <div id="navMobile" class="w3-bar-block w3-cerebro-blue w3-hide w3-hide-large w3-hide-medium w3-card-4" style="z-index: 999">
+        <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
+        <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">PORTFOLIO</a>
+        <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
+        <a href="#" class="w3-bar-item w3-button">SEARCH</a>
+    </div>
 </div>
+<div class="w3-cerebro-blue w3-card-4 w3-animate-opacity w3-display-container">
+    <div class="bgimg-5" id="backgr"></div>
+</div>
+<div class="w3-sidebar w3-bar-block w3-card-2 w3-light-grey w3-animate-left" style="width:200px;" id="sidebar">
+    <button class="w3-button w3-light-grey w3-large w3-hover-light-grey w3-right w3-hover-text-cerebro-red" onclick="toggleSidebar()">&#9776;</button>
+    <a href="#" class="w3-bar-item w3-button">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button">Link 3</a>
+</div>
+<div class="w3-main" style="margin-left:200px" id="main">
+    <div class="w3-row w3-light-grey w3-bar">
+        <button class="w3-button w3-bar-item w3-left w3-light-grey w3-large w3-hover-light-grey w3-hover-text-cerebro-red" onclick="toggleSidebar()" style="display: none" id="openNav">&#9776;</button>
+        <a href="#" class="w3-bar-item w3-button">Agrupaciones</a>
+    </div>
+    <div class="w3-container">
+        <div class="w3-content">
+            <div class="w3-padding w3-padding-24">
+                <div class="w3-panel bgimg-6 w3-round w3-card w3-display-container">
+                    <div class="w3-row w3-padding w3-padding-16" style="height: 570px; max-height: 580px">
+                        <div class="w3-row">
+                            <div class="w3-third w3-white w3-round w3-card">
+                                <div class="w3-row w3-small w3-margin-left"><span class="w3-text-cerebro-red">Agustin Maidana</span><span class="w3-right w3-margin-right w3-text-grey">15:55</span></div>
+                                <div class="w3-row w3-text-dark-gray w3-margin-left w3-margin-right" style="margin-bottom: 3px">f</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w3-row w3-padding w3-margin-bottom">
+                        <div class="ui icon fluid input w3-card">
+                            <input placeholder="Ingrese aqu&iacute; un mensaje" type="text">
+                            <i class="inverted circular chevron right link icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleSidebar() {
+        if (document.getElementById("sidebar").style.display === "block") {
+            document.getElementById("sidebar").style.display = "none";
+            document.getElementById("main").style.marginLeft = "0px";
+            document.getElementById("openNav").style.display = "block";
+        }
+        else {
+            document.getElementById("sidebar").style.display = "block";
+            document.getElementById("main").style.marginLeft = "200px";
+            document.getElementById("openNav").style.display = "none";
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        "use strict";
+        blurBackground();
+    });
+</script>
