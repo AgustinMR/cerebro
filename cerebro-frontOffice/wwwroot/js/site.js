@@ -42,7 +42,18 @@ window.onscroll = function () {
     "use strict";
     addNavbarTop();
 };
-
+function toggleSidebar() {
+    if (document.getElementById("sidebar").style.display === "block") {
+        document.getElementById("sidebar").style.display = "none";
+        document.getElementById("main").style.marginLeft = "0px";
+        document.getElementById("openNav").style.display = "block";
+    }
+    else {
+        document.getElementById("sidebar").style.display = "block";
+        document.getElementById("main").style.marginLeft = "200px";
+        document.getElementById("openNav").style.display = "none";
+    }
+}
 
 (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
