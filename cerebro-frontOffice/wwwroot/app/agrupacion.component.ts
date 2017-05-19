@@ -90,11 +90,10 @@ export class AgrupacionComponent {
         //this.channelService.sub(this.agrupacion).map(response => {
         this.channelService.sub("Mdeo").map(response => {
             if (response.name === "mensaje.nuevo") {
-                alert(response.json);
+                var x = JSON.parse(response.json);
                 var ele1 = document.createElement("div");
                 ele1.className = 'w3-row';
                 ele1.setAttribute("style", "margin-bottom: 7px");
-                document.getElementById("chat").appendChild(ele1);
                 var ele2 = document.createElement("div");
                 ele2.className = 'w3-third w3-white w3-round w3-card';
                 ele1.appendChild(ele2);
@@ -102,17 +101,17 @@ export class AgrupacionComponent {
                 ele3.className = 'w3-row w3-small w3-margin-left';
                 var span1 = document.createElement("span");
                 span1.className = "w3-text-cerebro-red";
-                span1.innerHTML = response.json["autor"];
+                span1.innerHTML = x.autor;
                 ele3.appendChild(span1);
                 var span2 = document.createElement("span");
                 span2.className = "w3-right w3-margin-right w3-text-grey";
-                span2.innerHTML = response.datetime.getMinutes() + ":" + response.datetime.getSeconds();
+                span2.innerHTML = response.datetime.toString();
                 ele3.appendChild(span2);
                 ele2.appendChild(ele3);
                 var ele4 = document.createElement("div");
                 ele4.style.marginBottom = '3px';
                 ele4.className = 'w3-row w3-text-dark-gray w3-margin-left w3-margin-right';
-                ele4.textContent = response.json["mensaje"];
+                ele4.textContent = x.mensaje;
                 ele2.appendChild(ele4);
                 document.getElementById("chat").appendChild(ele1);
             }
