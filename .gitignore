@@ -3,8 +3,10 @@
 .vs/*
 cerebro-backOffice/node_modules
 cerebro-backOffice/obj
+cerebro-backOffice/bin
 cerebro-frontOffice/node_modules
 cerebro-frontOffice/obj
+cerebro-frontOffice/bin
 packages/Npm.3.5.2
 packages/NoGit.0.1.0
 cerebro-ServiceLayer/obj/Debug/CoreCompileInputs.cache
