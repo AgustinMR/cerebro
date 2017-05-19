@@ -3,6 +3,7 @@ using System.Web.Http;
 
 namespace cerebro_SignalrServer
 {
+    [RoutePrefix("tasks/chats")]
     public class ChatSignalrController : ApiController
     {
 
