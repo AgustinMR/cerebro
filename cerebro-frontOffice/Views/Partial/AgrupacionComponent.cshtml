@@ -46,7 +46,7 @@
                     </div>
                     <div class="w3-row w3-padding w3-margin-bottom">
                         <div class="ui icon fluid input w3-card">
-                            <input placeholder="Ingrese aqu&iacute; un mensaje" type="text">
+                            <input placeholder="Ingrese aqu&iacute; un mensaje" #box (keyup.enter)="enviarMensaje(box.value)" type="text">
                             <i class="inverted circular chevron right link icon"></i>
                         </div>
                     </div>
