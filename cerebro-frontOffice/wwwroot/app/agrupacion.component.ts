@@ -54,7 +54,8 @@ export class AgrupacionComponent {
 
     suscribirseAgrupacion() {
         this.channelService.start();
-        this.channelService.sub(this.agrupacion).map(response => {
+        this.channelService.sub("Mdeo").map(response => {
+        //this.channelService.sub(this.agrupacion).map(response => {
             if (response.name === "mensaje.nuevo") {
                 this.showNotification();
             }
@@ -64,10 +65,34 @@ export class AgrupacionComponent {
     ngOnInit() {
         // Start the connection up!
         //
+
+        ////////////////////////////////////////////////////////////////////////////////////#
+        var ele1 = document.createElement("div");
+        ele1.className = 'w3-row';
+        ele1.setAttribute("style", "margin-bottom: 7px");
+        document.getElementById("chat").appendChild(ele1);
+
+        var ele2 = document.createElement("div");
+        ele2.className = 'w3-third w3-white w3-round w3-card';
+        ele1.appendChild(ele2);
+
+        var ele3 = document.createElement("div");
+        ele3.className = 'w3-row w3-small w3-margin-left';
+        ele3.innerHTML = '<span class="w3-text-cerebro-red">Bruno Carballido</span><span class="w3-right w3-margin-right w3-text-grey">16:00</span>';
+        ele2.appendChild(ele3);
+
+        var ele4 = document.createElement("div");
+        ele4.style.marginBottom = '3px';
+        ele4.className = 'w3-row w3-text-dark-gray w3-margin-left w3-margin-right';
+        ele4.textContent = 'Hello world.';
+        ele2.appendChild(ele4);
+        
+        ////////////////////////////////////////////////////////////////////////////////////#
         console.log("Starting the channel service");
 
         this.channelService.start();
-        this.channelService.sub(this.agrupacion).map(response => {
+        //this.channelService.sub(this.agrupacion).map(response => {
+        this.channelService.sub("Mdeo").map(response => {
             if (response.name === "mensaje.nuevo") {
                 this.showNotification();
             }
