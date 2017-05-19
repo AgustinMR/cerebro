@@ -1,0 +1,9 @@
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\bin\Release\netcoreapp1.1\cerebro-frontOffice.deps.json
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\bin\Release\netcoreapp1.1\cerebro-frontOffice.runtimeconfig.json
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\bin\Release\netcoreapp1.1\cerebro-frontOffice.runtimeconfig.dev.json
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\bin\Release\netcoreapp1.1\cerebro-frontOffice.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\bin\Release\netcoreapp1.1\cerebro-frontOffice.pdb
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.csprojResolveAssemblyReference.cache
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.AssemblyInfo.cs
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.pdb

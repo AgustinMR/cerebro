@@ -22,8 +22,10 @@
     <Content Include="wwwroot\app\chat.service.ts" />
     <Content Include="wwwroot\app\index.component.ts" />
     <Content Include="wwwroot\app\index.service.ts" />
+    <Content Include="wwwroot\app\inicio.component.js" />
+    <Content Include="wwwroot\app\inicio.component.js.map" />
+    <Content Include="wwwroot\app\inicio.component.ts" />
     <Content Include="wwwroot\app\main.ts" />
-    <Content Include="wwwroot\app\operador.component.ts" />
     <Content Include="wwwroot\app\reporte.component.ts" />
     <Content Include="wwwroot\app\visitante.component.ts" />
     <Content Include="wwwroot\systemjs-angular-loader.js" />
