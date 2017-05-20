@@ -39,6 +39,8 @@
         <script src="/node_modules/signalr/jquery.signalr.js"></script>
         <script src="~/systemjs.config.js"></script>
         <script>
+            FB.XFBML.parse(document.getElementById('fbElement'));
+            FB.XFBML.parse();
             System.import('app').catch(function (err) { console.error(err); });
         </script>
     </environment>

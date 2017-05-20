@@ -14,12 +14,9 @@ namespace AngularSpa.Controllers
 
         public IActionResult ChatComponent() => PartialView();
 
-        public IActionResult OperadorComponent() => PartialView();
-
         public IActionResult ReporteComponent() => PartialView();
 
         public IActionResult InicioComponent() => PartialView();
 
-        public IActionResult IndexComponent() => PartialView();
     }
 }

@@ -2,13 +2,11 @@
 
 import { AgrupacionComponent } from './agrupacion.component';
 import { ChatComponent } from './chat.component';
-import { IndexComponent } from './index.component';
 import { ReporteComponent } from './reporte.component';
 import { InicioComponent } from './inicio.component';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: IndexComponent, data: { title: 'Index' } },
+    //{ path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'agrupacion', component: AgrupacionComponent, data: { title: 'Agrupacion' } },
     { path: 'chat', component: ChatComponent, data: { title: 'Chat' } },
     { path: 'reporte', component: ReporteComponent, data: { title: 'Reporte' } },
@@ -17,4 +15,4 @@ const appRoutes: Routes = [
 
 export const routing = RouterModule.forRoot(appRoutes);
 
-export const routedComponents = [AgrupacionComponent, IndexComponent, ChatComponent, ReporteComponent, InicioComponent];
+export const routedComponents = [AgrupacionComponent, ChatComponent, ReporteComponent, InicioComponent];
