@@ -36,17 +36,11 @@
         <div class="w3-content">
             <div class="w3-padding w3-padding-24">
                 <div class="w3-panel bgimg-6 w3-round w3-card w3-display-container">
-                    <div id="chat" class="w3-row w3-padding w3-padding-16" style="height: 570px; max-height: 580px">
-                        <div class="w3-row" style="margin-bottom: 7px">
-                            <div class="w3-third w3-white w3-round w3-card">
-                                <div class="w3-row w3-small w3-margin-left"><span class="w3-text-cerebro-red">Agustin Maidana</span><span class="w3-right w3-margin-right w3-text-grey">15:55</span></div>
-                                <div class="w3-row w3-text-dark-gray w3-margin-left w3-margin-right" style="margin-bottom: 3px">f</div>
-                            </div>
-                        </div>
+                    <div id="chat" class="w3-row w3-padding w3-padding-16" style="height: 570px; max-height: 580px; overflow-y: auto">
                     </div>
                     <div class="w3-row w3-padding w3-margin-bottom">
                         <div class="ui icon fluid input w3-card">
-                            <input placeholder="Ingrese aqu&iacute; un mensaje" #box (keyup.enter)="enviarMensaje(box.value)" type="text">
+                            <input id="mensaje" placeholder="Ingrese aqu&iacute; un mensaje" #box (keyup.enter)="enviarMensaje(box.value)" type="text">
                             <i class="inverted circular chevron right link icon"></i>
                         </div>
                     </div>
