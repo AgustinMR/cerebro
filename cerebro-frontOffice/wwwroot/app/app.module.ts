@@ -11,7 +11,6 @@ import "rxjs/add/operator/map";
 
 import { AgrupacionService } from './agrupacion.service';
 import { ChatService, ChannelConfig, SignalrWindow } from './chat.service';
-import { IndexService } from './index.service';
 
 let channelConfig = new ChannelConfig();
 channelConfig.url = "http://localhost:9123/signalr";
@@ -22,7 +21,7 @@ channelConfig.hubName = "ChatSignalrHub";
 @NgModule({
     imports: [BrowserModule, routing, HttpModule, JsonpModule, CommonModule, FormsModule, ReactiveFormsModule],
     declarations: [AppComponent, routedComponents],
-    providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }, AgrupacionService, ChatService, IndexService, { provide: SignalrWindow, useValue: window }, { provide: 'channel.config', useValue: channelConfig }],
+    providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }, AgrupacionService, ChatService, { provide: SignalrWindow, useValue: window }, { provide: 'channel.config', useValue: channelConfig }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,6 +14,11 @@ namespace AngularSpa.Controllers
             return View();
         }
 
+        public IActionResult SuperIndex() {
+            ViewData["Title"] = "Inicio";
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View();
