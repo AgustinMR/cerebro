@@ -42,17 +42,22 @@ export class AgrupacionComponent {
     }
 
     enviarMensaje(mensaje: string) {
+        
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.post("http://localhost:9123/tasks/chats?" + "autor=" + this.autor + "&mensaje=" + mensaje + "&agrupacion=" + this.agrupacion, {}, options)
             .map((res: Response) => res.json())
-            .subscribe((message: string) => { console.log(message); });
+            .subscribe(response => (<HTMLInputElement>document.getElementById("mensaje")).value = "");
+    }
+
+    enviarMensajes() {
+
+        console.log("hola");
     }
 
     suscribirseAgrupacion() {
         this.channelService.start();
-        this.channelService.sub("Mdeo").map(response => {
-        //this.channelService.sub(this.agrupacion).map(response => {
+        this.channelService.sub(this.agrupacion).map(response => {
             if (response.name === "mensaje.nuevo") {
                 var x = JSON.parse(response.json);
                 var ele1 = document.createElement("div");
@@ -69,7 +74,9 @@ export class AgrupacionComponent {
                 ele3.appendChild(span1);
                 var span2 = document.createElement("span");
                 span2.className = "w3-right w3-margin-right w3-text-grey";
-                span2.innerHTML = response.datetime.toString();
+                var fecha = response.datetime.toString().split('T', 2);
+                var fecha2 = fecha[1].split(".", 2);
+                span2.innerHTML = fecha2[0];
                 ele3.appendChild(span2);
                 ele2.appendChild(ele3);
                 var ele4 = document.createElement("div");
@@ -79,7 +86,7 @@ export class AgrupacionComponent {
                 ele2.appendChild(ele4);
                 document.getElementById("chat").appendChild(ele1);
             }
-        }).subscribe(response => console.log("incomming message at USUARIO_CONECTADO channel with Name:", response), error => console.log("Ha ocurrido un error: ", error), () => { });
+        }).subscribe(response => console.log("incomming message at " + this.agrupacion + " channel with Name:", response), error => console.log("Ha ocurrido un error: ", error), () => { });
     }
 
     ngOnInit() {
@@ -88,8 +95,7 @@ export class AgrupacionComponent {
         console.log("Starting the channel service");
 
         this.channelService.start();
-        //this.channelService.sub(this.agrupacion).map(response => {
-        this.channelService.sub("Mdeo").map(response => {
+        this.channelService.sub(this.agrupacion).map(response => {
             if (response.name === "mensaje.nuevo") {
                 var x = JSON.parse(response.json);
                 var ele1 = document.createElement("div");
@@ -106,7 +112,11 @@ export class AgrupacionComponent {
                 ele3.appendChild(span1);
                 var span2 = document.createElement("span");
                 span2.className = "w3-right w3-margin-right w3-text-grey";
-                span2.innerHTML = response.datetime.toString();
+
+                var fecha = response.datetime.toString().split('T', 2);
+                var fecha2 = fecha[1].split(".", 2);
+                span2.innerHTML = fecha2[0];
+
                 ele3.appendChild(span2);
                 ele2.appendChild(ele3);
                 var ele4 = document.createElement("div");
@@ -116,6 +126,6 @@ export class AgrupacionComponent {
                 ele2.appendChild(ele4);
                 document.getElementById("chat").appendChild(ele1);
             }
-        }).subscribe(response => console.log("incomming message at USUARIO_CONECTADO channel with Name:", response), error => console.log("Ha ocurrido un error: ", error), () => { });
+        }).subscribe(response => console.log("incomming message at " + this.agrupacion + " channel with Name:", response), error => console.log("Ha ocurrido un error: ", error), () => { });
     }
 }
