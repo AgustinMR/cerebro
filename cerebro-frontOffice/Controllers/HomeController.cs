@@ -8,7 +8,7 @@ namespace AngularSpa.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string user)
         {
             ViewData["Title"] = "Home";
             return View();

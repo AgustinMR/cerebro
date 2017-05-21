@@ -21,7 +21,6 @@
     <Content Include="wwwroot\app\app.routing.ts" />
     <Content Include="wwwroot\app\chat.component.ts" />
     <Content Include="wwwroot\app\chat.service.ts" />
-    <Content Include="wwwroot\app\index.component.ts" />
     <Content Include="wwwroot\app\inicio.component.js" />
     <Content Include="wwwroot\app\inicio.component.js.map" />
     <Content Include="wwwroot\app\inicio.component.ts" />
