@@ -42,15 +42,18 @@ window.onscroll = function () {
     "use strict";
     addNavbarTop();
 };
-function toggleSidebar() {
-    if (document.getElementById("sidebar").style.display === "block") {
-        document.getElementById("sidebar").style.display = "none";
-        document.getElementById("main").style.marginLeft = "0px";
-        document.getElementById("openNav").style.display = "block";
+var sidebar = document.getElementById("sidebar");
+var overlayBg = document.getElementById("myOverlay");
+function w3_open() {
+    if (sidebar.style.display === 'block') {
+        sidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        sidebar.style.display = 'block';
+        overlayBg.style.display = "block";
     }
-    else {
-        document.getElementById("sidebar").style.display = "block";
-        document.getElementById("main").style.marginLeft = "200px";
-        document.getElementById("openNav").style.display = "none";
-    }
+}
+function w3_close() {
+    sidebar.style.display = "none";
+    overlayBg.style.display = "none";
 }

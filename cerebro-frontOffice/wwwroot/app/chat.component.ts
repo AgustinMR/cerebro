@@ -1,10 +1,11 @@
 ﻿import { OnInit, Input, Component } from "@angular/core";
-import { Http, HttpModule, Response } from '@angular/http';
+import { Http, HttpModule, Response, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { ChatService, ChannelEvent } from "./chat.service";
+import { ChatService, ChannelEvent, ConnectionState } from "./chat.service";
+import { Observable } from "rxjs/Observable";
 
 @Component({
-    selector: 'my-contact',
+    selector: 'cerebro-chat-component',
     templateUrl: '/partial/ChatComponent',
     providers: [ChatService]
 })

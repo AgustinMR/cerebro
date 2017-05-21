@@ -1,91 +1,190 @@
 ﻿@charset "utf-8";
+
 body, html {
-	font-size: 16px;
+    font-size: 16px;
     height: 100%;
     color: #777;
     line-height: 1.8;
 }
-@font-face{
-	font-family: 'Roboto';
-	src: url('Roboto-Regular.ttf');
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular.ttf');
 }
+
 body, h1, h2, h3, h4, h5, h6, p {
-	font-family: Roboto;
+    font-family: Roboto;
 }
-.bgimg-1, .bgimg-2, .bgimg-3 {
+
+.bgimg-1, .bgimg-2 {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .bgimg-1 {
     background-image: url(../images/ub1604v2.jpg);
     min-height: 100%;
 }
+
 .bgimg-2 {
     background-image: url(../images/arches.png);
 }
+
 .bgimg-4 {
     background-image: url(../images/gplay.png);
-    min-height: 800px;
+    background-repeat: repeat;
 }
+
 .bgimg-5 {
     background-image: url(../images/gplay.png);
     min-height: 44px;
 }
+
 .bgimg-6 {
     background-image: url(../images/skulls.png);
     min-height: 600px;
 }
-.w3-wide {letter-spacing: 10px;}
-.w3-hover-opacity {cursor: pointer;}
+
+.w3-wide {
+    letter-spacing: 10px;
+}
+
+.w3-hover-opacity {
+    cursor: pointer;
+}
+
 @media only screen and (max-device-width: 1024px) {
     .bgimg-1, .bgimg-2, .bgimg-3 {
         background-attachment: scroll;
     }
 }
+
 .home1, .home2, .home3, .home4 {
-	height: 600px;
-	background-attachment: fixed;
-	background-repeat: no-repeat;
-	background-position: top;
-	background-size: contain
+    height: 600px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: contain
 }
+
 .home1 {
     background-image: url(../images/roaming-end.svg);
 }
+
 .home2 {
     background-image: url(../images/connect.svg);
 }
+
 .home3 {
     background-image: url(../images/automatic.svg);
 }
+
 .home4 {
     background-image: url(../images/control.svg);
 }
-.w3-cerebro-red{color:#F5F5F5;background-color:#a84e3d!important}
-.w3-cerebro-blue{color:#F5F5F5!important;background-color:#40485a!important}
-.w3-border-cerebro-red {border-color:#a84e3d !important}
-.w3-border-cerebro-blue {border-color:#40485a !important}
-.w3-hover-cerebro-red:hover {color:#F5F5F5 !important; background-color:#a84e3d !important}
-.w3-hover-cerebro-blue:hover {color:#F5F5F5 !important; background-color:#40485a !important}
-.w3-hover-text-cerebro-red:hover {color:#a84e3d !important}
-.w3-hover-text-cerebro-blue:hover {color:#40485a !important}
-.w3-hover-border-cerebro-red:hover {border-color:#a84e3d !important}
-.w3-hover-border-cerebro-blue:hover {border-color:#40485a !important}
-.w3-text-cerebro-red {color:#a84e3d !important}
-.w3-text-cerebro-blue {color:#40485a !important}
 
-.w3-facebook{color:#F5F5F5;background-color:#3b5998!important}
-.w3-border-facebook {border-color:#3b5998 !important}
-.w3-hover-facebook:hover {color:#F5F5F5 !important; background-color:#3b5998 !important}
-.w3-hover-text-facebook:hover {color:#3b5998 !important}
-.w3-hover-border-facebook:hover {border-color:#3b5998 !important}
-.w3-text-facebook {color:#3b5998 !important}
+.w3-cerebro-red {
+    color: #F5F5F5;
+    background-color: #a84e3d !important
+}
 
-.w3-twitter{color:#F5F5F5;background-color:#4099FF!important}
-.w3-border-twitter {border-color:#4099FF !important}
-.w3-hover-twitter:hover {color:#F5F5F5 !important; background-color:#4099FF !important}
-.w3-hover-text-twitter:hover {color:#4099FF !important}
-.w3-hover-border-twitter:hover {border-color:#4099FF !important}
-.w3-text-twitter {color:#4099FF !important}
+.w3-cerebro-blue {
+    color: #F5F5F5 !important;
+    background-color: #40485a !important
+}
+
+.w3-border-cerebro-red {
+    border-color: #a84e3d !important
+}
+
+.w3-border-cerebro-blue {
+    border-color: #40485a !important
+}
+
+.w3-hover-cerebro-red:hover {
+    color: #F5F5F5 !important;
+    background-color: #a84e3d !important
+}
+
+.w3-hover-cerebro-blue:hover {
+    color: #F5F5F5 !important;
+    background-color: #40485a !important
+}
+
+.w3-hover-text-cerebro-red:hover {
+    color: #a84e3d !important
+}
+
+.w3-hover-text-cerebro-blue:hover {
+    color: #40485a !important
+}
+
+.w3-hover-border-cerebro-red:hover {
+    border-color: #a84e3d !important
+}
+
+.w3-hover-border-cerebro-blue:hover {
+    border-color: #40485a !important
+}
+
+.w3-text-cerebro-red {
+    color: #a84e3d !important
+}
+
+.w3-text-cerebro-blue {
+    color: #40485a !important
+}
+
+.w3-facebook {
+    color: #F5F5F5;
+    background-color: #3b5998 !important
+}
+
+.w3-border-facebook {
+    border-color: #3b5998 !important
+}
+
+.w3-hover-facebook:hover {
+    color: #F5F5F5 !important;
+    background-color: #3b5998 !important
+}
+
+.w3-hover-text-facebook:hover {
+    color: #3b5998 !important
+}
+
+.w3-hover-border-facebook:hover {
+    border-color: #3b5998 !important
+}
+
+.w3-text-facebook {
+    color: #3b5998 !important
+}
+
+.w3-twitter {
+    color: #F5F5F5;
+    background-color: #4099FF !important
+}
+
+.w3-border-twitter {
+    border-color: #4099FF !important
+}
+
+.w3-hover-twitter:hover {
+    color: #F5F5F5 !important;
+    background-color: #4099FF !important
+}
+
+.w3-hover-text-twitter:hover {
+    color: #4099FF !important
+}
+
+.w3-hover-border-twitter:hover {
+    border-color: #4099FF !important
+}
+
+.w3-text-twitter {
+    color: #4099FF !important
+}
