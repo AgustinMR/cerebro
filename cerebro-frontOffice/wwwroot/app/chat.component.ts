@@ -15,14 +15,15 @@ export class ChatComponent implements OnInit {
 
     autor = "Agustin";
     agrupacion = "Mdeo";
+    socketId: string;
 
     constructor(private http: Http, private service: ChatService) { }
 
     ngOnInit() {
         var pusher = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
         var channel = pusher.subscribe(this.agrupacion);
+        this.socketId = pusher.connection.socket_id;
         channel.bind('mensaje-nuevo', function (data: any) {
-            alert("Mensaje recibido --- " + JSON.stringify(data));
             var e = JSON.stringify(data);
             var x = JSON.parse(e);
             var ele1 = document.createElement("div");
@@ -51,14 +52,12 @@ export class ChatComponent implements OnInit {
             ele2.appendChild(ele4);
             document.getElementById("chat").appendChild(ele1);
         });
-
-        alert(pusher.connection.state);
     }
 
     enviarMensaje(mensaje: string) {
-        this.service.enviarMensaje(mensaje, this.agrupacion, this.autor).subscribe(
-            (data: Response) => alert(data),
-            responseError => console.log("Error" + responseError),
+        this.service.enviarMensaje(mensaje, this.agrupacion, this.autor, this.socketId).subscribe(
+            (data: Response) => console.log(data),
+            responseError => console.log("Error:  -" + responseError),
             () => console.log("finished")
         );
     }

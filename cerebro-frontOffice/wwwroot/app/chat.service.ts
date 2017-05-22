@@ -10,10 +10,9 @@ export class ChatService {
 
     constructor(private http: Http) { }
 
-    enviarMensaje(mensaje: string, agrupacion: string, autor: string) {
+    enviarMensaje(mensaje: string, agrupacion: string, autor: string, socketId: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        var postInfo = "agrupacion=" + agrupacion + "&autor=" + autor + "&mensaje=" + mensaje;
-        return this.http.post("https://localhost:44332/api/chats?agrupacion=" + agrupacion + "&autor=" + autor + "&mensaje=" + mensaje, {}, options).map(data => data.json());
+        return this.http.post("https://localhost:44332/api/chats?agrupacion=" + agrupacion + "&autor=" + autor + "&mensaje=" + mensaje + "&socket_id=" + socketId, {}, options).map(data => data.json());
     }
 }
