@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-backOffice", "cereb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cerebro-frontOffice", "cerebro-frontOffice\cerebro-frontOffice.csproj", "{3EEC4D5A-E22A-4BFD-8BB5-77F281A44F90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-SignalrServer", "cerebro-SignalrServer\cerebro-SignalrServer.csproj", "{6980D161-5B85-4EA0-B2D3-8F1A51DF2792}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{3EEC4D5A-E22A-4BFD-8BB5-77F281A44F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EEC4D5A-E22A-4BFD-8BB5-77F281A44F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EEC4D5A-E22A-4BFD-8BB5-77F281A44F90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6980D161-5B85-4EA0-B2D3-8F1A51DF2792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6980D161-5B85-4EA0-B2D3-8F1A51DF2792}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6980D161-5B85-4EA0-B2D3-8F1A51DF2792}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6980D161-5B85-4EA0-B2D3-8F1A51DF2792}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

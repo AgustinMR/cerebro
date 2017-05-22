@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { AgrupacionService } from './agrupacion.service';
-import { ChatService, ConnectionState, ChannelEvent } from './chat.service';
+import { ChatService } from './chat.service';
 import { Http, HttpModule, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from "rxjs/Observable";
