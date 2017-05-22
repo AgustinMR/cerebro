@@ -16,7 +16,9 @@ namespace cerebro_ServiceLayer.Controllers
         [Route("")]
         public IHttpActionResult Trigger([FromUri]ChatMensaje m)
         {
-            var pusher = new Pusher("342446", "5b358aae693e596e8b06", "3cf17facdee3ed513b0a");
+            var options = new PusherOptions();
+            options.Cluster = "us2";
+            var pusher = new Pusher("342446", "5b358aae693e596e8b06", "3cf17facdee3ed513b0a", options);
             var result = pusher.TriggerAsync(m.agrupacion, "mensaje-nuevo", m);
             return Ok("Ok");
         }
