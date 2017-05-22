@@ -2014,6 +2014,18 @@
           "lib/netstandard1.3/NuGet.Frameworks.dll": {}
         }
       },
+      "PusherServer/4.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netStandard1.6/PusherServer.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netStandard1.6/PusherServer.Core.dll": {}
+        }
+      },
       "Remotion.Linq/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -5999,6 +6011,20 @@
         "lib/netstandard1.3/NuGet.Frameworks.xml",
         "nuget.frameworks.3.5.0.nupkg.sha512",
         "nuget.frameworks.nuspec"
+      ]
+    },
+    "PusherServer/4.1.0": {
+      "sha512": "gFHMTuG5Qcpa6LW+gx8qHqOE0Fv6pkt17hMcAeVZvvLcZIjRA196cBBasBn+mnxHe+r77xgiNbTutfu5OI729w==",
+      "type": "package",
+      "path": "pusherserver/4.1.0",
+      "files": [
+        "CHANGELOG.md",
+        "README.md",
+        "lib/net45/PusherServer.XML",
+        "lib/net45/PusherServer.dll",
+        "lib/netStandard1.6/PusherServer.Core.dll",
+        "pusherserver.4.1.0.nupkg.sha512",
+        "pusherserver.nuspec"
       ]
     },
     "Remotion.Linq/2.1.1": {
@@ -10984,7 +11010,8 @@
       "Microsoft.Extensions.Logging.Debug >= 1.1.1",
       "Microsoft.NETCore.App >= 1.1.1",
       "Microsoft.VisualStudio.Web.BrowserLink >= 1.1.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 1.1.0"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 1.1.0",
+      "PusherServer >= 4.1.0"
     ]
   },
   "packageFolders": {
@@ -11046,6 +11073,10 @@
           "Microsoft.VisualStudio.Web.BrowserLink": {
             "target": "Package",
             "version": "1.1.0"
+          },
+          "PusherServer": {
+            "target": "Package",
+            "version": "4.1.0"
           },
           "Microsoft.Extensions.Configuration.UserSecrets": {
             "target": "Package",
