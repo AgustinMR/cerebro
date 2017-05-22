@@ -2,33 +2,29 @@
 import { Http, HttpModule, Response, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from "rxjs/Observable";
+import { ChatService } from "./chat.service";
 
 declare var Pusher: any;
 
 @Component({
     selector: 'cerebro-chat-component',
-    templateUrl: '/partial/ChatComponent'
+    templateUrl: '/partial/ChatComponent',
+    providers: [ChatService]
 })
 export class ChatComponent implements OnInit {
 
     autor = "Agustin";
     agrupacion = "Mdeo";
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private service: ChatService) { }
 
     ngOnInit() {
-        //var pusher = new Pusher('5b358aae693e596e8b06');
-
         var pusher = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
-
         var channel = pusher.subscribe(this.agrupacion);
         channel.bind('mensaje-nuevo', function (data: any) {
             alert("Mensaje recibido --- " + JSON.stringify(data));
             var e = JSON.stringify(data);
-            alert(e);
             var x = JSON.parse(e);
-            alert(x.agrupacion);
-            alert(x.datetime);
             var ele1 = document.createElement("div");
             ele1.className = 'w3-row';
             ele1.setAttribute("style", "margin-bottom: 7px");
@@ -43,10 +39,9 @@ export class ChatComponent implements OnInit {
             ele3.appendChild(span1);
             var span2 = document.createElement("span");
             span2.className = "w3-right w3-margin-right w3-text-grey";
-            //var fecha = response.datetime.toString().split('T', 2);
-            //var fecha2 = fecha[1].split(".", 2);
-            //span2.innerHTML = fecha2[0];
-            span2.innerHTML = x.datetime;
+            var fecha = x.datetime.toString().split('T', 2);
+            var fecha2 = fecha[1].split(".", 2);
+            span2.innerHTML = fecha2[0];
             ele3.appendChild(span2);
             ele2.appendChild(ele3);
             var ele4 = document.createElement("div");
@@ -61,10 +56,11 @@ export class ChatComponent implements OnInit {
     }
 
     enviarMensaje(mensaje: string) {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        var postInfo = "autor=" + this.autor + "&mensaje=" + mensaje + "&agrupacion=" + this.agrupacion;
-        return this.http.post("https://localhost:44332/api/chats?" + postInfo, {}, options).map(data => data.json());
+        this.service.enviarMensaje(mensaje, this.agrupacion, this.autor).subscribe(
+            (data: Response) => alert(data),
+            responseError => console.log("Error" + responseError),
+            () => console.log("finished")
+        );
     }
 
 }
