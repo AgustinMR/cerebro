@@ -45,9 +45,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
     <PackageReference Include="PusherServer" Version="4.1.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.2" />
+    <PackageReference Include="TweetinviAPI" Version="1.2.0.1" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
