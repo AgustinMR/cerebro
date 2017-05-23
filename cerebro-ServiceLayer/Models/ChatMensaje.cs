@@ -15,20 +15,20 @@ namespace cerebro_SignalrServer
         [DataMember]
         public DateTimeOffset datetime { get; set; }
         [DataMember]
-        public string socket_id { get; set; }
+        public string email { get; set; }
 
         public ChatMensaje()
         {
             this.datetime = DateTimeOffset.Now;
         }
 
-        public ChatMensaje(string autor, string mensaje, string agrupacion, string socketId)
+        public ChatMensaje(string autor, string mensaje, string agrupacion, string Email)
         {
             this.autor = autor;
             this.mensaje = mensaje;
             this.agrupacion = agrupacion;
             this.datetime = DateTimeOffset.Now;
-            this.socket_id = socketId;
+            this.email = Email;
         }
     }
 }

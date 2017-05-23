@@ -32,6 +32,14 @@ body, h1, h2, h3, h4, h5, h6, p {
     background-image: url(../images/arches.png);
 }
 
+.bgimg-3 {
+    background-image: url("../images/gplay.png");
+    min-height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: repeat;
+}
+
 .bgimg-4 {
     background-image: url(../images/gplay.png);
     min-height: 800px;
@@ -39,12 +47,17 @@ body, h1, h2, h3, h4, h5, h6, p {
 
 .bgimg-5 {
     background-image: url(../images/gplay.png);
-    background-repeat:repeat;
+    min-height: 44px;
 }
 
 .bgimg-6 {
     background-image: url(../images/skulls.png);
     min-height: 600px;
+}
+
+.bgimg-7 {
+    background-image: url(../images/gplay.png);
+    min-height: 200px;
 }
 
 .w3-wide {

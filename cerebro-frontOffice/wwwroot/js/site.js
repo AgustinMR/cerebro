@@ -57,3 +57,8 @@ function w3_close() {
     sidebar.style.display = "none";
     overlayBg.style.display = "none";
 }
+function iniciarSesion() {
+    $.post("https://localhost:44332/api/login", "email=" + document.getElementById("email").value + "&password=" + document.getElementById("password").value, function (response) {
+
+    });
+}

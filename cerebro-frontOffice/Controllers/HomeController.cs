@@ -19,6 +19,11 @@ namespace AngularSpa.Controllers
             return View();
         }
 
+        public IActionResult Login() {
+            ViewData["Title"] = "Login";
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View();
