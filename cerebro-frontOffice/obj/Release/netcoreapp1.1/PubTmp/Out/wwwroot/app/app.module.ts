@@ -11,14 +11,13 @@ import "rxjs/add/operator/map";
 
 import { AgrupacionService } from './agrupacion.service';
 import { ChatService } from './chat.service';
-import { IndexService } from './index.service';
 
 // enableProdMode();
 
 @NgModule({
     imports: [BrowserModule, routing, HttpModule, JsonpModule, CommonModule, FormsModule, ReactiveFormsModule],
     declarations: [AppComponent, routedComponents],
-    providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }, AgrupacionService, ChatService, IndexService],
+    providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }, AgrupacionService, ChatService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

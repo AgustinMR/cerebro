@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var agrupacion_service_1 = require("./agrupacion.service");
 require("rxjs/add/operator/toPromise");
@@ -23,7 +24,7 @@ var AgrupacionComponent = (function () {
 }());
 AgrupacionComponent = __decorate([
     core_1.Component({
-        selector: 'my-contact',
+        selector: 'cerebro-agrupacion-component',
         templateUrl: '/partial/AgrupacionComponent',
         providers: [agrupacion_service_1.AgrupacionService]
     }),

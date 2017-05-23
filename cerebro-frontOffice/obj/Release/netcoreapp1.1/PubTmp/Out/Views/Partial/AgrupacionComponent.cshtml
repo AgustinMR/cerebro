@@ -1,3 +1,53 @@
-﻿<div>
-    <button class="w3-button w3-input w3-border w3-border-cerebro-red w3-round w3-text-cerebro-red w3-margin-bottom w3-hover-cerebro-red" (click)="addAgrupacion1()">addAgrupacion</button>
+﻿<div class="w3-panel w3-white w3-round w3-display-container w3-padding w3-topbar w3-card">
+    <h3 class="ui horizontal divider w3-padding">agrupaciones</h3>
+    <img src="~/images/cerebro-logo.png" alt="Nuevo" class="w3-image w3-display-topmiddle" style="margin-top: -23px; height: 40px">
+    <div class="w3-bar w3-round w3-display-container" style="height: 40px">
+        <div class="w3-display-middle">
+            <button class="w3-bar-item w3-button w3-hover-light-gray tabButtons w3-round w3-light-grey w3-text-cerebro-red" onclick="changeTab(event, 'nuevo')">Nueva</button>
+            <button class="w3-bar-item w3-button w3-hover-light-grey tabButtons" onclick="changeTab(event, 'modificar')">Modificar</button>
+            <button class="w3-bar-item w3-button w3-hover-light-grey tabButtons w3-round" onclick="changeTab(event, 'quitar')">Usuarios</button>
+        </div>
+    </div>
+    <div id="nuevo" class="tab w3-container">
+        <div class="w3-container w3-padding">
+            <div class="w3-padding-24"><input type="text" class="w3-input w3-card w3-round w3-border" placeholder="Ingrese un nombre para la agrupaci&oacute;n..."></div>
+            <div class="w3-row w3-center w3-margin-top">
+                <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" value="Guardar">
+            </div>
+        </div>
+    </div>
+    <div id="modificar" class="tab w3-container" style="display:none">
+        <div class="w3-container w3-padding">
+            <div class=" w3-padding-24">
+                <select id="agrupacion" class="w3-select w3-card w3-border w3-round w3-margin-top"></select>
+            </div>
+            <div class="w3-padding-24">
+                <input type="text" class="w3-input w3-card w3-round w3-border" placeholder="Ingrese un nombre para la agrupaci&oacute;n...">
+                <select id="administrador" class="w3-select w3-card w3-border w3-round w3-margin-top"></select>
+            </div>
+            <div class="w3-row w3-center w3-margin-top">
+                <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" value="Guardar">
+                <input type="button" class="w3-button w3-right w3-margin-bottom w3-border w3-border-cerebro-red w3-hover-cerebro-red w3-text-cerebro-red w3-round w3-margin-right" value="Eliminar">
+            </div>
+        </div>
+    </div>
+    <div id="quitar" class="tab w3-container" style="display:none">
+        <div class="w3-container w3-padding w3-margin-top">
+            <div class="w3-third">
+                <div class="w3-container">
+                    <select name="usuarios" id="usuarios" class="w3-select w3-leftbar w3-border-0" style="overflow-y: hidden" size="7">
+                        <option value="s" class="w3-button w3-col w3-white w3-hover-light-gray">s</option>
+                    </select>
+                </div><hr>
+            </div>
+            <div class="w3-rest">
+                <ul class="w3-ul w3-striped w3-bordered">
+                    <li>d</li>
+                </ul>
+            </div>
+            <div class="w3-row w3-center w3-margin-top">
+                <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" value="Guardar">
+            </div>
+        </div>
+    </div>
 </div>
