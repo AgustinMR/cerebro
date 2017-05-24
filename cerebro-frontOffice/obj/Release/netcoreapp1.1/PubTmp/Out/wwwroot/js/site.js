@@ -42,35 +42,23 @@ window.onscroll = function () {
     "use strict";
     addNavbarTop();
 };
-
-
-(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-// Here we run a very simple test of the Graph API after login is
-// successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function (response) {
-        console.log('Successful login for: ' + response.name);
-        document.getElementById('status').innerHTML =
-            'Thanks for logging in, ' + response.name + '!';
-    });
+var sidebar = document.getElementById("sidebar");
+var overlayBg = document.getElementById("myOverlay");
+function w3_open() {
+    if (sidebar.style.display === 'block') {
+        sidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        sidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
 }
-function registrarFacebook() {
-    FB.login(function (response) {
-        if (response.authResponse) {
-            console.log('Welcome!  Fetching your information.... ');
-            FB.api('/me', function (response) {
-                console.log('Good to see you, ' + response.name + '.');
-            });
-        } else {
-            console.log('User cancelled login or did not fully authorize.');
-        }
+function w3_close() {
+    sidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+function iniciarSesion() {
+    $.post("https://localhost:44332/api/login", "email=" + document.getElementById("email").value + "&password=" + document.getElementById("password").value, function (response) {
+
     });
 }

@@ -1,19 +1,22 @@
 ﻿import { Component } from '@angular/core';
 import { AgrupacionService } from './agrupacion.service';
-import { Http, HttpModule, Response } from '@angular/http';
+import { ChatService } from './chat.service';
+import { Http, HttpModule, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { Observable } from "rxjs/Observable";
 
 @Component({
-    selector: 'my-contact',
+    selector: 'cerebro-agrupacion-component',
     templateUrl: '/partial/AgrupacionComponent',
     providers: [AgrupacionService]
 })
 
 export class AgrupacionComponent {
 
-    public constructor(private agru: AgrupacionService) { }
-
     agrupacionAgregada: any;
+
+
+    constructor(private agru: AgrupacionService ) { }
 
     public addAgrupacion1() {
         this.agru.addAgrupacion("gmail", "Mdeo", "TSI.NEt", "Mdeo", true).subscribe(

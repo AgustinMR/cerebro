@@ -8,13 +8,15 @@
     <environment names="Development">
         <link href="~/css/w3.css" rel="stylesheet" />
         <link href="~/css/site.css" rel="stylesheet" />
+        <link href="~/css/divider.min.css" rel="stylesheet" />
     </environment>
     <environment names="Staging,Production">
         <link href="~/css/w3.css" rel="stylesheet" />
+        <link href="~/css/divider.min.css" rel="stylesheet" />
         <link href="~/css/site.css" rel="stylesheet" />
     </environment>
 </head>
-<body>
+<body class="bgimg-5 w3-light-gray">
     @RenderBody()
     <environment names="Development">
         <script src="~/js/jquery.js"></script>
@@ -22,6 +24,7 @@
         <script src="/node_modules/core-js/client/shim.min.js"></script>
         <script src="/node_modules/zone.js/dist/zone.js"></script>
         <script src="/node_modules/systemjs/dist/system.src.js"></script>
+        <script src="//js.pusher.com/4.0/pusher.min.js"></script>
         <script src="~/systemjs.config.js"></script>
         <script> System.import('app/main.js').catch(function (err) { console.error(err); }); </script>
     </environment>
@@ -31,6 +34,7 @@
         <script src="/node_modules/core-js/client/shim.min.js"></script>
         <script src="/node_modules/zone.js/dist/zone.js"></script>
         <script src="/node_modules/systemjs/dist/system.src.js"></script>
+        <script src="//js.pusher.com/4.0/pusher.min.js"></script>
         <script src="~/systemjs.config.js"></script>
         <script>
             System.import('app').catch(function (err) { console.error(err); });

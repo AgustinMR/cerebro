@@ -2,19 +2,6 @@
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
-      "Autofac/4.1.0": {
-        "type": "package",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "System.ComponentModel": "4.0.1"
-        },
-        "compile": {
-          "lib/netstandard1.1/Autofac.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.1/Autofac.dll": {}
-        }
-      },
       "Libuv/1.9.1": {
         "type": "package",
         "dependencies": {
@@ -890,21 +877,6 @@
           "lib/netstandard1.3/Microsoft.AspNetCore.WebUtilities.dll": {}
         }
       },
-      "Microsoft.Bcl/1.1.10": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Bcl.Build": "1.0.14"
-        },
-        "compile": {
-          "lib/portable-net45+win8+wp8+wpa81/_._": {}
-        },
-        "runtime": {
-          "lib/portable-net45+win8+wp8+wpa81/_._": {}
-        }
-      },
-      "Microsoft.Bcl.Build/1.0.14": {
-        "type": "package"
-      },
       "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
         "type": "package"
       },
@@ -1630,23 +1602,6 @@
           "lib/netstandard1.0/Microsoft.Extensions.WebEncoders.dll": {}
         }
       },
-      "Microsoft.Net.Http/2.2.29": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Bcl": "1.1.10",
-          "Microsoft.Bcl.Build": "1.0.14"
-        },
-        "compile": {
-          "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.Extensions.dll": {},
-          "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.Primitives.dll": {},
-          "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.dll": {}
-        },
-        "runtime": {
-          "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.Extensions.dll": {},
-          "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.Primitives.dll": {},
-          "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.dll": {}
-        }
-      },
       "Microsoft.Net.Http.Headers/1.1.2": {
         "type": "package",
         "dependencies": {
@@ -1662,7 +1617,7 @@
           "lib/netstandard1.1/Microsoft.Net.Http.Headers.dll": {}
         }
       },
-      "Microsoft.NETCore.App/1.1.1": {
+      "Microsoft.NETCore.App/1.1.2": {
         "type": "package",
         "dependencies": {
           "Libuv": "1.9.1",
@@ -1670,15 +1625,15 @@
           "Microsoft.CodeAnalysis.CSharp": "1.3.0",
           "Microsoft.CodeAnalysis.VisualBasic": "1.3.0",
           "Microsoft.DiaSymReader.Native": "1.4.1",
-          "Microsoft.NETCore.DotNetHostPolicy": "1.1.0",
-          "Microsoft.NETCore.Runtime.CoreCLR": "1.1.1",
+          "Microsoft.NETCore.DotNetHostPolicy": "1.1.2",
+          "Microsoft.NETCore.Runtime.CoreCLR": "1.1.2",
           "Microsoft.VisualBasic": "10.1.0",
           "NETStandard.Library": "1.6.1",
           "System.Buffers": "4.3.0",
           "System.Collections.Immutable": "1.3.0",
           "System.ComponentModel": "4.3.0",
           "System.ComponentModel.Annotations": "4.3.0",
-          "System.Diagnostics.DiagnosticSource": "4.3.0",
+          "System.Diagnostics.DiagnosticSource": "4.3.1",
           "System.Diagnostics.Process": "4.3.0",
           "System.Dynamic.Runtime": "4.3.0",
           "System.Globalization.Extensions": "4.3.0",
@@ -1688,9 +1643,10 @@
           "System.Linq.Expressions": "4.3.0",
           "System.Linq.Parallel": "4.3.0",
           "System.Linq.Queryable": "4.3.0",
+          "System.Net.Http": "4.3.2",
           "System.Net.NameResolution": "4.3.0",
           "System.Net.Requests": "4.3.0",
-          "System.Net.Security": "4.3.0",
+          "System.Net.Security": "4.3.1",
           "System.Net.WebHeaderCollection": "4.3.0",
           "System.Numerics.Vectors": "4.3.0",
           "System.Reflection.DispatchProxy": "4.3.0",
@@ -1706,7 +1662,8 @@
           "System.Threading.Tasks.Extensions": "4.3.0",
           "System.Threading.Tasks.Parallel": "4.3.0",
           "System.Threading.Thread": "4.3.0",
-          "System.Threading.ThreadPool": "4.3.0"
+          "System.Threading.ThreadPool": "4.3.0",
+          "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1"
         },
         "compile": {
           "lib/netcoreapp1.0/_._": {}
@@ -1718,7 +1675,7 @@
       "Microsoft.NETCore.DotNetHost/1.1.0": {
         "type": "package"
       },
-      "Microsoft.NETCore.DotNetHostPolicy/1.1.0": {
+      "Microsoft.NETCore.DotNetHostPolicy/1.1.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.NETCore.DotNetHostResolver": "1.1.0"
@@ -1730,7 +1687,7 @@
           "Microsoft.NETCore.DotNetHost": "1.1.0"
         }
       },
-      "Microsoft.NETCore.Jit/1.1.1": {
+      "Microsoft.NETCore.Jit/1.1.2": {
         "type": "package"
       },
       "Microsoft.NETCore.Platforms/1.1.0": {
@@ -1742,10 +1699,10 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Runtime.CoreCLR/1.1.1": {
+      "Microsoft.NETCore.Runtime.CoreCLR/1.1.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Jit": "1.1.1",
+          "Microsoft.NETCore.Jit": "1.1.2",
           "Microsoft.NETCore.Windows.ApiSets": "1.0.1"
         }
       },
@@ -2093,7 +2050,7 @@
           "lib/netstandard1.0/Remotion.Linq.dll": {}
         }
       },
-      "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/debian.8-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
@@ -2102,7 +2059,7 @@
           }
         }
       },
-      "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/fedora.23-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
@@ -2111,7 +2068,7 @@
           }
         }
       },
-      "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/fedora.24-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
@@ -2191,19 +2148,19 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "dependencies": {
-          "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0",
-          "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0",
-          "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0",
-          "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0",
-          "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0",
-          "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0",
-          "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0",
-          "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0",
-          "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0",
-          "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0"
+          "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1",
+          "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1",
+          "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1",
+          "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1",
+          "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1",
+          "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1",
+          "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1",
+          "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1",
+          "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1",
+          "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.1"
         },
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -2212,7 +2169,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/opensuse.13.2-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
@@ -2221,7 +2178,7 @@
           }
         }
       },
-      "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/opensuse.42.1-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
@@ -2239,7 +2196,7 @@
           }
         }
       },
-      "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/osx.10.10-x64/native/System.Security.Cryptography.Native.OpenSsl.dylib": {
@@ -2248,7 +2205,7 @@
           }
         }
       },
-      "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/rhel.7-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
@@ -2257,7 +2214,7 @@
           }
         }
       },
-      "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/ubuntu.14.04-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
@@ -2266,7 +2223,7 @@
           }
         }
       },
-      "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/ubuntu.16.04-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
@@ -2275,7 +2232,7 @@
           }
         }
       },
-      "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
+      "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
@@ -2606,7 +2563,7 @@
           "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
-      "System.Diagnostics.DiagnosticSource/4.3.0": {
+      "System.Diagnostics.DiagnosticSource/4.3.1": {
         "type": "package",
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -3258,7 +3215,7 @@
           }
         }
       },
-      "System.Net.Security/4.3.0": {
+      "System.Net.Security/4.3.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -4313,52 +4270,10 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
-      },
-      "TweetinviAPI/1.2.0.1": {
-        "type": "package",
-        "dependencies": {
-          "Autofac": "4.1.0",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "lib/netstandard1.6/Tweetinvi.Controllers.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Core.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Credentials.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Factories.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Logic.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Security.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Streams.dll": {},
-          "lib/netstandard1.6/Tweetinvi.WebLogic.dll": {},
-          "lib/netstandard1.6/Tweetinvi.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.6/Tweetinvi.Controllers.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Core.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Credentials.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Factories.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Logic.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Security.dll": {},
-          "lib/netstandard1.6/Tweetinvi.Streams.dll": {},
-          "lib/netstandard1.6/Tweetinvi.WebLogic.dll": {},
-          "lib/netstandard1.6/Tweetinvi.dll": {}
-        }
       }
     }
   },
   "libraries": {
-    "Autofac/4.1.0": {
-      "sha512": "PZlRrOjtQ/pyxoA/oDuyFsKlL/toYIxfL4wQvm9TY7lj+/jeQHQIlJ832nwvPFBlOuRZQErHsfsGmo3zW+pCxA==",
-      "type": "package",
-      "path": "autofac/4.1.0",
-      "files": [
-        "autofac.4.1.0.nupkg.sha512",
-        "autofac.nuspec",
-        "lib/net45/Autofac.dll",
-        "lib/net45/Autofac.xml",
-        "lib/netstandard1.1/Autofac.dll",
-        "lib/netstandard1.1/Autofac.xml"
-      ]
-    },
     "Libuv/1.9.1": {
       "sha512": "uqX2Frwf9PW8MaY7PRNY6HM5BpW1D8oj1EdqzrmbEFD5nH63Yat3aEjN/tws6Tw6Fk7LwmLBvtUh32tTeTaHiA==",
       "type": "package",
@@ -5028,115 +4943,6 @@
         "microsoft.aspnetcore.webutilities.nuspec"
       ]
     },
-    "Microsoft.Bcl/1.1.10": {
-      "sha512": "+tTqoh/M1pyL8El3qLy30EcwnAtyvFoDZJtdG9Cbg/WdFbh4N8kyrq198XHuEL7lnJbeD0DRO8jcX5IIOh05cQ==",
-      "type": "package",
-      "path": "microsoft.bcl/1.1.10",
-      "files": [
-        "License-Stable.rtf",
-        "lib/Xamarin.iOS10/_._",
-        "lib/monoandroid/_._",
-        "lib/monotouch/_._",
-        "lib/net40/System.IO.dll",
-        "lib/net40/System.IO.xml",
-        "lib/net40/System.Runtime.dll",
-        "lib/net40/System.Runtime.xml",
-        "lib/net40/System.Threading.Tasks.dll",
-        "lib/net40/System.Threading.Tasks.xml",
-        "lib/net40/ensureRedirect.xml",
-        "lib/net45/_._",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.IO.dll",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.IO.xml",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Runtime.dll",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Runtime.xml",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Threading.Tasks.dll",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Threading.Tasks.xml",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/ensureRedirect.xml",
-        "lib/portable-net40+sl4+win8+wp8+wpa81/System.IO.dll",
-        "lib/portable-net40+sl4+win8+wp8+wpa81/System.IO.xml",
-        "lib/portable-net40+sl4+win8+wp8+wpa81/System.Runtime.dll",
-        "lib/portable-net40+sl4+win8+wp8+wpa81/System.Runtime.xml",
-        "lib/portable-net40+sl4+win8+wp8+wpa81/System.Threading.Tasks.dll",
-        "lib/portable-net40+sl4+win8+wp8+wpa81/System.Threading.Tasks.xml",
-        "lib/portable-net40+sl4+win8+wp8+wpa81/ensureRedirect.xml",
-        "lib/portable-net40+sl4+win8/System.IO.dll",
-        "lib/portable-net40+sl4+win8/System.IO.xml",
-        "lib/portable-net40+sl4+win8/System.Runtime.dll",
-        "lib/portable-net40+sl4+win8/System.Runtime.xml",
-        "lib/portable-net40+sl4+win8/System.Threading.Tasks.dll",
-        "lib/portable-net40+sl4+win8/System.Threading.Tasks.xml",
-        "lib/portable-net40+sl4+win8/ensureRedirect.xml",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/System.IO.dll",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/System.IO.xml",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/System.Runtime.dll",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/System.Runtime.xml",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/System.Threading.Tasks.dll",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/System.Threading.Tasks.xml",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/ensureRedirect.xml",
-        "lib/portable-net40+win8+wp8+wpa81/System.IO.dll",
-        "lib/portable-net40+win8+wp8+wpa81/System.IO.xml",
-        "lib/portable-net40+win8+wp8+wpa81/System.Runtime.dll",
-        "lib/portable-net40+win8+wp8+wpa81/System.Runtime.xml",
-        "lib/portable-net40+win8+wp8+wpa81/System.Threading.Tasks.dll",
-        "lib/portable-net40+win8+wp8+wpa81/System.Threading.Tasks.xml",
-        "lib/portable-net40+win8+wp8+wpa81/ensureRedirect.xml",
-        "lib/portable-net40+win8/System.IO.dll",
-        "lib/portable-net40+win8/System.IO.xml",
-        "lib/portable-net40+win8/System.Runtime.dll",
-        "lib/portable-net40+win8/System.Runtime.xml",
-        "lib/portable-net40+win8/System.Threading.Tasks.dll",
-        "lib/portable-net40+win8/System.Threading.Tasks.xml",
-        "lib/portable-net40+win8/ensureRedirect.xml",
-        "lib/portable-net45+win8+wp8+wpa81/_._",
-        "lib/portable-net45+win8+wpa81/_._",
-        "lib/portable-net451+win81+wpa81/_._",
-        "lib/portable-net451+win81/_._",
-        "lib/portable-win81+wp81+wpa81/_._",
-        "lib/sl4-windowsphone71/System.IO.dll",
-        "lib/sl4-windowsphone71/System.IO.xml",
-        "lib/sl4-windowsphone71/System.Runtime.dll",
-        "lib/sl4-windowsphone71/System.Runtime.xml",
-        "lib/sl4-windowsphone71/System.Threading.Tasks.dll",
-        "lib/sl4-windowsphone71/System.Threading.Tasks.xml",
-        "lib/sl4-windowsphone71/ensureRedirect.xml",
-        "lib/sl4/System.IO.dll",
-        "lib/sl4/System.IO.xml",
-        "lib/sl4/System.Runtime.dll",
-        "lib/sl4/System.Runtime.xml",
-        "lib/sl4/System.Threading.Tasks.dll",
-        "lib/sl4/System.Threading.Tasks.xml",
-        "lib/sl5/System.IO.dll",
-        "lib/sl5/System.IO.xml",
-        "lib/sl5/System.Runtime.dll",
-        "lib/sl5/System.Runtime.xml",
-        "lib/sl5/System.Threading.Tasks.dll",
-        "lib/sl5/System.Threading.Tasks.xml",
-        "lib/win8/_._",
-        "lib/wp8/_._",
-        "lib/wpa81/_._",
-        "microsoft.bcl.1.1.10.nupkg.sha512",
-        "microsoft.bcl.nuspec"
-      ]
-    },
-    "Microsoft.Bcl.Build/1.0.14": {
-      "sha512": "cDLKSvNvRa519hplsbSoYqO69TjdDIhfjtKUM0g20/nVROoWsGav9KCI9HtnGjLmdV1+TcUUDhbotcllibjPEA==",
-      "type": "package",
-      "path": "microsoft.bcl.build/1.0.14",
-      "files": [
-        "License-Stable.rtf",
-        "content/net40/_._",
-        "content/netcore45/_._",
-        "content/portable-net40+win8+sl4+wp71+wpa81/_._",
-        "content/sl4-windowsphone71/_._",
-        "content/sl4/_._",
-        "microsoft.bcl.build.1.0.14.nupkg.sha512",
-        "microsoft.bcl.build.nuspec",
-        "tools/Install.ps1",
-        "tools/Microsoft.Bcl.Build.Tasks.dll",
-        "tools/Microsoft.Bcl.Build.targets",
-        "tools/Uninstall.ps1"
-      ]
-    },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
       "sha512": "HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
       "type": "package",
@@ -5340,7 +5146,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore/1.1.1": {
-      "sha512": "F1ohSBZlRaTLpVwkyUYSIf/0LJ+0wPMBV5bfELel8QZfsV7QCW5vUmjo1/4L7UfigFflfCsJXljZ8u4+xTUK0A==",
+      "sha512": "wkPi/5FriMthUoCBjqO/hCDEGdRrJ5aTGKa9jGHK7NYw1uSxb2FXksBuqqMfFve3sd2j4+9BpYtdvAJ6fzjeXg==",
       "type": "package",
       "path": "microsoft.entityframeworkcore/1.1.1",
       "files": [
@@ -5353,7 +5159,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Design/1.1.1": {
-      "sha512": "RSBvmjAUG55AVsE9gIVuLoZGnPXQEEFYWEhQjKOhjMtJ9Zh+LkxMNHHDlhbsLkKFnqLb1E53t9o6XrIf/g8YYw==",
+      "sha512": "xFeAAi9LUckgeinjji7WPMwPUbZNb6mTVRhWAlo+RVsjpnEjeAQk3Gw4OP3Ln/yncji64J7e74ue+yIArQYt+Q==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.design/1.1.1",
       "files": [
@@ -5366,7 +5172,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/1.1.1": {
-      "sha512": "pqHYKz+XFKeCmep3wM0zB17DfGf8HOnw8QJgcJDghu9PSz1i+zpiZXAPMjNh3ec4WHyC3FrwMs4GtQ4zUkR5PA==",
+      "sha512": "wIeIC02b3uFQ0Mgd5yDcpzbGQs383p2BAkpMjNz2xffo9QAFXO1CDavuolRk5I2Rv/iBy9igB91BZoY0tpcMzA==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.relational/1.1.1",
       "files": [
@@ -5379,7 +5185,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational.Design/1.1.1": {
-      "sha512": "eCKyh/ld8I57eTC8KWXdTLZgGc6knuRi+VBaQS1yAJewg2g5XHRGm+4djlgmfAQwHRHpB2A6zyv+nyZ0XwCDzg==",
+      "sha512": "WZKmQwuDUTLtjhxT/6c3hiMJTwi8OBl9rsPljY/ZhcMFAsF8sLj4uVrpkuNmrg5DEK2dEtnQn6p+Y9miQiIeZw==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.relational.design/1.1.1",
       "files": [
@@ -5527,7 +5333,7 @@
       ]
     },
     "Microsoft.Extensions.Configuration.UserSecrets/1.1.1": {
-      "sha512": "37JvCP1jHEBZBfdedGHDd5JyPROS1R1bKQyXt1oC++LHwdYpnQQhKsYbgXST0yF8/NeN1Yxt+LNUfmJINbMzrA==",
+      "sha512": "ky/GB2znjjZ7ouCN1i96HxliYJM0mUnXFqJcTeDRb3FwTGXO+ZFJH3JfrtWgpbPG3UIHO+S+i6deJNctUoNs7A==",
       "type": "package",
       "path": "microsoft.extensions.configuration.usersecrets/1.1.1",
       "files": [
@@ -5786,73 +5592,6 @@
         "microsoft.extensions.webencoders.nuspec"
       ]
     },
-    "Microsoft.Net.Http/2.2.29": {
-      "sha512": "fc4CPEewJ30Xgal+fSq1lYIBt582A7eKlAL7O4HXiYAiTp2VTnA4osSvk7T2n8aS4xTCPVJusQk3yKLT0XSpkg==",
-      "type": "package",
-      "path": "microsoft.net.http/2.2.29",
-      "files": [
-        "License-Stable.rtf",
-        "lib/Xamarin.iOS10/System.Net.Http.Extensions.XML",
-        "lib/Xamarin.iOS10/System.Net.Http.Extensions.dll",
-        "lib/Xamarin.iOS10/System.Net.Http.Primitives.dll",
-        "lib/Xamarin.iOS10/System.Net.Http.Primitives.xml",
-        "lib/monoandroid/System.Net.Http.Extensions.XML",
-        "lib/monoandroid/System.Net.Http.Extensions.dll",
-        "lib/monoandroid/System.Net.Http.Primitives.dll",
-        "lib/monoandroid/System.Net.Http.Primitives.xml",
-        "lib/monotouch/System.Net.Http.Extensions.XML",
-        "lib/monotouch/System.Net.Http.Extensions.dll",
-        "lib/monotouch/System.Net.Http.Primitives.dll",
-        "lib/monotouch/System.Net.Http.Primitives.xml",
-        "lib/net40/System.Net.Http.Extensions.XML",
-        "lib/net40/System.Net.Http.Extensions.dll",
-        "lib/net40/System.Net.Http.Primitives.dll",
-        "lib/net40/System.Net.Http.Primitives.xml",
-        "lib/net40/System.Net.Http.WebRequest.dll",
-        "lib/net40/System.Net.Http.WebRequest.xml",
-        "lib/net40/System.Net.Http.dll",
-        "lib/net40/System.Net.Http.xml",
-        "lib/net40/ensureRedirect.xml",
-        "lib/net45/System.Net.Http.Extensions.XML",
-        "lib/net45/System.Net.Http.Extensions.dll",
-        "lib/net45/System.Net.Http.Primitives.dll",
-        "lib/net45/System.Net.Http.Primitives.xml",
-        "lib/net45/ensureRedirect.xml",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.Extensions.XML",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.Extensions.dll",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.Primitives.XML",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.Primitives.dll",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.dll",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.xml",
-        "lib/portable-net40+sl4+win8+wp71+wpa81/ensureRedirect.xml",
-        "lib/portable-net45+win8+wpa81/System.Net.Http.Extensions.XML",
-        "lib/portable-net45+win8+wpa81/System.Net.Http.Extensions.dll",
-        "lib/portable-net45+win8+wpa81/System.Net.Http.Primitives.dll",
-        "lib/portable-net45+win8+wpa81/System.Net.Http.Primitives.xml",
-        "lib/portable-net45+win8+wpa81/ensureRedirect.xml",
-        "lib/portable-net45+win8/System.Net.Http.Extensions.XML",
-        "lib/portable-net45+win8/System.Net.Http.Extensions.dll",
-        "lib/portable-net45+win8/System.Net.Http.Primitives.dll",
-        "lib/portable-net45+win8/System.Net.Http.Primitives.xml",
-        "lib/portable-net45+win8/ensureRedirect.xml",
-        "lib/sl4-windowsphone71/System.Net.Http.Extensions.XML",
-        "lib/sl4-windowsphone71/System.Net.Http.Extensions.dll",
-        "lib/sl4-windowsphone71/System.Net.Http.Primitives.XML",
-        "lib/sl4-windowsphone71/System.Net.Http.Primitives.dll",
-        "lib/sl4-windowsphone71/System.Net.Http.dll",
-        "lib/sl4-windowsphone71/System.Net.Http.xml",
-        "lib/win8/System.Net.Http.Extensions.XML",
-        "lib/win8/System.Net.Http.Extensions.dll",
-        "lib/win8/System.Net.Http.Primitives.dll",
-        "lib/win8/System.Net.Http.Primitives.xml",
-        "lib/wpa81/System.Net.Http.Extensions.XML",
-        "lib/wpa81/System.Net.Http.Extensions.dll",
-        "lib/wpa81/System.Net.Http.Primitives.dll",
-        "lib/wpa81/System.Net.Http.Primitives.xml",
-        "microsoft.net.http.2.2.29.nupkg.sha512",
-        "microsoft.net.http.nuspec"
-      ]
-    },
     "Microsoft.Net.Http.Headers/1.1.2": {
       "sha512": "DWJdBZ40yFaDvpIcTzEARzybWyuUB2V9CbrNpIq0GaD0Tx9EHXx2rZcpG034PbAZXBp//CR+cmftwGOkZieP0g==",
       "type": "package",
@@ -5864,15 +5603,15 @@
         "microsoft.net.http.headers.nuspec"
       ]
     },
-    "Microsoft.NETCore.App/1.1.1": {
-      "sha512": "VmbeuJr3rHBRssZp3tR48mzWPzt4syJNXRKq/hfAmUbdSu03cR1HrMcmDAC1L00bs7l/PkDxbo/+v3X65JT+MA==",
+    "Microsoft.NETCore.App/1.1.2": {
+      "sha512": "TUPK1xhef7WcbsIkhfZOz6J7DrG5aebjVRBswPfHe90eDhfnlWHaLiI1OtMB2O78bf5d37WO6ge+9nel2keKkA==",
       "type": "package",
-      "path": "microsoft.netcore.app/1.1.1",
+      "path": "microsoft.netcore.app/1.1.2",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netcoreapp1.0/_._",
-        "microsoft.netcore.app.1.1.1.nupkg.sha512",
+        "microsoft.netcore.app.1.1.2.nupkg.sha512",
         "microsoft.netcore.app.nuspec"
       ]
     },
@@ -5888,14 +5627,14 @@
         "runtime.json"
       ]
     },
-    "Microsoft.NETCore.DotNetHostPolicy/1.1.0": {
-      "sha512": "xa5FjffmB4QMfWIdwrW1cUKX6UD1VEePyzDcMqV8b/d9onZLJwIamPIRmDpN5lTlvdCnyUOI+5ZqZEjQIqSqxQ==",
+    "Microsoft.NETCore.DotNetHostPolicy/1.1.2": {
+      "sha512": "fD2UWfXXY+FgPWVqvpNo2/d7b/LHYl1/aepVimYYkVsuF4CczP8hgCJIlKiUbWF/d98xCMtz7bbuv6LkGfdfeQ==",
       "type": "package",
-      "path": "microsoft.netcore.dotnethostpolicy/1.1.0",
+      "path": "microsoft.netcore.dotnethostpolicy/1.1.2",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "microsoft.netcore.dotnethostpolicy.1.1.0.nupkg.sha512",
+        "microsoft.netcore.dotnethostpolicy.1.1.2.nupkg.sha512",
         "microsoft.netcore.dotnethostpolicy.nuspec",
         "runtime.json"
       ]
@@ -5912,14 +5651,14 @@
         "runtime.json"
       ]
     },
-    "Microsoft.NETCore.Jit/1.1.1": {
-      "sha512": "TiG1ZTlStqkcrZzSIkyhbAr8PvTKzJQMS2awfzfU3wQd4oIxZr2Ausrf8ksHOfQC2EKgZd66r9tHsqASDWwKsg==",
+    "Microsoft.NETCore.Jit/1.1.2": {
+      "sha512": "mgCxxN+3/0tNuF29pUCbjS3ag4DDmgxwYQXvGW4wyD5N7bAUysxOvMw7Fx/eQZKoCh5cH5LQ0w/5/o6vQmMhRQ==",
       "type": "package",
-      "path": "microsoft.netcore.jit/1.1.1",
+      "path": "microsoft.netcore.jit/1.1.2",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "microsoft.netcore.jit.1.1.1.nupkg.sha512",
+        "microsoft.netcore.jit.1.1.2.nupkg.sha512",
         "microsoft.netcore.jit.nuspec",
         "runtime.json"
       ]
@@ -5937,14 +5676,14 @@
         "runtime.json"
       ]
     },
-    "Microsoft.NETCore.Runtime.CoreCLR/1.1.1": {
-      "sha512": "uCLPGXIFJ49eIhwmBpuVQWQKzddeNYxmJpa0jjM6O5mJCeCN7Anz4aIT2nOxSh0U/mti1SR7f4elLnsU2j/bfQ==",
+    "Microsoft.NETCore.Runtime.CoreCLR/1.1.2": {
+      "sha512": "3O8EaWa5E+xDmNqVqmbrfxy6x+QQ87XPXv47sek1jkRrFac7j+ObsH0URWJRHJt/5nJpvEN7sb2KG0o/AM9nvg==",
       "type": "package",
-      "path": "microsoft.netcore.runtime.coreclr/1.1.1",
+      "path": "microsoft.netcore.runtime.coreclr/1.1.2",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "microsoft.netcore.runtime.coreclr.1.1.1.nupkg.sha512",
+        "microsoft.netcore.runtime.coreclr.1.1.2.nupkg.sha512",
         "microsoft.netcore.runtime.coreclr.nuspec",
         "runtime.json"
       ]
@@ -6291,7 +6030,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "SvSFOt/fOvTmeiUCfhttvwA919BJLVlGWOcnjzRGg50saft+A9xM5yqer1gaCCm8tUoJmCthNQWQaOnmYQij5w==",
+      "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [
@@ -6309,38 +6048,38 @@
         "remotion.linq.nuspec"
       ]
     },
-    "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "HdSSp5MnJSsg08KMfZThpuLPJpPwE5hBXvHwoKWosyHHfe8Mh5WKT0ylEOf6yNzX6Ngjxe4Whkafh5q7Ymac4Q==",
+    "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "oDfS0Alq+mluluapkR7A3rPd9bieNhwNzrJCPC2VEfJ2kzSm4tHuGObp+Ybk7l9jIyvM3K7SNNPtkphoGFA9jw==",
       "type": "package",
-      "path": "runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/debian.8-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "+yH1a49wJMy8Zt4yx5RhJrxO/DBDByAiCzNwiETI+1S4mPdCu0OY4djdciC7Vssk0l22wQaDLrXxXkp+3+7bVA==",
+    "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "0dxcIxhroiZzcekjl4MmbubRN4oNx5XuegS09A1foTs4c9TS8EV5AEZJGkN/WiPKIF7RnRk3b8mRflnv2SQp5Q==",
       "type": "package",
-      "path": "runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/fedora.23-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "c3YNH1GQJbfIPJeCnr4avseugSqPrxwIqzthYyZDN6EuOyNOzq+y2KSUfRcXauya1sF4foESTgwM5e1A8arAKw==",
+    "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "0k5qPXl0zs6yzc6IQYPbcQlrTdLEP2Mcs9AGcrMh8jq7pOfzL9B3xwc/e/EJPVITju3YsT+BNOI5voeOKY/KuA==",
       "type": "package",
-      "path": "runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/fedora.24-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
@@ -6416,38 +6155,38 @@
         "runtime.native.system.security.cryptography.apple.nuspec"
       ]
     },
-    "runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "NS1U+700m4KFRHR5o4vo9DSlTmlCKu/u7dtE5sUHVIPB+xpXxYQvgBgA6wEIeCz6Yfn0Z52/72WYsToCEPJnrw==",
+    "runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "ZFr1MDwzRCYWA883RSjxB4exm8bHlqQjI+yRdYd7zCvFAh2t1107U0ONRgn1zf5Bte2kowThZHE9DVdvuKlBsw==",
       "type": "package",
-      "path": "runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
-        "runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.native.system.security.cryptography.openssl.nuspec"
       ]
     },
-    "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "b3pthNgxxFcD+Pc0WSEoC0+md3MyhRS6aCEeenvNE3Fdw1HyJ18ZhRFVJJzIeR/O/jpxPboB805Ho0T3Ul7w8A==",
+    "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "aNIww1R7bC0tk/2u4Gtrom6afjlJlGsFm7mko/ymrbmdYIyso5cPBXjGaj2qIHup8p53LTvX4ED9mxMaK4guLQ==",
       "type": "package",
-      "path": "runtime.opensuse.13.2-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.opensuse.13.2-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "runtime.opensuse.13.2-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.opensuse.13.2-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.opensuse.13.2-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/opensuse.13.2-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "KeLz4HClKf+nFS7p/6Fi/CqyLXh81FpiGzcmuS8DGi9lUqSnZ6Es23/gv2O+1XVGfrbNmviF7CckBpavkBoIFQ==",
+    "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "ipj8GE8R8qgVm3ta13cTVQRR7LVj11x7SbC4Cpu5rgAEwoXcujwqHcWOhb+8KPMPNLTXWdZcwmv7d7HLayAF3w==",
       "type": "package",
-      "path": "runtime.opensuse.42.1-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.opensuse.42.1-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "runtime.opensuse.42.1-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.opensuse.42.1-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.opensuse.42.1-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/opensuse.42.1-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
@@ -6464,62 +6203,62 @@
         "runtimes/osx.10.10-x64/native/System.Security.Cryptography.Native.Apple.dylib"
       ]
     },
-    "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "X7IdhILzr4ROXd8mI1BUCQMSHSQwelUlBjF1JyTKCjXaOGn2fB4EKBxQbCK2VjO3WaWIdlXZL3W6TiIVnrhX4g==",
+    "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "l8EbzaU7q/YF/JArw7wzbKw7Bd3vxL4WUu9X4WGXfJYRIOe45i5wW+XbAVSkfghucM/eYKFb6/hNio7+N0AIkg==",
       "type": "package",
-      "path": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/osx.10.10-x64/native/System.Security.Cryptography.Native.OpenSsl.dylib"
       ]
     },
-    "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "nyFNiCk/r+VOiIqreLix8yN+q3Wga9+SE8BCgkf+2BwEKiNx6DyvFjCgkfV743/grxv8jHJ8gUK4XEQw7yzRYg==",
+    "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "4S+URvA5tdIA8DxsYe/+Neffgzbfl4WaZK6I1nLEzqRxfSuTqjVySBagCQSCnGkJsSMrjbZwtRu8K1I1pbbSJg==",
       "type": "package",
-      "path": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/rhel.7-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "ytoewC6wGorL7KoCAvRfsgoJPJbNq+64k2SqW6JcOAebWsFUvCCYgfzQMrnpvPiEl4OrblUlhF2ji+Q1+SVLrQ==",
+    "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "G1OTN/JU9rdQz9fj1eLHOLs7+8lFp7bp+H89h8AEV/Wa4kVZVwoi6DqnjEjJfFWjYZvGPDi9o95VWjeKG5gLkg==",
       "type": "package",
-      "path": "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.14.04-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "I8bKw2I8k58Wx7fMKQJn2R8lamboCAiHfHeV/pS65ScKWMMI0+wJkLYlEKvgW1D/XvSl/221clBoR2q9QNNM7A==",
+    "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "rbS6BNuxMvqAT0Sa4AlvHlHyWT4+1vtZHO9+R2A0udgOTIgIWu2+mKJVDO4AcHjCVVqB6WqSGcAQLx3QoXBy4Q==",
       "type": "package",
-      "path": "runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.04-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg==",
+    "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
+      "sha512": "SjraAtZSVwYLpU+pFfSoflen6k9jZ8p7sojFfyXUKprFc7iSN+jjl0qUT1maZBQHv8bAX0nrUaQhZnWsLY8v9w==",
       "type": "package",
-      "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
+      "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
-        "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
@@ -7096,7 +6835,7 @@
       ]
     },
     "System.Data.Common/4.3.0": {
-      "sha512": "qZfW8UxVBxBA04CXKNhSHvxAVS3XZzm6xy9iNk4F+mclajzwbfKhAJZLjq/O5NvU5wjvz7nLr2jYHlI4pq8XZw==",
+      "sha512": "AjAjbXNxYP1SRYpJ2Q6VCrndAJ6qnpnj2XaasQZNUh0JE6w/V84uxF2U/UaMHs427UBjKN7Ry8VsSqJmexkX7Q==",
       "type": "package",
       "path": "system.data.common/4.3.0",
       "files": [
@@ -7321,10 +7060,10 @@
         "system.diagnostics.debug.nuspec"
       ]
     },
-    "System.Diagnostics.DiagnosticSource/4.3.0": {
-      "sha512": "tD6kosZnTAGdrEa0tZSuFyunMbt/5KYDnHdndJYGqZoNy00XVXyACd5d6KnE1YgYv3ne2CjtAfNXo/fwEhnKUA==",
+    "System.Diagnostics.DiagnosticSource/4.3.1": {
+      "sha512": "j72A3mwamUXPgDIU1TWyzea7yqz59+iO2cmXuyzvcfuszWGq9JRbWify1k33lLQophaXOIyhPkEevfP0k4M3wg==",
       "type": "package",
-      "path": "system.diagnostics.diagnosticsource/4.3.0",
+      "path": "system.diagnostics.diagnosticsource/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -7336,7 +7075,7 @@
         "lib/netstandard1.3/System.Diagnostics.DiagnosticSource.xml",
         "lib/portable-net45+win8+wpa81/System.Diagnostics.DiagnosticSource.dll",
         "lib/portable-net45+win8+wpa81/System.Diagnostics.DiagnosticSource.xml",
-        "system.diagnostics.diagnosticsource.4.3.0.nupkg.sha512",
+        "system.diagnostics.diagnosticsource.4.3.1.nupkg.sha512",
         "system.diagnostics.diagnosticsource.nuspec"
       ]
     },
@@ -7827,7 +7566,7 @@
       ]
     },
     "System.Interactive.Async/3.0.0": {
-      "sha512": "RSK16FvaefH5+gUjI+CFawAO2wt8rvB8kWwb6+u2mLVuxMUEbTtk2J79nJh9wWXL1D3T1MEldmwyFRSx/Zi3JQ==",
+      "sha512": "iyrgkZz9Dzm0fiPouQszFC3SO/46k6AYd/jG9bu+/o0AoDMaRXtlo3TIuWVNtOuJFd1noL963QouroJ0T3rImw==",
       "type": "package",
       "path": "system.interactive.async/3.0.0",
       "files": [
@@ -8745,10 +8484,10 @@
         "system.net.requests.nuspec"
       ]
     },
-    "System.Net.Security/4.3.0": {
-      "sha512": "IgJKNfALqw7JRWp5LMQ5SWHNKvXVz094U6wNE3c1i8bOkMQvgBL+MMQuNt3xl9Qg9iWpj3lFxPZEY6XHmROjMQ==",
+    "System.Net.Security/4.3.1": {
+      "sha512": "qYnDntmrrHXUAhA+v2Kve8onMjJ2ZryQvx7kjGhW88c0IgA9B+q2M8b3l76HFBeotufDbAJfOvLEP32PS4XIKA==",
       "type": "package",
-      "path": "system.net.security/4.3.0",
+      "path": "system.net.security/4.3.1",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -8781,7 +8520,7 @@
         "runtimes/win/lib/net46/System.Net.Security.dll",
         "runtimes/win/lib/netstandard1.3/System.Net.Security.dll",
         "runtimes/win7/lib/netcore50/_._",
-        "system.net.security.4.3.0.nupkg.sha512",
+        "system.net.security.4.3.1.nupkg.sha512",
         "system.net.security.nuspec"
       ]
     },
@@ -11214,38 +10953,6 @@
         "system.xml.xpath.xdocument.4.0.1.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
-    },
-    "TweetinviAPI/1.2.0.1": {
-      "sha512": "/lO2qCnFGdjOKgLMRpFUwFe4Kveq/ZK0jgyFVjF/9lCU+sMs4o9g3M9QEhf4GlsPyf5WG2BbEAOmXNgXDk49yQ==",
-      "type": "package",
-      "path": "tweetinviapi/1.2.0.1",
-      "files": [
-        "lib/net40/Tweetinvi.dll",
-        "lib/net45/Tweetinvi.dll",
-        "lib/netstandard1.6/Tweetinvi.Controllers.dll",
-        "lib/netstandard1.6/Tweetinvi.Core.dll",
-        "lib/netstandard1.6/Tweetinvi.Credentials.dll",
-        "lib/netstandard1.6/Tweetinvi.Factories.dll",
-        "lib/netstandard1.6/Tweetinvi.Logic.dll",
-        "lib/netstandard1.6/Tweetinvi.Security.dll",
-        "lib/netstandard1.6/Tweetinvi.Streams.dll",
-        "lib/netstandard1.6/Tweetinvi.WebLogic.dll",
-        "lib/netstandard1.6/Tweetinvi.dll",
-        "lib/portable-net40+sl5+wp80+win8+wpa81/Tweetinvi.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Controllers.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Core.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Credentials.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Factories.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Logic.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Security.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Streams.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.WebLogic.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.dll",
-        "tools/Cheatsheet.cs",
-        "tools/install.ps1",
-        "tweetinviapi.1.2.0.1.nupkg.sha512",
-        "tweetinviapi.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -11263,25 +10970,22 @@
       "Microsoft.EntityFrameworkCore.SqlServer.Design >= 1.1.1",
       "Microsoft.Extensions.Configuration.UserSecrets >= 1.1.1",
       "Microsoft.Extensions.Logging.Debug >= 1.1.1",
-      "Microsoft.NETCore.App >= 1.1.1",
-      "Microsoft.Net.Http >= 2.2.29",
+      "Microsoft.NETCore.App >= 1.1.2",
       "Microsoft.VisualStudio.Web.BrowserLink >= 1.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 1.1.0",
-      "PusherServer >= 4.1.0",
-      "System.Net.Http >= 4.3.2",
-      "TweetinviAPI >= 1.2.0.1"
+      "PusherServer >= 4.1.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Agustin\\.nuget\\packages\\": {}
+    "C:\\Users\\bruno\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
+      "projectUniqueName": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
       "projectName": "cerebro-frontOffice",
-      "projectPath": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
-      "outputPath": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\obj\\",
+      "projectPath": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
+      "outputPath": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -11323,13 +11027,9 @@
             "target": "Package",
             "version": "1.1.2"
           },
-          "System.Net.Http": {
-            "target": "Package",
-            "version": "4.3.2"
-          },
           "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "autoReferenced": true
           },
           "Microsoft.VisualStudio.Web.BrowserLink": {
@@ -11360,10 +11060,6 @@
             "target": "Package",
             "version": "2.0.0"
           },
-          "Microsoft.Net.Http": {
-            "target": "Package",
-            "version": "2.2.29"
-          },
           "Microsoft.AspNetCore.SpaServices": {
             "target": "Package",
             "version": "1.1.0"
@@ -11371,10 +11067,6 @@
           "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",
             "version": "1.1.1"
-          },
-          "TweetinviAPI": {
-            "target": "Package",
-            "version": "1.2.0.1"
           }
         },
         "imports": [
