@@ -13,6 +13,6 @@ export class ChatService {
     enviarMensaje(mensaje: string, agrupacion: string, autor: string, email: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post("https://localhost:44332/api/chats?agrupacion=" + agrupacion + "&autor=" + autor + "&mensaje=" + mensaje + "&email=" + email, {}, options).map(data => data.json());
+        return this.http.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + agrupacion + "&autor=" + autor + "&mensaje=" + mensaje + "&email=" + email, {}, options).map(data => data.json());
     }
 }
