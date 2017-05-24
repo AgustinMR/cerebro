@@ -28,7 +28,7 @@ namespace AngularSpa
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets<Startup>();
             }
-
+            builder.AddUserSecrets<Startup>();
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -59,6 +59,7 @@ namespace AngularSpa
             }
             else
             {
+                app.UseBrowserLink();
                 app.UseExceptionHandler("/Home/Error");
             }
 
