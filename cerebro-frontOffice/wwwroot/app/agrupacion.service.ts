@@ -12,13 +12,13 @@ export class AgrupacionService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         var postInfo = "nombre_agrupacion=" + nombre_agrupacion + "&nombre_municipalidad_agrupacion=" + nombre_muni_agrupacion + "&usuario_email=" + email_usu + "&nombre_municipalidad_usuario=" + nombre_muni_usu + "&admin=true";
-        return this.http.post("http://localhost:58326/api/agrupaciones/nueva?" + postInfo, {}, options).map(data => data.json());
+        return this.http.post("https://www.cerebro-serviceLayer.com/api/agrupaciones/nueva?" + postInfo, {}, options).map(data => data.json());
     }
 
     //public ModificarAgrupacion(Nombre: string, Admin: string) {
     //    let headers = new Headers({ 'Content-Type': 'application/json' });
     //    let options = new RequestOptions({ headers: headers });
-    //    return this.http.post("http://localhost:58326/api/agrupaciones/nueva?" + "nombre_agrupacion=" + Nombre + "&usuario_email=" + Admin, {}, options).map(response => { });
+    //    return this.http.post("https://www.cerebro-serviceLayer.com/api/agrupaciones/nueva?" + "nombre_agrupacion=" + Nombre + "&usuario_email=" + Admin, {}, options).map(response => { });
     //}
 
 }
