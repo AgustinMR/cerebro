@@ -15,7 +15,7 @@ namespace cerebro_ServiceLayer.Controllers
     public class AgrupacionController : ApiController
     {
         [HttpPost]
-        [Route("nueva")]
+        [Route("")]
         public IHttpActionResult addAgrupacion([FromUri]Agrupacion_Usuario AUsu)
         {
             if (AUsu != null)
@@ -27,8 +27,21 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest();
         }
 
+        [HttpDelete]
+        [Route("")]
+        public IHttpActionResult deleteAgrupacion([FromUri]Agrupacion grupo)
+        {
+            if (grupo != null)
+            {
+                IBLAgrupacion IBLAgru = new BLAgrupacion();
+                IBLAgru.deleteAgrupacion(grupo);
+                return Ok();
+            }
+            return BadRequest();
+        }
+
         [HttpPost]
-        [Route("nuevoUsuario")]
+        [Route("usuario")]
         public IHttpActionResult addUsuarioAgrupacion([FromUri]Agrupacion_Usuario AUsu)
         {
             if (AUsu != null)
@@ -41,7 +54,7 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpPut]
-        [Route("")]
+        [Route("usuario")]
         public IHttpActionResult updateAdminAgrupacion([FromUri]Agrupacion_Usuario AUsu)
         {
             if (AUsu != null)
@@ -54,7 +67,7 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpDelete]
-        [Route("deleteUsuario")]
+        [Route("usuario")]
         public IHttpActionResult deleteUsuarioAgrupacion([FromUri]Agrupacion_Usuario AUsu)
         {
             if (AUsu != null)
@@ -66,17 +79,18 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest();
         }
 
-        [HttpDelete]
-        [Route("deleteAgrupacion")]
-        public IHttpActionResult deleteAgrupacion([FromUri]Agrupacion grupo)
-        {
-            if (grupo != null)
-            {
-                IBLAgrupacion IBLAgru = new BLAgrupacion();
-                IBLAgru.deleteAgrupacion(grupo);
-                return Ok();
-            }
-            return BadRequest();
+        [HttpGet]
+        [Route("")]
+        public Agrupacion getAgrupacion([FromUri]Agrupacion a) {
+            return new BLAgrupacion().obtenerAgrupacion(a.nombre, a.nombre_municipalidad);
         }
+
+        [HttpGet]
+        [Route("usuario")]
+        public List<Agrupacion_Usuario> getUuariosAgrupacion([FromUri]Agrupacion a)
+        {
+            return new BLAgrupacion().obtenerUsuariosAgrupacion(a.nombre, a.nombre_municipalidad);
+        }
+
     }
 }

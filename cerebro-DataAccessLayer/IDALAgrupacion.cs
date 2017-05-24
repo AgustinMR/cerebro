@@ -15,6 +15,7 @@ namespace cerebro_DataAccessLayer
         bool borrarUsuarioAgrupacion(Agrupacion_Usuario AUsu);
         bool borrarAgrupacion(Agrupacion grupo);
         bool borrarUsuarioAgrupaciones(Usuario usu);
-
+        Agrupacion obtenerAgrupacion(string nombre, string municipalidad);
+        List<Agrupacion_Usuario> obtenerUsuariosAgrupacion(string nombre, string municipalidad);
     }
 }
