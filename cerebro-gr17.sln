@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-BusinessLogicLayer"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-ServiceLayer", "cerebro-ServiceLayer\cerebro-ServiceLayer.csproj", "{E96F2DC5-8A0E-4567-995D-0A45FA7FD1F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainCagado", "MainCagado\MainCagado.csproj", "{3D79FA42-2A04-4794-8C71-6D031550D2A8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cerebro-backOffice", "cerebro-backOffice\cerebro-backOffice.csproj", "{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cerebro-frontOffice", "cerebro-frontOffice\cerebro-frontOffice.csproj", "{3EEC4D5A-E22A-4BFD-8BB5-77F281A44F90}"
@@ -39,10 +37,6 @@ Global
 		{E96F2DC5-8A0E-4567-995D-0A45FA7FD1F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E96F2DC5-8A0E-4567-995D-0A45FA7FD1F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E96F2DC5-8A0E-4567-995D-0A45FA7FD1F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D79FA42-2A04-4794-8C71-6D031550D2A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D79FA42-2A04-4794-8C71-6D031550D2A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D79FA42-2A04-4794-8C71-6D031550D2A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D79FA42-2A04-4794-8C71-6D031550D2A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A60D8024-AEA8-44EB-ACAA-7E4A23EE13E8}.Release|Any CPU.ActiveCfg = Release|Any CPU

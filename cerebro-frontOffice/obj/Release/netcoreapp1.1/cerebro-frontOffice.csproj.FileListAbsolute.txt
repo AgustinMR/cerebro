@@ -17,3 +17,4 @@ C:\GitHub\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\UserSecretsAssem
 C:\GitHub\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.AssemblyInfo.cs
 C:\GitHub\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.dll
 C:\GitHub\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.pdb
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\UserSecretsAssemblyInfo.cs
