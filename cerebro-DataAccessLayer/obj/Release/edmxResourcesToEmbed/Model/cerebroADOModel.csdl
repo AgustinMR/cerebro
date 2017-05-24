@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cerebroADOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Agrupacion">
+    <Key>
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="nombre_municipalidad" />
+    </Key>
+    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__AGRUPACIO__nombr__286302EC" FromRole="AGRUPACIONES" ToRole="MUNICIPALIDADES" />
+    <NavigationProperty Name="AGRUPACIONES_USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__2B3F6F97" FromRole="AGRUPACIONES" ToRole="AGRUPACIONES_USUARIOS" />
+  </EntityType>
+  <EntityType Name="Agrupacion_Usuario">
+    <Key>
+      <PropertyRef Name="nombre_agrupacion" />
+      <PropertyRef Name="nombre_municipalidad_agrupacion" />
+      <PropertyRef Name="usuario_email" />
+      <PropertyRef Name="nombre_municipalidad_usuario" />
+    </Key>
+    <Property Name="nombre_agrupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre_municipalidad_agrupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="usuario_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre_municipalidad_usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="admin" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AGRUPACIONES" Relationship="Self.FK__AGRUPACIONES_USU__2B3F6F97" FromRole="AGRUPACIONES_USUARIOS" ToRole="AGRUPACIONES" />
+    <NavigationProperty Name="USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__2C3393D0" FromRole="AGRUPACIONES_USUARIOS" ToRole="USUARIOS" />
+  </EntityType>
+  <EntityType Name="Municipalidad">
+    <Key>
+      <PropertyRef Name="nombre" />
+    </Key>
+    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ubicacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="AGRUPACIONES" Relationship="Self.FK__AGRUPACIO__nombr__286302EC" FromRole="MUNICIPALIDADES" ToRole="AGRUPACIONES" />
+    <NavigationProperty Name="USUARIOS" Relationship="Self.FK__USUARIOS__nombre__25869641" FromRole="MUNICIPALIDADES" ToRole="USUARIOS" />
+    <NavigationProperty Name="PRIVILEGIOS" Relationship="cerebroADOModel.FK__PRIVILEGI__nombr__286302EC" FromRole="Municipalidad" ToRole="PRIVILEGIOS" />
+  </EntityType>
+  <EntityType Name="Usuario" Abstract="true">
+    <Key>
+      <PropertyRef Name="email" />
+      <PropertyRef Name="nombre_municipalidad" />
+    </Key>
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AGRUPACIONES_USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__2C3393D0" FromRole="USUARIOS" ToRole="AGRUPACIONES_USUARIOS" />
+    <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__USUARIOS__nombre__25869641" FromRole="USUARIOS" ToRole="MUNICIPALIDADES" />
+    <NavigationProperty Name="PRIVILEGIOS" Relationship="cerebroADOModel.PRIVILEGIOS_USUARIOS" FromRole="Usuario" ToRole="PRIVILEGIOS" />
+  </EntityType>
+  <Association Name="FK__AGRUPACIO__nombr__286302EC">
+    <End Role="MUNICIPALIDADES" Type="cerebroADOModel.Municipalidad" Multiplicity="1" />
+    <End Role="AGRUPACIONES" Type="cerebroADOModel.Agrupacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUNICIPALIDADES">
+        <PropertyRef Name="nombre" />
+      </Principal>
+      <Dependent Role="AGRUPACIONES">
+        <PropertyRef Name="nombre_municipalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AGRUPACIONES_USU__2B3F6F97">
+    <End Role="AGRUPACIONES" Type="cerebroADOModel.Agrupacion" Multiplicity="1" />
+    <End Role="AGRUPACIONES_USUARIOS" Type="cerebroADOModel.Agrupacion_Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AGRUPACIONES">
+        <PropertyRef Name="nombre" />
+        <PropertyRef Name="nombre_municipalidad" />
+      </Principal>
+      <Dependent Role="AGRUPACIONES_USUARIOS">
+        <PropertyRef Name="nombre_agrupacion" />
+        <PropertyRef Name="nombre_municipalidad_agrupacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AGRUPACIONES_USU__2C3393D0">
+    <End Role="USUARIOS" Type="cerebroADOModel.Usuario" Multiplicity="1" />
+    <End Role="AGRUPACIONES_USUARIOS" Type="cerebroADOModel.Agrupacion_Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIOS">
+        <PropertyRef Name="email" />
+        <PropertyRef Name="nombre_municipalidad" />
+      </Principal>
+      <Dependent Role="AGRUPACIONES_USUARIOS">
+        <PropertyRef Name="usuario_email" />
+        <PropertyRef Name="nombre_municipalidad_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__USUARIOS__nombre__25869641">
+    <End Role="MUNICIPALIDADES" Type="cerebroADOModel.Municipalidad" Multiplicity="1" />
+    <End Role="USUARIOS" Type="cerebroADOModel.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUNICIPALIDADES">
+        <PropertyRef Name="nombre" />
+      </Principal>
+      <Dependent Role="USUARIOS">
+        <PropertyRef Name="nombre_municipalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="cerebroConnectionString" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AGRUPACIONES" EntityType="cerebroADOModel.Agrupacion" />
+    <EntitySet Name="AGRUPACIONES_USUARIOS" EntityType="cerebroADOModel.Agrupacion_Usuario" />
+    <EntitySet Name="MUNICIPALIDADES" EntityType="cerebroADOModel.Municipalidad" />
+    <EntitySet Name="USUARIOS" EntityType="cerebroADOModel.Usuario" />
+    <AssociationSet Name="FK__AGRUPACIO__nombr__286302EC" Association="Self.FK__AGRUPACIO__nombr__286302EC">
+      <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+      <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AGRUPACIONES_USU__2B3F6F97" Association="Self.FK__AGRUPACIONES_USU__2B3F6F97">
+      <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+      <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AGRUPACIONES_USU__2C3393D0" Association="Self.FK__AGRUPACIONES_USU__2C3393D0">
+      <End Role="USUARIOS" EntitySet="USUARIOS" />
+      <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__USUARIOS__nombre__25869641" Association="Self.FK__USUARIOS__nombre__25869641">
+      <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+      <End Role="USUARIOS" EntitySet="USUARIOS" />
+    </AssociationSet>
+    <EntitySet Name="PRIVILEGIOS" EntityType="cerebroADOModel.Privilegio" />
+    <AssociationSet Name="FK__PRIVILEGI__nombr__286302EC" Association="cerebroADOModel.FK__PRIVILEGI__nombr__286302EC">
+      <End Role="Municipalidad" EntitySet="MUNICIPALIDADES" />
+      <End Role="PRIVILEGIOS" EntitySet="PRIVILEGIOS" />
+    </AssociationSet>
+    <AssociationSet Name="PRIVILEGIOS_USUARIOS" Association="cerebroADOModel.PRIVILEGIOS_USUARIOS">
+      <End Role="PRIVILEGIOS" EntitySet="PRIVILEGIOS" />
+      <End Role="Usuario" EntitySet="USUARIOS" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Visitante" BaseType="cerebroADOModel.Usuario" />
+  <EntityType Name="Operador" BaseType="cerebroADOModel.Usuario">
+    <Property Name="password" Type="String" Unicode="false" FixedLength="false" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Administrador" BaseType="cerebroADOModel.Usuario">
+    <Property Name="password" Type="String" Unicode="false" FixedLength="false" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Privilegio">
+    <Key>
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="nombre_municipalidad" />
+    </Key>
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_municipalidad" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MUNICIPALIDADES" Relationship="cerebroADOModel.FK__PRIVILEGI__nombr__286302EC" FromRole="PRIVILEGIOS" ToRole="Municipalidad" />
+    <NavigationProperty Name="USUARIOS" Relationship="cerebroADOModel.PRIVILEGIOS_USUARIOS" FromRole="PRIVILEGIOS" ToRole="Usuario" />
+  </EntityType>
+  <Association Name="FK__PRIVILEGI__nombr__286302EC">
+    <End Type="cerebroADOModel.Municipalidad" Role="Municipalidad" Multiplicity="1" />
+    <End Type="cerebroADOModel.Privilegio" Role="PRIVILEGIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Municipalidad">
+        <PropertyRef Name="nombre" />
+      </Principal>
+      <Dependent Role="PRIVILEGIOS">
+        <PropertyRef Name="nombre_municipalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PRIVILEGIOS_USUARIOS">
+    <End Type="cerebroADOModel.Privilegio" Role="PRIVILEGIOS" Multiplicity="*" />
+    <End Type="cerebroADOModel.Usuario" Role="Usuario" Multiplicity="*" />
+  </Association>
+</Schema>

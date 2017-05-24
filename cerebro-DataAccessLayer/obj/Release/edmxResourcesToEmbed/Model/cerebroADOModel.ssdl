@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cerebroADOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AGRUPACIONES">
+    <Key>
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="nombre_municipalidad" />
+    </Key>
+    <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AGRUPACIONES_USUARIOS">
+    <Key>
+      <PropertyRef Name="nombre_agrupacion" />
+      <PropertyRef Name="nombre_municipalidad_agrupacion" />
+      <PropertyRef Name="usuario_email" />
+      <PropertyRef Name="nombre_municipalidad_usuario" />
+    </Key>
+    <Property Name="nombre_agrupacion" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre_municipalidad_agrupacion" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="usuario_email" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre_municipalidad_usuario" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="admin" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MUNICIPALIDADES">
+    <Key>
+      <PropertyRef Name="nombre" />
+    </Key>
+    <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="ubicacion" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PRIVILEGIOS">
+    <Key>
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="nombre_municipalidad" />
+    </Key>
+    <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PRIVILEGIOS_USUARIOS">
+    <Key>
+      <PropertyRef Name="nombre_privilegio" />
+      <PropertyRef Name="nombre_municipalidad_privilegio" />
+      <PropertyRef Name="usuario_email" />
+      <PropertyRef Name="nombre_municipalidad_usuario" />
+    </Key>
+    <Property Name="nombre_privilegio" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre_municipalidad_privilegio" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="usuario_email" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre_municipalidad_usuario" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="USUARIOS">
+    <Key>
+      <PropertyRef Name="email" />
+      <PropertyRef Name="nombre_municipalidad" />
+    </Key>
+    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="30" />
+    <Property Name="password" Type="varchar" MaxLength="30" />
+    <Property Name="tipo" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__AGRUPACIO__nombr__2F10007B">
+    <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+    <End Role="AGRUPACIONES" Type="Self.AGRUPACIONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUNICIPALIDADES">
+        <PropertyRef Name="nombre" />
+      </Principal>
+      <Dependent Role="AGRUPACIONES">
+        <PropertyRef Name="nombre_municipalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AGRUPACIONES_USU__31EC6D26">
+    <End Role="AGRUPACIONES" Type="Self.AGRUPACIONES" Multiplicity="1" />
+    <End Role="AGRUPACIONES_USUARIOS" Type="Self.AGRUPACIONES_USUARIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AGRUPACIONES">
+        <PropertyRef Name="nombre" />
+        <PropertyRef Name="nombre_municipalidad" />
+      </Principal>
+      <Dependent Role="AGRUPACIONES_USUARIOS">
+        <PropertyRef Name="nombre_agrupacion" />
+        <PropertyRef Name="nombre_municipalidad_agrupacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AGRUPACIONES_USU__32E0915F">
+    <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+    <End Role="AGRUPACIONES_USUARIOS" Type="Self.AGRUPACIONES_USUARIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIOS">
+        <PropertyRef Name="email" />
+        <PropertyRef Name="nombre_municipalidad" />
+      </Principal>
+      <Dependent Role="AGRUPACIONES_USUARIOS">
+        <PropertyRef Name="usuario_email" />
+        <PropertyRef Name="nombre_municipalidad_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PRIVILEGI__nombr__286302EC">
+    <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+    <End Role="PRIVILEGIOS" Type="Self.PRIVILEGIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUNICIPALIDADES">
+        <PropertyRef Name="nombre" />
+      </Principal>
+      <Dependent Role="PRIVILEGIOS">
+        <PropertyRef Name="nombre_municipalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PRIVILEGIOS_USUA__2B3F6F97">
+    <End Role="PRIVILEGIOS" Type="Self.PRIVILEGIOS" Multiplicity="1" />
+    <End Role="PRIVILEGIOS_USUARIOS" Type="Self.PRIVILEGIOS_USUARIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRIVILEGIOS">
+        <PropertyRef Name="nombre" />
+        <PropertyRef Name="nombre_municipalidad" />
+      </Principal>
+      <Dependent Role="PRIVILEGIOS_USUARIOS">
+        <PropertyRef Name="nombre_privilegio" />
+        <PropertyRef Name="nombre_municipalidad_privilegio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PRIVILEGIOS_USUA__2C3393D0">
+    <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+    <End Role="PRIVILEGIOS_USUARIOS" Type="Self.PRIVILEGIOS_USUARIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIOS">
+        <PropertyRef Name="email" />
+        <PropertyRef Name="nombre_municipalidad" />
+      </Principal>
+      <Dependent Role="PRIVILEGIOS_USUARIOS">
+        <PropertyRef Name="usuario_email" />
+        <PropertyRef Name="nombre_municipalidad_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__USUARIOS__nombre__25869641">
+    <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
+    <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUNICIPALIDADES">
+        <PropertyRef Name="nombre" />
+      </Principal>
+      <Dependent Role="USUARIOS">
+        <PropertyRef Name="nombre_municipalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="cerebroADOModelStoreContainer">
+    <EntitySet Name="AGRUPACIONES" EntityType="Self.AGRUPACIONES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AGRUPACIONES_USUARIOS" EntityType="Self.AGRUPACIONES_USUARIOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MUNICIPALIDADES" EntityType="Self.MUNICIPALIDADES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRIVILEGIOS" EntityType="Self.PRIVILEGIOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRIVILEGIOS_USUARIOS" EntityType="Self.PRIVILEGIOS_USUARIOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__AGRUPACIO__nombr__2F10007B" Association="Self.FK__AGRUPACIO__nombr__2F10007B">
+      <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+      <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AGRUPACIONES_USU__31EC6D26" Association="Self.FK__AGRUPACIONES_USU__31EC6D26">
+      <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+      <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AGRUPACIONES_USU__32E0915F" Association="Self.FK__AGRUPACIONES_USU__32E0915F">
+      <End Role="USUARIOS" EntitySet="USUARIOS" />
+      <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PRIVILEGI__nombr__286302EC" Association="Self.FK__PRIVILEGI__nombr__286302EC">
+      <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+      <End Role="PRIVILEGIOS" EntitySet="PRIVILEGIOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PRIVILEGIOS_USUA__2B3F6F97" Association="Self.FK__PRIVILEGIOS_USUA__2B3F6F97">
+      <End Role="PRIVILEGIOS" EntitySet="PRIVILEGIOS" />
+      <End Role="PRIVILEGIOS_USUARIOS" EntitySet="PRIVILEGIOS_USUARIOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PRIVILEGIOS_USUA__2C3393D0" Association="Self.FK__PRIVILEGIOS_USUA__2C3393D0">
+      <End Role="USUARIOS" EntitySet="USUARIOS" />
+      <End Role="PRIVILEGIOS_USUARIOS" EntitySet="PRIVILEGIOS_USUARIOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__USUARIOS__nombre__25869641" Association="Self.FK__USUARIOS__nombre__25869641">
+      <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
+      <End Role="USUARIOS" EntitySet="USUARIOS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

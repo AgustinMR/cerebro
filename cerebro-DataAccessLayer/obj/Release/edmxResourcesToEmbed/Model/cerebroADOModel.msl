@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="cerebroADOModelStoreContainer" CdmEntityContainer="cerebroConnectionString">
+    <EntitySetMapping Name="AGRUPACIONES">
+      <EntityTypeMapping TypeName="cerebroADOModel.Agrupacion">
+        <MappingFragment StoreEntitySet="AGRUPACIONES">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AGRUPACIONES_USUARIOS">
+      <EntityTypeMapping TypeName="cerebroADOModel.Agrupacion_Usuario">
+        <MappingFragment StoreEntitySet="AGRUPACIONES_USUARIOS">
+          <ScalarProperty Name="nombre_agrupacion" ColumnName="nombre_agrupacion" />
+          <ScalarProperty Name="nombre_municipalidad_agrupacion" ColumnName="nombre_municipalidad_agrupacion" />
+          <ScalarProperty Name="usuario_email" ColumnName="usuario_email" />
+          <ScalarProperty Name="nombre_municipalidad_usuario" ColumnName="nombre_municipalidad_usuario" />
+          <ScalarProperty Name="admin" ColumnName="admin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MUNICIPALIDADES">
+      <EntityTypeMapping TypeName="cerebroADOModel.Municipalidad">
+        <MappingFragment StoreEntitySet="MUNICIPALIDADES">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIOS">
+      <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.Usuario)">
+        <MappingFragment StoreEntitySet="USUARIOS">
+          <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.Visitante)">
+        <MappingFragment StoreEntitySet="USUARIOS">
+          <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <Condition ColumnName="tipo" Value="0" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.Operador)">
+        <MappingFragment StoreEntitySet="USUARIOS">
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <Condition ColumnName="tipo" Value="1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.Administrador)">
+        <MappingFragment StoreEntitySet="USUARIOS">
+          <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <Condition ColumnName="tipo" Value="2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRIVILEGIOS">
+      <EntityTypeMapping TypeName="cerebroADOModel.Privilegio">
+        <MappingFragment StoreEntitySet="PRIVILEGIOS">
+          <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PRIVILEGIOS_USUARIOS" TypeName="cerebroADOModel.PRIVILEGIOS_USUARIOS" StoreEntitySet="PRIVILEGIOS_USUARIOS">
+      <EndProperty Name="Usuario">
+        <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad_usuario" />
+        <ScalarProperty Name="email" ColumnName="usuario_email" />
+      </EndProperty>
+      <EndProperty Name="PRIVILEGIOS">
+        <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad_privilegio" />
+        <ScalarProperty Name="nombre" ColumnName="nombre_privilegio" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
