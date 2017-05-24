@@ -41,8 +41,8 @@ namespace AngularSpa
             // Add framework services.
             services.AddMvc(options =>
             {
-                options.SslPort = 44346;
-                options.Filters.Add(new RequireHttpsAttribute());
+                //options.SslPort = 44346;
+                //options.Filters.Add(new RequireHttpsAttribute());
             });
         }
 
@@ -81,15 +81,15 @@ namespace AngularSpa
 
             app.UseFacebookAuthentication(new FacebookOptions()
             {
-                AppId = Configuration["Authentication:Facebook:AppId"],
-                AppSecret = Configuration["Authentication:Facebook:AppSecret"],
+                AppId = "623498791182427",
+                AppSecret = "d2b6dbff6d05278aff60e0002cdd1238",
                 SignInScheme = "MyCookieMiddlewareInstance"
             });
 
             app.UseTwitterAuthentication(new TwitterOptions()
             {
-                ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"],
-                ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"],
+                ConsumerKey = "dez0wzcNcfJLc0DySfLJDKGwL",
+                ConsumerSecret = "fof6aJ0u9yvektL4TJpXQnzyrtMEEZLZj47sdQJzItO3HiRWZn",
                 SignInScheme = "MyCookieMiddlewareInstance"
             });
 
