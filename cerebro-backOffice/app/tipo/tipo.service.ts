@@ -33,17 +33,17 @@ export class TipoDeFuenteDeDatoService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         var postInfo = "nombre=" + nombre + "&municipalidad=" + this.nombre_municipalidad + "&frecuenciaLectura=" + frecLectura + "&tipo=" + tipoDeDato + "&uriWebService=" + endpointWS;
-        return this.http.post("http://localhost:58326/api/tipos?" + postInfo, {}, options).map(data => data.json());
+        return this.http.post("https://www.cerebro-serviceLayer.com/api/tipos?" + postInfo, {}, options).map(data => data.json());
     }
 
     public modificarTipo(nombre: string, tipoDeDato: string, endpointWS: string, frecLectura: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         var postInfo = "nombre=" + nombre + "&municipalidad=" + this.nombre_municipalidad + "&frecuenciaLectura=" + frecLectura + "&tipo=" + tipoDeDato + "&uriWebService=" + endpointWS;
-        return this.http.put("http://localhost:58326/api/tipos?" + postInfo, {}, options).map(data => data.json());
+        return this.http.put("https://www.cerebro-serviceLayer.com/api/tipos?" + postInfo, {}, options).map(data => data.json());
     }
 
     public obtenerTipos() {
-        return this.http.get("http://localhost:58326/api/tipos").map(data => data.json());
+        return this.http.get("https://www.cerebro-serviceLayer.com/api/tipos").map(data => data.json());
     }
 }
