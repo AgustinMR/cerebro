@@ -43,19 +43,15 @@ window.onscroll = function () {
     addNavbarTop();
 };
 var sidebar = document.getElementById("sidebar");
-var overlayBg = document.getElementById("myOverlay");
 function w3_open() {
-    if (sidebar.style.display === 'block') {
-        sidebar.style.display = 'none';
-        overlayBg.style.display = "none";
+    if (document.getElementById("sidebar").style.display === 'block') {
+        document.getElementById("sidebar").style.display = 'none';
     } else {
-        sidebar.style.display = 'block';
-        overlayBg.style.display = "block";
+        document.getElementById("sidebar").style.display = 'block';
     }
 }
 function w3_close() {
-    sidebar.style.display = "none";
-    overlayBg.style.display = "none";
+    document.getElementById("sidebar").style.display = "none";
 }
 function iniciarSesion() {
     $.post("https://localhost:44332/api/login", "email=" + document.getElementById("email").value + "&password=" + document.getElementById("password").value, function (response) {
