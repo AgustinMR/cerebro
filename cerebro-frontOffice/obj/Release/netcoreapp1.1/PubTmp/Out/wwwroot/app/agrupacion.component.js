@@ -8,17 +8,54 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var agrupacion_service_1 = require("./agrupacion.service");
 require("rxjs/add/operator/toPromise");
 var AgrupacionComponent = (function () {
-    function AgrupacionComponent(agru) {
-        this.agru = agru;
+    function AgrupacionComponent(service) {
+        this.service = service;
+        this.nombreAgrupacionNueva = "";
+        this.email = "agustinmr1995@gmail.com";
+        this.municipalidad = "Florida";
     }
-    AgrupacionComponent.prototype.addAgrupacion1 = function () {
+    AgrupacionComponent.prototype.addAgrupacion = function () {
         var _this = this;
-        this.agru.addAgrupacion("gmail", "Mdeo", "TSI.NEt", "Mdeo", true).subscribe(function (data) { return _this.agrupacionAgregada = data; }, function (responseError) { return console.log(responseError); }, function () { return console.log("ok"); });
+        this.mostrarMensajeLoading();
+        this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(function (data) { _this.mostrarMensajeExito(); console.log(data.json()); }, function (responseError) { _this.mostrarMensajeError(); console.log(responseError); }, function () { return console.log("addAgrupacion request finished"); });
+    };
+    AgrupacionComponent.prototype.deleteAgrupacion = function () {
+        var _this = this;
+        this.mostrarMensajeLoading();
+        this.service.deleteAgrupacion(this.nombreAgrupacionNueva, this.municipalidad).subscribe(function (data) { _this.mostrarMensajeExito(); console.log(data.json()); }, function (responseError) { _this.mostrarMensajeError(); console.log(responseError); }, function () { return console.log("deleteAgrupacion request finished"); });
+    };
+    AgrupacionComponent.prototype.toggleAdminAgrupacion = function (esAdmin) {
+        var _this = this;
+        this.mostrarMensajeLoading();
+        this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(function (data) { _this.mostrarMensajeExito(); console.log(data.json()); }, function (responseError) { _this.mostrarMensajeError(); console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
+    };
+    AgrupacionComponent.prototype.mostrarMensajeExito = function () {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "block";
+        document.getElementById("error").style.display = "none";
+    };
+    AgrupacionComponent.prototype.mostrarMensajeError = function () {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "block";
+    };
+    AgrupacionComponent.prototype.mostrarMensajeLoading = function () {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "block";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+    };
+    AgrupacionComponent.prototype.ocultarMensajes = function () {
+        document.getElementById("message").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
     };
     return AgrupacionComponent;
 }());
