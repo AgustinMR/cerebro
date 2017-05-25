@@ -109,14 +109,6 @@ namespace cerebro_DataAccessLayer
             return false;
         }
 
-        public Agrupacion obtenerAgrupacion(string nombre, string municipalidad)
-        {
-            return new AgrupacionesDbContext().Agrupaciones.Find(nombre, municipalidad);
-        }
 
-        public List<Agrupacion_Usuario> obtenerUsuariosAgrupacion(string nombre, string municipalidad)
-        {
-            return new AgrupacionesDbContext().Agrupaciones.Find(nombre, municipalidad).AGRUPACIONES_USUARIOS.ToList();
-        }
     }
 }
