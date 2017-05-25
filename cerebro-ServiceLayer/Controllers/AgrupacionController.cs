@@ -22,7 +22,7 @@ namespace cerebro_ServiceLayer.Controllers
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
                 IBLAgru.addAgrupacion(AUsu);
-                return Ok();
+                return Ok("ok");
             }
             return BadRequest();
         }
@@ -35,7 +35,7 @@ namespace cerebro_ServiceLayer.Controllers
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
                 IBLAgru.deleteAgrupacion(grupo);
-                return Ok();
+                return Ok("ok");
             }
             return BadRequest();
         }
@@ -61,7 +61,7 @@ namespace cerebro_ServiceLayer.Controllers
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
                 IBLAgru.addUsuariosAgrupacion(AUsu);
-                return Ok();
+                return Ok("ok");
             }
             return BadRequest();
         }
@@ -74,7 +74,7 @@ namespace cerebro_ServiceLayer.Controllers
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
                 IBLAgru.updateAdminAgrupacion(AUsu);
-                return Ok();
+                return Ok("ok");
             }
             return BadRequest();
         }
@@ -87,7 +87,7 @@ namespace cerebro_ServiceLayer.Controllers
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
                 IBLAgru.deleteUsuarioAgrupacion(AUsu);
-                return Ok();
+                return Ok("ok");
             }
             return BadRequest();
         }
