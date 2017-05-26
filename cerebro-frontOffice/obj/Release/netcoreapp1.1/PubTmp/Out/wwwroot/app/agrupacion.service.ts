@@ -43,10 +43,10 @@ export class AgrupacionService {
         return this.http.put("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + postInfo, {}, options).map(data => data.json());
     }
 
-    public deleteUsuarioAgrupacion(email: string, municipalidad: string, agrupacion: string, esAdmin: boolean) {
+    public deleteUsuarioAgrupacion(email: string, municipalidad: string, agrupacion: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=" + esAdmin;
+        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad;
         return this.http.delete("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + postInfo, options).map(data => data.json());
     }
 
