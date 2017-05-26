@@ -2,6 +2,7 @@
 using System.Web.Http.Cors;
 using cerebro_BusinessLogicLayer;
 using cerebro;
+using System.Collections.Generic;
 
 namespace cerebro_ServiceLayer.Controllers
 {
@@ -49,9 +50,6 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest();
         }
 
-
-
-
         [HttpDelete]
         [Route("visitante")]
         public IHttpActionResult deleteVisitante([FromUri]Visitante vis)
@@ -90,9 +88,6 @@ namespace cerebro_ServiceLayer.Controllers
             }
             return BadRequest();
         }
-
-
-
 
         [HttpPut]
         [Route("visitante")]
@@ -167,6 +162,34 @@ namespace cerebro_ServiceLayer.Controllers
                 return IBLUsu.loginUsuario(admin);
             }
             return false;
+        }
+
+        [HttpGet]
+        [Route("{email}")]
+        public Usuario getUsuario(string email)
+        {
+            return new BLUsuario().obtenerUsuario(email);
+        }
+
+        [HttpGet]
+        [Route("agrupaciones")]
+        public List<Agrupacion_Usuario> getAgrupacionesByUsuario(Usuario u)
+        {
+            return new BLUsuario().obtenerAgrupacionesByUsuario(u.email, u.nombre_municipalidad);
+        }
+
+        [HttpGet]
+        [Route("")]
+        public List<Usuario> getUsuarios()
+        {
+            return new BLUsuario().obtenerUsuarios();
+        }
+
+        [HttpGet]
+        [Route("municipalidad/{municipalidad}")]
+        public List<Usuario> getUsuarios(string municipalidad)
+        {
+            return new BLUsuario().obtenerUsuarios(municipalidad);
         }
     }
 }

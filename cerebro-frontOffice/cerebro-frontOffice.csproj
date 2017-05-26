@@ -30,6 +30,7 @@
     <Content Include="wwwroot\app\inicio.component.ts" />
     <Content Include="wwwroot\app\main.ts" />
     <Content Include="wwwroot\app\reporte.component.ts" />
+    <Content Include="wwwroot\app\usuario.service.ts" />
     <Content Include="wwwroot\systemjs-angular-loader.js" />
     <Content Include="wwwroot\systemjs.config.extras.js" />
     <Content Include="wwwroot\systemjs.config.js" />

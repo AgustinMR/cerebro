@@ -118,5 +118,6 @@ namespace cerebro_DataAccessLayer
         {
             return new AgrupacionesDbContext().Agrupaciones.Find(nombre, municipalidad).AGRUPACIONES_USUARIOS.ToList();
         }
+
     }
 }
