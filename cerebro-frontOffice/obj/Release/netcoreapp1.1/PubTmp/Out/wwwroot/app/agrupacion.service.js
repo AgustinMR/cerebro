@@ -47,17 +47,21 @@ var AgrupacionService = (function () {
         var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=" + esAdmin;
         return this.http.put("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + postInfo, {}, options).map(function (data) { return data.json(); });
     };
-    AgrupacionService.prototype.deleteUsuarioAgrupacion = function (email, municipalidad, agrupacion, esAdmin) {
+    AgrupacionService.prototype.deleteUsuarioAgrupacion = function (email, municipalidad, agrupacion) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=" + esAdmin;
+        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad;
         return this.http.delete("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + postInfo, options).map(function (data) { return data.json(); });
     };
-    AgrupacionService.prototype.getUsuariosAgrupacion = function (nombre, municipalidad) {
+    AgrupacionService.prototype.getAgrupacionesByUsuario = function (email) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        var deleteInfo = "nombre=" + nombre + "&nombre_municipalidad=" + municipalidad;
-        return this.http.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + deleteInfo, options).map(function (data) { return data.json(); });
+        return this.http.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email, options).map(function (data) { return data.json(); });
+    };
+    AgrupacionService.prototype.getUsuariosAgrupacion = function (nombre) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/" + nombre, options).map(function (data) { return data.json(); });
     };
     return AgrupacionService;
 }());
