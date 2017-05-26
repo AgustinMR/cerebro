@@ -68,14 +68,14 @@ export class AgrupacionComponent implements OnInit {
         );
     }
 
-    public addUsuarioAgrupacion(email: string) {
-        this.mostrarMensajeLoading();
-        this.service.addUsuarioAgrupacion(email, this.municipalidad, this.agrupacion).subscribe(
-            (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
-            responseError => { this.mostrarMensajeError(); console.log(responseError); },
-            () => console.log("deleteAgrupacion request finished")
-        );
-    }
+    //public addUsuarioAgrupacion(email: string) {
+    //    this.mostrarMensajeLoading();
+    //    this.service.addUsuarioAgrupacion(email, this.municipalidad, this.agrupacion).subscribe(
+    //        (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
+    //        responseError => { this.mostrarMensajeError(); console.log(responseError); },
+    //        () => console.log("deleteAgrupacion request finished")
+    //    );
+    //}
 
     public toggleAdminAgrupacion(esAdmin: boolean) {
         this.mostrarMensajeLoading();
