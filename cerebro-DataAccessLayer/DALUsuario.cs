@@ -107,9 +107,5 @@ namespace cerebro_DataAccessLayer
             return (from u in new UsuariosDbContext().Usuarios where u.nombre_municipalidad == municipalidad select u).ToList();
         }
 
-        public List<Agrupacion_Usuario> obtenerAgrupacionesByUsuario(string email, string municipalidad)
-        {
-            return new UsuariosDbContext().Usuarios.Find(email, municipalidad).AGRUPACIONES_USUARIOS.ToList();
-        }
     }
 }

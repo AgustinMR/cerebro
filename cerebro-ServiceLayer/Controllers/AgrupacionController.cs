@@ -41,6 +41,13 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpGet]
+        [Route("byUsuario")]
+        public List<string> getAgrupacionesByUsuario([FromUri]Agrupacion_Usuario a)
+        {
+            return new BLAgrupacion().obtenerAgrupacionesByUsuario(a.usuario_email);
+        }
+
+        [HttpGet]
         [Route("")]
         public Agrupacion getAgrupacion([FromUri]Agrupacion a)
         {
@@ -48,9 +55,10 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpGet]
-        [Route("usuario")]
-        public List<Agrupacion_Usuario> getUsuariosAgrupacion([FromUri]Agrupacion a) {
-            return new BLAgrupacion().obtenerUsuariosAgrupacion(a.nombre, a.nombre_municipalidad);
+        [Route("{nombre}")]
+        public List<Agrupacion_Usuario> getUsuariosAgrupacion(string nombre)
+        {
+            return new BLAgrupacion().obtenerUsuariosAgrupacion(nombre);
         }
 
         [HttpPost]
@@ -91,8 +99,6 @@ namespace cerebro_ServiceLayer.Controllers
             }
             return BadRequest();
         }
-
-
 
     }
 }

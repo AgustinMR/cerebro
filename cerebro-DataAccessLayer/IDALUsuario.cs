@@ -12,6 +12,5 @@ namespace cerebro_DataAccessLayer
         Usuario obtenerUsuario(string email);
         List<Usuario> obtenerUsuarios();
         List<Usuario> obtenerUsuarios(string municipalidad);
-        List<Agrupacion_Usuario> obtenerAgrupacionesByUsuario(string email, string municipalidad);
     }
 }
