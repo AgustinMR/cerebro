@@ -20,6 +20,7 @@ export class AgrupacionComponent implements OnInit {
     municipalidad = "Florida";
     agrupacionActual = "";
     usuarioAeliminar = "";
+    usuarioAagregar = "";
 
     constructor(private service: AgrupacionService, private usuarios: UsuarioService) { }
 
@@ -54,7 +55,6 @@ export class AgrupacionComponent implements OnInit {
 
     public seleccionarAgrupacion(agrupacion: string) {
         this.getUsuariosByMunicipalidad(this.municipalidad);
-
     }
 
     public getUsuariosByMunicipalidad(municipalidad: string) {
@@ -144,14 +144,16 @@ export class AgrupacionComponent implements OnInit {
         );
     }
 
-    //public addUsuarioAgrupacion(email: string) {
-    //    this.mostrarMensajeLoading();
-    //    this.service.addUsuarioAgrupacion(email, this.municipalidad, this.agrupacion).subscribe(
-    //        (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
-    //        responseError => { this.mostrarMensajeError(); console.log(responseError); },
-    //        () => console.log("deleteAgrupacion request finished")
-    //    );
-    //}
+    public addUsuarioAgrupacion() {
+        if (this.usuarioAagregar !== "" && this.usuarioAagregar !== "Seleccione un usuario para agregar...") {
+            this.mostrarMensajeLoading();
+            this.service.addUsuarioAgrupacion(this.usuarioAagregar, this.municipalidad, this.agrupacionActual).subscribe(
+                (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
+                responseError => { console.log(responseError); },
+                () => console.log("addUsuarioAgrupacion request finished")
+            );
+        }
+    }
 
     public toggleAdminAgrupacion(esAdmin: boolean) {
         this.service.toggleAdminAgrupacion(this.email, this.municipalidad, this.agrupacionActual, esAdmin).subscribe(
@@ -178,6 +180,8 @@ export class AgrupacionComponent implements OnInit {
         this.nombreAgrupacionNueva = "";
         document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     }
 
     mostrarMensajeError() {
@@ -187,6 +191,8 @@ export class AgrupacionComponent implements OnInit {
         document.getElementById("error").style.display = "block";
         document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     }
 
     mostrarMensajeLoading() {
@@ -196,6 +202,8 @@ export class AgrupacionComponent implements OnInit {
         document.getElementById("error").style.display = "none";
         document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     }
 
     mostrarMensajeConfirmacion() {
@@ -205,6 +213,8 @@ export class AgrupacionComponent implements OnInit {
         document.getElementById("error").style.display = "none";
         document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "block";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     }
 
     mostrarMensajeUsuarioQuitado() {
@@ -214,6 +224,30 @@ export class AgrupacionComponent implements OnInit {
         document.getElementById("error").style.display = "none";
         document.getElementById("usuarioQuitado").style.display = "block";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
+    }
+
+    mostrarMensajeUsuarioAgregado() {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("usuarioQuitado").style.display = "block";
+        document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "block";
+    }
+
+    mostrarMensajeErrorAgregarUsuario() {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("usuarioQuitado").style.display = "none";
+        document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "block";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     }
 
     ocultarMensajes() {
@@ -223,5 +257,7 @@ export class AgrupacionComponent implements OnInit {
         document.getElementById("error").style.display = "none";
         document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     }
 }

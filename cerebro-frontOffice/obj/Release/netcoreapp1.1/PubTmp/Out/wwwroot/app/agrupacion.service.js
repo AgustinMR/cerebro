@@ -37,7 +37,7 @@ var AgrupacionService = (function () {
     AgrupacionService.prototype.addUsuarioAgrupacion = function (email, municipalidad, agrupacion) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=true";
+        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=false";
         return this.http.post("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + postInfo, {}, options).map(function (data) { return data.json(); });
     };
     AgrupacionService.prototype.toggleAdminAgrupacion = function (email, municipalidad, agrupacion, esAdmin) {
