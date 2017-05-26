@@ -21,6 +21,7 @@ var AgrupacionComponent = (function () {
         this.municipalidad = "Florida";
         this.agrupacionActual = "";
         this.usuarioAeliminar = "";
+        this.usuarioAagregar = "";
     }
     AgrupacionComponent.prototype.ngOnInit = function () {
         this.getAgrupacionesByUsuario();
@@ -118,14 +119,13 @@ var AgrupacionComponent = (function () {
         this.mostrarMensajeLoading();
         this.service.deleteAgrupacion(this.nombreAgrupacionNueva, this.municipalidad).subscribe(function (data) { _this.mostrarMensajeExito(); console.log(data.json); }, function (responseError) { _this.mostrarMensajeError(); console.log(responseError); }, function () { return console.log("deleteAgrupacion request finished"); });
     };
-    //public addUsuarioAgrupacion(email: string) {
-    //    this.mostrarMensajeLoading();
-    //    this.service.addUsuarioAgrupacion(email, this.municipalidad, this.agrupacion).subscribe(
-    //        (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
-    //        responseError => { this.mostrarMensajeError(); console.log(responseError); },
-    //        () => console.log("deleteAgrupacion request finished")
-    //    );
-    //}
+    AgrupacionComponent.prototype.addUsuarioAgrupacion = function () {
+        var _this = this;
+        if (this.usuarioAagregar !== "" && this.usuarioAagregar !== "Seleccione un usuario para agregar...") {
+            this.mostrarMensajeLoading();
+            this.service.addUsuarioAgrupacion(this.usuarioAagregar, this.municipalidad, this.agrupacionActual).subscribe(function (data) { _this.mostrarMensajeExito(); console.log(data.json); }, function (responseError) { console.log(responseError); }, function () { return console.log("addUsuarioAgrupacion request finished"); });
+        }
+    };
     AgrupacionComponent.prototype.toggleAdminAgrupacion = function (esAdmin) {
         this.service.toggleAdminAgrupacion(this.email, this.municipalidad, this.agrupacionActual, esAdmin).subscribe(function (data) { console.log(data); }, function (responseError) { console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
     };
@@ -142,6 +142,8 @@ var AgrupacionComponent = (function () {
         this.nombreAgrupacionNueva = "";
         document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     };
     AgrupacionComponent.prototype.mostrarMensajeError = function () {
         document.getElementById("message").style.display = "block";
@@ -150,6 +152,8 @@ var AgrupacionComponent = (function () {
         document.getElementById("error").style.display = "block";
         document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     };
     AgrupacionComponent.prototype.mostrarMensajeLoading = function () {
         document.getElementById("message").style.display = "block";
@@ -158,6 +162,8 @@ var AgrupacionComponent = (function () {
         document.getElementById("error").style.display = "none";
         document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     };
     AgrupacionComponent.prototype.mostrarMensajeConfirmacion = function () {
         document.getElementById("message").style.display = "block";
@@ -166,6 +172,8 @@ var AgrupacionComponent = (function () {
         document.getElementById("error").style.display = "none";
         document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "block";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     };
     AgrupacionComponent.prototype.mostrarMensajeUsuarioQuitado = function () {
         document.getElementById("message").style.display = "block";
@@ -174,6 +182,28 @@ var AgrupacionComponent = (function () {
         document.getElementById("error").style.display = "none";
         document.getElementById("usuarioQuitado").style.display = "block";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
+    };
+    AgrupacionComponent.prototype.mostrarMensajeUsuarioAgregado = function () {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("usuarioQuitado").style.display = "block";
+        document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "block";
+    };
+    AgrupacionComponent.prototype.mostrarMensajeErrorAgregarUsuario = function () {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("usuarioQuitado").style.display = "none";
+        document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "block";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     };
     AgrupacionComponent.prototype.ocultarMensajes = function () {
         document.getElementById("message").style.display = "none";
@@ -182,6 +212,8 @@ var AgrupacionComponent = (function () {
         document.getElementById("error").style.display = "none";
         document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("errorAgregarUsuario").style.display = "none";
+        document.getElementById("successAgregarUsuario").style.display = "none";
     };
     return AgrupacionComponent;
 }());
