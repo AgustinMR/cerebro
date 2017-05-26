@@ -15,6 +15,7 @@ namespace cerebro_BusinessLogicLayer
         bool deleteUsuarioAgrupacion(Agrupacion_Usuario AUsu);
         bool deleteAgrupacion(Agrupacion grupo);
         Agrupacion obtenerAgrupacion(string nombre, string municipalidad);
-        List<Agrupacion_Usuario> obtenerUsuariosAgrupacion(string nombre, string municipalidad);
+        List<Agrupacion_Usuario> obtenerUsuariosAgrupacion(string nombre);
+        List<string> obtenerAgrupacionesByUsuario(string email);
     }
 }

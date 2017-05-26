@@ -14,9 +14,7 @@ namespace cerebro
         public String nombre { get; set; }
         [DataMember]
         public String nombre_municipalidad { get; set; }
-        [DataMember]
         public Municipalidad MUNICIPALIDADES { get; set; }
-        [DataMember]
         public ICollection<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }
 
         public Agrupacion(){ }
