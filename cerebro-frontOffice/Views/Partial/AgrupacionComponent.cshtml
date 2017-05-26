@@ -1,4 +1,17 @@
 ﻿<div class="w3-panel w3-white w3-round w3-display-container w3-padding w3-topbar w3-card">
+    <div class="ui active inverted dimmer" style="display: none" id="message">
+        <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
+        <div class="w3-display-middle" id="success" style="display: none">
+            <img src="~/images/success.svg" style="height: 45px"><br>
+            <h4>La agrupaci&oacute;n ha sido creada</h4><hr>
+            <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
+        </div>
+        <div class="w3-display-middle" id="error" style="display: none">
+            <img src="~/images/error.svg" style="height: 45px"><br>
+            <h4>Ha ocurrido un error, y no se agreg&oacute; la agrupaci&oacute;n</h4><hr>
+            <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
+        </div>
+    </div>
     <h3 class="ui horizontal divider w3-padding">agrupaciones</h3>
     <img src="~/images/cerebro-logo.png" alt="Nuevo" class="w3-image w3-display-topmiddle" style="margin-top: -23px; height: 40px">
     <div class="w3-bar w3-round w3-display-container" style="height: 40px">
@@ -8,19 +21,6 @@
         </div>
     </div>
     <div id="nuevo" class="tab w3-container">
-        <div class="ui active inverted dimmer" style="display: none" id="message">
-            <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
-            <div class="w3-display-middle" id="success" style="display: none">
-                <img src="~/images/success.svg" style="height: 45px"><br>
-                <h4>La agrupaci&oacute;n ha sido creada</h4><hr>
-                <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
-            </div>
-            <div class="w3-display-middle" id="error" style="display: none">
-                <img src="~/images/error.svg" style="height: 45px"><br>
-                <h4>Ha ocurrido un error, y no se agreg&oacute; la agrupaci&oacute;n</h4><hr>
-                <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
-            </div>
-        </div>
         <div class="w3-container w3-padding">
             <div class="w3-padding-24"><input type="text" class="w3-input w3-card w3-round w3-border" [(ngModel)]="nombreAgrupacionNueva" placeholder="Ingrese un nombre para la agrupaci&oacute;n..."></div>
             <div class="w3-row w3-center w3-margin-top">
@@ -30,9 +30,10 @@
     </div>
     <div id="quitar" class="tab w3-container" style="display:none">
         <div class="w3-container w3-padding w3-padding-24 w3-margin-top">
+            <select name="agrupaciones" id="agrupaciones" class="w3-select w3-half w3-margin-bottom w3-card w3-light-grey w3-round"></select>
             <table class="ui compact celled grey table">
                 <thead style="background-color: #FBFBFB">
-                    <tr><td colspan="4"><select name="usuarios" id="usuarios" class="w3-select w3-border w3-round"></select></td></tr>
+                    <tr><td colspan="4"><select name="usuarios" id="usuariosAgregar" class="w3-select w3-border w3-round"></select></td></tr>
                     <tr><td colspan="4" class="w3-bottombar"><button class="w3-button w3-cerebro-blue w3-round w3-right w3-hover-cerebro-blue w3-hover-shadow">Agregar</button></td></tr>
                 </thead>
                 <thead>

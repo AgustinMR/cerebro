@@ -13,5 +13,9 @@ namespace cerebro_BusinessLogicLayer
         bool deleteUsuario(Usuario usu);
         bool updateUsuario(Usuario usu);
         bool loginUsuario(Usuario usu);
+        Usuario obtenerUsuario(string email);
+        List<Usuario> obtenerUsuarios();
+        List<Usuario> obtenerUsuarios(string municipalidad);
+        List<Agrupacion_Usuario> obtenerAgrupacionesByUsuario(string email, string municipalidad);
     }
 }

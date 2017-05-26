@@ -1,6 +1,7 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { AgrupacionService } from './agrupacion.service';
 import { ChatService } from './chat.service';
+import { UsuarioService } from './usuario.service';
 import { Http, HttpModule, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from "rxjs/Observable";
@@ -11,19 +12,45 @@ import { Observable } from "rxjs/Observable";
     providers: [AgrupacionService]
 })
 
-export class AgrupacionComponent {
+export class AgrupacionComponent implements OnInit {
 
     agrupacionAgregada: any;
     nombreAgrupacionNueva = "";
     email = "agustinmr1995@gmail.com";
     municipalidad = "Florida";
 
-    constructor(private service: AgrupacionService) { }
+    constructor(private service: AgrupacionService, private usuarios: UsuarioService) { }
+
+    ngOnInit() {
+        this.getUsuariosByMunicipalidad();
+    }
+
+    public getUsuariosByMunicipalidad() {
+        this.usuarios.getUsuariosByMunicipalidad(this.municipalidad).subscribe(
+            (data: Response) => {
+                var x = JSON.parse(JSON.stringify(data));
+                for (var u in x) {
+                    var option = document.createElement("option");
+                    option.value = x[u].email;
+                    option.innerHTML = x[u].nombre + " - " + x[u].email;
+                    document.getElementById("usuariosAgregar").appendChild(option);
+                }
+                var option2 = document.createElement("option");
+                option2.value = "";
+                option2.selected = true;
+                option2.disabled = true;
+                option2.innerHTML = "Seleccione un usuario para agregar...";
+                document.getElementById("usuariosAgregar").appendChild(option2);
+            },
+            responseError => { console.log(responseError); },
+            () => console.log("getUsuariosByMunicipalidad request finished")
+        );
+    }
 
     public addAgrupacion() {
         this.mostrarMensajeLoading();
         this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(
-            (data: Response) => { this.mostrarMensajeExito(); console.log(data.json()); },
+            (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
             responseError => { this.mostrarMensajeError(); console.log(responseError); },
             () => console.log("addAgrupacion request finished")
         );
@@ -32,7 +59,7 @@ export class AgrupacionComponent {
     public deleteAgrupacion() {
         this.mostrarMensajeLoading();
         this.service.deleteAgrupacion(this.nombreAgrupacionNueva, this.municipalidad).subscribe(
-            (data: Response) => { this.mostrarMensajeExito(); console.log(data.json()); },
+            (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
             responseError => { this.mostrarMensajeError(); console.log(responseError); },
             () => console.log("deleteAgrupacion request finished")
         );
@@ -41,7 +68,7 @@ export class AgrupacionComponent {
     public toggleAdminAgrupacion(esAdmin: boolean) {
         this.mostrarMensajeLoading();
         this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(
-            (data: Response) => { this.mostrarMensajeExito(); console.log(data.json()); },
+            (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
             responseError => { this.mostrarMensajeError(); console.log(responseError); },
             () => console.log("toggleAdminAgrupacion request finished")
         );
@@ -52,6 +79,7 @@ export class AgrupacionComponent {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "block";
         document.getElementById("error").style.display = "none";
+        this.nombreAgrupacionNueva = "";
     }
 
     mostrarMensajeError() {

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 namespace cerebro
 {
     [DataContract]
+    [KnownType(typeof(Visitante))]
+    [KnownType(typeof(Operador))]
+    [KnownType(typeof(Administrador))]
     public abstract class Usuario
     {
         [DataMember]
@@ -16,9 +19,7 @@ namespace cerebro
         public string nombre_municipalidad { get; set; }
         [DataMember]
         public string nombre { get; set; }
-        [DataMember]
         public ICollection<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }
-        [DataMember]
         public Municipalidad MUNICIPALIDADES { get; set; }
         public ICollection<Privilegio> PRIVILEGIOS { get; set; }
 

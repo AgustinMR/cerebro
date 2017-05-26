@@ -92,5 +92,24 @@ namespace cerebro_DataAccessLayer
             return false;
         }
 
+        public Usuario obtenerUsuario(string email)
+        {
+            return (from u in new UsuariosDbContext().Usuarios where u.email == email select u).SingleOrDefault();
+        }
+
+        public List<Usuario> obtenerUsuarios()
+        {
+            return new UsuariosDbContext().Usuarios.ToList();
+        }
+
+        public List<Usuario> obtenerUsuarios(string municipalidad)
+        {
+            return (from u in new UsuariosDbContext().Usuarios where u.nombre_municipalidad == municipalidad select u).ToList();
+        }
+
+        public List<Agrupacion_Usuario> obtenerAgrupacionesByUsuario(string email, string municipalidad)
+        {
+            return new UsuariosDbContext().Usuarios.Find(email, municipalidad).AGRUPACIONES_USUARIOS.ToList();
+        }
     }
 }
