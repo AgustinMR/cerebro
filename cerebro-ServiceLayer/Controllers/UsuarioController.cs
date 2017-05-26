@@ -172,13 +172,6 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpGet]
-        [Route("agrupaciones")]
-        public List<Agrupacion_Usuario> getAgrupacionesByUsuario(Usuario u)
-        {
-            return new BLUsuario().obtenerAgrupacionesByUsuario(u.email, u.nombre_municipalidad);
-        }
-
-        [HttpGet]
         [Route("")]
         public List<Usuario> getUsuarios()
         {

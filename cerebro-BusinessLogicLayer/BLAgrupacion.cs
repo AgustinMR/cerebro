@@ -48,9 +48,14 @@ namespace cerebro_BusinessLogicLayer
             return dal.obtenerAgrupacion(nombre, municipalidad);
         }
 
-        public List<Agrupacion_Usuario> obtenerUsuariosAgrupacion(string nombre, string municipalidad)
+        public List<Agrupacion_Usuario> obtenerUsuariosAgrupacion(string nombre)
         {
-            return dal.obtenerUsuariosAgrupacion(nombre, municipalidad);
+            return dal.obtenerUsuariosAgrupacion(nombre);
+        }
+
+        public List<string> obtenerAgrupacionesByUsuario(string email)
+        {
+            return dal.obtenerAgrupacionesByUsuario(email);
         }
     }
 }

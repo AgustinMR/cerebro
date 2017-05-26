@@ -55,7 +55,10 @@ var AgrupacionComponent = (function () {
 =======
     AgrupacionComponent.prototype.getUsuariosByMunicipalidad = function () {
         this.usuarios.getUsuariosByMunicipalidad(this.municipalidad).subscribe(function (data) {
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/Bruno
+=======
+>>>>>>> refs/remotes/origin/master
             while (document.getElementById("usuariosAgregar").hasChildNodes()) {
                 document.getElementById("usuariosAgregar").removeChild(document.getElementById("usuariosAgregar").lastChild);
             }
@@ -134,6 +137,7 @@ var AgrupacionComponent = (function () {
     //}
     AgrupacionComponent.prototype.toggleAdminAgrupacion = function (esAdmin) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         this.service.toggleAdminAgrupacion(this.email, this.municipalidad, this.agrupacionActual, esAdmin).subscribe(function (data) { console.log(data); }, function (responseError) { console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
     };
     AgrupacionComponent.prototype.deleteUsuarioAgrupacion = function () {
@@ -144,6 +148,10 @@ var AgrupacionComponent = (function () {
         this.mostrarMensajeLoading();
         this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(function (data) { console.log(data.json); }, function (responseError) { console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
 >>>>>>> refs/remotes/origin/Bruno
+=======
+        this.mostrarMensajeLoading();
+        this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(function (data) { console.log(data.json); }, function (responseError) { console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
+>>>>>>> refs/remotes/origin/master
     };
     AgrupacionComponent.prototype.mostrarMensajeExito = function () {
         document.getElementById("message").style.display = "block";

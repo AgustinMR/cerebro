@@ -1,9 +1,5 @@
 ﻿using cerebro;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace cerebro_DataAccessLayer
 {
@@ -16,6 +12,7 @@ namespace cerebro_DataAccessLayer
         bool borrarAgrupacion(Agrupacion grupo);
         bool borrarUsuarioAgrupaciones(Usuario usu);
         Agrupacion obtenerAgrupacion(string nombre, string municipalidad);
-        List<Agrupacion_Usuario> obtenerUsuariosAgrupacion(string nombre, string municipalidad);
+        List<Agrupacion_Usuario> obtenerUsuariosAgrupacion(string nombre);
+        List<string> obtenerAgrupacionesByUsuario(string email);
     }
 }
