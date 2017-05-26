@@ -148,8 +148,8 @@ export class AgrupacionComponent implements OnInit {
         if (this.usuarioAagregar !== "" && this.usuarioAagregar !== "Seleccione un usuario para agregar...") {
             this.mostrarMensajeLoading();
             this.service.addUsuarioAgrupacion(this.usuarioAagregar, this.municipalidad, this.agrupacionActual).subscribe(
-                (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
-                responseError => { console.log(responseError); },
+                (data: Response) => { this.mostrarMensajeUsuarioAgregado(); console.log(data.json); },
+                responseError => { this.mostrarMensajeErrorAgregarUsuario(); console.log(responseError); },
                 () => console.log("addUsuarioAgrupacion request finished")
             );
         }
