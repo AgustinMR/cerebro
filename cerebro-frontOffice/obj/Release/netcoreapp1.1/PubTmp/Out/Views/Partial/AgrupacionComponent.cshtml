@@ -11,6 +11,20 @@
             <h4>Ha ocurrido un error, y no se agreg&oacute; la agrupaci&oacute;n</h4><hr>
             <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
         </div>
+<<<<<<< HEAD
+        <div class="w3-display-middle" id="confirmation" style="display: none">
+            <img src="~/images/warning.svg" style="height: 45px"><br>
+            <h4>Se eliminar&aacute; el usuario de la agrupaci&oacute;n</h4><br>&iquest;Continuar?<hr>
+            <button class="w3-button w3-border w3-text-cerebro-red w3-border-cerebro-red w3-hover-cerebro-red w3-margin-right" (click)="ocultarMensajes()">Salir</button>
+            <button class="w3-button w3-cerebro-blue w3-hover-cerebro-blue" (click)="deleteUsuarioAgrupacion()">Confirmar</button>
+        </div>
+        <div class="w3-display-middle" id="usuarioQuitado" style="display: none">
+            <img src="~/images/success.svg" style="height: 45px"><br>
+            <h4>El usuario ha sido quitado correctamente</h4><hr>
+            <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
+        </div>
+=======
+>>>>>>> refs/remotes/origin/Bruno
     </div>
     <h3 class="ui horizontal divider w3-padding">agrupaciones</h3>
     <img src="~/images/cerebro-logo.png" alt="Nuevo" class="w3-image w3-display-topmiddle" style="margin-top: -23px; height: 40px">
@@ -30,28 +44,31 @@
     </div>
     <div id="quitar" class="tab w3-container" style="display:none">
         <div class="w3-container w3-padding w3-padding-24 w3-margin-top">
+<<<<<<< HEAD
+            <select name="agrupaciones" id="agrupaciones" [(ngModel)]="agrupacionActual" class="w3-select w3-half w3-margin-bottom w3-card w3-light-grey w3-round" #box (change)="getUsuariosByAgrupacion(box.value)"></select>
+            <table id="usuariosActuales" class="ui compact celled grey table">
+=======
             <select name="agrupaciones" id="agrupaciones" class="w3-select w3-half w3-margin-bottom w3-card w3-light-grey w3-round"></select>
             <table class="ui compact celled grey table">
+>>>>>>> refs/remotes/origin/Bruno
                 <thead style="background-color: #FBFBFB">
                     <tr><td colspan="4"><select name="usuarios" id="usuariosAgregar" class="w3-select w3-border w3-round"></select></td></tr>
                     <tr><td colspan="4" class="w3-bottombar"><button class="w3-button w3-cerebro-blue w3-round w3-right w3-hover-cerebro-blue w3-hover-shadow">Agregar</button></td></tr>
                 </thead>
                 <thead>
                     <tr>
-                        <th>esAdmin</th>
-                        <th>Nombre</th>
+                        <th style="width: 10%">esAdmin</th>
                         <th>E-mail</th>
                         <th style="width: 10%">Acci&oacute;n</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="usuariosActualesBody">
                     <tr>
                         <td class="collapsing">
                             <div class="ui fitted slider checkbox">
                                 <input type="checkbox"> <label></label>
                             </div>
                         </td>
-                        <td>John Lilki</td>
                         <td>jhlilk22@yahoo.com</td>
                         <td class="w3-center"><img src="~/images/rubbish-bin.svg" style="height: 37px" class="w3-button w3-hover-none"></td>
                     </tr>
