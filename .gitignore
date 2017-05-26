@@ -2,14 +2,6 @@
 *.suo
 .vs/*
 cerebro-backOffice/node_modules
-cerebro/obj
-cerebro/bin
-cerebro-BusinessLogicLayer/obj
-cerebro-BusinessLogicLayer/bin
-cerebro-DataAccessLayer/obj
-cerebro-DataAccessLayer/bin
-cerebro-ServiceLayer/bin
-cerebro-ServiceLayer/obj
 cerebro-backOffice/obj
 cerebro-backOffice/bin
 cerebro-frontOffice/node_modules
