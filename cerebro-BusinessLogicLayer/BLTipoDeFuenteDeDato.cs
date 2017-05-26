@@ -33,6 +33,11 @@ namespace cerebro_BusinessLogicLayer
             return dal.getAllTipoDeFuenteDeDatos();
         }
 
+        public List<TipoDeFuenteDeDato> getAllTipoDeFuenteDeDatos(string muni)
+        {
+            return dal.getAllTipoDeFuenteDeDatos(muni);
+        }
+
         public TipoDeFuenteDeDato getTipoDeFuenteDeDato(ObjectId id)
         {
             return dal.getTipoDeFuenteDeDato(id);

@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var agrupacion_service_1 = require("./agrupacion.service");
 var usuario_service_1 = require("./usuario.service");
@@ -25,6 +26,9 @@ var AgrupacionComponent = (function () {
     };
     AgrupacionComponent.prototype.getUsuariosByMunicipalidad = function () {
         this.usuarios.getUsuariosByMunicipalidad(this.municipalidad).subscribe(function (data) {
+            while (document.getElementById("usuariosAgregar").hasChildNodes()) {
+                document.getElementById("usuariosAgregar").removeChild(document.getElementById("usuariosAgregar").lastChild);
+            }
             var x = JSON.parse(JSON.stringify(data));
             for (var u in x) {
                 var option = document.createElement("option");
@@ -50,10 +54,17 @@ var AgrupacionComponent = (function () {
         this.mostrarMensajeLoading();
         this.service.deleteAgrupacion(this.nombreAgrupacionNueva, this.municipalidad).subscribe(function (data) { _this.mostrarMensajeExito(); console.log(data.json); }, function (responseError) { _this.mostrarMensajeError(); console.log(responseError); }, function () { return console.log("deleteAgrupacion request finished"); });
     };
+    //public addUsuarioAgrupacion(email: string) {
+    //    this.mostrarMensajeLoading();
+    //    this.service.addUsuarioAgrupacion(email, this.municipalidad, this.agrupacion).subscribe(
+    //        (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
+    //        responseError => { this.mostrarMensajeError(); console.log(responseError); },
+    //        () => console.log("deleteAgrupacion request finished")
+    //    );
+    //}
     AgrupacionComponent.prototype.toggleAdminAgrupacion = function (esAdmin) {
-        var _this = this;
         this.mostrarMensajeLoading();
-        this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(function (data) { _this.mostrarMensajeExito(); console.log(data.json); }, function (responseError) { _this.mostrarMensajeError(); console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
+        this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(function (data) { console.log(data.json); }, function (responseError) { console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
     };
     AgrupacionComponent.prototype.mostrarMensajeExito = function () {
         document.getElementById("message").style.display = "block";

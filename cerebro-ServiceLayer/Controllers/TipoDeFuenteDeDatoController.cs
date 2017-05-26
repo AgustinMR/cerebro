@@ -45,5 +45,12 @@ namespace cerebro_ServiceLayer.Controllers
         {
             return new BLTipoDeFuenteDeDato().updateTipoDeFuenteDeDato(t);
         }
+
+        [HttpGet]
+        [Route("muni/{id}")]
+        public List<TipoDeFuenteDeDato> getAllTipoDeFuenteDeDatos(string id)
+        {
+            return new BLTipoDeFuenteDeDato().getAllTipoDeFuenteDeDatos(id);
+        }
     }
 }

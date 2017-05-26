@@ -28,6 +28,9 @@ export class AgrupacionComponent implements OnInit {
     public getUsuariosByMunicipalidad() {
         this.usuarios.getUsuariosByMunicipalidad(this.municipalidad).subscribe(
             (data: Response) => {
+                while (document.getElementById("usuariosAgregar").hasChildNodes()) {
+                    document.getElementById("usuariosAgregar").removeChild(document.getElementById("usuariosAgregar").lastChild);
+                }
                 var x = JSON.parse(JSON.stringify(data));
                 for (var u in x) {
                     var option = document.createElement("option");
@@ -65,11 +68,20 @@ export class AgrupacionComponent implements OnInit {
         );
     }
 
+    //public addUsuarioAgrupacion(email: string) {
+    //    this.mostrarMensajeLoading();
+    //    this.service.addUsuarioAgrupacion(email, this.municipalidad, this.agrupacion).subscribe(
+    //        (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
+    //        responseError => { this.mostrarMensajeError(); console.log(responseError); },
+    //        () => console.log("deleteAgrupacion request finished")
+    //    );
+    //}
+
     public toggleAdminAgrupacion(esAdmin: boolean) {
         this.mostrarMensajeLoading();
         this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(
-            (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
-            responseError => { this.mostrarMensajeError(); console.log(responseError); },
+            (data: Response) => { console.log(data.json); },
+            responseError => { console.log(responseError); },
             () => console.log("toggleAdminAgrupacion request finished")
         );
     }
