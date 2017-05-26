@@ -19,7 +19,7 @@ namespace cerebro_DataAccessLayer
                 var bd = mongo.GetDatabase("cerebroDB");
                 var tipos = bd.GetCollection<TipoDeFuenteDeDato>("TipoDeFuenteDeDato");
                 var filter = Builders<TipoDeFuenteDeDato>.Filter.Eq("nombre", t.nombre) & Builders<TipoDeFuenteDeDato>.Filter.Eq("municipalidad", t.municipalidad);
-                Console.WriteLine(filter);
+                //Console.WriteLine(filter);
                 if (tipos.Find(filter).FirstOrDefault() != null)
                     return false;                
                 tipos.InsertOne(t);
@@ -41,7 +41,21 @@ namespace cerebro_DataAccessLayer
         {
             var mongo = new MongoClient();
             var bd = mongo.GetDatabase("cerebroDB");
-            return bd.GetCollection<TipoDeFuenteDeDato>("TipoFuenteDeDato").Find(new BsonDocument()).ToList();
+            return bd.GetCollection<TipoDeFuenteDeDato>("TipoDeFuenteDeDato").Find(new BsonDocument()).ToList();
+        }
+
+        public List<TipoDeFuenteDeDato> getAllTipoDeFuenteDeDatos(string muni)
+        {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            List<TipoDeFuenteDeDato> doc = bd.GetCollection<TipoDeFuenteDeDato>("TipoDeFuenteDeDato").Find(new BsonDocument()).ToList();
+            List<TipoDeFuenteDeDato> returnList = new List<TipoDeFuenteDeDato>();
+            for (int i = 0; i < doc.Count; i++) {
+                if (doc[i].municipalidad.Equals(muni)) {
+                    returnList.Add(doc[i]);
+                }
+            }
+            return returnList;
         }
 
         public TipoDeFuenteDeDato getTipoDeFuenteDeDato(ObjectId id)
