@@ -10,3 +10,8 @@ cerebro-frontOffice/bin
 packages/Npm.3.5.2
 packages/NoGit.0.1.0
 cerebro-ServiceLayer/obj/Debug/CoreCompileInputs.cache
+cerebro-ServiceLayer/obj/Release/TransformWebConfig/transformed/Web.config
+cerebro-ServiceLayer/obj/Release/TransformWebConfig/original/Web.config
+cerebro-ServiceLayer/obj/Release/TransformWebConfig/transformed/Web.config
+cerebro-ServiceLayer/obj/Release/TransformWebConfig/transformed/Web.config
+cerebro-DataAccessLayer/App.Config

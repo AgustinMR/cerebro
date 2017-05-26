@@ -12,3 +12,17 @@ C:\GitHub\cerebro\cerebro\bin\Release\Newtonsoft.Json.xml
 C:\GitHub\cerebro\cerebro\obj\Release\cerebro.csprojResolveAssemblyReference.cache
 C:\GitHub\cerebro\cerebro\obj\Release\cerebro.dll
 C:\GitHub\cerebro\cerebro\obj\Release\cerebro.pdb
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\cerebro.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\cerebro.pdb
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\MongoDB.Bson.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\MongoDB.Driver.Core.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\MongoDB.Driver.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\Newtonsoft.Json.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\MongoDB.Bson.xml
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\MongoDB.Driver.xml
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\MongoDB.Driver.Core.xml
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\bin\Release\Newtonsoft.Json.xml
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\obj\Release\cerebro.csprojResolveAssemblyReference.cache
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\obj\Release\cerebro.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro\obj\Release\cerebro.pdb

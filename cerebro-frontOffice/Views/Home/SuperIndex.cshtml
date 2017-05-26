@@ -44,7 +44,6 @@
             FB.login(function (response) {
                 if (response.status === 'connected') {
                     FB.api('/me', 'GET', { "fields": "id,name,email" }, function (user) {
-                        //$.get("https://localhost:44346/Home/Index", "user="+user.email);
                         window.location = "https://www.cerebro-frontOffice.com/inicio?user=" + user.email;
                     }
                     );
