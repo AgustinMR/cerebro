@@ -35,5 +35,25 @@ namespace cerebro_BusinessLogicLayer
         {
             return dal.loginUsuario(usu);
         }
+
+        public Usuario obtenerUsuario(string email)
+        {
+            return dal.obtenerUsuario(email);
+        }
+
+        public List<Usuario> obtenerUsuarios()
+        {
+            return dal.obtenerUsuarios();
+        }
+
+        public List<Usuario> obtenerUsuarios(string municipalidad)
+        {
+            return dal.obtenerUsuarios(municipalidad);
+        }
+
+        public List<Agrupacion_Usuario> obtenerAgrupacionesByUsuario(string email, string municipalidad)
+        {
+            return dal.obtenerAgrupacionesByUsuario(email, municipalidad);
+        }
     }
 }
