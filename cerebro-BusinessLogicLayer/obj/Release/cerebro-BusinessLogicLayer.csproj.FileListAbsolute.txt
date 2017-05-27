@@ -40,3 +40,25 @@ C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-BusinessLogicLayer\bin\Rele
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-BusinessLogicLayer\obj\Release\cerebro-BusinessLogicLayer.csprojResolveAssemblyReference.cache
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-BusinessLogicLayer\obj\Release\cerebro-BusinessLogicLayer.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-BusinessLogicLayer\obj\Release\cerebro-BusinessLogicLayer.pdb
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\cerebro-BusinessLogicLayer.dll.config
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\cerebro-BusinessLogicLayer.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\cerebro-BusinessLogicLayer.pdb
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\cerebro-DataAccessLayer.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\cerebro.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\MongoDB.Bson.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\MongoDB.Driver.Core.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\MongoDB.Driver.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\EntityFramework.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\cerebro-DataAccessLayer.pdb
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\cerebro-DataAccessLayer.dll.config
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\cerebro.pdb
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\cerebro.dll.config
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\MongoDB.Bson.xml
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\MongoDB.Driver.xml
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\MongoDB.Driver.Core.xml
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\EntityFramework.xml
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\bin\Release\es\EntityFramework.resources.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\obj\Release\cerebro-BusinessLogicLayer.csprojResolveAssemblyReference.cache
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\obj\Release\cerebro-BusinessLogicLayer.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-BusinessLogicLayer\obj\Release\cerebro-BusinessLogicLayer.pdb

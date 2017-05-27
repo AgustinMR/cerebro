@@ -18,3 +18,13 @@ C:\GitHub\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOff
 C:\GitHub\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.dll
 C:\GitHub\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.pdb
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-frontOffice\bin\Release\netcoreapp1.1\cerebro-frontOffice.deps.json
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-frontOffice\bin\Release\netcoreapp1.1\cerebro-frontOffice.runtimeconfig.json
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-frontOffice\bin\Release\netcoreapp1.1\cerebro-frontOffice.runtimeconfig.dev.json
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-frontOffice\bin\Release\netcoreapp1.1\cerebro-frontOffice.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-frontOffice\bin\Release\netcoreapp1.1\cerebro-frontOffice.pdb
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.csprojResolveAssemblyReference.cache
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.AssemblyInfo.cs
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.dll
+C:\Users\Pedro Moretto\Desktop\tsi obligatorio\cerebro\cerebro-frontOffice\obj\Release\netcoreapp1.1\cerebro-frontOffice.pdb
