@@ -9,6 +9,8 @@
     <title>Cerebro</title>
     <link rel="stylesheet" href="~/css/w3.css">
     <link rel="stylesheet" href="~/css/site.css">
+    <link href="~/css/dimmer.min.css" rel="stylesheet" />
+    <link href="~/css/loader.min.css" rel="stylesheet" />
     <link href="~/css/checkbox.min.css" rel="stylesheet" />
     <script src="~/js/jquery.js"></script>
     <script src="~/js/checkbox.min.js"></script>
@@ -17,20 +19,21 @@
 </head>
 <body style="background-color: #F9F9F9">
     <my-app></my-app>
+    <div class="ui active dimmer" style="display: none" id="message">
+        <div class="ui text loader" id="loading" style="display: none">Por favor espere...</div>
+        <div class="w3-display-middle" id="exito" style="display: none">
+            <img src="~/images/success.svg" style="height: 45px"><br>
+            <h4 class="w3-text-white">Se ha registrado correctamente</h4><br>
+            <button class="w3-button w3-text-white w3-round w3-border w3-border-white w3-hover-white" onClick="ocultarMensajes();">Aceptar</button>
+        </div>
+        <div class="w3-display-middle" id="error" style="display: none">
+            <img src="~/images/error.svg" style="height: 45px"><br>
+            <h4 class="w3-text-white">No se pudo completar el registro, por favor vuelve a intentar</h4><br>
+            <button class="w3-button w3-text-white w3-round w3-border w3-border-white w3-hover-white" onClick="ocultarMensajes()">Aceptar</button>
+        </div>
+    </div>
     <div id="fb-root"></div>
     <script>
-        function statusChangeCallback(response) {
-            if (response.status === 'connected') {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        function checkLoginState() {
-            FB.getLoginStatus(function (response) {
-                statusChangeCallback(response);
-            });
-        }
         (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
@@ -42,6 +45,7 @@
         window.fbAsyncInit = function () {
             FB.init({ appId: '623498791182427', cookie: true, xfbml: true, version: 'v2.8' });
         };
+        $('input[type=checkbox]').removeAttr('checked');
         function registrarFacebook() {
             FB.login(function (response) {
                 if (response.status === 'connected') {
@@ -52,6 +56,18 @@
                 } else {
                 }
             }, { scope: 'public_profile,email' });
+        }
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
         }
         var cb = new Codebird;
         cb.setConsumerKey("dez0wzcNcfJLc0DySfLJDKGwL", "fof6aJ0u9yvektL4TJpXQnzyrtMEEZLZj47sdQJzItO3HiRWZn");
@@ -80,6 +96,26 @@
                 }
             );
         }
+        function cargarMunicipalidades() { 
+            $.get("https://www.cerebro-serviceLayer.com/api/municipalidades", function (response) {
+                $.each(response, function (index, municipalidad) {
+                    var x = JSON.parse(JSON.stringify(municipalidad));
+                    var option = document.createElement("option");
+                    option.value = x.nombre;
+                    option.innerHTML = x.nombre;
+                    document.getElementById("municipalidadOperador").appendChild(option);
+                });
+                var option2 = document.createElement("option");
+                option2.value = "";
+                option2.selected = true;
+                option2.disabled = true;
+                option2.innerHTML = "Seleccione su municipalidad...";
+                document.getElementById("municipalidadOperador").appendChild(option2);
+            });
+        }
+        window.onload = function () {
+            cargarMunicipalidades();
+        }
         function terminarRegistroTwitter() { 
             cb.__call(
                 "oauth_accessToken",
@@ -98,7 +134,6 @@
                 }
             );
         }
-
     </script>
     <div class="w3-top">
         <div class="w3-bar" id="nav">
@@ -127,7 +162,7 @@
                     <div class="w3-panel w3-white w3-round w3-card-4">
                         <div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image w3-margin-top" style="height: 45px"></div><hr>
                         <div class="ui toggle checkbox">
-                            <input name="public" type="checkbox" onChange="toggleTipoUsuario()">
+                            <input name="public" type="checkbox" id="check" onChange="toggleTipoUsuario()">
                             <label>Operador de municipalidad</label>
                         </div><hr>
                         <div id="operador" style="display: none">
@@ -139,7 +174,7 @@
                             <input id="passwordOperador" type="password" name="pass" class="w3-input w3-padding w3-border w3-round w3-hover-border-cerebro-red w3-margin-bottom" placeholder="Ingrese su contrase&ntilde;a">
                             <label class="w3-text-cerebro-blue"><strong>Municipalidad:</strong></label>
                             <select id="municipalidadOperador" class="w3-select w3-border w3-round w3-hover-border-cerebro-red"></select><hr>
-                            <button class="w3-button w3-input w3-border w3-border-cerebro-red w3-round w3-text-cerebro-red w3-margin-bottom w3-hover-cerebro-red">Registrarse en Cerebro</button>
+                            <button class="w3-button w3-input w3-border w3-border-cerebro-red w3-round w3-text-cerebro-red w3-margin-bottom w3-hover-cerebro-red" onclick="registrarOperador()">Registrarse en Cerebro</button>
                         </div>
                         <div id="visitante" style="display: block">
                             <button onclick="registrarFacebook()" class="w3-button w3-input w3-border w3-border-facebook w3-round w3-text-facebook w3-hover-facebook"><img src="~/images/facebook1.png" class="w3-left w3-centered" style="height: 27px">Registrarse con Facebook</button>

@@ -31,6 +31,7 @@
     <EntitySetMapping Name="USUARIOS">
       <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.Usuario)">
         <MappingFragment StoreEntitySet="USUARIOS">
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
           <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad" />
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
