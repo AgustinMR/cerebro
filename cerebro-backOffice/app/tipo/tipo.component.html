@@ -2,23 +2,23 @@
     <div class="ui active inverted dimmer" style="display: none" id="message">
         <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
         <div class="w3-display-middle" id="success" style="display: none">
-            <img src="~/images/success.svg" style="height: 45px"><br>
+            <img src="../../Content/success.svg" style="height: 45px"><br>
             <h4>La agrupaci&oacute;n ha sido creada</h4><hr>
             <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
         </div>
         <div class="w3-display-middle" id="error" style="display: none">
-            <img src="~/images/error.svg" style="height: 45px"><br>
+            <img src="../../Content/error.svg" style="height: 45px"><br>
             <h4>Ha ocurrido un error, y no se agreg&oacute; la agrupaci&oacute;n</h4><hr>
             <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
         </div>
         <div class="w3-display-middle" id="confirmation" style="display: none">
-            <img src="~/images/warning.svg" style="height: 45px"><br>
+            <img src="../../Content/warning.svg" style="height: 45px"><br>
             <h4>Se eliminar&aacute; el Tipo de fuente de datos</h4><br>&iquest;Continuar?<hr>
             <button class="w3-button w3-border w3-text-cerebro-red w3-border-cerebro-red w3-hover-cerebro-red w3-margin-right" (click)="ocultarMensajes()">Salir</button>
             <button class="w3-button w3-cerebro-blue w3-hover-cerebro-blue" (click)="deleteTipo()">Confirmar</button>
         </div>
         <div class="w3-display-middle" id="usuarioQuitado" style="display: none">
-            <img src="~/images/success.svg" style="height: 45px"><br>
+            <img src="../../Content/success.svg" style="height: 45px"><br>
             <h4>El usuario ha sido quitado correctamente</h4><hr>
             <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
         </div>
@@ -86,15 +86,6 @@
                     </tr>
                 </thead>
                 <tbody id="tiposActuales">
-                    <tr>
-                        <td class="collapsing">
-                            <div class="ui fitted slider checkbox">
-                                <input type="checkbox"> <label></label>
-                            </div>
-                        </td>
-                        <td>jhlilk22@yahoo.com</td>
-                        <td class="w3-center"><img src="~/images/rubbish-bin.svg" style="height: 37px" class="w3-button w3-hover-none"></td>
-                    </tr>
                 </tbody>
             </table>
         </div>
