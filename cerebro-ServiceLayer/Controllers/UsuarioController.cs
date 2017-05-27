@@ -3,6 +3,7 @@ using System.Web.Http.Cors;
 using cerebro_BusinessLogicLayer;
 using cerebro;
 using System.Collections.Generic;
+using cerebro_ServiceLayer.Models;
 
 namespace cerebro_ServiceLayer.Controllers
 {
@@ -18,10 +19,13 @@ namespace cerebro_ServiceLayer.Controllers
             if (vis != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                IBLUsu.addUsuario(vis);
-                return Ok();
+                if (IBLUsu.addUsuario(vis))
+                {
+                    return Ok(TipoRetorno.OK.ToString());
+                }
+                return InternalServerError();
             }
-            return BadRequest();
+            return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
         [HttpPost]
@@ -31,10 +35,13 @@ namespace cerebro_ServiceLayer.Controllers
             if (op != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                IBLUsu.addUsuario(op);
-                return Ok();
+                if (IBLUsu.addUsuario(op))
+                {
+                    return Ok(TipoRetorno.OK.ToString());
+                }
+                return InternalServerError();
             }
-            return BadRequest();
+            return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
         [HttpPost]
@@ -44,10 +51,13 @@ namespace cerebro_ServiceLayer.Controllers
             if (admin != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                IBLUsu.addUsuario(admin);
-                return Ok();
+                if (IBLUsu.addUsuario(admin))
+                {
+                    return Ok(TipoRetorno.OK.ToString());
+                }
+                return InternalServerError();
             }
-            return BadRequest();
+            return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
         [HttpDelete]
@@ -57,10 +67,13 @@ namespace cerebro_ServiceLayer.Controllers
             if (vis != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                IBLUsu.deleteUsuario(vis);
-                return Ok();
+                if (IBLUsu.deleteUsuario(vis))
+                {
+                    return Ok(TipoRetorno.OK.ToString());
+                }
+                return InternalServerError();
             }
-            return BadRequest();
+            return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
         [HttpDelete]
@@ -70,10 +83,13 @@ namespace cerebro_ServiceLayer.Controllers
             if (op != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                IBLUsu.deleteUsuario(op);
-                return Ok();
+                if (IBLUsu.deleteUsuario(op))
+                {
+                    return Ok(TipoRetorno.OK.ToString());
+                }
+                return InternalServerError();
             }
-            return BadRequest();
+            return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
         [HttpDelete]
@@ -83,10 +99,12 @@ namespace cerebro_ServiceLayer.Controllers
             if (admin != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                IBLUsu.deleteUsuario(admin);
-                return Ok();
+                if (IBLUsu.deleteUsuario(admin)) {
+                    return Ok(TipoRetorno.OK.ToString());
+                }
+                return InternalServerError();
             }
-            return BadRequest();
+            return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
         [HttpPut]
@@ -96,10 +114,12 @@ namespace cerebro_ServiceLayer.Controllers
             if (vis != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                IBLUsu.updateUsuario(vis);
-                return Ok();
+                if (IBLUsu.updateUsuario(vis)) {
+                    return Ok(TipoRetorno.OK.ToString());
+                }
+                return InternalServerError();
             }
-            return BadRequest();
+            return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
         [HttpPut]
@@ -109,10 +129,12 @@ namespace cerebro_ServiceLayer.Controllers
             if (op != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                IBLUsu.updateUsuario(op);
-                return Ok();
+                if (IBLUsu.updateUsuario(op)) {
+                    return Ok(TipoRetorno.OK.ToString());
+                }
+                return InternalServerError();
             }
-            return BadRequest();
+            return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
         [HttpPut]
@@ -122,10 +144,12 @@ namespace cerebro_ServiceLayer.Controllers
             if (admin != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                IBLUsu.updateUsuario(admin);
-                return Ok();
+                if (IBLUsu.updateUsuario(admin)) {
+                    return Ok(TipoRetorno.OK.ToString());
+                }
+                return InternalServerError();
             }
-            return BadRequest();
+            return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
         [HttpPost]

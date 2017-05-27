@@ -46,6 +46,7 @@
     <NavigationProperty Name="AGRUPACIONES_USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__2C3393D0" FromRole="USUARIOS" ToRole="AGRUPACIONES_USUARIOS" />
     <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__USUARIOS__nombre__25869641" FromRole="USUARIOS" ToRole="MUNICIPALIDADES" />
     <NavigationProperty Name="PRIVILEGIOS" Relationship="cerebroADOModel.PRIVILEGIOS_USUARIOS" FromRole="Usuario" ToRole="PRIVILEGIOS" />
+    <Property Name="enabled" Type="Boolean" Nullable="false" />
   </EntityType>
   <Association Name="FK__AGRUPACIO__nombr__286302EC">
     <End Role="MUNICIPALIDADES" Type="cerebroADOModel.Municipalidad" Multiplicity="1" />
