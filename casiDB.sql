@@ -10,6 +10,7 @@ CREATE TABLE USUARIOS (
   nombre varchar(30) NULL,
   password varchar(30) NULL,
   tipo integer NOT NULL,
+  enabled bit NOT NULL DEFAULT 0,
   PRIMARY KEY (email, nombre_municipalidad),
   FOREIGN KEY (nombre_municipalidad) REFERENCES MUNICIPALIDADES (nombre)
 );
