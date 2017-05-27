@@ -24,6 +24,7 @@ namespace cerebro_DataAccessLayer.Model
         public string email { get; set; }
         public string nombre_municipalidad { get; set; }
         public string nombre { get; set; }
+        public bool enabled { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }

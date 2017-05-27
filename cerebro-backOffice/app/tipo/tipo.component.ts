@@ -122,29 +122,29 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
         while (document.getElementById("tiposActuales").hasChildNodes()) {
             document.getElementById("tiposActuales").removeChild(document.getElementById("tiposActuales").lastChild);
         }
-        for (var i = 0; i < this.tiposMod.length; i++) {
+        var x = JSON.parse(JSON.stringify(this.tiposMod));
+        for (var i in x) {
             var tipo;
-            if (this.tiposMod[i].tipo == 0) {
+            if (x[i].tipo == 0) {
                 tipo = "TEXTO"
-            } else if (this.tiposMod[i].tipo == 1) {
+            } else if (x[i].tipo == 1) {
                 tipo = "NUMERICO"
-            } if (this.tiposMod[i].tipo == 2) {
+            } if (x[i].tipo == 2) {
                 tipo = "IMAGEN"
             }
-            if (this.tiposMod[i].tipo == 3) {
+            if (x[i].tipo == 3) {
                 tipo = "VIDEO"
             }
-            this.tipoDeDatoMod = tipo;
 
             var tr = document.createElement("tr");
             var td = document.createElement("td");
-            td.innerHTML = this.tiposMod[i].nombre;
+            td.innerHTML = x[i].nombre;
             var td2 = document.createElement("td");
             td2.innerHTML = tipo;
             var td4 = document.createElement("td");
-            td4.innerHTML = this.tiposMod[i].uriWebService;
+            td4.innerHTML = x[i].uriWebService;
             var td5 = document.createElement("td");
-            td5.innerHTML = this.tiposMod[i].frecuenciaLectura;
+            td5.innerHTML = x[i].frecuenciaLectura;
 
             var td3 = document.createElement("td");
             td3.className = "w3-center";
@@ -152,7 +152,7 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
             img.src = "../../Content/rubbish-bin.svg";
             img.style.height = "37px";
             img.className = "w3-button w3-hover-none";
-            img.onclick = () => { this.mostrarMensajeConfirmacion(); };
+            img.onclick = () => { this.tipoAeliminar = x[i].Id; this.mostrarMensajeConfirmacion(); };
             td3.appendChild(img);
             tr.appendChild(td);
             tr.appendChild(td2);
