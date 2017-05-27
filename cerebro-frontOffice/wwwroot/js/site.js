@@ -58,3 +58,23 @@ function iniciarSesion() {
 
     });
 }
+
+function registrarOperador() {
+    var email = document.getElementById("emailOperador").value;
+    var password = document.getElementById("passwordOperador").value;
+    var nombre = document.getElementById("nombreOperador").value;
+    var municipalidad = document.getElementById("municipalidadOperador").value;
+    $.post("https://www.cerebro-serviceLayer.com/api/usuarios/operador?" + "email=" + email + "&nombre_municipalidad=" + municipalidad + "&password=" + password + "&nombre=" + nombre, function (response) {
+
+    });
+}
+
+function toggleTipoUsuario() {
+    if (document.getElementById("visitante").style.display === "block") {
+        document.getElementById("visitante").style.display = "none";
+        document.getElementById("operador").style.display = "block";
+    } else {
+        document.getElementById("visitante").style.display = "block";
+        document.getElementById("operador").style.display = "none";
+    }
+}

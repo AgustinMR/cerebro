@@ -58,3 +58,13 @@ function iniciarSesion() {
 
     });
 }
+
+function toggleTipoUsuario() {
+    if (document.getElementById("visitante").style.display === "block") {
+        document.getElementById("visitante").style.display = "none";
+        document.getElementById("operador").style.display = "block";
+    } else {
+        document.getElementById("visitante").style.display = "block";
+        document.getElementById("operador").style.display = "none";
+    }
+}
