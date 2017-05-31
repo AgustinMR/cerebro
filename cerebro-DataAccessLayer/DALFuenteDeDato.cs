@@ -51,15 +51,28 @@ namespace cerebro_DataAccessLayer
 
         public bool updateFuenteDeDato(FuenteDeDato f)
         {
-            if (f != null)
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            var update = Builders<FuenteDeDato>.Update.Set(e => e.direccionIP, f.direccionIP).Set(e => e.userAgent, f.userAgent).Set(e => e.ubicacion, f.ubicacion);
+            var filter = Builders<FuenteDeDato>.Filter.Eq("Id", f.Id);
+            bd.GetCollection<FuenteDeDato>("FuenteDeDato").FindOneAndUpdate(filter, update);
+            return true;
+        }
+
+        public List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni)
+        {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            List<FuenteDeDato> doc = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(new BsonDocument()).ToList();
+            List<FuenteDeDato> returnList = new List<FuenteDeDato>();
+            for (int i = 0; i < doc.Count; i++)
             {
-                var mongo = new MongoClient();
-                var bd = mongo.GetDatabase("cerebroDB");
-                var update = Builders<FuenteDeDato>.Update.Set(e => e.direccionIP, f.direccionIP).Set(e => e.municipalidad, f.municipalidad).Set(e => e.tipo, f.tipo).Set(e => e.ubicacion, f.ubicacion);
-                var filter = Builders<FuenteDeDato>.Filter.Eq("Id", f.Id);
-                bd.GetCollection<FuenteDeDato>("FuenteDeDato").FindOneAndUpdate(filter, update);
+                if (doc[i].municipalidad.Equals(muni))
+                {
+                    returnList.Add(doc[i]);
+                }
             }
-            return false;
+            return returnList;
         }
     }
 }

@@ -15,5 +15,6 @@ namespace cerebro_DataAccessLayer
         bool deleteFuenteDeDato(ObjectId id);
         FuenteDeDato getFuenteDeDato(ObjectId id);
         List<FuenteDeDato> getAllFuenteDeDato();
+        List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni);
     }
 }
