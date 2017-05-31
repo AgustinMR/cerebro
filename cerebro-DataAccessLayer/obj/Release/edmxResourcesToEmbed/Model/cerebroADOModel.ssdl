@@ -58,6 +58,7 @@
     <Property Name="nombre" Type="varchar" MaxLength="30" />
     <Property Name="password" Type="varchar" MaxLength="30" />
     <Property Name="tipo" Type="int" Nullable="false" />
+    <Property Name="enabled" Type="bit" Nullable="false" />
   </EntityType>
   <Association Name="FK__AGRUPACIO__nombr__2F10007B">
     <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />

@@ -16,47 +16,51 @@ var AgrupacionService = (function () {
     function AgrupacionService(http) {
         this.http = http;
     }
-    AgrupacionService.prototype.addAgrupacion = function (email_usu, nombre_muni_usu, nombre_agrupacion, nombre_muni_agrupacion, esadmin) {
+    AgrupacionService.prototype.addAgrupacion = function (email, municipalidad, agrupacion) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        var postInfo = "nombre_agrupacion=" + nombre_agrupacion + "&nombre_municipalidad_agrupacion=" + nombre_muni_agrupacion + "&usuario_email=" + email_usu + "&nombre_municipalidad_usuario=" + nombre_muni_usu + "&admin=true";
+        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=true";
         return this.http.post("https://www.cerebro-serviceLayer.com/api/agrupaciones?" + postInfo, {}, options).map(function (data) { return data.json(); });
     };
     AgrupacionService.prototype.deleteAgrupacion = function (nombre, municipalidad) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        var postInfo = "nombre=" + nombre + "&nombre_municipalidad=" + municipalidad;
-        return this.http.delete("https://www.cerebro-serviceLayer.com/api/agrupaciones?" + postInfo, options).map(function (data) { return data.json(); });
+        var deleteInfo = "nombre=" + nombre + "&nombre_municipalidad=" + municipalidad;
+        return this.http.delete("https://www.cerebro-serviceLayer.com/api/agrupaciones?" + deleteInfo, options).map(function (data) { return data.json(); });
     };
-    AgrupacionService.prototype.addUsuario = function (email, agrupacion, municipalidad, esAdmin) {
+    AgrupacionService.prototype.getAgrupacion = function (nombre, municipalidad) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=" + esAdmin;
+        var deleteInfo = "nombre=" + nombre + "&nombre_municipalidad=" + municipalidad;
+        return this.http.get("https://www.cerebro-serviceLayer.com/api/agrupaciones?" + deleteInfo, options).map(function (data) { return data.json(); });
+    };
+    AgrupacionService.prototype.addUsuarioAgrupacion = function (email, municipalidad, agrupacion) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=false";
         return this.http.post("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + postInfo, {}, options).map(function (data) { return data.json(); });
     };
-    AgrupacionService.prototype.toggleUsuarioAdmin = function (email, agrupacion, municipalidad, esAdmin) {
+    AgrupacionService.prototype.toggleAdminAgrupacion = function (email, municipalidad, agrupacion, esAdmin) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
         var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=" + esAdmin;
         return this.http.put("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + postInfo, {}, options).map(function (data) { return data.json(); });
     };
-    AgrupacionService.prototype.deleteUsuario = function (email, agrupacion, municipalidad, esAdmin) {
+    AgrupacionService.prototype.deleteUsuarioAgrupacion = function (email, municipalidad, agrupacion) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=" + esAdmin;
+        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad;
         return this.http.delete("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + postInfo, options).map(function (data) { return data.json(); });
     };
-    AgrupacionService.prototype.getAgrupacion = function (nombre, municipalidad) {
+    AgrupacionService.prototype.getAgrupacionesByUsuario = function (email) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        var postInfo = "nombre=" + nombre + "&nombre_municipalidad=" + municipalidad;
-        return this.http.get("https://www.cerebro-serviceLayer.com/api/agrupaciones?" + postInfo, options).map(function (data) { return data.json(); });
+        return this.http.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email, options).map(function (data) { return data.json(); });
     };
-    AgrupacionService.prototype.getUsuariosAgrupacion = function (nombre, municipalidad) {
+    AgrupacionService.prototype.getUsuariosAgrupacion = function (nombre) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        var postInfo = "nombre=" + nombre + "&nombre_municipalidad=" + municipalidad;
-        return this.http.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + postInfo, options).map(function (data) { return data.json(); });
+        return this.http.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/" + nombre, options).map(function (data) { return data.json(); });
     };
     return AgrupacionService;
 }());

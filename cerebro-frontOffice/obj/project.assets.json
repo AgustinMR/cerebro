@@ -6021,7 +6021,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
+      "sha512": "SvSFOt/fOvTmeiUCfhttvwA919BJLVlGWOcnjzRGg50saft+A9xM5yqer1gaCCm8tUoJmCthNQWQaOnmYQij5w==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [
@@ -6826,7 +6826,7 @@
       ]
     },
     "System.Data.Common/4.3.0": {
-      "sha512": "lm6E3T5u7BOuEH0u18JpbJHxBfOJPuCyl4Kg1RH10ktYLp5uEEE1xKrHW56/We4SnZpGAuCc9N0MJpSDhTHZGQ==",
+      "sha512": "qZfW8UxVBxBA04CXKNhSHvxAVS3XZzm6xy9iNk4F+mclajzwbfKhAJZLjq/O5NvU5wjvz7nLr2jYHlI4pq8XZw==",
       "type": "package",
       "path": "system.data.common/4.3.0",
       "files": [
@@ -7557,7 +7557,7 @@
       ]
     },
     "System.Interactive.Async/3.0.0": {
-      "sha512": "iyrgkZz9Dzm0fiPouQszFC3SO/46k6AYd/jG9bu+/o0AoDMaRXtlo3TIuWVNtOuJFd1noL963QouroJ0T3rImw==",
+      "sha512": "RSK16FvaefH5+gUjI+CFawAO2wt8rvB8kWwb6+u2mLVuxMUEbTtk2J79nJh9wWXL1D3T1MEldmwyFRSx/Zi3JQ==",
       "type": "package",
       "path": "system.interactive.async/3.0.0",
       "files": [

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace cerebro
 {
     [DataContract]
+    [KnownType(typeof(Visitante))]
+    [KnownType(typeof(Operador))]
+    [KnownType(typeof(Administrador))]
     public abstract class Usuario
     {
         [DataMember]
@@ -17,8 +16,8 @@ namespace cerebro
         [DataMember]
         public string nombre { get; set; }
         [DataMember]
+        public bool enabled { get; set; }
         public ICollection<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }
-        [DataMember]
         public Municipalidad MUNICIPALIDADES { get; set; }
         public ICollection<Privilegio> PRIVILEGIOS { get; set; }
 

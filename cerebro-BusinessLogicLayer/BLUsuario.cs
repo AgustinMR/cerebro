@@ -23,17 +23,34 @@ namespace cerebro_BusinessLogicLayer
             return dal.agregarUsuario(usu);
         }
 
-        public bool deleteUsuario(Usuario usu) {
+        public bool deleteUsuario(Usuario usu)
+        {
             return dal.borrarUsuario(usu);
         }
 
-        public bool updateUsuario(Usuario usu) {
+        public bool updateUsuario(Usuario usu)
+        {
             return dal.modificarUsuario(usu);
         }
 
         public bool loginUsuario(Usuario usu)
         {
             return dal.loginUsuario(usu);
+        }
+
+        public Usuario obtenerUsuario(string email)
+        {
+            return dal.obtenerUsuario(email);
+        }
+
+        public List<Usuario> obtenerUsuarios()
+        {
+            return dal.obtenerUsuarios();
+        }
+
+        public List<Usuario> obtenerUsuarios(string municipalidad)
+        {
+            return dal.obtenerUsuarios(municipalidad);
         }
     }
 }

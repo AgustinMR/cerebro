@@ -22,7 +22,7 @@ namespace cerebro_ServiceLayer.Controllers
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
                 IBLAgru.addAgrupacion(AUsu);
-                return Ok();
+                return Ok("ok");
             }
             return BadRequest();
         }
@@ -35,9 +35,30 @@ namespace cerebro_ServiceLayer.Controllers
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
                 IBLAgru.deleteAgrupacion(grupo);
-                return Ok();
+                return Ok("ok");
             }
             return BadRequest();
+        }
+
+        [HttpGet]
+        [Route("byUsuario")]
+        public List<string> getAgrupacionesByUsuario([FromUri]Agrupacion_Usuario a)
+        {
+            return new BLAgrupacion().obtenerAgrupacionesByUsuario(a.usuario_email);
+        }
+
+        [HttpGet]
+        [Route("")]
+        public Agrupacion getAgrupacion([FromUri]Agrupacion a)
+        {
+            return new BLAgrupacion().obtenerAgrupacion(a.nombre, a.nombre_municipalidad);
+        }
+
+        [HttpGet]
+        [Route("{nombre}")]
+        public List<Agrupacion_Usuario> getUsuariosAgrupacion(string nombre)
+        {
+            return new BLAgrupacion().obtenerUsuariosAgrupacion(nombre);
         }
 
         [HttpPost]
@@ -48,7 +69,7 @@ namespace cerebro_ServiceLayer.Controllers
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
                 IBLAgru.addUsuariosAgrupacion(AUsu);
-                return Ok();
+                return Ok("ok");
             }
             return BadRequest();
         }
@@ -61,7 +82,7 @@ namespace cerebro_ServiceLayer.Controllers
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
                 IBLAgru.updateAdminAgrupacion(AUsu);
-                return Ok();
+                return Ok("ok");
             }
             return BadRequest();
         }
@@ -74,22 +95,9 @@ namespace cerebro_ServiceLayer.Controllers
             {
                 IBLAgrupacion IBLAgru = new BLAgrupacion();
                 IBLAgru.deleteUsuarioAgrupacion(AUsu);
-                return Ok();
+                return Ok("ok");
             }
             return BadRequest();
-        }
-
-        [HttpGet]
-        [Route("")]
-        public Agrupacion getAgrupacion([FromUri]Agrupacion a) {
-            return new BLAgrupacion().obtenerAgrupacion(a.nombre, a.nombre_municipalidad);
-        }
-
-        [HttpGet]
-        [Route("usuario")]
-        public List<Agrupacion_Usuario> getUuariosAgrupacion([FromUri]Agrupacion a)
-        {
-            return new BLAgrupacion().obtenerUsuariosAgrupacion(a.nombre, a.nombre_municipalidad);
         }
 
     }

@@ -1,6 +1,14 @@
 *.cache
 *.suo
 .vs/*
+cerebro/obj
+cerebro/bin
+cerebro-BusinessLogicLayer/obj
+cerebro-BusinessLogicLayer/bin
+cerebro-DataAccessLayer/obj
+cerebro-DataAccessLayer/bin
+cerebro-ServiceLayer/bin
+cerebro-ServiceLayer/obj
 cerebro-backOffice/node_modules
 cerebro-backOffice/obj
 cerebro-backOffice/bin
@@ -10,3 +18,8 @@ cerebro-frontOffice/bin
 packages/Npm.3.5.2
 packages/NoGit.0.1.0
 cerebro-ServiceLayer/obj/Debug/CoreCompileInputs.cache
+cerebro-ServiceLayer/obj/Release/TransformWebConfig/transformed/Web.config
+cerebro-ServiceLayer/obj/Release/TransformWebConfig/original/Web.config
+cerebro-ServiceLayer/obj/Release/TransformWebConfig/transformed/Web.config
+cerebro-ServiceLayer/obj/Release/TransformWebConfig/transformed/Web.config
+cerebro-DataAccessLayer/App.Config

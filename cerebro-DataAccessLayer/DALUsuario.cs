@@ -21,10 +21,10 @@ namespace cerebro_DataAccessLayer
         {
             if (usu != null)
             {
+                usu.enabled = true;
                 UsuariosDbContext context = new UsuariosDbContext();
                 context.Usuarios.Add(usu);
-                context.SaveChanges();
-                return true;
+                return context.SaveChanges() > 0;
             }
             return false;
         }
@@ -38,8 +38,7 @@ namespace cerebro_DataAccessLayer
                 UsuariosDbContext context = new UsuariosDbContext();
                 Usuario UsuDB = context.Usuarios.Find(usu.email, usu.nombre_municipalidad);
                 context.Usuarios.Remove(UsuDB);
-                context.SaveChanges();
-                return true;
+                return context.SaveChanges() > 0;
             }
             return false;
         }
@@ -56,7 +55,7 @@ namespace cerebro_DataAccessLayer
                     ((Operador)UsuDB).password = ((Operador)usu).password;
                 if (usu.GetType() == typeof(Administrador))
                     ((Administrador)UsuDB).password = ((Administrador)usu).password;
-                context.SaveChanges();
+                return context.SaveChanges() > 0;
             }
             return false;
         }
@@ -90,6 +89,21 @@ namespace cerebro_DataAccessLayer
                     return false;
             }
             return false;
+        }
+
+        public Usuario obtenerUsuario(string email)
+        {
+            return (from u in new UsuariosDbContext().Usuarios where u.email == email select u).SingleOrDefault();
+        }
+
+        public List<Usuario> obtenerUsuarios()
+        {
+            return new UsuariosDbContext().Usuarios.ToList();
+        }
+
+        public List<Usuario> obtenerUsuarios(string municipalidad)
+        {
+            return (from u in new UsuariosDbContext().Usuarios where u.nombre_municipalidad == municipalidad select u).ToList();
         }
 
     }

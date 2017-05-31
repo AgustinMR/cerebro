@@ -28,7 +28,6 @@ C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.dll.config
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.pdb
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.dll
-C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\EntityFramework.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\EntityFramework.SqlServer.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
@@ -69,6 +68,7 @@ C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Web.Http.WebHost.resources.
 C:\GitHub\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.csprojResolveAssemblyReference.cache
 C:\GitHub\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.pdb
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\csc.exe
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\csc.exe.config
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\csc.rsp
@@ -99,7 +99,6 @@ C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-Se
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.pdb
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\EntityFramework.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\EntityFramework.SqlServer.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
@@ -140,3 +139,4 @@ C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\es\System.
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.csprojResolveAssemblyReference.cache
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.pdb
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro.dll

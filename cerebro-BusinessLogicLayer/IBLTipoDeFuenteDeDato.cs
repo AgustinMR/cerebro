@@ -11,5 +11,6 @@ namespace cerebro_BusinessLogicLayer
         bool deleteTipoDeFuenteDeDato(ObjectId id);
         TipoDeFuenteDeDato getTipoDeFuenteDeDato(ObjectId id);
         List<TipoDeFuenteDeDato> getAllTipoDeFuenteDeDatos();
+        List<TipoDeFuenteDeDato> getAllTipoDeFuenteDeDatos(string muni);
     }
 }
