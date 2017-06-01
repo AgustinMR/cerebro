@@ -39,7 +39,7 @@ export class FuenteDeDatoComponent implements OnInit {
     ipMod = "";
     userAgentMod = "";
 
-    tipoGuardar = "";
+    tipoGuardar = "nuevo";
 
     constructor(private dispositivos: FuenteDeDatoService) {
     }
@@ -99,15 +99,13 @@ export class FuenteDeDatoComponent implements OnInit {
     nuevoPunto() {
         if (this.tipoGuardar == "nuevo") {
             this.source.clear();
-            this.map.addInteraction(this.draw);
         } else if (this.tipoGuardar == "modificar") {
             if (this.geomMod != "") {
                 this.source.clear();
                 this.map.removeLayer(this.vectorLayerMod);
             }
-            this.map.addInteraction(this.draw);
         }
-
+        this.map.addInteraction(this.draw);
 
     }
 
