@@ -152,7 +152,8 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
             img.src = "../../Content/rubbish-bin.svg";
             img.style.height = "37px";
             img.className = "w3-button w3-hover-none";
-            img.onclick = () => { this.tipoAeliminar = x[i].Id; this.mostrarMensajeConfirmacion(); };
+            console.log(x[i].Id);
+            img.onclick = () => { alert(x[i].Id); this.mostrarMensajeConfirmacion(); };
             td3.appendChild(img);
             tr.appendChild(td);
             tr.appendChild(td2);
@@ -164,6 +165,7 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
     }
 
     deleteTipo() {
+        //console.log(this.tipoAeliminar);
         this.mostrarMensajeLoading();
         this.tipos.deleteTipo(this.tipoAeliminar).subscribe(
             (data: Response) => { this.mostrarMensajeUsuarioQuitado(); console.log(data); },

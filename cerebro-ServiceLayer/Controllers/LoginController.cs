@@ -10,9 +10,9 @@ namespace cerebro_ServiceLayer.Controllers
     {
         [HttpPost]
         [Route("")]
-        public bool autenticarUsuario(string email, string password)
+        public string autenticarUsuario(string email, string password)
         {
-            return true;
+            return "Mdeo";
         }
     }
 }
