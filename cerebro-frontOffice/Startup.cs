@@ -73,11 +73,12 @@ namespace AngularSpa
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
-                AuthenticationScheme = "MyCookieMiddlewareInstance",
-                LoginPath = new PathString("/Account/Unauthorized/"),
-                AccessDeniedPath = new PathString("/Account/Forbidden/"),
+                AuthenticationScheme = "Cookies",
                 AutomaticAuthenticate = true,
-                AutomaticChallenge = true
+                AutomaticChallenge = true,
+
+                LoginPath = new PathString("/home/login")
+
             });
 
             app.UseFacebookAuthentication(new FacebookOptions()

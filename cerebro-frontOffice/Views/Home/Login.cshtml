@@ -23,12 +23,14 @@
     </div>
     <div class="w3-col s12 m8 l6 w3-container">
         <div class="w3-panel w3-white w3-round w3-display-middle w3-card-4" style="min-width: 400px">
-            <div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image w3-margin-top" style="height: 45px"></div><hr>
-            <label for="email" class="w3-text-cerebro-blue"><strong>Email:</strong></label>
-            <input type="email" name="email" id="email" class="w3-input w3-padding w3-border w3-round w3-hover-border-cerebro-red w3-margin-bottom" placeholder="Ingrese su direcci&oacute;n de correo">
-            <label for="pass" class="w3-text-cerebro-blue"><strong>Contrase&ntilde;a:</strong></label>
-            <input type="password" name="pass" id="password" class="w3-input w3-padding w3-border w3-round w3-hover-border-cerebro-red w3-margin-bottom" placeholder="Ingrese su contrase&ntilde;a"><hr>
-            <button onclick="iniciarSesion()" class="w3-button w3-input w3-border w3-border-cerebro-red w3-round w3-text-cerebro-red w3-margin-bottom w3-hover-cerebro-red">Iniciar Sesi&oacute;n</button>
+            <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" role="form">
+                <div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image w3-margin-top" style="height: 45px"></div><hr>
+                <label for="email" class="w3-text-cerebro-blue"><strong>Email:</strong></label>
+                <input type="email" name="email" id="email" class="w3-input w3-padding w3-border w3-round w3-hover-border-cerebro-red w3-margin-bottom" placeholder="Ingrese su direcci&oacute;n de correo">
+                <label for="pass" class="w3-text-cerebro-blue"><strong>Contrase&ntilde;a:</strong></label>
+                <input type="password" name="pass" id="password" class="w3-input w3-padding w3-border w3-round w3-hover-border-cerebro-red w3-margin-bottom" placeholder="Ingrese su contrase&ntilde;a"><hr>
+                <button type="submit" class="w3-button w3-input w3-border w3-border-cerebro-red w3-round w3-text-cerebro-red w3-margin-bottom w3-hover-cerebro-red">Iniciar Sesi&oacute;n</button>
+            </form>
             <button class="w3-button w3-input w3-border w3-border-facebook w3-round w3-text-facebook w3-hover-facebook"><img src="~/images/facebook1.png" class="w3-left w3-centered" style="height: 27px">Iniciar Sesi&oacute;n con Facebook</button>
             <button class="w3-button w3-input w3-margin-top w3-margin-bottom w3-border w3-round w3-border-twitter w3-text-twitter w3-hover-twitter w3-centered"><img src="~/images/twitter1.png" class="w3-left" style="height: 27px">Iniciar Sesi&oacute;n con Twitter</button>
         </div>
