@@ -32,8 +32,6 @@ export class AgrupacionComponent implements OnInit {
     public getAgrupacionesByUsuario() {
         this.service.getAgrupacionesByUsuario(this.email).subscribe(
             (data: Response) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
                 while (document.getElementById("agrupaciones").hasChildNodes()) {
                     document.getElementById("agrupaciones").removeChild(document.getElementById("agrupaciones").lastChild);
                 }
@@ -62,10 +60,6 @@ export class AgrupacionComponent implements OnInit {
     public getUsuariosByMunicipalidad(municipalidad: string) {
         this.usuarios.getUsuariosByMunicipalidad(municipalidad).subscribe(
             (data: Response) => {
-=======
->>>>>>> refs/remotes/origin/Bruno
-=======
->>>>>>> refs/remotes/origin/master
                 while (document.getElementById("usuariosAgregar").hasChildNodes()) {
                     document.getElementById("usuariosAgregar").removeChild(document.getElementById("usuariosAgregar").lastChild);
                 }
@@ -154,8 +148,8 @@ export class AgrupacionComponent implements OnInit {
         if (this.usuarioAagregar !== "" && this.usuarioAagregar !== "Seleccione un usuario para agregar...") {
             this.mostrarMensajeLoading();
             this.service.addUsuarioAgrupacion(this.usuarioAagregar, this.municipalidad, this.agrupacionActual).subscribe(
-                (data: Response) => { this.mostrarMensajeExito(); console.log(data.json); },
-                responseError => { console.log(responseError); },
+                (data: Response) => { this.mostrarMensajeUsuarioAgregado(); console.log(data.json); },
+                responseError => { this.mostrarMensajeErrorAgregarUsuario(); console.log(responseError); },
                 () => console.log("addUsuarioAgrupacion request finished")
             );
         }
@@ -171,16 +165,8 @@ export class AgrupacionComponent implements OnInit {
 
     public deleteUsuarioAgrupacion() {
         this.mostrarMensajeLoading();
-<<<<<<< HEAD
         this.service.deleteUsuarioAgrupacion(this.usuarioAeliminar, this.municipalidad, this.agrupacionActual).subscribe(
             (data: Response) => { this.mostrarMensajeUsuarioQuitado(); console.log(data); },
-=======
-        this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(
-            (data: Response) => { console.log(data.json); },
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/Bruno
-=======
->>>>>>> refs/remotes/origin/master
             responseError => { console.log(responseError); },
             () => console.log("toggleAdminAgrupacion request finished")
         );

@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var agrupacion_service_1 = require("./agrupacion.service");
 var usuario_service_1 = require("./usuario.service");
@@ -28,7 +27,6 @@ var AgrupacionComponent = (function () {
         this.getAgrupacionesByUsuario();
         this.getUsuariosByMunicipalidad(this.municipalidad);
     };
-<<<<<<< HEAD
     AgrupacionComponent.prototype.getAgrupacionesByUsuario = function () {
         this.service.getAgrupacionesByUsuario(this.email).subscribe(function (data) {
             while (document.getElementById("agrupaciones").hasChildNodes()) {
@@ -53,13 +51,6 @@ var AgrupacionComponent = (function () {
     };
     AgrupacionComponent.prototype.getUsuariosByMunicipalidad = function (municipalidad) {
         this.usuarios.getUsuariosByMunicipalidad(municipalidad).subscribe(function (data) {
-=======
-    AgrupacionComponent.prototype.getUsuariosByMunicipalidad = function () {
-        this.usuarios.getUsuariosByMunicipalidad(this.municipalidad).subscribe(function (data) {
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/Bruno
-=======
->>>>>>> refs/remotes/origin/master
             while (document.getElementById("usuariosAgregar").hasChildNodes()) {
                 document.getElementById("usuariosAgregar").removeChild(document.getElementById("usuariosAgregar").lastChild);
             }
@@ -132,26 +123,16 @@ var AgrupacionComponent = (function () {
         var _this = this;
         if (this.usuarioAagregar !== "" && this.usuarioAagregar !== "Seleccione un usuario para agregar...") {
             this.mostrarMensajeLoading();
-            this.service.addUsuarioAgrupacion(this.usuarioAagregar, this.municipalidad, this.agrupacionActual).subscribe(function (data) { _this.mostrarMensajeExito(); console.log(data.json); }, function (responseError) { console.log(responseError); }, function () { return console.log("addUsuarioAgrupacion request finished"); });
+            this.service.addUsuarioAgrupacion(this.usuarioAagregar, this.municipalidad, this.agrupacionActual).subscribe(function (data) { _this.mostrarMensajeUsuarioAgregado(); console.log(data.json); }, function (responseError) { _this.mostrarMensajeErrorAgregarUsuario(); console.log(responseError); }, function () { return console.log("addUsuarioAgrupacion request finished"); });
         }
     };
     AgrupacionComponent.prototype.toggleAdminAgrupacion = function (esAdmin) {
-<<<<<<< HEAD
-<<<<<<< HEAD
         this.service.toggleAdminAgrupacion(this.email, this.municipalidad, this.agrupacionActual, esAdmin).subscribe(function (data) { console.log(data); }, function (responseError) { console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
     };
     AgrupacionComponent.prototype.deleteUsuarioAgrupacion = function () {
         var _this = this;
         this.mostrarMensajeLoading();
         this.service.deleteUsuarioAgrupacion(this.usuarioAeliminar, this.municipalidad, this.agrupacionActual).subscribe(function (data) { _this.mostrarMensajeUsuarioQuitado(); console.log(data); }, function (responseError) { console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
-=======
-        this.mostrarMensajeLoading();
-        this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(function (data) { console.log(data.json); }, function (responseError) { console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
->>>>>>> refs/remotes/origin/Bruno
-=======
-        this.mostrarMensajeLoading();
-        this.service.addAgrupacion(this.email, this.municipalidad, this.nombreAgrupacionNueva).subscribe(function (data) { console.log(data.json); }, function (responseError) { console.log(responseError); }, function () { return console.log("toggleAdminAgrupacion request finished"); });
->>>>>>> refs/remotes/origin/master
     };
     AgrupacionComponent.prototype.mostrarMensajeExito = function () {
         document.getElementById("message").style.display = "block";

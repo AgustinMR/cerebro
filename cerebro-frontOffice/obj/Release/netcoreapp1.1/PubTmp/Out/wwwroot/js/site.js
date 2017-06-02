@@ -58,3 +58,55 @@ function iniciarSesion() {
 
     });
 }
+
+function registrarOperador() {
+    mostrarMensajeLoading();
+    var email = document.getElementById("emailOperador").value;
+    var password = document.getElementById("passwordOperador").value;
+    var nombre = document.getElementById("nombreOperador").value;
+    var municipalidad = document.getElementById("municipalidadOperador").value;
+    $.post("https://www.cerebro-serviceLayer.com/api/usuarios/operador?" + "email=" + email + "&nombre_municipalidad=" + municipalidad + "&password=" + password + "&nombre=" + nombre, function (response) {
+        if (response === "OK") {
+            mostrarMensajeExito();
+        }
+        else {
+            mostrarMensajeError();
+        }
+    }).fail(function () {
+        mostrarMensajeError();
+    });
+}
+
+function toggleTipoUsuario() {
+    if (document.getElementById("visitante").style.display === "block") {
+        document.getElementById("visitante").style.display = "none";
+        document.getElementById("operador").style.display = "block";
+    } else {
+        document.getElementById("visitante").style.display = "block";
+        document.getElementById("operador").style.display = "none";
+    }
+}
+function ocultarMensajes() {
+    document.getElementById("message").style.display = "none";
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("exito").style.display = "none";
+    document.getElementById("error").style.display = "none";
+}
+function mostrarMensajeLoading() {
+    document.getElementById("message").style.display = "block";
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("exito").style.display = "none";
+    document.getElementById("error").style.display = "none";
+}
+function mostrarMensajeExito() {
+    document.getElementById("message").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("exito").style.display = "block";
+    document.getElementById("error").style.display = "none";
+}
+function mostrarMensajeError() {
+    document.getElementById("message").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("exito").style.display = "none";
+    document.getElementById("error").style.display = "block";
+}
