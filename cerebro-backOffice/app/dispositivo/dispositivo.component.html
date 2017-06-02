@@ -1,11 +1,37 @@
 ﻿<div class="w3-panel w3-white w3-round w3-display-container w3-padding w3-topbar w3-card">
+    <div class="ui active inverted dimmer" style="display: none" id="message">
+        <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
+        <div class="w3-display-middle" id="success" style="display: none">
+            <img src="../../Content/success.svg" style="height: 45px"><br>
+            <h4>La agrupaci&oacute;n ha sido creada</h4><hr>
+            <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
+        </div>
+        <div class="w3-display-middle" id="error" style="display: none">
+            <img src="../../Content/error.svg" style="height: 45px"><br>
+            <h4>Ha ocurrido un error, y no se agreg&oacute; la agrupaci&oacute;n</h4><hr>
+            <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
+        </div>
+        <div class="w3-display-middle" id="confirmation" style="display: none">
+            <img src="../../Content/warning.svg" style="height: 45px"><br>
+            <h4>Se eliminar&aacute; el Tipo de fuente de datos</h4><br>&iquest;Continuar?<hr>
+            <button class="w3-button w3-border w3-text-cerebro-red w3-border-cerebro-red w3-hover-cerebro-red w3-margin-right" (click)="ocultarMensajes()">Salir</button>
+            <button class="w3-button w3-cerebro-blue w3-hover-cerebro-blue" (click)="deleteDis()">Confirmar</button>
+        </div>
+        <div class="w3-display-middle" id="usuarioQuitado" style="display: none">
+            <img src="../../Content/success.svg" style="height: 45px"><br>
+            <h4>El usuario ha sido quitado correctamente</h4><hr>
+            <button class="w3-button w3-border w3-border-cerebro-blue w3-hover-cerebro-blue" (click)="ocultarMensajes()">Aceptar</button>
+        </div>
+    </div>
+
+
     <h3 class="w3-text-gray w3-center">Dispositivo</h3>
     <img src="../../Content/cerebro-logo.png" alt="Nuevo" class="w3-image w3-display-topmiddle" style="margin-top: -23px; height: 40px">
     <div class="w3-round w3-bar w3-display-container" style="height:47px">
         <div class="w3-display-middle">
             <button class="w3-bar-item w3-button w3-hover-light-gray w3-text-grey w3-hover-text-cerebro-red tabButtons w3-light-grey w3-text-cerebro-red" onclick="changeTab(event, 'nuevo')" (click)="borrarMapa('nuevo')">Nuevo</button>
             <button class="w3-bar-item w3-button w3-hover-light-grey tabButtons w3-text-grey w3-hover-text-cerebro-red" onclick="changeTab(event, 'modificar')" (click)="borrarMapa('modificar')">Modificar</button>
-            <button class="w3-bar-item w3-button w3-hover-light-grey tabButtons w3-text-grey w3-hover-text-cerebro-red" onclick="changeTab(event, 'quitar')">Quitar</button>
+            <button class="w3-bar-item w3-button w3-hover-light-grey tabButtons w3-text-grey w3-hover-text-cerebro-red" onclick="changeTab(event, 'quitar')" (click)="borrarMapa('quitar')">Quitar</button>
         </div>
     </div>
     <div id="nuevo" class="tab w3-container w3-padding">
@@ -43,13 +69,25 @@
         </div>
     </div>
     <div id="quitar" class="tab w3-container" style="display:none">
-        <h2>Tokyo</h2>
-        <p>Tokyo is the capital of Japan.</p>
+        <div class="w3-container w3-padding w3-padding-24 w3-margin-top">
+            <table class="ui compact celled grey table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>User Agent</th>
+                        <th>Direccion ip</th>
+                        <th style="width: 10%">Acci&oacute;n</th>
+                    </tr>
+                </thead>
+                <tbody id="dispositivosActuales"></tbody>
+            </table>
+        </div>
     </div>
     <div>
         <div id="map" class="map"></div>
         <hr>
-        <div class="w3-row w3-center">
+        <div class="w3-row w3-center" id="btnGuardar">
             <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" (click)="guardar()" value="Guardar">
         </div>
     </div>
