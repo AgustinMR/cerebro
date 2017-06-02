@@ -29,16 +29,3 @@ function blurBackground() {
         });
     });
 };
-function addNavbarTop() {
-    "use strict";
-    var navbar = document.getElementById("nav");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        navbar.className = "w3-bar" + " w3-card-2" + " w3-animate-top" + " w3-cerebro-blue";
-    } else {
-        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-cerebro-blue", "");
-    }
-}
-window.onscroll = function () {
-    "use strict";
-    addNavbarTop();
-};

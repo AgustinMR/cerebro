@@ -42,5 +42,10 @@ namespace cerebro_BusinessLogicLayer
         {
             return dal.updateFuenteDeDato(f);
         }
+
+        public List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni)
+        {
+            return dal.getAllFuenteDeDatoMuni(muni);
+        }
     }
 }

@@ -17,10 +17,16 @@ namespace cerebro
         public ObjectId Id { get; set; }
         [BsonElement]
         [DataMember]
+        public string nombre { get; set; }
+        [BsonElement]
+        [DataMember]
         public string municipalidad { get; set; }
         [BsonElement]
         [DataMember]
-        public string ubicacion { get; set; }
+        public double[] ubicacion { get; set; }
+        [BsonElement]
+        [DataMember]
+        public String userAgent { get; set; }
         [BsonElement]
         [DataMember]
         public string direccionIP { get; set; }

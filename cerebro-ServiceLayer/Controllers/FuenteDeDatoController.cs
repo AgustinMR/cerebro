@@ -17,8 +17,21 @@ namespace cerebro_ServiceLayer.Controllers
     {
         [HttpPost]
         [Route("")]
-        public bool addFuenteDeDato([FromUri]FuenteDeDato f)
+        public bool addFuenteDeDato(string municipalidad, string ubicacion, string userAgent, string direccionIP, string tipo, string nombre)
         {
+            FuenteDeDato f = new FuenteDeDato();
+            f.municipalidad = municipalidad;
+            string[] tmp = ubicacion.Split(',');
+            string[] tmp2 = tmp[0].Split('.');
+            string[] tmp3 = tmp[1].Split('.');
+            double[] doubleArray = new double[2];
+            doubleArray[0] = Double.Parse(tmp2[0].Trim() + "," + tmp2[1].Trim());
+            doubleArray[1] = Double.Parse(tmp3[0].Trim() + "," + tmp3[1].Trim());
+            f.ubicacion = doubleArray;
+            f.userAgent = userAgent;
+            f.direccionIP = direccionIP;
+            f.tipo = new ObjectId(tipo);
+            f.nombre = nombre;
             return new BLFuenteDeDato().addFuenteDeDato(f);
         }
 
@@ -37,6 +50,13 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpGet]
+        [Route("muni/{id}")]
+        public List<FuenteDeDato> getAllFuenteDeDatoMuni(string id)
+        {
+            return new BLFuenteDeDato().getAllFuenteDeDatoMuni(id);
+        }
+
+        [HttpGet]
         [Route("{id}")]
         public FuenteDeDato getFuenteDeDato(string id)
         {
@@ -45,9 +65,19 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpPut]
         [Route("")]
-        public bool updateFuenteDeDato([FromUri]FuenteDeDato f)
+        public bool updateFuenteDeDato(string ubicacion, string userAgent, string direccionIP, string id)
         {
-            return new BLFuenteDeDato().updateFuenteDeDato(f);
+            FuenteDeDato ff = new BLFuenteDeDato().getFuenteDeDato(ObjectId.Parse(id));
+            ff.userAgent = userAgent;
+            ff.direccionIP = direccionIP;
+            string[] tmp = ubicacion.Split(',');
+            string[] tmp2 = tmp[0].Split('.');
+            string[] tmp3 = tmp[1].Split('.');
+            double[] doubleArray = new double[2];
+            doubleArray[0] = Double.Parse(tmp2[0].Trim() + "," + tmp2[1].Trim());
+            doubleArray[1] = Double.Parse(tmp3[0].Trim() + "," + tmp3[1].Trim());
+            ff.ubicacion = doubleArray;
+            return new BLFuenteDeDato().updateFuenteDeDato(ff);
         }
     }
 }

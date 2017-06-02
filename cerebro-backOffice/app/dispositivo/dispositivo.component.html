@@ -3,51 +3,54 @@
     <img src="../../Content/cerebro-logo.png" alt="Nuevo" class="w3-image w3-display-topmiddle" style="margin-top: -23px; height: 40px">
     <div class="w3-round w3-bar w3-display-container" style="height:47px">
         <div class="w3-display-middle">
-            <button class="w3-bar-item w3-button w3-hover-light-gray w3-text-grey w3-hover-text-cerebro-red tabButtons w3-light-grey w3-text-cerebro-red" onclick="changeTab(event, 'nuevo')">Nuevo</button>
-            <button class="w3-bar-item w3-button w3-hover-light-grey tabButtons w3-text-grey w3-hover-text-cerebro-red" onclick="changeTab(event, 'modificar')">Modificar</button>
+            <button class="w3-bar-item w3-button w3-hover-light-gray w3-text-grey w3-hover-text-cerebro-red tabButtons w3-light-grey w3-text-cerebro-red" onclick="changeTab(event, 'nuevo')" (click)="borrarMapa('nuevo')">Nuevo</button>
+            <button class="w3-bar-item w3-button w3-hover-light-grey tabButtons w3-text-grey w3-hover-text-cerebro-red" onclick="changeTab(event, 'modificar')" (click)="borrarMapa('modificar')">Modificar</button>
             <button class="w3-bar-item w3-button w3-hover-light-grey tabButtons w3-text-grey w3-hover-text-cerebro-red" onclick="changeTab(event, 'quitar')">Quitar</button>
         </div>
     </div>
     <div id="nuevo" class="tab w3-container w3-padding">
         <div class="w3-form w3-padding w3-padding-16">
             <label class="w3-text-grey" for="nombre"><strong>Tipo de Dispositivo:</strong></label>
-            <input type="text" name="nombre" id="nombre" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <select name="tipo" [(ngModel)]="tipoDeFuneteDeDatoSelect" id="tipo" class="w3-select w3-text-grey w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+                <option *ngFor="let tip of tipoDeFuneteDeDato" value="{{tip.Id}}"> {{tip.nombre}} </option>
+            </select>
+            <label class="w3-text-grey" for="nombre"><strong>Nombre de Dispositivo:</strong></label>
+            <input type="text" [(ngModel)]="nombreNew" name="nombre" id="nombre" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" placeholder="Nombre o codigo del dispositivo...">
             <label class="w3-text-grey" for="ip"><strong>Direcci&oacute;n Ip:</strong></label>
-            <input type="text" name="ip" id="ip" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <input type="text" name="ip" [(ngModel)]="ipNew" id="ip" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
             <label class="w3-text-grey" for="userAgent"><strong>User Agent:</strong></label>
-            <input type="text" name="userAgent" id="userAgent" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
-            <label class="w3-text-grey" for="tipo"><strong>Tipo de Dato a Ingresar:</strong></label>
-            <input type="text" name="tipo" id="tipo" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
-            <label class="w3-text-grey" for="ws"><strong>Endpoint WS:</strong></label>
-            <input type="text" name="ws" id="ws" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
-            <label class="w3-text-grey" for="frecuencia"><strong>Frecuencia de Lectura:</strong></label>
-            <input type="text" name="frecuencia" id="frecuencia" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <input type="text" name="userAgent" [(ngModel)]="userAgentNew" id="userAgent" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
             <label class="w3-text-grey" for="frecuencia"><strong>Ubicaci&oacute;n:</strong></label>
+            <div>
+                <input type="button" class="w3-button w3-left w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" (click)="nuevoPunto()" value="Nuevo Punto">
+            </div>
         </div>
     </div>
     <div id="modificar" class="tab w3-container" style="display:none">
         <div class="w3-form w3-padding w3-padding-16">
-            <label class="w3-text-grey" for="nombre"><strong>Tipo de Dispositivo:</strong></label>
-            <input type="text" name="nombre" id="nombre_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <label class="w3-text-grey" for="nombre"><strong>Nombre de Dispositivo:</strong></label>
+            <select name="tipoMod" [(ngModel)]="tipoDeFuneteDeDatoSelectMod" id="tipoMod" class="w3-select w3-text-grey w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round" (change)="onChange($event.target.value)">
+                <option *ngFor="let dis of dispositivosMod" value="{{dis.Id}}"> {{dis.nombre}} </option>
+            </select>
             <label class="w3-text-grey" for="ip_mod"><strong>Direcci&oacute;n Ip:</strong></label>
-            <input type="text" name="ip_mod" id="ip_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <input type="text" name="ip_mod" [(ngModel)]="ipMod" id="ip_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
             <label class="w3-text-grey" for="userAgent_mod"><strong>User Agent:</strong></label>
-            <input type="text" name="userAgent_mod" id="userAgent_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
-            <label class="w3-text-grey" for="tipo_mod"><strong>Tipo de Dato a Ingresar:</strong></label>
-            <input type="text" name="tipo_mod" id="tipo_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
-            <label class="w3-text-grey" for="ws_mod"><strong>Endpoint WS:</strong></label>
-            <input type="text" name="ws_mod" id="ws_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
-            <label class="w3-text-grey" for="ubicacion_mod"><strong>Frecuencia de Lectura:</strong></label>
-            <input type="text" name="ubicacion_mod" id="ubicacion_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
+            <input type="text" name="userAgent_mod" [(ngModel)]="userAgentMod" id="userAgent_mod" class="w3-input w3-light-grey w3-bottombar w3-margin-bottom w3-hover-border-cerebro-red w3-round">
             <label class="w3-text-grey" for="ubicacion_mod"><strong>Ubicaci&oacute;n:</strong></label>
+            <div>
+                <input type="button" class="w3-button w3-left w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" (click)="nuevoPunto()" value="Nuevo Punto">
+            </div>
         </div>
     </div>
     <div id="quitar" class="tab w3-container" style="display:none">
         <h2>Tokyo</h2>
         <p>Tokyo is the capital of Japan.</p>
-    </div><hr>
-    <div class="w3-row w3-center">
-        <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" value="Guardar">
-        <input type="button" class="w3-button w3-right w3-margin-bottom w3-border w3-border-cerebro-red w3-hover-cerebro-red w3-text-cerebro-red w3-round w3-margin-right" value="Eliminar">
+    </div>
+    <div>
+        <div id="map" class="map"></div>
+        <hr>
+        <div class="w3-row w3-center">
+            <input type="button" class="w3-button w3-right w3-margin-bottom w3-cerebro-blue w3-round w3-hover-shadow w3-hover-cerebro-blue" (click)="guardar()" value="Guardar">
+        </div>
     </div>
 </div>
