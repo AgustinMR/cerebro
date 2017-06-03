@@ -37,22 +37,23 @@
             </div>
         </div>
     </div>
-    <div class="ui basic segments bgimg-3 w3-cerebro-blue" *ngIf="inicio">
-        <div class="ui basic raised segment">
-            <div class="ui secondary pointing inverted menu" style="border-width: 0px">
+    <header class="w3-card-4 w3-cerebro-blue" *ngIf="inicio">
+        <div class="w3-opacity-max" style="background-image: url(../../Content/pexels-photo-388417.jpeg); background-size: cover; background-attachment: fixed; background-repeat: no-repeat; background-position: right; height: 200px"></div>
+        <div class="w3-bar w3-padding w3-padding-16 w3-display-topmiddle" style="width: 100%; height: 200px">
+            <div class="ui secondary inverted menu w3-pa" style="border-width: 0px; width: 100%">
                 <a class="toc item w3-hide-large"><strong><i class="sidebar icon"></i></strong></a>
                 <img src="../../Content/cerebro.png" style="height: 50px" class="item w3-hide-small">
                 <div class="right menu"><a class="item active"><strong><i class="sign out icon inverted"></i></strong></a></div>
             </div>
-            <div class="ui secondary inverted menu w3-hide-small">
+            <div class="ui inverted secondary menu w3-hide-small" style="margin-top: 90px">
                 <a href="javascript:void(0);" class="item" (click)="showTipo()">Tipos</a>
                 <a href="javascript:void(0);" class="item" (click)="showDispositivo()">Dispositivos</a>
                 <a href="javascript:void(0);" class="item" (click)="showEvento()">Eventos</a>
                 <a href="javascript:void(0);" class="item" (click)="showUsuario()">Usuarios</a>
             </div>
         </div>
-    </div>
-    <div class="ui container w3-padding w3-padding-32" *ngIf="inicio">
+    </header>
+    <div class="ui container w3-padding w3-padding-48" *ngIf="inicio">
         <cerebro-dispositivo *ngIf="dispositivo"></cerebro-dispositivo>
         <cerebro-tipo-de-fuente-de-dato *ngIf="tipo"></cerebro-tipo-de-fuente-de-dato>
         <cerebro-evento *ngIf="evento"></cerebro-evento>
