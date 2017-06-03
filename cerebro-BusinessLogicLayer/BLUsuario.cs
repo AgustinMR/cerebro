@@ -52,5 +52,15 @@ namespace cerebro_BusinessLogicLayer
         {
             return dal.obtenerUsuarios(municipalidad);
         }
+
+        public bool toggleUsuarioEnabled(string email, bool enabled)
+        {
+            return dal.toggleUsuarioEnabled(email, enabled);
+        }
+
+        public bool setPrivilegioUsuario(string email, string privilegio)
+        {
+            return dal.setPrivilegioUsuario(email, privilegio);
+        }
     }
 }

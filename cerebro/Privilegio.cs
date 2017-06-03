@@ -13,5 +13,11 @@ namespace cerebro
 
         public Municipalidad MUNICIPALIDADES { get; set; }
         public ICollection<Usuario> USUARIOS { get; set; }
+
+        public Privilegio(string nombre, string municipalidad)
+        {
+            this.nombre = nombre;
+            this.nombre_municipalidad = municipalidad;
+        }
     }
 }
