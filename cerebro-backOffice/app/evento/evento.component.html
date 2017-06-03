@@ -65,8 +65,13 @@
                     </div>
                     <div class="ui segment grey">
                         <button class="circular inverted orange compact ui icon button w3-margin-bottom"><i class="icon remove"></i></button>
-                        <select class="ui fluid dropdown"><option value="">Seleccione un dispositivo...</option></select>
+                        <select class="ui fluid dropdown">
+                            <option value="">Seleccione un dispositivo...</option>
+                            <option *ngFor="let dis of dispositivos" value="{{dis.Id}}"> {{dis.nombre}} </option>
+                        </select>
                         <div class="ui labeled fluid input w3-margin-top">
+                            <div class="ui label w3-text-cerebro-red">Tipo de datos que envia:</div>
+                            <label id="tipoDatoDis">Texto</label>
                             <div class="ui label w3-text-cerebro-red">Umbral:</div>
                             <input name="nombre" id="nombre" placeholder="Ingrese el valor m&aacute;ximo hasta el cu&aacute;l se considera normal..." type="text">
                         </div>
@@ -127,7 +132,10 @@
                     </div>
                     <div class="ui segment grey">
                         <button class="circular inverted orange compact ui icon button w3-margin-bottom"><i class="icon remove"></i></button>
-                        <select class="ui fluid dropdown"><option value="">Seleccione un dispositivo...</option></select>
+                        <select class="ui fluid dropdown">
+                            <option value="">Seleccione un dispositivo...</option>
+                            <option *ngFor="let dis of dispositivos" value="{{dis.Id}}"> {{dis.nombre}} </option>
+                        </select>
                         <div class="ui labeled fluid input w3-margin-top">
                             <div class="ui label w3-text-cerebro-red">Umbral:</div>
                             <input name="nombre" id="umbralMod" placeholder="Ingrese el valor m&aacute;ximo hasta el cu&aacute;l se considera normal..." type="text">

@@ -3,15 +3,6 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-//export class Evento {
-
-//    Id: string;
-//    municipalidad: string;
-//    nombre: string;
-
-//    constructor() { }
-//}
-
 @Injectable()
 export class EventoService {
 
@@ -29,6 +20,10 @@ export class EventoService {
         let options = new RequestOptions({ headers: headers });
         var postInfo = "nombreEvento=" + nombre_evento + "&nombreMunicipalidadEvento=" + nombre_municipalidad + "&IdFuenteDeDato=" + IdFuenteDeDato + "&valorLimite=" + valor;
         return this.http.post("https://www.cerebro-serviceLayer.com/api/eventos/addUmbral?" + postInfo, {}, options).map(data => data.json());
+    }
+
+    public obtenerDis(muni: string) {
+        return this.http.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muni/" + muni).map(data => data.json());
     }
 
 }
