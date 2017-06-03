@@ -16,6 +16,8 @@ export class EventoComponent implements OnInit {
 
     eventoAgregado: any;
     umbralAgregado: any;
+    nombre_municipalidad: any = "Mdeo"
+    dispositivos: any;
 
     constructor(private eventos: EventoService) {
     }
@@ -25,6 +27,17 @@ export class EventoComponent implements OnInit {
             $('.ui.sidebar').sidebar('attach events', '.toc.item');
             $('.ui.dropdown').dropdown();
         });
+        this.cargarDispositivos();
+    }
+
+    cargarDispositivos() {
+        this.eventos.obtenerDis(this.nombre_municipalidad).subscribe(
+            (data: Response) => {
+                this.dispositivos = data;
+            },
+            responseError => console.log(responseError),
+            () => console.log("Fuentes de datos cargadas")
+        );
     }
 
     addEvento() {
