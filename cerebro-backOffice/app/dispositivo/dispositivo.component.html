@@ -30,9 +30,9 @@
     <img src="../../Content/cerebro-logo.png" style="height: 40px; margin-top: -20px" class="w3-display-topmiddle">
     <h4 class="ui horizontal divider header">Dispositivos</h4>
     <div class="ui secondary center pointing aligned menu">
-        <a onclick="changeTab(event, 'nuevo')" class="item tabButtons active w3-text-cerebro-red">Nuevo</a>
-        <a onclick="changeTab(event, 'modificar')" class="item tabButtons">Modificar</a>
-        <a onclick="changeTab(event, 'quitar')" class="item tabButtons">Eliminar</a>
+        <a onclick="changeTab(event, 'nuevo')" (click)="borrarMapa('nuevo')" class="item tabButtons active w3-text-cerebro-red">Nuevo</a>
+        <a onclick="changeTab(event, 'modificar')" (click)="borrarMapa('modificar')" class="item tabButtons">Modificar</a>
+        <a onclick="changeTab(event, 'quitar')" (click)="borrarMapa('quitar')" class="item tabButtons">Eliminar</a>
     </div>
     <div id="nuevo" class="tab w3-container">
         <div class="container w3-padding w3-padding-24">
@@ -57,7 +57,7 @@
     </div>
     <div id="modificar" class="tab w3-container" style="display:none">
         <select name="origen" [(ngModel)]="tipoDeFuneteDeDatoSelectMod" id="tipoMod" class="ui fluid search dropdown w3-margin-top" (change)="onChange($event.target.value)">
-            <option value="" selected disabled>Seleccione un Dispositivo para ver y modificar...</option>
+            <option value="">Seleccione un Dispositivo para ver y modificar...</option>
             <option *ngFor="let dis of dispositivosMod" value="{{dis.Id}}"> {{dis.nombre}} </option>
         </select>
         <div class="container w3-padding w3-padding-24">
@@ -78,14 +78,14 @@
     </div>
     <div id="quitar" class="tab w3-container" style="display:none">
         <div class="container w3-padding w3-padding-24">
-            <select id="usuarios" multiple="" class="ui fluid search dropdown w3-margin-top">
+            <select id="disDel" [(ngModel)]="selectBorrar" class="ui fluid search dropdown w3-margin-top">
                 <option value="" selected disabled>Seleccione un Dispositivo para eliminarlo...</option>
                 <option *ngFor="let dis of dispositivosMod" value="{{dis.Id}}"> {{dis.nombre}} </option>
             </select>
-            <button class="ui button w3-margin-top w3-cerebro-blue">Eliminar</button>
+            <button class="ui button w3-margin-top w3-cerebro-blue" (click)="deleteDis()">Eliminar</button>
         </div>
     </div>
-    <div class="ui segment w3-padding">
+    <div id="mapBtn" class="ui segment w3-padding">
         <div id="map" class="map w3-card"></div>
         <div class="w3-row w3-center" id="btnGuardar">
             <input type="button" class="ui button w3-margin-top w3-cerebro-blue" (click)="guardar()" value="Guardar">

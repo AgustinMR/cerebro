@@ -34,6 +34,19 @@ namespace cerebro_DataAccessLayer
             var bd = mongo.GetDatabase("cerebroDB");
             var tipos = bd.GetCollection<TipoDeFuenteDeDato>("TipoDeFuenteDeDato");
             DeleteResult r = tipos.DeleteOne(e => e.Id == id);
+
+            var fuenteDeDatos = bd.GetCollection<TipoDeFuenteDeDato>("FuenteDeDato");
+            List<FuenteDeDato> doc = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(new BsonDocument()).ToList();
+            List<FuenteDeDato> returnList = new List<FuenteDeDato>();
+            for (int i = 0; i < doc.Count; i++)
+            {
+                if (doc[i].tipo.Equals(id))
+                {
+                    DeleteResult rr = fuenteDeDatos.DeleteOne(e => e.Id == doc[i].Id);
+                }
+            }
+            
+
             return r.DeletedCount == 1;
         }
 
