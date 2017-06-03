@@ -1,3 +1,149 @@
-﻿<div>
-    <button class="w3-button w3-input w3-border w3-border-cerebro-red w3-round w3-text-cerebro-red w3-margin-bottom w3-hover-cerebro-red" (click)="addEvento()">addEvento</button>
-</div> 
+﻿<div class="ui raised segment w3-padding w3-padding-16 w3-display-container" style="background-color: #FDFDFD">
+    <div class="ui active inverted dimmer" style="display: none" id="message">
+        <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
+        <div class="w3-display-middle" id="success" style="display: none">
+            <h3 class="ui text header">El Evento ha sido creado correctamente!</h3>
+            <button class="circular inverted green ui icon button big"><i class="icon checkmark"></i></button>
+        </div>
+        <div class="w3-display-middle" id="error" style="display: none">
+            <h3 class="ui text header">Ha ocurrido un error, por favor vuelve a intentar...</h3>
+            <button class="circular inverted red ui icon button big"><i class="icon warning"></i></button>
+        </div>
+        <div class="w3-display-middle" id="confirmation" style="display: none">
+            <i class="ui big circular orange warning icon"></i>
+            <h3>Se eliminar&aacute; el Evento...<br>&iquest;Continuar?</h3>
+            <div class="ui buttons w3-margin-top">
+                <button class="ui button">Cancelar</button>
+                <div class="or" data-text="o"></div>
+                <button class="ui negative button">Eliminar</button>
+            </div>
+        </div>
+    </div>
+    <img src="../../Content/cerebro-logo.png" style="height: 40px; margin-top: -20px" class="w3-display-topmiddle">
+    <h4 class="ui horizontal divider header w3-text-cerebro-blue">Eventos</h4>
+    <div class="ui secondary center pointing aligned menu">
+        <a onclick="changeTab(event, 'nuevo')" class="item tabButtons active w3-text-cerebro-red">Nuevo</a>
+        <a onclick="changeTab(event, 'modificar')" class="item tabButtons">Modificar</a>
+    </div>
+    <div id="nuevo" class="tab w3-container">
+        <div class="container w3-padding-24">
+            <div class="ui three top attached steps">
+                <div class="active link step" id="s1" (click)="mostrarStep1()">
+                    <i class="info icon w3-text-cerebro-red"></i>
+                    <div class="content">
+                        <div class="title">Informaci&oacute;n B&aacute;sica</div>
+                        <div class="description">Para poder crear el evento</div>
+                    </div>
+                </div>
+                <div class="link step" id="s2" (click)="mostrarStep2()">
+                    <i class="settings w3-text-cerebro-red icon"></i>
+                    <div class="content">
+                        <div class="title">Dispositivos asociados</div>
+                        <div class="description">que disparar&aacute;n el evento</div>
+                    </div>
+                </div>
+                <div class="link step" id="s3" (click)="mostrarStep3()">
+                    <i class="lightning icon w3-text-cerebro-red"></i>
+                    <div class="content">
+                        <div class="title">Acciones a realizar</div>
+                        <div class="description">cuando se registre el evento</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui attached grey secondary segment w3-topbar">
+                <div id="step1" class="w3-padding">
+                    <div class="ui labeled fluid input">
+                        <div class="ui label w3-text-cerebro-red">Nombre:</div>
+                        <input name="nombre" id="nombre" placeholder="Ingrese el nombre del Evento..." type="text">
+                    </div>
+                </div>
+                <div id="step2" style="display: none;">
+                    <div class="ui secondary menu">
+                        <div class="right menu">
+                            <button class="circular positive ui icon button"><i class="icon add"></i></button>
+                        </div>
+                    </div>
+                    <div class="ui segment grey">
+                        <button class="circular inverted orange compact ui icon button w3-margin-bottom"><i class="icon remove"></i></button>
+                        <select class="ui fluid dropdown"><option value="">Seleccione un dispositivo...</option></select>
+                        <div class="ui labeled fluid input w3-margin-top">
+                            <div class="ui label w3-text-cerebro-red">Umbral:</div>
+                            <input name="nombre" id="nombre" placeholder="Ingrese el valor m&aacute;ximo hasta el cu&aacute;l se considera normal..." type="text">
+                        </div>
+                    </div>
+                </div>
+                <div id="step3" style="display: none">
+                    <h5 class="ui horizontal divider header w3-padding">Seleccione acciones pre definidas</h5>
+                    <select class="ui fluid dropdown w3-padding"><option value="">Seleccione alguna de las acciones pre definidas</option></select>
+                    <h5 class="ui horizontal divider header w3-padding">Define tus propias acciones</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button class="ui button w3-margin-top w3-cerebro-blue w3-right" (click)="modificarTipoDeFuenteDeDato()">Guardar</button>
+        </div>
+    </div>
+    <div id="modificar" class="tab w3-container" style="display:none">
+        <select name="origen" [(ngModel)]="tipoDeFuneteDeDatoSelectMod" id="tipoMod" class="ui fluid search dropdown w3-margin-top" (change)="onChange($event.target.value)">
+            <option value="" selected disabled>Seleccione un Dispositivo para ver y modificar...</option>
+            <option *ngFor="let dis of dispositivosMod" value="{{dis.Id}}"> {{dis.nombre}} </option>
+        </select>
+        <div class="container w3-padding w3-padding-24">
+            <div class="ui three top attached steps">
+                <div class="active link step" id="sm1" (click)="mostrarStep1()">
+                    <i class="info icon w3-text-cerebro-red"></i>
+                    <div class="content">
+                        <div class="title">Informaci&oacute;n B&aacute;sica</div>
+                        <div class="description">Para poder crear el evento</div>
+                    </div>
+                </div>
+                <div class="link step" id="sm2" (click)="mostrarStep2()">
+                    <i class="settings w3-text-cerebro-red icon"></i>
+                    <div class="content">
+                        <div class="title">Dispositivos asociados</div>
+                        <div class="description">que disparar&aacute;n el evento</div>
+                    </div>
+                </div>
+                <div class="link step" id="sm3" (click)="mostrarStep3()">
+                    <i class="lightning icon w3-text-cerebro-red"></i>
+                    <div class="content">
+                        <div class="title">Acciones a realizar</div>
+                        <div class="description">cuando se registre el evento</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui attached grey secondary segment w3-topbar">
+                <div id="stepMod1" class="w3-padding">
+                    <div class="ui labeled fluid input">
+                        <div class="ui label w3-text-cerebro-red">Nombre:</div>
+                        <input name="nombre" id="nombreMod" placeholder="Ingrese el nombre del Evento..." type="text">
+                    </div>
+                </div>
+                <div id="stepMod2" style="display: none;">
+                    <div class="ui secondary menu">
+                        <div class="right menu">
+                            <button class="circular positive ui icon button"><i class="icon add"></i></button>
+                        </div>
+                    </div>
+                    <div class="ui segment grey">
+                        <button class="circular inverted orange compact ui icon button w3-margin-bottom"><i class="icon remove"></i></button>
+                        <select class="ui fluid dropdown"><option value="">Seleccione un dispositivo...</option></select>
+                        <div class="ui labeled fluid input w3-margin-top">
+                            <div class="ui label w3-text-cerebro-red">Umbral:</div>
+                            <input name="nombre" id="umbralMod" placeholder="Ingrese el valor m&aacute;ximo hasta el cu&aacute;l se considera normal..." type="text">
+                        </div>
+                    </div>
+                </div>
+                <div id="stepMod3" style="display: none">
+                    <h5 class="ui horizontal divider header w3-padding">Seleccione acciones pre definidas</h5>
+                    <select class="ui fluid dropdown w3-padding"><option value="">Seleccione alguna de las acciones pre definidas</option></select>
+                    <h5 class="ui horizontal divider header w3-padding">Define tus propias acciones</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button class="ui button w3-margin-top w3-cerebro-blue w3-right">Guardar</button>
+            <button class="ui button w3-margin-top w3-cerebro-red w3-right secondary w3-margin-right">Eliminar</button>
+        </div>
+    </div>
+</div>

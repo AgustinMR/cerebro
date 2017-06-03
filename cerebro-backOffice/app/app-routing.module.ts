@@ -17,18 +17,15 @@ import { UsuarioService } from './usuario/usuario.service';
 // Estadistica
 import { EstadisticaComponent } from './estadistica/estadistica.component';
 import { EstadisticaService } from './estadistica/estadistica.service';
-// Login    
-import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.service';
 // Inicio
 import { InicioComponent } from './inicio/inicio.component';
 import { InicioService } from './inicio/inicio.service';
+import { LoginService } from './inicio/login.service'
 
 const routes: Routes = [
     { path: 'dispositivos', component: FuenteDeDatoComponent },
     { path: 'estadisticas', component: EstadisticaComponent },
     { path: 'eventos', component: EventoComponent },
-    { path: 'login', component: LoginComponent },
     { path: 'inicio', component: InicioComponent },
     { path: 'tipos', component: TipoDeFuenteDeDatoComponent },
     { path: 'usuarios', component: UsuarioComponent },
