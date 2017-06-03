@@ -4,6 +4,7 @@ import { Http, HttpModule, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 declare var ol: any;
+declare var $: any;
 
 @Component({
     selector: 'cerebro-dispositivo',
@@ -38,6 +39,7 @@ export class FuenteDeDatoComponent implements OnInit {
     userAgentNew = "";
 
     ipMod = "";
+    nombreMod = "";
     userAgentMod = "";
 
     tipoGuardar = "nuevo";
@@ -46,7 +48,10 @@ export class FuenteDeDatoComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+        $(document).ready(function () {
+            $('.ui.sidebar').sidebar('attach events', '.toc.item');
+            $('.ui.dropdown').dropdown();
+        });
         var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
         this.source = new ol.source.Vector({ wrapX: false });
         var vector = new ol.layer.Vector({ source: this.source });
@@ -89,7 +94,7 @@ export class FuenteDeDatoComponent implements OnInit {
         this.dispositivos.obtenerDis(this.nombre_municipalidad).subscribe(
             (data: Response) => {
                 this.dispositivosMod = data;
-                this.getDispositivosList();
+                //this.getDispositivosList();
             },
             responseError => console.log(responseError),
             () => console.log("Fuentes de datos cargadas")
@@ -207,52 +212,52 @@ export class FuenteDeDatoComponent implements OnInit {
         }
     }
 
-    getDispositivosList() {
-        while (document.getElementById("dispositivosActuales").hasChildNodes()) {
-            document.getElementById("dispositivosActuales").removeChild(document.getElementById("dispositivosActuales").lastChild);
-        }
-        var x = this.dispositivosMod;
-        for (var i = 0; i < x.length; i++) {
-            //var y = JSON.parse(JSON.stringify(this.tipoDeFuneteDeDato));
-            var tipo;
-            for (var j = 0; j < this.tipoDeFuneteDeDato.length; j++) {
-                if (this.tipoDeFuneteDeDato[j].Id === x[i].tipo) {
-                    tipo = this.tipoDeFuneteDeDato[j].nombre;
-                }
-            }
+    //getDispositivosList() {
+    //    while (document.getElementById("dispositivosActuales").hasChildNodes()) {
+    //        document.getElementById("dispositivosActuales").removeChild(document.getElementById("dispositivosActuales").lastChild);
+    //    }
+    //    var x = this.dispositivosMod;
+    //    for (var i = 0; i < x.length; i++) {
+    //        //var y = JSON.parse(JSON.stringify(this.tipoDeFuneteDeDato));
+    //        var tipo;
+    //        for (var j = 0; j < this.tipoDeFuneteDeDato.length; j++) {
+    //            if (this.tipoDeFuneteDeDato[j].Id === x[i].tipo) {
+    //                tipo = this.tipoDeFuneteDeDato[j].nombre;
+    //            }
+    //        }
 
-            var tr = document.createElement("tr");
-            var td = document.createElement("td");
-            td.innerHTML = x[i].nombre;
-            var td2 = document.createElement("td");
-            td2.innerHTML = tipo;
-            var td4 = document.createElement("td");
-            td4.innerHTML = x[i].userAgent;
-            var td5 = document.createElement("td");
-            td5.innerHTML = x[i].direccionIP;
+    //        var tr = document.createElement("tr");
+    //        var td = document.createElement("td");
+    //        td.innerHTML = x[i].nombre;
+    //        var td2 = document.createElement("td");
+    //        td2.innerHTML = tipo;
+    //        var td4 = document.createElement("td");
+    //        td4.innerHTML = x[i].userAgent;
+    //        var td5 = document.createElement("td");
+    //        td5.innerHTML = x[i].direccionIP;
 
-            var td3 = document.createElement("td");
-            td3.className = "w3-center";
-            var img = document.createElement("img");
-            img.src = "../../Content/rubbish-bin.svg";
-            img.style.height = "37px";
-            img.className = "w3-button w3-hover-none";
-            img.onclick = () => { this.disAeliminar = x[i].Id; this.mostrarMensajeConfirmacion(); };
-            td3.appendChild(img);
-            tr.appendChild(td);
-            tr.appendChild(td2);
-            tr.appendChild(td4);
-            tr.appendChild(td5);
-            tr.appendChild(td3);
-            document.getElementById("dispositivosActuales").appendChild(tr);
-        }
-    }
+    //        var td3 = document.createElement("td");
+    //        td3.className = "w3-center";
+    //        var img = document.createElement("img");
+    //        img.src = "../../Content/rubbish-bin.svg";
+    //        img.style.height = "37px";
+    //        img.className = "w3-button w3-hover-none";
+    //        img.onclick = () => { this.disAeliminar = x[i].Id; this.mostrarMensajeConfirmacion(); };
+    //        td3.appendChild(img);
+    //        tr.appendChild(td);
+    //        tr.appendChild(td2);
+    //        tr.appendChild(td4);
+    //        tr.appendChild(td5);
+    //        tr.appendChild(td3);
+    //        document.getElementById("dispositivosActuales").appendChild(tr);
+    //    }
+    //}
 
     deleteDis() {
         this.mostrarMensajeLoading();
         this.dispositivos.deleteDis(this.disAeliminar).subscribe(
-            (data: Response) => { this.mostrarMensajeUsuarioQuitado(); console.log(data); },
-            responseError => { console.log(responseError); },
+            (data: Response) => { this.mostrarMensajeDispositivoEliminado(); console.log(data); },
+            responseError => { this.mostrarMensajeError(); console.log(responseError); },
             () => console.log("Tipo de fuente de datos eliminado")
         );
     }
@@ -262,7 +267,8 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "block";
         document.getElementById("error").style.display = "none";
-        document.getElementById("usuarioQuitado").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoElimiando").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
     }
 
@@ -271,8 +277,9 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "block";
-        document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoElimiando").style.display = "none";
     }
 
     mostrarMensajeLoading() {
@@ -280,7 +287,8 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "block";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
-        document.getElementById("usuarioQuitado").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoElimiando").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
     }
 
@@ -289,16 +297,28 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
-        document.getElementById("usuarioQuitado").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoElimiando").style.display = "none";
         document.getElementById("confirmation").style.display = "block";
     }
 
-    mostrarMensajeUsuarioQuitado() {
+    mostrarMensajeDispositivoModificado() {
         document.getElementById("message").style.display = "block";
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
-        document.getElementById("usuarioQuitado").style.display = "block";
+        document.getElementById("dispositivoModificado").style.display = "block";
+        document.getElementById("dispositivoElimiando").style.display = "none";
+        document.getElementById("confirmation").style.display = "none";
+    }
+
+    mostrarMensajeDispositivoEliminado() {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoElimiando").style.display = "block";
         document.getElementById("confirmation").style.display = "none";
     }
 
@@ -307,7 +327,8 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
-        document.getElementById("usuarioQuitado").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoElimiando").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
     }
 

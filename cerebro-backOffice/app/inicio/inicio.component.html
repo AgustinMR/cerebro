@@ -1,36 +1,60 @@
-﻿<header class="w3-cerebro-blue w3-card-4 w3-display-container w3-topbar w3-border-cerebro-red">
-    <div class="bgimg-3 w3-opacity"></div>
-    <nav class="w3-bar w3-display-topmiddle w3-text-white">
-        <a href="javascript:void(0);" class="w3-bar-item w3-button w3-padding w3-hover-none w3-margin-left"><img src="../Content/cerebro-text.png" alt="CEREBRO" style="height: 27px"></a>
-        <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow"><img src="../Content/exit.png" alt="Salir"></a>
-    </nav>
-    <div>
-        <div class="w3-bar w3-display-bottommiddle w3-cerebro-blue w3-opacity" style="height: 50px"></div>
-        <nav class="w3-bar w3-text-white w3-display-bottommiddle w3-bottombar w3-border-cerebro-red" id="nav">
-            <div class="w3-content">
-                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-padding w3-hover-none w3-margin-left w3-cerebro-red w3-hover-cerebro-red">Montevideo</a>
-                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow w3-hide-large w3-hide-medium" onclick="toggleFunction()"><strong>&#9776;</strong></a>
-                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow w3-hide-small" (click)="showUsuario()">Usuarios</a>
-                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow w3-hide-small" (click)="showEvento()">Eventos</a>
-                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow w3-hide-small" (click)="showDispositivo()">Dispositivos</a>
-                <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right w3-hover-cerebro-red w3-hover-shadow w3-hide-small" (click)="showTipo()">Tipos</a>
-            </div>
-        </nav>
-    </div>
-</header>
-<div id="navMobile" class="w3-bar-block w3-cerebro-blue w3-hide w3-hide-medium w3-hide-large">
-    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-opacity w3-hover-light-grey" (click)="showTipo()">Tipos</a>
-    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-opacity w3-hover-light-grey" (click)="showDispositivo()">Dispositivos</a>
-    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-opacity w3-hover-light-grey" (click)="showEvento()">Eventos</a>
-    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-opacity w3-hover-light-grey" (click)="showUsuario()">Usuarios</a>
+﻿<div class="ui vertical thin menu sidebar inverted vertical menu w3-cerebro-blue">
+    <div class="w3-center w3-margin-top"><img src="../../Content/cerebro.png" alt="Cerebro" style="height: 30px"></div>
+    <a href="javascript:void(0);" class="toc item w3-margin-top w3-center" (click)="showTipo()">Tipos</a>
+    <a href="javascript:void(0);" class="toc item w3-center" (click)="showDispositivo()">Dispositivos</a>
+    <a href="javascript:void(0);" class="toc item w3-center" (click)="showEvento()">Eventos</a>
+    <a href="javascript:void(0);" class="toc item w3-center" (click)="showUsuario()">Usuarios</a>
+    <a href="javascript:void(0);" class="toc item w3-center">Salir</a>
 </div>
-<div class="w3-container w3-padding w3-padding-24">
-    <div class="w3-content">
-        <cerebro-estadistica *ngIf="estadistica"></cerebro-estadistica>
+<div class="pusher bgimg-2" style="height: 100%; width: 100%">
+    <div class="w3-content w3-display-topmiddle" *ngIf="login">
+        <div class="w3-panel w3-center" style="width: 500px; min-width: 300px">
+            <div class="w3-bar-item ui centered">
+                <h4 class="ui horizontal w3-padding"><img src="../../Content/cerebro-logo.png" style="height: 37px"></h4>
+            </div>
+        </div>
+        <div class="ui raised segment grey" style="width: 500px; min-width: 300px">
+            <div class="w3-bar-item">
+                <h4 class="ui horizontal divider header w3-padding w3-padding-24 w3-text-cerebro-blue">Iniciar Sesi&oacute;n</h4>
+                <form action="login" method="post" class="w3-container">
+                    <div class="ui labeled fluid input w3-margin-bottom">
+                        <div class="ui label">Email:</div>
+                        <input id="email" type="email" name="email" placeholder="Ingrese aqu&iacute; su direcci&oacute;n de correo..." required>
+                    </div>
+                    <div class="ui labeled fluid input w3-margin-bottom">
+                        <div class="ui label">Contrase&ntilde;a:</div>
+                        <input placeholder="Ingrese aqu&iacute; su contrase&ntilde;a..." id="pass" type="password" name="pass" required>
+                    </div>
+                    <select name="muni" id="muni" class="ui fluid search dropdown">
+                        <option value="" selected disabled>Seleccione una municipalidad</option>
+                        <option *ngFor="let muni of municipalidades"> {{muni.nombre}} </option>
+                    </select>
+                    <div class="w3-center w3-margin-top w3-margin-bottom w3-padding" style="height: 50px">
+                        <button type="submit" class="ui right labeled icon button w3-right w3-text-cerebro-red" (click)="ingresar()"><i class="sign in icon"></i>Ingresar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="ui basic segments bgimg-3 w3-cerebro-blue" *ngIf="inicio">
+        <div class="ui basic raised segment">
+            <div class="ui secondary pointing inverted menu" style="border-width: 0px">
+                <a class="toc item w3-hide-large"><strong><i class="sidebar icon"></i></strong></a>
+                <img src="../../Content/cerebro.png" style="height: 50px" class="item w3-hide-small">
+                <div class="right menu"><a class="item active"><strong><i class="sign out icon inverted"></i></strong></a></div>
+            </div>
+            <div class="ui secondary inverted menu w3-hide-small">
+                <a href="javascript:void(0);" class="item" (click)="showTipo()">Tipos</a>
+                <a href="javascript:void(0);" class="item" (click)="showDispositivo()">Dispositivos</a>
+                <a href="javascript:void(0);" class="item" (click)="showEvento()">Eventos</a>
+                <a href="javascript:void(0);" class="item" (click)="showUsuario()">Usuarios</a>
+            </div>
+        </div>
+    </div>
+    <div class="ui container w3-padding w3-padding-32" *ngIf="inicio">
         <cerebro-dispositivo *ngIf="dispositivo"></cerebro-dispositivo>
         <cerebro-tipo-de-fuente-de-dato *ngIf="tipo"></cerebro-tipo-de-fuente-de-dato>
         <cerebro-evento *ngIf="evento"></cerebro-evento>
         <cerebro-usuario *ngIf="usuario"></cerebro-usuario>
-        <cerebro-login *ngIf="login"></cerebro-login>
     </div>
 </div>

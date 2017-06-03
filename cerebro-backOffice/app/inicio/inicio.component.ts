@@ -1,14 +1,17 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { InicioService } from './inicio.service';
+import { LoginService } from './login.service'; 
 import { Http, HttpModule, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+
+declare var $: any;
 
 @Component({
     selector: 'cerebro-backoffice-inicio',
     templateUrl: 'inicio.component.html',
     styleUrls: ['inicio.component.css'],
     moduleId: module.id,
-    providers: [InicioService]
+    providers: [InicioService, LoginService]
 })
 export class InicioComponent implements OnInit {
 
@@ -17,6 +20,10 @@ export class InicioComponent implements OnInit {
     tipo = false;
     usuario = false;
     estadistica = true;
+    autenticado: any;
+    municipalidades: any;
+    login = true;
+    inicio = false;
 
     showEstadistica() {
         this.dispositivo = false;
@@ -58,18 +65,35 @@ export class InicioComponent implements OnInit {
         this.estadistica = false;
     }
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private loginService: LoginService) { }
 
     ngOnInit() {
-        // Start the connection up!
-        //
-        //console.log("Starting the channel service");
+        this.getMunicipalidades();
+        $(document).ready(function () {
+            $('.ui.sidebar').sidebar('attach events', '.toc.item');
+            $('.ui.dropdown').dropdown();
+        });
+    }
 
-        //this.channelService.start();
-        //this.channelService.sub("USUARIO_CONECTADO").map(response => {
-        //    if (response.Name === "user.registred") {
-        //        this.showNotification();
-        //    }
-        //}).subscribe(response => console.log("incomming message at USUARIO_CONECTADO channel with Name:", response), error => console.log("Ha ocurrido un error: ", error), () => { });
+    ingresar() {
+        this.loginService.loginAdmin("admin", "Mdeo", "hola").subscribe(
+            (data: Response) => {
+                this.autenticado = data;
+                if (this.autenticado == true) {
+                    this.login = false;
+                    this.inicio = true;
+                }
+            },
+            responseError => console.log("Error: " + responseError),
+            () => console.log(this.autenticado)
+        );
+    }
+
+    getMunicipalidades() {
+        this.loginService.obtenerMunicipalidades().subscribe(
+            (data: Response) => this.municipalidades = data,
+            responseError => console.log(responseError),
+            () => console.log("Municipalidades cargadas")
+        );
     }
 }

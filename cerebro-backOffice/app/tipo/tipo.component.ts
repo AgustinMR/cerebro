@@ -3,6 +3,8 @@ import { TipoDeFuenteDeDatoService } from './tipo.service';
 import { Http, HttpModule, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
+declare var $: any;
+
 @Component({
     selector: 'cerebro-tipo-de-fuente-de-dato',
     templateUrl: 'tipo.component.html',
@@ -17,10 +19,14 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
 
     repuesta: any;
     tiposMod: any;
-    tipoAeliminar = "";
     nombre_municipalidad: any = "Mdeo"
+    tipoSeleccionado = "";
 
     ngOnInit(): void {
+        $(document).ready(function () {
+            $('.ui.sidebar').sidebar('attach events', '.toc.item');
+            $('.ui.dropdown').dropdown();
+        });
         this.getTipos();
     }
 
@@ -30,9 +36,10 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
     frecLectura = "";
 
     agregarTipoDeFuenteDeDato() {
+        this.mostrarMensajeLoading();
         this.tipos.agregarTipo(this.nombre, this.tipoDeDato, this.endpointWS, this.frecLectura, this.nombre_municipalidad).subscribe(
-            (data: Response) => this.repuesta = data,
-            responseError => console.log("Error: " + responseError),
+            (data: Response) => { this.repuesta = data; this.mostrarMensajeExito(); },
+            responseError => { console.log("Error: " + responseError); this.mostrarMensajeError(); },
             () => console.log(this.repuesta)
         );
         this.nombre = "";
@@ -50,11 +57,11 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
     modificarTipoDeFuenteDeDato() {
         if (this.nombreMod != "") {
             this.tipos.modificarTipo(this.nombreMod, this.tipoDeDatoMod, this.endpointWSMod, this.frecLecturaMod, this.nombre_municipalidad).subscribe(
-                (data: Response) => this.repuesta = data,
-                responseError => console.log("Error: " + responseError),
+                (data: Response) => { this.repuesta = data; this.mostrarMensajeTipoModificado(); },
+                responseError => { console.log("Error: " + responseError); this.mostrarMensajeError(); },
                 () => console.log(this.repuesta)
             );
-            this.nombreMod = "Seleccione un tipo de fuente de datos";
+            this.nombreMod = "";
             this.tipoDeDatoMod = "";
             this.endpointWSMod = "";
             this.frecLecturaMod = "";
@@ -74,7 +81,7 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
                 option2.value = "";
                 option2.selected = true;
                 option2.disabled = true;
-                option2.innerHTML = "Seleccione un tipo de fuente de datos...";
+                option2.innerHTML = "Selecciona un tipo de dispositivo para verlo o modificarlo...";
                 document.getElementById("nombre_mod").appendChild(option2);
                 this.tiposMod = data;
                 for (var i = 0; i < this.tiposMod.length; i++) {
@@ -83,7 +90,7 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
                     option.innerHTML = this.tiposMod[i].nombre;
                     document.getElementById("nombre_mod").appendChild(option);
                 }
-                this.getTiposList();
+                //this.getTiposList();
             },
             responseError => console.log(responseError),
             () => console.log("Tipos de fuentes de datos cargadas")
@@ -108,70 +115,73 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
                     this.tipoDeDatoMod = tipo;
                     this.endpointWSMod = this.tiposMod[i].uriWebService;
                     this.frecLecturaMod = this.tiposMod[i].frecuenciaLectura;
+                    this.nombreMod = this.tiposMod[i].nombre;
+                    this.tipoSeleccionado = this.tiposMod[i].Id;
                 }
             }
         } else {
-            this.nombreMod = "Seleccione un tipo de fuente de datos";
+            this.nombreMod = "";
             this.tipoDeDatoMod = "";
             this.endpointWSMod = "";
             this.frecLecturaMod = "";
         }
     }
 
-    getTiposList() {
-        while (document.getElementById("tiposActuales").hasChildNodes()) {
-            document.getElementById("tiposActuales").removeChild(document.getElementById("tiposActuales").lastChild);
-        }
-        var x = JSON.parse(JSON.stringify(this.tiposMod));
-        for (var i in x) {
-            var tipo;
-            if (x[i].tipo == 0) {
-                tipo = "TEXTO"
-            } else if (x[i].tipo == 1) {
-                tipo = "NUMERICO"
-            } if (x[i].tipo == 2) {
-                tipo = "IMAGEN"
-            }
-            if (x[i].tipo == 3) {
-                tipo = "VIDEO"
-            }
+    //getTiposList() {
+    //    while (document.getElementById("tiposActuales").hasChildNodes()) {
+    //        document.getElementById("tiposActuales").removeChild(document.getElementById("tiposActuales").lastChild);
+    //    }
+    //    var x = JSON.parse(JSON.stringify(this.tiposMod));
+    //    for (var i in x) {
+    //        var tipo;
+    //        if (x[i].tipo == 0) {
+    //            tipo = "TEXTO"
+    //        } else if (x[i].tipo == 1) {
+    //            tipo = "NUMERICO"
+    //        } if (x[i].tipo == 2) {
+    //            tipo = "IMAGEN"
+    //        }
+    //        if (x[i].tipo == 3) {
+    //            tipo = "VIDEO"
+    //        }
+    //        var tr = document.createElement("tr");
+    //        var td = document.createElement("td");
+    //        td.innerHTML = x[i].nombre;
+    //        var td2 = document.createElement("td");
+    //        td2.innerHTML = tipo;
+    //        var td4 = document.createElement("td");
+    //        td4.innerHTML = x[i].uriWebService;
+    //        var td5 = document.createElement("td");
+    //        td5.innerHTML = x[i].frecuenciaLectura;
 
-            var tr = document.createElement("tr");
-            var td = document.createElement("td");
-            td.innerHTML = x[i].nombre;
-            var td2 = document.createElement("td");
-            td2.innerHTML = tipo;
-            var td4 = document.createElement("td");
-            td4.innerHTML = x[i].uriWebService;
-            var td5 = document.createElement("td");
-            td5.innerHTML = x[i].frecuenciaLectura;
-
-            var td3 = document.createElement("td");
-            td3.className = "w3-center";
-            var img = document.createElement("img");
-            img.src = "../../Content/rubbish-bin.svg";
-            img.style.height = "37px";
-            img.className = "w3-button w3-hover-none";
-            console.log(x[i].Id);
-            img.onclick = () => { alert(x[i].Id); this.mostrarMensajeConfirmacion(); };
-            td3.appendChild(img);
-            tr.appendChild(td);
-            tr.appendChild(td2);
-            tr.appendChild(td4);
-            tr.appendChild(td5);
-            tr.appendChild(td3);
-            document.getElementById("tiposActuales").appendChild(tr);
-        }
-    }
+    //        var td3 = document.createElement("td");
+    //        td3.className = "w3-center";
+    //        var img = document.createElement("img");
+    //        img.src = "../../Content/rubbish-bin.svg";
+    //        img.style.height = "37px";
+    //        img.className = "w3-button w3-hover-none";
+    //        console.log(x[i].Id);
+    //        img.onclick = () => { alert(x[i].Id); this.mostrarMensajeConfirmacion(); };
+    //        td3.appendChild(img);
+    //        tr.appendChild(td);
+    //        tr.appendChild(td2);
+    //        tr.appendChild(td4);
+    //        tr.appendChild(td5);
+    //        tr.appendChild(td3);
+    //        document.getElementById("tiposActuales").appendChild(tr);
+    //    }
+    //}
 
     deleteTipo() {
-        //console.log(this.tipoAeliminar);
-        this.mostrarMensajeLoading();
-        this.tipos.deleteTipo(this.tipoAeliminar).subscribe(
-            (data: Response) => { this.mostrarMensajeUsuarioQuitado(); console.log(data); },
-            responseError => { console.log(responseError); },
-            () => console.log("Tipo de fuente de datos eliminado")
-        );
+        if (this.tipoSeleccionado !== "") {
+            this.mostrarMensajeLoading();
+            this.tipos.deleteTipo(this.tipoSeleccionado).subscribe(
+                (data: Response) => { this.mostrarMensajeTipoQuitado(); console.log(data); },
+                responseError => { console.log(responseError); this.mostrarMensajeError(); },
+                () => console.log("Tipo de fuente de datos eliminado")
+            );
+        }
+        
     }
 
     mostrarMensajeExito() {
@@ -179,8 +189,9 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "block";
         document.getElementById("error").style.display = "none";
-        document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("tipoEliminado").style.display = "none";
+        document.getElementById("tipoModificado").style.display = "none";
     }
 
     mostrarMensajeError() {
@@ -188,8 +199,9 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "block";
-        document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("tipoEliminado").style.display = "none";
+        document.getElementById("tipoModificado").style.display = "none";
     }
 
     mostrarMensajeLoading() {
@@ -197,8 +209,9 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "block";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
-        document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("tipoEliminado").style.display = "none";
+        document.getElementById("tipoModificado").style.display = "none";
     }
 
     mostrarMensajeConfirmacion() {
@@ -206,17 +219,29 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
-        document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "block";
+        document.getElementById("tipoEliminado").style.display = "none";
+        document.getElementById("tipoModificado").style.display = "none";
     }
 
-    mostrarMensajeUsuarioQuitado() {
+    mostrarMensajeTipoQuitado() {
         document.getElementById("message").style.display = "block";
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
-        document.getElementById("usuarioQuitado").style.display = "block";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("tipoEliminado").style.display = "block";
+        document.getElementById("tipoModificado").style.display = "none";
+    }
+
+    mostrarMensajeTipoModificado() {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("confirmation").style.display = "none";
+        document.getElementById("tipoEliminado").style.display = "none";
+        document.getElementById("tipoModificado").style.display = "block";
     }
 
     ocultarMensajes() {
@@ -224,8 +249,9 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
-        document.getElementById("usuarioQuitado").style.display = "none";
         document.getElementById("confirmation").style.display = "none";
+        document.getElementById("tipoEliminado").style.display = "none";
+        document.getElementById("tipoModificado").style.display = "none";
     }
 
 }
