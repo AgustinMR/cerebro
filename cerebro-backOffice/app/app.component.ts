@@ -7,7 +7,7 @@ import { EstadisticaService } from './estadistica/estadistica.service'
 import { EventoService } from './evento/evento.service'
 import { TipoDeFuenteDeDatoService } from './tipo/tipo.service'
 import { UsuarioService } from './usuario/usuario.service'
-import { LoginService } from './login/login.service'
+import { LoginService } from './inicio/login.service'
 
 @Component({
     selector: 'tsi1-cerebro-gr17',
