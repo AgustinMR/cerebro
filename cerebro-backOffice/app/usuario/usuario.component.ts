@@ -3,6 +3,8 @@ import { UsuarioService } from './usuario.service';
 import { Http, HttpModule, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
+declare var $: any;
+
 @Component({
     selector: 'cerebro-usuario',
     templateUrl: 'usuario.component.html',
@@ -18,7 +20,10 @@ export class UsuarioComponent implements OnInit {
     }
     
     ngOnInit(): void {
-        //this.getEmployees();
+        $(document).ready(function () {
+            $('.ui.sidebar').sidebar('attach events', '.toc.item');
+            $('.ui.dropdown').dropdown();
+        });
     }
     
     //getEmployees() {

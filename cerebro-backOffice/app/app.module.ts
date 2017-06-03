@@ -23,25 +23,14 @@ import { UsuarioService } from './usuario/usuario.service';
 // Estadistica
 import { EstadisticaComponent } from './estadistica/estadistica.component';
 import { EstadisticaService } from './estadistica/estadistica.service';
-// Login    
-import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.service';
 // Inicio
 import { InicioComponent } from './inicio/inicio.component';
 import { InicioService } from './inicio/inicio.service';
-
-//import { EmployeeService } from './employee/employee.service';
-//import { EmployeeTaskService, ChannelConfig, SignalrWindow } from './employee/employee.task.service';
-//let channelConfig = new ChannelConfig();
-//channelConfig.url = "http://localhost:9123/signalr";
-//channelConfig.hubName = "EmployeeHub";
+import { LoginService } from './inicio/login.service'
 
 @NgModule({
     imports: [BrowserModule, AppRoutingModule, CommonModule, ReactiveFormsModule, FormsModule, HttpModule],
-    declarations: [AppComponent, FuenteDeDatoComponent, TipoDeFuenteDeDatoComponent, EventoComponent, UsuarioComponent, EstadisticaComponent, LoginComponent, InicioComponent],
-    //providers: [EmployeeService, HttpModule, EmployeeTaskService,
-    //    { provide: SignalrWindow, useValue: window },
-    //    { provide: 'channel.config', useValue: channelConfig }],
+    declarations: [AppComponent, FuenteDeDatoComponent, TipoDeFuenteDeDatoComponent, EventoComponent, UsuarioComponent, EstadisticaComponent, InicioComponent],
     providers: [FuenteDeDatoService, TipoDeFuenteDeDatoService, EventoService, UsuarioService, EstadisticaService, HttpModule, LoginService, InicioService],
     bootstrap: [AppComponent]
 })

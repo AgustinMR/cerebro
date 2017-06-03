@@ -3,6 +3,8 @@ import { EventoService } from './evento.service';
 import { Http, HttpModule, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
+declare var $: any;
+
 @Component({
     selector: 'cerebro-evento',
     templateUrl: 'evento.component.html',
@@ -19,11 +21,14 @@ export class EventoComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        //this.getEmployees();
+        $(document).ready(function () {
+            $('.ui.sidebar').sidebar('attach events', '.toc.item');
+            $('.ui.dropdown').dropdown();
+        });
     }
-    
+
     addEvento() {
-        this.eventos.addEvento("vientos fuertes","Mdeo").subscribe(
+        this.eventos.addEvento("vientos fuertes", "Mdeo").subscribe(
             (data: Response) => this.eventoAgregado = data,
             responseError => console.log(responseError),
             () => {
@@ -35,5 +40,49 @@ export class EventoComponent implements OnInit {
                 );
             }
         );
+    }
+    mostrarStep1() {
+        document.getElementById("step1").style.display = "block";
+        document.getElementById("step2").style.display = "none";
+        document.getElementById("step3").style.display = "none";
+        document.getElementById("s1").className = "active step";
+        document.getElementById("s2").className = "link step";
+        document.getElementById("s3").className = "link step";
+        document.getElementById("stepMod1").style.display = "block";
+        document.getElementById("stepMod2").style.display = "none";
+        document.getElementById("stepMod3").style.display = "none";
+        document.getElementById("sm1").className = "active step";
+        document.getElementById("sm2").className = "link step";
+        document.getElementById("sm3").className = "link step";
+    }
+
+    mostrarStep2() {
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+        document.getElementById("step3").style.display = "none";
+        document.getElementById("s2").className = "active step";
+        document.getElementById("s1").className = "link step";
+        document.getElementById("s3").className = "link step";
+        document.getElementById("stepMod1").style.display = "none";
+        document.getElementById("stepMod2").style.display = "block";
+        document.getElementById("stepMod3").style.display = "none";
+        document.getElementById("sm1").className = "link step";
+        document.getElementById("sm2").className = "active step";
+        document.getElementById("sm3").className = "link step";
+    }
+
+    mostrarStep3() {
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "none";
+        document.getElementById("step3").style.display = "block";
+        document.getElementById("s3").className = "active step";
+        document.getElementById("s2").className = "link step";
+        document.getElementById("s1").className = "link step";
+        document.getElementById("stepMod1").style.display = "none";
+        document.getElementById("stepMod2").style.display = "none";
+        document.getElementById("stepMod3").style.display = "block";
+        document.getElementById("sm1").className = "link step";
+        document.getElementById("sm2").className = "link step";
+        document.getElementById("sm3").className = "active step";
     }
 }

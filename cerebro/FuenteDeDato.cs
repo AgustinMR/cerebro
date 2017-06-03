@@ -26,7 +26,7 @@ namespace cerebro
         public double[] ubicacion { get; set; }
         [BsonElement]
         [DataMember]
-        public String userAgent { get; set; }
+        public string userAgent { get; set; }
         [BsonElement]
         [DataMember]
         public string direccionIP { get; set; }

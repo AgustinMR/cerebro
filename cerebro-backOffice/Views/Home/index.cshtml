@@ -5,32 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
-    <link rel="stylesheet" href="~/Content/w3.css">
-    <link rel="stylesheet" href="~/Content/site.css">
-    <link href="~/Content/table.min.css" rel="stylesheet" />
-    <link href="~/Content/dimmer.min.css" rel="stylesheet" />
-    <link href="~/Content/loader.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/cerebro.css">
+    <link href="~/Content/semantic.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/semantic.min.js"></script>
     <script src="~/Scripts/site.js"></script>
     <script src="https://openlayers.org/en/v4.1.0/build/ol.js"></script>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.1.0/css/ol.css" type="text/css">
     <script src="~/node_modules/core-js/client/shim.min.js"></script>
     <script src="~/node_modules/zone.js/dist/zone.js"></script>
     <script src="~/node_modules/systemjs/dist/system.src.js"></script>
-    <!--<script src="~/node_modules/jquery/dist/jquery.js"></script>-->
-    <script src="~/node_modules/signalr/jquery.signalr.js"></script>
     <script src="~/systemjs.config.js"></script>
     <script>
         System.import('main.js').catch(function (err) { console.error(err); });
     </script>
 </head>
-<body class="w3-light-grey">
+<body class="bgimg-2">
     <tsi1-cerebro-gr17></tsi1-cerebro-gr17>
-    <script>
-        $(document).ready(function () {
-            "use strict";
-            blurBackground();
-        });
-    </script>
 </body>
 </html>
