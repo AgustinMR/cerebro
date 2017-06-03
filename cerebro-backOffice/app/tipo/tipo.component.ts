@@ -18,9 +18,9 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
     }
 
     repuesta: any;
-    tiposMod: any;
     nombre_municipalidad: any = "Mdeo"
     tipoSeleccionado = "";
+    tipoMod: any;
 
     ngOnInit(): void {
         $(document).ready(function () {
@@ -74,23 +74,7 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
     getTipos() {
         this.tipos.obtenerTipos(this.nombre_municipalidad).subscribe(
             (data: Response) => {
-                while (document.getElementById("nombre_mod").hasChildNodes()) {
-                    document.getElementById("nombre_mod").removeChild(document.getElementById("nombre_mod").lastChild);
-                }
-                var option2 = document.createElement("option");
-                option2.value = "";
-                option2.selected = true;
-                option2.disabled = true;
-                option2.innerHTML = "Selecciona un tipo de dispositivo para verlo o modificarlo...";
-                document.getElementById("nombre_mod").appendChild(option2);
-                this.tiposMod = data;
-                for (var i = 0; i < this.tiposMod.length; i++) {
-                    var option = document.createElement("option");
-                    option.value = this.tiposMod[i].nombre;
-                    option.innerHTML = this.tiposMod[i].nombre;
-                    document.getElementById("nombre_mod").appendChild(option);
-                }
-                //this.getTiposList();
+                this.tipoMod = data;
             },
             responseError => console.log(responseError),
             () => console.log("Tipos de fuentes de datos cargadas")
@@ -99,24 +83,12 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
 
     onChange(deviceValue: any) {
         if (deviceValue != 0) {
-            for (var i = 0; i < this.tiposMod.length; i++) {
-                if (this.tiposMod[i].nombre == deviceValue) {
-                    var tipo;
-                    if (this.tiposMod[i].tipo == 0) {
-                        tipo = "TEXTO"
-                    } else if (this.tiposMod[i].tipo == 1) {
-                        tipo = "NUMERICO"
-                    } if (this.tiposMod[i].tipo == 2) {
-                        tipo = "IMAGEN"
-                    }
-                    if (this.tiposMod[i].tipo == 3) {
-                        tipo = "VIDEO"
-                    }
-                    this.tipoDeDatoMod = tipo;
-                    this.endpointWSMod = this.tiposMod[i].uriWebService;
-                    this.frecLecturaMod = this.tiposMod[i].frecuenciaLectura;
-                    this.nombreMod = this.tiposMod[i].nombre;
-                    this.tipoSeleccionado = this.tiposMod[i].Id;
+            for (var i = 0; i < this.tipoMod.length; i++) {
+                if (this.tipoMod[i].Id == deviceValue) {
+                    this.endpointWSMod = this.tipoMod[i].uriWebService;
+                    this.frecLecturaMod = this.tipoMod[i].frecuenciaLectura;
+                    this.nombreMod = this.tipoMod[i].nombre;
+                    this.tipoSeleccionado = this.tipoMod[i].Id;
                 }
             }
         } else {
@@ -127,61 +99,16 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
         }
     }
 
-    //getTiposList() {
-    //    while (document.getElementById("tiposActuales").hasChildNodes()) {
-    //        document.getElementById("tiposActuales").removeChild(document.getElementById("tiposActuales").lastChild);
-    //    }
-    //    var x = JSON.parse(JSON.stringify(this.tiposMod));
-    //    for (var i in x) {
-    //        var tipo;
-    //        if (x[i].tipo == 0) {
-    //            tipo = "TEXTO"
-    //        } else if (x[i].tipo == 1) {
-    //            tipo = "NUMERICO"
-    //        } if (x[i].tipo == 2) {
-    //            tipo = "IMAGEN"
-    //        }
-    //        if (x[i].tipo == 3) {
-    //            tipo = "VIDEO"
-    //        }
-    //        var tr = document.createElement("tr");
-    //        var td = document.createElement("td");
-    //        td.innerHTML = x[i].nombre;
-    //        var td2 = document.createElement("td");
-    //        td2.innerHTML = tipo;
-    //        var td4 = document.createElement("td");
-    //        td4.innerHTML = x[i].uriWebService;
-    //        var td5 = document.createElement("td");
-    //        td5.innerHTML = x[i].frecuenciaLectura;
-
-    //        var td3 = document.createElement("td");
-    //        td3.className = "w3-center";
-    //        var img = document.createElement("img");
-    //        img.src = "../../Content/rubbish-bin.svg";
-    //        img.style.height = "37px";
-    //        img.className = "w3-button w3-hover-none";
-    //        console.log(x[i].Id);
-    //        img.onclick = () => { alert(x[i].Id); this.mostrarMensajeConfirmacion(); };
-    //        td3.appendChild(img);
-    //        tr.appendChild(td);
-    //        tr.appendChild(td2);
-    //        tr.appendChild(td4);
-    //        tr.appendChild(td5);
-    //        tr.appendChild(td3);
-    //        document.getElementById("tiposActuales").appendChild(tr);
-    //    }
-    //}
-
     deleteTipo() {
+        //alert(this.tipoSeleccionado);
         if (this.tipoSeleccionado !== "") {
             this.mostrarMensajeLoading();
             this.tipos.deleteTipo(this.tipoSeleccionado).subscribe(
-                (data: Response) => { this.mostrarMensajeTipoQuitado(); console.log(data); },
+                (data: Response) => { this.mostrarMensajeTipoQuitado(); this.getTipos(); console.log(data); },
                 responseError => { console.log(responseError); this.mostrarMensajeError(); },
                 () => console.log("Tipo de fuente de datos eliminado")
             );
         }
-        
     }
 
     mostrarMensajeExito() {

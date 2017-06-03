@@ -32,9 +32,9 @@ export class FuenteDeDatoComponent implements OnInit {
     tiposRet: any;
     dispositivosMod: any;
 
-    disAeliminar = "";
     tipoDeFuneteDeDatoSelect = "";
     tipoDeFuneteDeDatoSelectMod = "";
+    selectBorrar = "";
     ipNew = "";
     userAgentNew = "";
 
@@ -54,7 +54,17 @@ export class FuenteDeDatoComponent implements OnInit {
         });
         var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
         this.source = new ol.source.Vector({ wrapX: false });
-        var vector = new ol.layer.Vector({ source: this.source });
+        var vector = new ol.layer.Vector({
+            source: this.source,
+            style: new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 7,
+                    fill: new ol.style.Fill({
+                        color: 'orange'
+                    })
+                })
+            })
+        });
 
         this.map = new ol.Map({
             layers: [raster, vector],
@@ -124,6 +134,7 @@ export class FuenteDeDatoComponent implements OnInit {
                         this.tipoDeFuneteDeDatoSelect = "";
                         this.nombreNew = "";
                         this.source.clear();
+                        this.cargarTipos();
                     },
                     responseError => console.log(responseError),
                     () => console.log("Tipos de fuentes de datos cargadas")
@@ -134,10 +145,12 @@ export class FuenteDeDatoComponent implements OnInit {
                 //console.log(this.tipoDeFuneteDeDatoSelectMod);
                 this.dispositivos.modificarFuente(this.ipMod, this.userAgentMod, this.geomMod, this.tipoDeFuneteDeDatoSelectMod).subscribe(
                     (data: Response) => {
+                        this.nombreMod = "";
                         this.ipMod = "";
                         this.userAgentMod = "";
                         this.geomMod = "";
                         this.tipoDeFuneteDeDatoSelectMod = "";
+                        this.source.clear();
                         this.map.removeInteraction(this.modifyInteraction);
                         this.map.removeInteraction(this.selectInteraction);
                         this.map.removeLayer(this.vectorLayerMod);
@@ -154,6 +167,7 @@ export class FuenteDeDatoComponent implements OnInit {
     onChange(val: any) {
         for (var dis of this.dispositivosMod) {
             if (dis.Id == val) {
+                this.nombreMod = dis.nombre;
                 this.ipMod = dis.direccionIP;
                 this.userAgentMod = dis.userAgent;
 
@@ -204,132 +218,88 @@ export class FuenteDeDatoComponent implements OnInit {
         }
         this.tipoGuardar = comp;
         if (comp === "quitar") {
-            document.getElementById("btnGuardar").style.display = "none";
-            document.getElementById("map").style.display = "none";
-        }else{
-            document.getElementById("btnGuardar").style.display = "block";
-            document.getElementById("map").style.display = "block";
+            document.getElementById("mapBtn").style.display = "none";
+        } else {
+            document.getElementById("mapBtn").style.display = "block";
         }
     }
 
-    //getDispositivosList() {
-    //    while (document.getElementById("dispositivosActuales").hasChildNodes()) {
-    //        document.getElementById("dispositivosActuales").removeChild(document.getElementById("dispositivosActuales").lastChild);
-    //    }
-    //    var x = this.dispositivosMod;
-    //    for (var i = 0; i < x.length; i++) {
-    //        //var y = JSON.parse(JSON.stringify(this.tipoDeFuneteDeDato));
-    //        var tipo;
-    //        for (var j = 0; j < this.tipoDeFuneteDeDato.length; j++) {
-    //            if (this.tipoDeFuneteDeDato[j].Id === x[i].tipo) {
-    //                tipo = this.tipoDeFuneteDeDato[j].nombre;
-    //            }
-    //        }
-
-    //        var tr = document.createElement("tr");
-    //        var td = document.createElement("td");
-    //        td.innerHTML = x[i].nombre;
-    //        var td2 = document.createElement("td");
-    //        td2.innerHTML = tipo;
-    //        var td4 = document.createElement("td");
-    //        td4.innerHTML = x[i].userAgent;
-    //        var td5 = document.createElement("td");
-    //        td5.innerHTML = x[i].direccionIP;
-
-    //        var td3 = document.createElement("td");
-    //        td3.className = "w3-center";
-    //        var img = document.createElement("img");
-    //        img.src = "../../Content/rubbish-bin.svg";
-    //        img.style.height = "37px";
-    //        img.className = "w3-button w3-hover-none";
-    //        img.onclick = () => { this.disAeliminar = x[i].Id; this.mostrarMensajeConfirmacion(); };
-    //        td3.appendChild(img);
-    //        tr.appendChild(td);
-    //        tr.appendChild(td2);
-    //        tr.appendChild(td4);
-    //        tr.appendChild(td5);
-    //        tr.appendChild(td3);
-    //        document.getElementById("dispositivosActuales").appendChild(tr);
-    //    }
-    //}
-
     deleteDis() {
-        this.mostrarMensajeLoading();
-        this.dispositivos.deleteDis(this.disAeliminar).subscribe(
-            (data: Response) => { this.mostrarMensajeDispositivoEliminado(); console.log(data); },
-            responseError => { this.mostrarMensajeError(); console.log(responseError); },
+        this.dispositivos.deleteDis(this.selectBorrar).subscribe(
+            (data: Response) => { this.cargarTipos(); console.log(data); },
+            responseError => { console.log(responseError); },
             () => console.log("Tipo de fuente de datos eliminado")
         );
     }
 
-    mostrarMensajeExito() {
-        document.getElementById("message").style.display = "block";
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("success").style.display = "block";
-        document.getElementById("error").style.display = "none";
-        document.getElementById("dispositivoModificado").style.display = "none";
-        document.getElementById("dispositivoElimiando").style.display = "none";
-        document.getElementById("confirmation").style.display = "none";
-    }
+    //mostrarMensajeExito() {
+    //    document.getElementById("message").style.display = "block";
+    //    document.getElementById("loading").style.display = "none";
+    //    document.getElementById("success").style.display = "block";
+    //    document.getElementById("error").style.display = "none";
+    //    document.getElementById("dispositivoModificado").style.display = "none";
+    //    document.getElementById("dispositivoElimiando").style.display = "none";
+    //    document.getElementById("confirmation").style.display = "none";
+    //}
 
-    mostrarMensajeError() {
-        document.getElementById("message").style.display = "block";
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("success").style.display = "none";
-        document.getElementById("error").style.display = "block";
-        document.getElementById("confirmation").style.display = "none";
-        document.getElementById("dispositivoModificado").style.display = "none";
-        document.getElementById("dispositivoElimiando").style.display = "none";
-    }
+    //mostrarMensajeError() {
+    //    document.getElementById("message").style.display = "block";
+    //    document.getElementById("loading").style.display = "none";
+    //    document.getElementById("success").style.display = "none";
+    //    document.getElementById("error").style.display = "block";
+    //    document.getElementById("confirmation").style.display = "none";
+    //    document.getElementById("dispositivoModificado").style.display = "none";
+    //    document.getElementById("dispositivoElimiando").style.display = "none";
+    //}
 
-    mostrarMensajeLoading() {
-        document.getElementById("message").style.display = "block";
-        document.getElementById("loading").style.display = "block";
-        document.getElementById("success").style.display = "none";
-        document.getElementById("error").style.display = "none";
-        document.getElementById("dispositivoModificado").style.display = "none";
-        document.getElementById("dispositivoElimiando").style.display = "none";
-        document.getElementById("confirmation").style.display = "none";
-    }
+    //mostrarMensajeLoading() {
+    //    document.getElementById("message").style.display = "block";
+    //    document.getElementById("loading").style.display = "block";
+    //    document.getElementById("success").style.display = "none";
+    //    document.getElementById("error").style.display = "none";
+    //    document.getElementById("dispositivoModificado").style.display = "none";
+    //    document.getElementById("dispositivoElimiando").style.display = "none";
+    //    document.getElementById("confirmation").style.display = "none";
+    //}
 
-    mostrarMensajeConfirmacion() {
-        document.getElementById("message").style.display = "block";
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("success").style.display = "none";
-        document.getElementById("error").style.display = "none";
-        document.getElementById("dispositivoModificado").style.display = "none";
-        document.getElementById("dispositivoElimiando").style.display = "none";
-        document.getElementById("confirmation").style.display = "block";
-    }
+    //mostrarMensajeConfirmacion() {
+    //    document.getElementById("message").style.display = "block";
+    //    document.getElementById("loading").style.display = "none";
+    //    document.getElementById("success").style.display = "none";
+    //    document.getElementById("error").style.display = "none";
+    //    document.getElementById("dispositivoModificado").style.display = "none";
+    //    document.getElementById("dispositivoElimiando").style.display = "none";
+    //    document.getElementById("confirmation").style.display = "block";
+    //}
 
-    mostrarMensajeDispositivoModificado() {
-        document.getElementById("message").style.display = "block";
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("success").style.display = "none";
-        document.getElementById("error").style.display = "none";
-        document.getElementById("dispositivoModificado").style.display = "block";
-        document.getElementById("dispositivoElimiando").style.display = "none";
-        document.getElementById("confirmation").style.display = "none";
-    }
+    //mostrarMensajeDispositivoModificado() {
+    //    document.getElementById("message").style.display = "block";
+    //    document.getElementById("loading").style.display = "none";
+    //    document.getElementById("success").style.display = "none";
+    //    document.getElementById("error").style.display = "none";
+    //    document.getElementById("dispositivoModificado").style.display = "block";
+    //    document.getElementById("dispositivoElimiando").style.display = "none";
+    //    document.getElementById("confirmation").style.display = "none";
+    //}
 
-    mostrarMensajeDispositivoEliminado() {
-        document.getElementById("message").style.display = "block";
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("success").style.display = "none";
-        document.getElementById("error").style.display = "none";
-        document.getElementById("dispositivoModificado").style.display = "none";
-        document.getElementById("dispositivoElimiando").style.display = "block";
-        document.getElementById("confirmation").style.display = "none";
-    }
+    //mostrarMensajeDispositivoEliminado() {
+    //    document.getElementById("message").style.display = "block";
+    //    document.getElementById("loading").style.display = "none";
+    //    document.getElementById("success").style.display = "none";
+    //    document.getElementById("error").style.display = "none";
+    //    document.getElementById("dispositivoModificado").style.display = "none";
+    //    document.getElementById("dispositivoElimiando").style.display = "block";
+    //    document.getElementById("confirmation").style.display = "none";
+    //}
 
-    ocultarMensajes() {
-        document.getElementById("message").style.display = "none";
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("success").style.display = "none";
-        document.getElementById("error").style.display = "none";
-        document.getElementById("dispositivoModificado").style.display = "none";
-        document.getElementById("dispositivoElimiando").style.display = "none";
-        document.getElementById("confirmation").style.display = "none";
-    }
+    //ocultarMensajes() {
+    //    document.getElementById("message").style.display = "none";
+    //    document.getElementById("loading").style.display = "none";
+    //    document.getElementById("success").style.display = "none";
+    //    document.getElementById("error").style.display = "none";
+    //    document.getElementById("dispositivoModificado").style.display = "none";
+    //    document.getElementById("dispositivoElimiando").style.display = "none";
+    //    document.getElementById("confirmation").style.display = "none";
+    //}
 
 }
