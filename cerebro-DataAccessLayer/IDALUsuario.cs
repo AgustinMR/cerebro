@@ -12,5 +12,7 @@ namespace cerebro_DataAccessLayer
         Usuario obtenerUsuario(string email);
         List<Usuario> obtenerUsuarios();
         List<Usuario> obtenerUsuarios(string municipalidad);
+        bool toggleUsuarioEnabled(string email, bool enabled);
+        bool setPrivilegioUsuario(string email, string privilegio);
     }
 }

@@ -106,5 +106,20 @@ namespace cerebro_DataAccessLayer
             return (from u in new UsuariosDbContext().Usuarios where u.nombre_municipalidad == municipalidad select u).ToList();
         }
 
+        public bool toggleUsuarioEnabled(string email, bool enabled)
+        {
+            Usuario u = obtenerUsuario(email);
+            u.enabled = enabled;
+            return modificarUsuario(u);
+        }
+
+        public bool setPrivilegioUsuario(string email, string privilegio)
+        {
+            Usuario u = obtenerUsuario(email);
+            var p = new List<Privilegio>();
+            p.Add(new Privilegio(privilegio, u.nombre_municipalidad));
+            u.PRIVILEGIOS = p;
+            return modificarUsuario(u);
+        }
     }
 }

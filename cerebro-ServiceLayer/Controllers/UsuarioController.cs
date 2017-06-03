@@ -99,7 +99,8 @@ namespace cerebro_ServiceLayer.Controllers
             if (admin != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                if (IBLUsu.deleteUsuario(admin)) {
+                if (IBLUsu.deleteUsuario(admin))
+                {
                     return Ok(TipoRetorno.OK.ToString());
                 }
                 return InternalServerError();
@@ -114,7 +115,8 @@ namespace cerebro_ServiceLayer.Controllers
             if (vis != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                if (IBLUsu.updateUsuario(vis)) {
+                if (IBLUsu.updateUsuario(vis))
+                {
                     return Ok(TipoRetorno.OK.ToString());
                 }
                 return InternalServerError();
@@ -129,7 +131,8 @@ namespace cerebro_ServiceLayer.Controllers
             if (op != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                if (IBLUsu.updateUsuario(op)) {
+                if (IBLUsu.updateUsuario(op))
+                {
                     return Ok(TipoRetorno.OK.ToString());
                 }
                 return InternalServerError();
@@ -144,7 +147,8 @@ namespace cerebro_ServiceLayer.Controllers
             if (admin != null)
             {
                 IBLUsuario IBLUsu = new BLUsuario();
-                if (IBLUsu.updateUsuario(admin)) {
+                if (IBLUsu.updateUsuario(admin))
+                {
                     return Ok(TipoRetorno.OK.ToString());
                 }
                 return InternalServerError();
@@ -207,6 +211,20 @@ namespace cerebro_ServiceLayer.Controllers
         public List<Usuario> getUsuarios(string municipalidad)
         {
             return new BLUsuario().obtenerUsuarios(municipalidad);
+        }
+
+        [HttpPut]
+        [Route("enabled")]
+        public bool toggleUsuarioEnabled(string email, bool enabled)
+        {
+            return new BLUsuario().toggleUsuarioEnabled(email, enabled);
+        }
+
+        [HttpPut]
+        [Route("privilegio")]
+        public bool setPrivilegioUsuario(string email, string privilegio)
+        {
+            return new BLUsuario().setPrivilegioUsuario(email, privilegio);
         }
     }
 }
