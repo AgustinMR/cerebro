@@ -44,6 +44,12 @@ namespace AngularSpa
                 //options.SslPort = 44346;
                 //options.Filters.Add(new RequireHttpsAttribute());
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("mypolicy",
+                builder => builder.WithOrigins("*"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
