@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = require("@angular/router");
 var agrupacion_component_1 = require("./agrupacion.component");
 var chat_component_1 = require("./chat.component");
