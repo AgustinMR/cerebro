@@ -100,7 +100,6 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
     }
 
     deleteTipo() {
-        //alert(this.tipoSeleccionado);
         if (this.tipoSeleccionado !== "") {
             this.mostrarMensajeLoading();
             this.tipos.deleteTipo(this.tipoSeleccionado).subscribe(
