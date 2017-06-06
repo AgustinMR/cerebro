@@ -26,10 +26,6 @@
                         <div class="ui label">Contrase&ntilde;a:</div>
                         <input placeholder="Ingrese aqu&iacute; su contrase&ntilde;a..." id="pass" type="password" name="pass" required>
                     </div>
-                    <select name="muni" id="muni" class="ui fluid search dropdown">
-                        <option value="" selected disabled>Seleccione una municipalidad</option>
-                        <option *ngFor="let muni of municipalidades"> {{muni.nombre}} </option>
-                    </select>
                     <div class="w3-center w3-margin-top w3-margin-bottom w3-padding" style="height: 50px">
                         <button type="submit" class="ui right labeled icon button w3-right w3-text-cerebro-red" (click)="ingresar()"><i class="sign in icon"></i>Ingresar</button>
                     </div>

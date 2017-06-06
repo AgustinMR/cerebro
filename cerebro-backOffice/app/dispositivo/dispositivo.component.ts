@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class FuenteDeDatoComponent implements OnInit {
 
-    nombre_municipalidad: any = "Mdeo"
+    nombre_municipalidad: any = "";
     source: any;
     map: any;
     vectorLayerMod: any;
@@ -52,6 +52,13 @@ export class FuenteDeDatoComponent implements OnInit {
             $('.ui.sidebar').sidebar('attach events', '.toc.item');
             $('.ui.dropdown').dropdown();
         });
+
+        var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
+        this.nombre_municipalidad = muniL[0].toUpperCase();
+        for (var h = 1; h < muniL.length; h++) {
+            this.nombre_municipalidad += muniL[h];
+        }
+
         var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
         this.source = new ol.source.Vector({ wrapX: false });
         var vector = new ol.layer.Vector({

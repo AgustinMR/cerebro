@@ -16,7 +16,7 @@ export class EventoComponent implements OnInit {
 
     eventoAgregado: any;
     umbralAgregado: any;
-    nombre_municipalidad: any = "Mdeo"
+    nombre_municipalidad: any = "";
     dispositivos: any;
 
     constructor(private eventos: EventoService) {
@@ -27,6 +27,13 @@ export class EventoComponent implements OnInit {
             $('.ui.sidebar').sidebar('attach events', '.toc.item');
             $('.ui.dropdown').dropdown();
         });
+
+        var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
+        this.nombre_municipalidad = muniL[0].toUpperCase();
+        for (var h = 1; h < muniL.length; h++) {
+            this.nombre_municipalidad += muniL[h];
+        }
+
         this.cargarDispositivos();
     }
 
@@ -41,12 +48,12 @@ export class EventoComponent implements OnInit {
     }
 
     addEvento() {
-        this.eventos.addEvento("vientos fuertes", "Mdeo").subscribe(
+        this.eventos.addEvento("vientos fuertes", this.nombre_municipalidad).subscribe(
             (data: Response) => this.eventoAgregado = data,
             responseError => console.log(responseError),
             () => {
                 console.log(this.eventoAgregado);
-                this.eventos.addUmbral("vientos fuertes", "Mdeo", "59174a23277b658f30a00bc5", "120").subscribe(
+                this.eventos.addUmbral("vientos fuertes", this.nombre_municipalidad, "59174a23277b658f30a00bc5", "120").subscribe(
                     (data: Response) => this.umbralAgregado = data,
                     responseError => console.log(responseError),
                     () => console.log("ok " + this.umbralAgregado)
@@ -54,6 +61,7 @@ export class EventoComponent implements OnInit {
             }
         );
     }
+
     mostrarStep1() {
         document.getElementById("step1").style.display = "block";
         document.getElementById("step2").style.display = "none";
