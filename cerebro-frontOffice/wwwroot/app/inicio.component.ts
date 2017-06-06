@@ -102,6 +102,7 @@ export class InicioComponent implements OnInit {
 
                 var mapa = this.map;
                 var disp = this.dispositivos;
+                var ini = this.inicio;
                 this.map.on("click", function (e: any) {
                     var feature = mapa.forEachFeatureAtPixel(e.pixel,
                         function (feature: any) {
@@ -110,6 +111,11 @@ export class InicioComponent implements OnInit {
                     if (feature) {
                         for (var dis of disp) {
                             if (String(dis.ubicacion) === String(feature.getGeometry().getCoordinates())) {
+                                ini.getDatosDispositivo(dis.Id).subscribe(
+                                    (data: Response) => console.log(data),
+                                    responseError => console.log("Error:  " + responseError),
+                                    () => console.log("Datos cargados")
+                                );
                                 console.log("ID dispositivo: " + dis.Id);
                             }
                         }
