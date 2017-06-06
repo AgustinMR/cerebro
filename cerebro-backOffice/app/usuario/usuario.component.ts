@@ -15,27 +15,34 @@ declare var $: any;
 export class UsuarioComponent implements OnInit {
 
     usuariosMunicipalidad: any;
-    municipalidad = "Florida";
+    nombre_municipalidad = "";
     privilegioSelect = "";
     usuarioSelect = "";
-    nombreActual = "";
-    emailActual = "";
+    nombreActual = " ";
+    emailActual = " ";
     estadoActual = "";
 
     constructor(private usuarios: UsuarioService) {
     }
-    
+
     ngOnInit(): void {
-        this.cargarUsuarios();
         $(document).ready(function () {
             $('.ui.sidebar').sidebar('attach events', '.toc.item');
             $('.ui.dropdown').dropdown();
             $('.ui.checkbox').checkbox();
         });
+
+        var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
+        this.nombre_municipalidad = muniL[0].toUpperCase();
+        for (var h = 1; h < muniL.length; h++) {
+            this.nombre_municipalidad += muniL[h];
+        }
+
+        this.cargarUsuarios();
     }
 
     getUsuario(email: string) {
-        for (var x = 0; x < this.usuariosMunicipalidad.length; x++){
+        for (var x = 0; x < this.usuariosMunicipalidad.length; x++) {
             if (this.usuariosMunicipalidad[x].email == email) {
                 this.nombreActual = this.usuariosMunicipalidad[x].nombre;
                 this.emailActual = this.usuariosMunicipalidad[x].email;
@@ -47,19 +54,15 @@ export class UsuarioComponent implements OnInit {
     }
 
     cargarUsuarios() {
-        this.usuarios.getUsuariosByMunicipalidad(this.municipalidad).subscribe(
+        this.usuarios.getUsuariosByMunicipalidad(this.nombre_municipalidad).subscribe(
             (data: Response) => {
                 this.usuariosMunicipalidad = data;
-                for (var usuario in data) {
-                    var option = document.createElement("option");
-                    option.value = data[usuario].email;
-                    option.innerHTML = data[usuario].nombre;
-                    document.getElementById("usuarioSelect").appendChild(option);
-                }
+                //console.log(this.nombre_municipalidad +" "+ this.usuariosMunicipalidad);
             },
-            responseError => console.log("Error al cargar usuarios - "+responseError),
+            responseError => console.log("Error al cargar usuarios - " + responseError),
             () => console.log("usuarios cargados")
         );
     }
 
 }
+

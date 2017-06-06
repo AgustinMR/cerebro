@@ -19,7 +19,6 @@ import { EstadisticaComponent } from './estadistica/estadistica.component';
 import { EstadisticaService } from './estadistica/estadistica.service';
 // Inicio
 import { InicioComponent } from './inicio/inicio.component';
-import { InicioService } from './inicio/inicio.service';
 import { LoginService } from './inicio/login.service'
 
 const routes: Routes = [
@@ -35,6 +34,6 @@ const routes: Routes = [
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
-    providers: [Location, { provide: LocationStrategy, useClass: HashLocationStrategy }, FuenteDeDatoService, EstadisticaService, EventoService, TipoDeFuenteDeDatoService, UsuarioService, LoginService, InicioService]
+    providers: [Location, { provide: LocationStrategy, useClass: HashLocationStrategy }, FuenteDeDatoService, EstadisticaService, EventoService, TipoDeFuenteDeDatoService, UsuarioService, LoginService]
 })
 export class AppRoutingModule { }

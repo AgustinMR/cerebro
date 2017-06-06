@@ -18,7 +18,7 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
     }
 
     repuesta: any;
-    nombre_municipalidad: any = "Mdeo"
+    nombre_municipalidad: any = "";
     tipoSeleccionado = "";
     tipoMod: any;
 
@@ -27,6 +27,13 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
             $('.ui.sidebar').sidebar('attach events', '.toc.item');
             $('.ui.dropdown').dropdown();
         });
+
+        var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
+        this.nombre_municipalidad = muniL[0].toUpperCase();
+        for (var h = 1; h < muniL.length; h++) {
+            this.nombre_municipalidad += muniL[h];
+        }
+
         this.getTipos();
     }
 

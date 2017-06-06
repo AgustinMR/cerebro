@@ -25,13 +25,12 @@ import { EstadisticaComponent } from './estadistica/estadistica.component';
 import { EstadisticaService } from './estadistica/estadistica.service';
 // Inicio
 import { InicioComponent } from './inicio/inicio.component';
-import { InicioService } from './inicio/inicio.service';
 import { LoginService } from './inicio/login.service'
 
 @NgModule({
     imports: [BrowserModule, AppRoutingModule, CommonModule, ReactiveFormsModule, FormsModule, HttpModule],
     declarations: [AppComponent, FuenteDeDatoComponent, TipoDeFuenteDeDatoComponent, EventoComponent, UsuarioComponent, EstadisticaComponent, InicioComponent],
-    providers: [FuenteDeDatoService, TipoDeFuenteDeDatoService, EventoService, UsuarioService, EstadisticaService, HttpModule, LoginService, InicioService],
+    providers: [FuenteDeDatoService, TipoDeFuenteDeDatoService, EventoService, UsuarioService, EstadisticaService, HttpModule, LoginService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
