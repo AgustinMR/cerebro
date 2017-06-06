@@ -47,5 +47,10 @@ namespace cerebro_BusinessLogicLayer
         {
             return dal.getAllFuenteDeDatoMuni(muni);
         }
+
+        public DatosDispositivo getDatosDispositivo(string id)
+        {
+            return dal.getDatosDispositivo(id);
+        }
     }
 }
