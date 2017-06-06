@@ -193,7 +193,7 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpGet]
-        [Route("{email}")]
+        [Route("obtener")]
         public Usuario getUsuario(string email)
         {
             return new BLUsuario().obtenerUsuario(email);
