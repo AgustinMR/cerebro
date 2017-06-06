@@ -18,8 +18,6 @@ export class UsuarioComponent implements OnInit {
     nombre_municipalidad = "";
     privilegioSelect = "";
     usuarioSelect = "";
-    nombreActual = " ";
-    emailActual = " ";
     estadoActual = "";
 
     constructor(private usuarios: UsuarioService) {
@@ -44,8 +42,8 @@ export class UsuarioComponent implements OnInit {
     getUsuario(email: string) {
         for (var x = 0; x < this.usuariosMunicipalidad.length; x++) {
             if (this.usuariosMunicipalidad[x].email == email) {
-                this.nombreActual = this.usuariosMunicipalidad[x].nombre;
-                this.emailActual = this.usuariosMunicipalidad[x].email;
+                document.getElementById("nombreAct").innerHTML = this.usuariosMunicipalidad[x].nombre;
+                document.getElementById("emailAct").innerHTML = this.usuariosMunicipalidad[x].email;
                 if (this.usuariosMunicipalidad[x].enabled === true) {
                     $('estadoActual').checkbox('check');
                 }
