@@ -48,5 +48,19 @@ namespace cerebro_ServiceLayer.Controllers
             IBLMunicipalidad IBLMuni = new BLMunicipalidad();
             return IBLMuni.getMunicipalidades();
         }
+
+        [HttpGet]
+        [Route("{municipalidad}")]
+        public Municipalidad getMunicipalidad(string municipalidad)
+        {
+            return new BLMunicipalidad().getMunicipalidad(municipalidad);
+        }
+
+        [HttpGet]
+        [Route("{municipalidad}/dispositivos")]
+        public List<FuenteDeDato> getDispositivosByMunicipalidad(string municipalidad)
+        {
+            return new BLFuenteDeDato().getAllFuenteDeDatoMuni(municipalidad);
+        }
     }
 }

@@ -25,6 +25,11 @@ namespace cerebro_BusinessLogicLayer
             return dal.borrarMunicipalidad(muni);
         }
 
+        public Municipalidad getMunicipalidad(string municipalidad)
+        {
+            return dal.getMunicipalidad(municipalidad);
+        }
+
         public List<Municipalidad> getMunicipalidades() {
             return dal.getMunicipalidades();
         }
