@@ -79,5 +79,12 @@ namespace cerebro_ServiceLayer.Controllers
             ff.ubicacion = doubleArray;
             return new BLFuenteDeDato().updateFuenteDeDato(ff);
         }
+
+        [HttpGet]
+        [Route("datos/{id}")]
+        public DatosDispositivo getDatosDispositivo(string id)
+        {
+            return new BLFuenteDeDato().getDatosDispositivo(id);
+        }
     }
 }

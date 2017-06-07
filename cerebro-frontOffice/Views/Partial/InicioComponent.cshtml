@@ -3,7 +3,10 @@
         <div class="w3-bar w3-cerebro-blue w3-top w3-left-align w3-card-4" style="height: 44px">
             <a class="w3-bar-item w3-button w3-left w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()">&#9776;</a>
             <img src="~/images/cerebro.png" style="height: 44px" class="w3-bar-item w3-button w3-hover-cerebro-blue">
-            <img src="~/images/exit.png" class="w3-bar-item w3-right" style="height: 37px; margin-top: 3px">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Account" asp-action="Logout"><img src="~/images/exit.png" class="w3-bar-item w3-right" style="height: 37px; margin-top: 3px"></a>
+            }
             <span class="w3-bar-item w3-right">User</span>
         </div>
     </div>

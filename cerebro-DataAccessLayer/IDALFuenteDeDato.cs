@@ -16,5 +16,6 @@ namespace cerebro_DataAccessLayer
         FuenteDeDato getFuenteDeDato(ObjectId id);
         List<FuenteDeDato> getAllFuenteDeDato();
         List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni);
+        DatosDispositivo getDatosDispositivo(string id);
     }
 }

@@ -11,6 +11,8 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using cerebro_frontOffice;
+using Microsoft.EntityFrameworkCore;
 
 namespace AngularSpa
 {
@@ -50,6 +52,9 @@ namespace AngularSpa
                 options.AddPolicy("mypolicy",
                 builder => builder.WithOrigins("*"));
             });
+            
+            var connection = "Data Source=BRUNO-MSI\\SQLEXPRESS;Initial Catalog=cerebroDB;Persist Security Info=True;User ID=sqlserver;Password=sqlserver";
+            services.AddDbContext<cerebroDBContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

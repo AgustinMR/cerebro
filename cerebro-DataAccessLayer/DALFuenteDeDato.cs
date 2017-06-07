@@ -74,5 +74,11 @@ namespace cerebro_DataAccessLayer
             }
             return returnList;
         }
+
+        public DatosDispositivo getDatosDispositivo(string id) {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            return bd.GetCollection<DatosDispositivo>("DatosDispositivo").Find(e => e.dispositivoId == id).FirstOrDefault();
+        }
     }
 }

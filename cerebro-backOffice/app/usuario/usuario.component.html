@@ -2,7 +2,7 @@
     <img src="../../Content/cerebro-logo.png" style="height: 40px; margin-top: -20px" class="w3-display-topmiddle">
     <h4 class="ui horizontal divider header w3-margin-bottom">Usuarios de la Municipalidad</h4>
     <div class="ui horizontal divider"></div>
-    <select name="origen" [(ngModel)]="usuarioSelect" id="usuarioSelect" class="ui fluid search dropdown w3-margin-top w3-padding" (change)="getUsuario($event.target.value)">
+    <select [(ngModel)]="usuarioSelect" id="usuarioSelect" class="ui fluid search dropdown w3-margin-top w3-padding" (change)="getUsuario($event.target.value)">
         <option value="" selected disabled>Seleccione un usuario de la municipalidad...</option>
         <option *ngFor="let usuario of usuariosMunicipalidad" value="{{usuario.email}}"> {{usuario.nombre}} </option>
     </select>
@@ -15,8 +15,8 @@
         </select>
         <div class="item ui segment secondary">
             <div class="content">
-                <div class="ui small header w3-text-cerebro-red" [(ngModel)]="nombreActual"></div>
-                <div class="meta"><span class="ui small header" [(ngModel)]="emailActual"></span></div>
+                <div class="ui small header w3-text-cerebro-red" id="nombreAct"></div>
+                <div class="meta"><span class="ui small header" id="emailAct"></span></div>
                 <div class="ui toggle checkbox w3-margin-top">
                     <input name="public" type="checkbox" id="estadoActual">
                     <label>Habilitado para iniciar sesi&oacute;n en la Municipalidad.</label>

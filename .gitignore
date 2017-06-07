@@ -23,3 +23,6 @@ cerebro-ServiceLayer/obj/Release/TransformWebConfig/original/Web.config
 cerebro-ServiceLayer/obj/Release/TransformWebConfig/transformed/Web.config
 cerebro-ServiceLayer/obj/Release/TransformWebConfig/transformed/Web.config
 cerebro-DataAccessLayer/App.Config
+cerebro-BusinessLogicLayer/bin/Release/cerebro-BusinessLogicLayer.dll
+*.pdb
+cerebro-BusinessLogicLayer/bin/Release/cerebro-BusinessLogicLayer.dll
