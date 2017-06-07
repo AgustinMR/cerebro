@@ -5,83 +5,81 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using RestSharp;
+using Microsoft.EntityFrameworkCore;
 
 namespace cerebro_frontOffice.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly cerebroDBContext _context;
+
+        public AccountController(cerebroDBContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string pass, string muni, string returnUrl = null)
+        public async Task<IActionResult> Login(string email, string pass, string muni)
         {
-            ViewData["ReturnUrl"] = returnUrl;
 
-            if (!string.IsNullOrWhiteSpace(email) && string.IsNullOrWhiteSpace(pass) && !string.IsNullOrWhiteSpace(muni))
+            var usuarios = await _context.Usuarios
+                .Include(u => u.NombreMunicipalidadNavigation)
+                .SingleOrDefaultAsync(m => m.Email == email && m.NombreMunicipalidad == muni);
+
+            if (usuarios == null)
             {
-                var client = new RestClient("https://www.cerebro-serviceLayer.com/api/usuarios/loginVisitante?email=" + email + "&nombre_municipalidad=" + muni);
-                var request = new RestRequest("", Method.POST);
-                var b = 0;
-                client.ExecuteAsync(request, response =>
+                return Redirect("/");
+            }
+            else
+            {
+                if (usuarios.Tipo == 0)
                 {
-                    if (response.Content.Equals("True"))
+                    if (string.IsNullOrWhiteSpace(pass))
                     {
-                        b = 1;
+                        var claims = new List<Claim>
+                        {
+                            new Claim("email", email),
+                            new Claim("nombre", usuarios.Nombre),
+                            new Claim("tipo", "Visitante")
+                        };
+
+                        var id = new ClaimsIdentity(claims, "password");
+                        var p = new ClaimsPrincipal(id);
+
+                        await HttpContext.Authentication.SignInAsync("Cookies", p);
+                        return Redirect("/inicio");
                     }
-                    else
-                    {
-                        b = 2;
-                    }
-                });
-                while (b == 0)
-                {
                 }
-            }
-            else if (!string.IsNullOrWhiteSpace(email) && !string.IsNullOrWhiteSpace(pass) && !string.IsNullOrWhiteSpace(muni))
-            {
-                var client = new RestClient("https://www.cerebro-serviceLayer.com/api/usuarios/loginOperador?email=" + email + "&nombre_municipalidad=" + muni +"&password=" + pass);
-                var request = new RestRequest("", Method.POST);
-                var b = 0;
-                client.ExecuteAsync(request, response =>
+                else if (usuarios.Tipo == 1)
                 {
-                    if (response.Content.Equals("True"))
+                    if (!string.IsNullOrWhiteSpace(pass) && pass == usuarios.Password)
                     {
-                        b = 1;
+                        var claims = new List<Claim>
+                        {
+                            new Claim("email", email),
+                            new Claim("nombre", usuarios.Nombre),
+                            new Claim("tipo", "Operador")
+                        };
+
+                        var id = new ClaimsIdentity(claims, usuarios.Password);
+                        var p = new ClaimsPrincipal(id);
+
+                        await HttpContext.Authentication.SignInAsync("Cookies", p);
+                        return Redirect("/inicio");
                     }
-                    else
-                    {
-                        b = 2;
-                    }
-                });
-                while (b == 0)
-                {
                 }
-            }
-
-
-
-            if (!string.IsNullOrWhiteSpace(email) &&
-                email == pass)
-            {
-                var claims = new List<Claim>
+                else
                 {
-                    new Claim("sub", "19828281888"),
-                    new Claim("given_name", "Dominick"),
-                    new Claim("role", "Geek")
-                };
+                    return Redirect("/");
+                }
 
-                var id = new ClaimsIdentity(claims, "password");
-                var p = new ClaimsPrincipal(id);
-
-                await HttpContext.Authentication.SignInAsync("Cookies", p);
-
-                return LocalRedirect("/");
             }
-
-            return View();
+            return Redirect("/");
         }
 
         public async Task<IActionResult> Logout()
