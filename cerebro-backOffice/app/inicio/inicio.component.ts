@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { InicioService } from './inicio.service';
 import { LoginService } from './login.service'; 
 import { Http, HttpModule, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
@@ -11,17 +10,17 @@ declare var $: any;
     templateUrl: 'inicio.component.html',
     styleUrls: ['inicio.component.css'],
     moduleId: module.id,
-    providers: [InicioService, LoginService]
+    providers: [LoginService]
 })
 export class InicioComponent implements OnInit {
-
+     
+    nombre_municipalidad: any = "";
     dispositivo = false;
     evento = false;
     tipo = false;
     usuario = false;
     estadistica = true;
     autenticado: any;
-    municipalidades: any;
     login = true;
     inicio = false;
 
@@ -68,15 +67,20 @@ export class InicioComponent implements OnInit {
     constructor(private http: Http, private loginService: LoginService) { }
 
     ngOnInit() {
-        this.getMunicipalidades();
         $(document).ready(function () {
             $('.ui.sidebar').sidebar('attach events', '.toc.item');
             $('.ui.dropdown').dropdown();
         });
+
+        var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
+        this.nombre_municipalidad = muniL[0].toUpperCase();
+        for (var h = 1; h < muniL.length; h++) {
+            this.nombre_municipalidad += muniL[h];
+        }
     }
 
     ingresar() {
-        this.loginService.loginAdmin("admin", "Mdeo", "hola").subscribe(
+        this.loginService.loginAdmin("admin", this.nombre_municipalidad, "hola").subscribe(
             (data: Response) => {
                 this.autenticado = data;
                 if (this.autenticado == true) {
@@ -86,14 +90,6 @@ export class InicioComponent implements OnInit {
             },
             responseError => console.log("Error: " + responseError),
             () => console.log(this.autenticado)
-        );
-    }
-
-    getMunicipalidades() {
-        this.loginService.obtenerMunicipalidades().subscribe(
-            (data: Response) => this.municipalidades = data,
-            responseError => console.log(responseError),
-            () => console.log("Municipalidades cargadas")
         );
     }
 }

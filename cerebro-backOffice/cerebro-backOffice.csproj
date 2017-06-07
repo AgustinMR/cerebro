@@ -157,7 +157,6 @@
     <TypeScriptCompile Include="app\evento\evento.component.ts" />
     <TypeScriptCompile Include="app\evento\evento.service.ts" />
     <TypeScriptCompile Include="app\inicio\inicio.component.ts" />
-    <TypeScriptCompile Include="app\inicio\inicio.service.ts" />
     <TypeScriptCompile Include="app\inicio\login.service.ts" />
     <TypeScriptCompile Include="app\tipo\tipo.component.ts" />
     <TypeScriptCompile Include="app\tipo\tipo.service.ts" />
