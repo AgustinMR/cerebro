@@ -90,13 +90,13 @@ export class InicioComponent implements OnInit {
                     //Fin cargar MAPA
 
                     //Inicio subscribe datos enviados
-                    var pusher = new Pusher('474881b81d9d92dd2713', { encrypted: true, cluster: "mt1" });
-                    var channel = pusher.subscribe(dis.Id);
-                    channel.bind('dato-nuevo', function (data: any) {
-                        var e = JSON.stringify(data);
-                        var x = JSON.parse(e);
-                        console.log(x.medida);
-                    });
+                    //var pusher = new Pusher('474881b81d9d92dd2713', { encrypted: true, cluster: "mt1" });
+                    //var channel = pusher.subscribe(dis.Id);
+                    //channel.bind('dato-nuevo', function (data: any) {
+                    //    var e = JSON.stringify(data);
+                    //    var x = JSON.parse(e);
+                    //    console.log(x.medida);
+                    //});
                     //Fin subcribe datos enviados
                 }
 
