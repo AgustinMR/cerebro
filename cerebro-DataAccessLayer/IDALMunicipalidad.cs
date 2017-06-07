@@ -12,5 +12,6 @@ namespace cerebro_DataAccessLayer
         bool agregarMunicipalidad(Municipalidad muni);
         bool borrarMunicipalidad(Municipalidad muni);
         List<Municipalidad> getMunicipalidades();
+        Municipalidad getMunicipalidad(string municipalidad);
     }
 }
