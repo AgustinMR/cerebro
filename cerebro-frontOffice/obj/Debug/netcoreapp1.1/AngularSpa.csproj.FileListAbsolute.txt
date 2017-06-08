@@ -1,9 +1,0 @@
-C:\Users\bruno\Desktop\AngularSpa\AngularSpa\obj\Debug\netcoreapp1.1\AngularSpa.AssemblyInfo.cs
-C:\Users\bruno\Desktop\AngularSpa\AngularSpa\obj\Debug\netcoreapp1.1\AngularSpa.csprojResolveAssemblyReference.cache
-C:\Users\bruno\Desktop\AngularSpa\AngularSpa\bin\Debug\netcoreapp1.1\cerebro-frontOffice.deps.json
-C:\Users\bruno\Desktop\AngularSpa\AngularSpa\bin\Debug\netcoreapp1.1\cerebro-frontOffice.runtimeconfig.json
-C:\Users\bruno\Desktop\AngularSpa\AngularSpa\bin\Debug\netcoreapp1.1\cerebro-frontOffice.runtimeconfig.dev.json
-C:\Users\bruno\Desktop\AngularSpa\AngularSpa\bin\Debug\netcoreapp1.1\cerebro-frontOffice.dll
-C:\Users\bruno\Desktop\AngularSpa\AngularSpa\bin\Debug\netcoreapp1.1\cerebro-frontOffice.pdb
-C:\Users\bruno\Desktop\AngularSpa\AngularSpa\obj\Debug\netcoreapp1.1\cerebro-frontOffice.dll
-C:\Users\bruno\Desktop\AngularSpa\AngularSpa\obj\Debug\netcoreapp1.1\cerebro-frontOffice.pdb

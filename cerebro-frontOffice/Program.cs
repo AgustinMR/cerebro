@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace AngularSpa
+namespace cerebro_frontOffice
 {
     public class Program
     {
@@ -14,10 +14,8 @@ namespace AngularSpa
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseSetting("detailedErrors", "true")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .CaptureStartupErrors(true)
                 .UseApplicationInsights()
                 .Build();
 
