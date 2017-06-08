@@ -1,48 +1,71 @@
 ﻿<!doctype html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <link rel="stylesheet" href="css/cerebro.css">
-  <link rel="stylesheet" href="css/w3.css">
-  <link rel="stylesheet" href="css/semantic.min.css">
-  <title>Iniciar Sesi&oacute;n | Cerebro</title>
-  <script src="js/jquery.js"></script>
-  <script src="js/semantic.min.js"></script>
-  <script src="js/site.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="~/css/cerebro.css">
+    <link rel="stylesheet" href="~/css/w3.css">
+    <link rel="stylesheet" href="~/css/semantic.min.css">
+    <title>Iniciar Sesi&oacute;n | Cerebro</title>
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/semantic.min.js"></script>
+    <script src="~/js/site.js"></script>
 </head>
 <body class="w3-cerebro-blue">
-   <div class="bgimg-4 w3-cerebro-blue w3-opacity" id="backgr"></div>
-	<div class="w3-bar w3-top">
-		<div class="w3-content">
-			<img src="~/images/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
-		</div>
-	</div>
+    <div class="bgimg-4 w3-cerebro-blue w3-opacity" id="backgr"></div>
+    <div class="w3-bar w3-top">
+        <div class="w3-content">
+            <img src="~/images/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
+        </div>
+    </div>
     <div class="w3-col s12 m8 l5 w3-container">
-		<div class="w3-panel w3-white w3-round w3-display-middle w3-card-4" style="min-width: 300px; max-width: 450px">
-			<div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image w3-margin-top" style="height: 40px"></div><h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Iniciar con cerebro</h4>
-			<div class="ui labeled input fluid w3-margin-bottom w3-margin">
-  				<div class="ui basic label w3-text-cerebro-red">Email:</div>
-  				<input placeholder="Ingrese aqu&iacute; su email..." type="text">
-			</div>
-			<div class="ui labeled input fluid w3-margin-bottom w3-margin">
-  				<div class="ui basic label w3-text-cerebro-red">Password:</div>
-  				<input placeholder="Ingrese aqu&iacute; su contrase&ntilde;a..." type="password">
-			</div>
-			<div class="w3-center"><button class="ui button secondary w3-cerebro-red">Iniciar Sesi&oacute;n</button></div>
-			<h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Iniciar con redes sociales</h4>
-			<div class="w3-center w3-margin-bottom">
-				<button class="ui circular big facebook icon button"><i class="facebook f icon"></i></button>
-				<button class="ui circular big twitter icon button"><i class="twitter icon"></i></button>
-			</div>
-		</div>
-	</div>
+        <div class="w3-panel w3-white w3-round w3-display-middle w3-card-4" style="min-width: 300px; max-width: 450px">
+            <div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image w3-margin-top" style="height: 40px"></div><h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Iniciar con cerebro</h4>
+            <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" role="form">
+                <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+                    <div class="ui basic label w3-text-cerebro-red">Email:</div>
+                    <input id="email" for="email" nom="email" placeholder="Ingrese aqu&iacute; su email..." type="text">
+                </div>
+                <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+                    <div class="ui basic label w3-text-cerebro-red">Password:</div>
+                    <input id="pass" for="pass" nom="pass" placeholder="Ingrese aqu&iacute; su contrase&ntilde;a..." type="password">
+                </div>
+                <select id="muni" for="muni" name="muni" class="w3-select w3-border w3-round w3-hover-border-cerebro-red"></select><hr>
+                <div class="w3-center"><button type="submit" class="ui button secondary w3-cerebro-red">Iniciar Sesi&oacute;n</button></div>
+            </form>
+            <h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Iniciar con redes sociales</h4>
+            <div class="w3-center w3-margin-bottom">
+                <button class="ui circular big facebook icon button"><i class="facebook f icon"></i></button>
+                <button class="ui circular big twitter icon button"><i class="twitter icon"></i></button>
+            </div>
+        </div>
+    </div>
     <script>
-		$(document).ready(function() {
-			"use strict";
-			blurBackground();
-		});
-	</script>
+        $(document).ready(function () {
+            "use strict";
+            blurBackground();
+        });
+        function cargarMunicipalidades() {
+            $.get("https://www.cerebro-serviceLayer.com/api/municipalidades", function (response) {
+                $.each(response, function (index, municipalidad) {
+                    var x = JSON.parse(JSON.stringify(municipalidad));
+                    var option = document.createElement("option");
+                    option.value = x.nombre;
+                    option.innerHTML = x.nombre;
+                    document.getElementById("muni").appendChild(option);
+                });
+                var option2 = document.createElement("option");
+                option2.value = "";
+                option2.selected = true;
+                option2.disabled = true;
+                option2.innerHTML = "Seleccione su municipalidad...";
+                document.getElementById("muni").appendChild(option2);
+            });
+        }
+        window.onload = function () {
+            cargarMunicipalidades();
+        }
+    </script>
 </body>
 </html>
