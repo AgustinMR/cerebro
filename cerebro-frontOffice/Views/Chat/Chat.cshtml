@@ -1,0 +1,129 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/cerebro.css">
+	<link rel="stylesheet" href="css/w3.css">
+	<link rel="stylesheet" href="css/semantic.min.css">
+	<title>Chat | Cerebro</title>
+	<script src="js/jquery.js"></script>
+	<script src="js/semantic.min.js"></script>
+	<script src="js/site.js"></script>
+</head>
+<body>
+	<script>
+		$(document).ready(function() {
+			$('.ui.sidebar')
+				.sidebar('attach events', '.toc.item')
+				.sidebar('setting', 'transition', 'overlay')
+				.sidebar('setting', 'dimPage', false);
+			$('.ui.dropdown').dropdown('setting', 'allowAdditions', true);
+		});
+	</script>
+	<div class="ui sidebar vertical left inverted menu w3-cerebro-blue">
+		<div class="w3-center w3-margin-top"><img src="~/images/cerebro.png" style="height: 30px" class="w3-image"></div>
+		<div class="ui horizontal divider"></div>
+		<div class="w3-center">
+			<i class="home big icon circular link"></i>
+			<h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">Usuario</h3>
+            <a class="ui toc item header small active" href="/Chat/Chat">Chat</a>
+            <a class="ui toc item header small" href="/Agrupacion/Agrupacion">Agrupaciones</a>
+            <a class="ui toc item header small" href="/Simulador/Simulador">Simulador</a>
+			<a class="ui toc item header small">Reportes</a>
+		</div>
+	</div>
+	<div class="pusher" style="background-image: url(img/ub1610v2.jpg); background-attachment: fixed; background-repeat: no-repeat;background-size: cover">
+		<div class="w3-bar w3-card" style="background-color: #FBFBFB">
+			<div class="ui menu secondary" style="background-color: #FBFBFB; padding-bottom: 0px">
+				<a class="ui toc item left aligned"><i class="sidebar icon"></i></a>
+				<div class="right menu">
+					<h4 class="ui item header right aligned">Usuario</h4>
+					<a class="ui item right aligned w3-right"><i class="sign out icon w3-text-cerebro-red"></i></a>
+				</div>
+			</div>
+			<div class="w3-center w3-display-topmiddle" style="margin-top: 7px"><img src="~/images/cerebro-logo.png" class="w3-image" style="height: 35px"></div>
+			<div class="ui secondary menu w3-light-gray w3-padding">
+                <div class="ui breadcrumb item">
+                    <div class="section"><h4 class="ui header w3-text-cerebro-red">Municipalidad</h4></div>
+                    <div class="divider"> <strong>/</strong> </div>
+                    <div class="active section"><h4 class="ui text header w3-text-silver">Chat</h4></div>
+                </div>
+			</div>
+		</div>
+		<div class="ui grid stackable container w3-padding w3-padding-16">
+                <div class="ui active dimmer" style="display: none" id="dimmer">
+                    <div class="ui text loader" id="loading" style="display: none">Por favor espere...</div>
+                    <div class="w3-display-middle" id="exito" style="display: none">
+                        <img src="~/images/success.svg" style="height: 45px"><br>
+                        <h4 style="color: white">La Solicitud ha sido aceptada con exito!</h4>
+                        <button class="ui secondary button green w3-center" onclick="ocultarMensajes()">Aceptar</button>
+                    </div>
+                    <div class="w3-display-middle" id="error" style="display: none">
+                        <img src="~/images/error.svg" style="height: 45px"><br>
+                        <h4 style="color: white">Ha ocurrido un error, y no se podido aceptar la solicitud.<br>Por favor vuelve a intentar</h4>
+                        <button class="ui secondary button green w3-center" onclick="ocultarMensajes()">Aceptar</button>
+                    </div>
+                    <div class="w3-display-middle" id="warning" style="display: none">
+                        <img src="~/images/warning.svg" style="height: 45px"><br>
+                        <h4 style="color: white" id="precioAceptar"></h4>
+                        <button class="ui inverted red button w3-center" onclick="ocultarMensajes()">Salir</button>
+                        <button class="ui inverted green button w3-center" onclick="aceptarSolicitud()">Confirmar</button>
+                    </div>
+                </div>
+                <div class="row" id="goyete">
+                    <div class="ui grid stackable container">
+                        <div class="five wide column w3-padding-64">
+                            <div class="ui segments">
+                                <div class="ui segment sticky w3-bottombar" style="background-color: #FBFBFB">
+                                    <div class="ui secondary menu" >
+                                        <div class="ui icon input" style="width: 100%;">
+                                            <input id="tituloFiltro" placeholder="Buscar agrupaciones..." type="text">
+                                            <i class="search circular inverted link icon" onclick="getAllSolicitudes();"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ui raised segment" id="fletesContext">
+                                    <div class="ui active tab">
+                                        <div class="ui divided items w3-padding-16" id="items" style="min-height: 323px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="eleven wide column w3-padding-64">
+                            <div class="ui segments sticky" id="mapa">
+                                <div class="ui grey segment w3-center" style="background-color: #FBFBFB">
+									<h3 class="ui horizontal divider text header w3-padding small w3-text-cerebro-red">Agrupacion actual</h3>
+                                </div>
+                                <div class="ui grey segment" style="background-image: url(img/gplay.png); height: 500px; max-height: 500px;overflow-y: auto">
+									<div class="w3-row w3-margin-top w3-margin-bottom">
+										<div class="w3-half w3-white w3-round w3-card">
+											<div class="w3-row w3-small w3-margin-left"><span class="w3-text-cerebro-red">Agustin Maidana</span><span class="w3-right w3-margin-right w3-text-grey">15:55</span></div>
+											<div class="w3-row w3-text-dark-gray w3-margin-left w3-margin-right" style="margin-bottom: 3px">f</div>
+										</div>
+									</div>	
+									<div class="w3-row w3-margin-top w3-margin-bottom">
+										<div class="w3-half w3-right w3-pale-green w3-round w3-card">
+											<div class="w3-row w3-small w3-margin-left"><span class="w3-text-cerebro-red">Yo</span><span class="w3-right w3-margin-right w3-text-grey">15:55</span></div>
+											<div class="w3-row w3-text-dark-gray w3-margin-left w3-margin-right" style="margin-bottom: 3px">f</div>
+										</div>
+									</div>	
+								</div>
+                           		<div class="ui segment secondary" style="background-color: #F3F3F3">
+                                    <div class="ui secondary menu w3-center">
+                                        <div class="ui icon input" style="width: 100%">
+                                            <input type="text" placeholder="Escriba aqu&iacute; su mensaje, precione enter para enviar" class="w3-border-silver">
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+	</div>
+</body>
+</html>
