@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace cerebro_frontOffice
 {
@@ -29,6 +31,15 @@ namespace cerebro_frontOffice
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("mypolicy",
+                builder => builder.WithOrigins("*"));
+            });
+
+            var connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=cerebroDB;Persist Security Info=True;User ID=sqlserver;Password=sqlserver";
+            services.AddDbContext<cerebroDBContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +59,16 @@ namespace cerebro_frontOffice
             }
 
             app.UseStaticFiles();
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AuthenticationScheme = "Cookies",
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+
+                LoginPath = new PathString("/home/login")
+
+            });
 
             app.UseMvc(routes =>
             {
