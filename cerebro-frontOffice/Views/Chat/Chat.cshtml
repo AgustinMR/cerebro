@@ -91,10 +91,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ui raised segment" id="fletesContext">
+                        <div class="ui raised segment">
                             <div class="ui active tab">
                                 <div class="ui divided items w3-padding-16" id="items" style="min-height: 323px">
-
+                                    <table id="tAgru" class="ui compact celled grey table">
+                                        <tbody id="tbody"></tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -121,11 +123,45 @@
     </div>
 </div>
 <script>
+    var agrupacion = "";
+    var email = '@User.Claims.ToList()[0].Value';
+    var muni = '@User.Claims.ToList()[3].Value';
     $(document).ready(function () {
         "use strict";
+        cargarAgru();
+    });
+
+    function cargarAgru() {
+        var body = document.getElementById("tbody");
+        $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email, function (response) {
+            for (var res in response) {
+                var row = document.createElement("tr");
+                var agru = document.createElement("td");
+                agru.className = "collapsing";
+                agru.innerHTML = response[res];
+                row.appendChild(agru);
+                body.appendChild(row);
+            }
+
+            var table = document.getElementById("tAgru");
+            if (table != null) {
+                for (var i = 0; i < table.rows.length; i++) {
+                    for (var j = 0; j < table.rows[i].cells.length; j++)
+                        table.rows[i].cells[j].onclick = function () {
+                            tableText(this);
+                        };
+                }
+            }
+
+        });
+    }
+
+    function tableText(tableCell) {
+        agrupacion = muni + "-" + tableCell.innerHTML;
+        document.getElementById("chat").innerHTML = "";
+
         var pusher = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
-        var channel = pusher.subscribe("Mdeo");
-        var email = '@User.Claims.ToList()[0].Value';
+        var channel = pusher.subscribe(agrupacion);
         channel.bind('mensaje-nuevo', function (data) {
             var e = JSON.stringify(data);
             var x = JSON.parse(e);
@@ -181,15 +217,15 @@
                 document.getElementById("chat").appendChild(ele1);
             }
         });
-    });
-
-
+    }
 
     $("#mensaje").on('keyup', function (e) {
         if (e.keyCode == 13) {
-            $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=Mdeo&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + '@User.Claims.ToList()[0].Value', function (response) {
-                document.getElementById("mensaje").value = "";
-            });
+            if (agrupacion !== ""){
+                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion="+ agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
+                    document.getElementById("mensaje").value = "";
+                });
+            }
         }
     });
 </script>
