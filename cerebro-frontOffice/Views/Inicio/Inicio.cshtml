@@ -112,7 +112,72 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+<script>
+    var email = '@User.Claims.ToList()[0].Value';
+    var muni = '@User.Claims.ToList()[3].Value';
+    var map;
+    var source;
+    var dispositivos;
+    $(document).ready(function () {
+        "use strict";
+        var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
+        source = new ol.source.Vector({ wrapX: false });
+        var vector = new ol.layer.Vector({ source: source });
+
+        map = new ol.Map({
+            layers: [raster, vector],
+            target: 'map',
+            view: new ol.View({
+                projection: 'EPSG:4326',
+                center: [-56.22540901390569, -34.86341907811338],
+                zoom: 10
+            })
+        });
+        cargarDispositivos();
+
+        map.on("click", function (e) {
+            var feature = map.forEachFeatureAtPixel(e.pixel,
+                function (feature) {
+                    return feature;
+                });
+            if (feature) {
+                for (var dis of dispositivos) {
+                    if (String(dis.ubicacion) === String(feature.getGeometry().getCoordinates())) {
+                        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/datos/" + dis.Id, function (response) { 
+                            //alert(response);
+                        });
+                        console.log("ID dispositivo: " + dis.Id);
+                    }
+                }
+            }
+        });
+    });
+
+    function cargarDispositivos() {
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muni/" + muni, function (response) {
+            dispositivos = response;
+            for (var res in response) { 
+                var point_feature = new ol.Feature({});
+                var point_geom = new ol.geom.Point(response[res].ubicacion);
+                point_feature.setGeometry(point_geom);
+                var vectorLayer = new ol.layer.Vector({
+                    source: new ol.source.Vector({
+                        features: [point_feature]
+                    }),
+                    style: new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: 7,
+                            fill: new ol.style.Fill({
+                                color: 'orange'
+                            })
+                        })
+                    })
+                });
+                map.addLayer(vectorLayer);
+            }
+        });
+    }
+</script>
