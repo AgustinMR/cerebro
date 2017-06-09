@@ -1,35 +1,67 @@
-﻿<div class="bgimg-4 w3-cerebro-blue w3-opacity" id="backgr"></div>
-<div class="w3-bar w3-top">
-    <div class="w3-content">
-        <img src="~/images/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/cerebro.css">
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/semantic.min.css">
+    <title>Registrarse | Cerebro</title>
+    <script src="js/jquery.js"></script>
+    <script src="js/semantic.min.js"></script>
+    <script src="js/site.js"></script>
+</head>
+<body class="w3-cerebro-blue">
+    <div class="w3-cerebro-blue" style="height:100%; width:100%"><div class="bgimg-4" id="backgr" style="height: 100%"></div></div>
+    <div class="w3-bar w3-top">
+        <div class="w3-content">
+            <img src="images/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
+        </div>
     </div>
-</div>
-<div class="w3-col s12 m8 l5 w3-container">
-    <div class="w3-panel w3-white w3-round w3-display-middle w3-card-4" style="min-width: 300px; max-width: 450px">
-        <div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image w3-margin-top" style="height: 35px"></div><h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Registrarse en cerebro</h4>
-        <div class="ui labeled input fluid w3-margin-bottom w3-margin">
-            <div class="ui basic label w3-text-cerebro-red">Nombre:</div>
-            <input placeholder="Nombre o nickname de usuario..." type="text">
+    <div class="ui stackable text container w3-display-middle">
+        <div class="ui raised segment">
+            <div class="w3-center"><img src="images/cerebro-logo.png" class="w3-image" style="height: 40px"></div>
+            <h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin-top w3-padding">Registrarse en Cerebro</h4>
+            <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+                <div class="ui basic label w3-text-cerebro-red">Nombre:</div>
+                <input id="nombre" name="nombre" placeholder="Ingrese aqu&iacute; su nombre o nickname..." type="text" required>
+            </div>
+            <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+                <div class="ui basic label w3-text-cerebro-red">Email:</div>
+                <input id="email" name="email" placeholder="Ingrese aqu&iacute; su email..." type="text" required>
+            </div>
+            <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+                <div class="ui basic label w3-text-cerebro-red">Password:</div>
+                <input id="pass" name="pass" placeholder="Ingrese aqu&iacute; su contrase&ntilde;a..." type="password" required>
+            </div>
+            <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+                <div class="ui basic label w3-text-cerebro-red">Municipalidad:</div>
+                <select id="muni" required for="muni" name="muni" class="ui fluid dropdown">
+                    <option value="" selected disabled>Seleccione Municipalidad a la cual registrarse</option>
+                </select>
+            </div>
+            <div class="w3-center"><button class="ui button secondary w3-cerebro-red w3-margin">Registrarse</button></div>
         </div>
-        <div class="ui labeled input fluid w3-margin-bottom w3-margin">
-            <div class="ui basic label w3-text-cerebro-red">Email:</div>
-            <input placeholder="Direcci&oacute;n de correo..." type="text">
-        </div>
-        <div class="ui labeled input fluid w3-margin-bottom w3-margin">
-            <div class="ui basic label w3-text-cerebro-red">Password:</div>
-            <input placeholder="Contrase&ntilde;a..." type="password">
-        </div>
-        <div class="ui labeled input fluid w3-margin-bottom w3-margin">
-            <div class="ui basic label w3-text-cerebro-red">Municipalidad:</div>
-            <select id="" class="ui dropdown fluid"></select>
-        </div>
-        <div class="w3-center w3-margin w3-padding-16"><button class="ui button secondary w3-cerebro-blue">Confirmar</button></div>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-        "use strict";
-        //blurBackground();
-        $('.ui.dropdown').dropdown();
-    });
-</script>
+    <script>
+        $(document).ready(function () {
+            "use strict";
+            cargarMunicipalidades();
+            $('.ui.dropdown').dropdown();
+            blurBackground();
+        });
+        function cargarMunicipalidades() {
+            $.get("https://www.cerebro-serviceLayer.com/api/municipalidades", function (response) {
+                $.each(response, function (index, municipalidad) {
+                    var x = JSON.parse(JSON.stringify(municipalidad));
+                    var option = document.createElement("option");
+                    option.value = x.nombre;
+                    option.innerHTML = x.nombre;
+                    document.getElementById("muni").appendChild(option);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
