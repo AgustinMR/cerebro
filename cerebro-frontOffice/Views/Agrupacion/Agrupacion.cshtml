@@ -28,7 +28,7 @@
         <a class="ui toc item header small">Reportes</a>
     </div>
 </div>
-<div class="pusher" style="background-image: url(~/images/ub1610v2.jpg); background-attachment: fixed; background-repeat: no-repeat;background-size: cover">
+<div class="pusher" style="background-image:url(images/ub1610v2.jpg); background-attachment:fixed; background-size:cover">
     <div class="w3-bar w3-card" style="background-color: #FBFBFB">
         <div class="ui menu secondary" style="background-color: #FBFBFB; padding-bottom: 0px">
             <a class="ui toc item left aligned"><i class="sidebar icon"></i></a>
@@ -71,6 +71,7 @@
                                 <select class="ui dropdown" id="agrupacionesList">
                                     <option value="" selected disabled>Seleccione una agrupaci&oacute;n...</option>
                                 </select>
+                                <div class="right menu"><button class="ui icon circular button"><i class="trash icon w3-text-cerebro-red"></i></button></div>
                             </div>
                         </div>
                         <div class="ui raised segment" id="fletesContext" style="min-height: 300px">
@@ -141,10 +142,10 @@
 	function addAgrupacion() {
 		"use strict";
 		var agrupacion = document.getElementById("nombre").value;
-		var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=true";
-		if (agrupacion !== "") {
-			$.post("https://www.cerebro-serviceLayer.com/api/agrupaciones", postInfo, function(response){
-				if(response === true){
+        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=true";
+        if (agrupacion !== "") {
+            $.post("https://www.cerebro-serviceLayer.com/api/agrupaciones?" + postInfo, function (response) {
+				if(response === "ok"){
 					alert("agrupacion creada");
 				}
 				else{
