@@ -1,5 +1,7 @@
 ﻿<script>
     $(document).ready(function () {
+        getAgrupacionesByUsuario();
+        getUsuariosByMunicipalidad();
         $('.ui.sidebar')
             .sidebar('attach events', '.toc.item')
             .sidebar('setting', 'transition', 'overlay')
@@ -26,7 +28,7 @@
         <a class="ui toc item header small">Reportes</a>
     </div>
 </div>
-<div class="pusher" style="background-image: url(img/ub1610v2.jpg); background-attachment: fixed; background-repeat: no-repeat;background-size: cover">
+<div class="pusher" style="background-image: url(~/images/ub1610v2.jpg); background-attachment: fixed; background-repeat: no-repeat;background-size: cover">
     <div class="w3-bar w3-card" style="background-color: #FBFBFB">
         <div class="ui menu secondary" style="background-color: #FBFBFB; padding-bottom: 0px">
             <a class="ui toc item left aligned"><i class="sidebar icon"></i></a>
@@ -53,45 +55,30 @@
                 else
                 {
                     <div class="section"><h4 class="ui header w3-text-cerebro-red">Municipalidad</h4></div>
-                } 
+                }
                 <div class="divider"> <strong>/</strong> </div>
                 <div class="active section"><h4 class="ui text header w3-text-silver">Agrupaciones</h4></div>
             </div>
         </div>
     </div>
     <div class="ui grid stackable container w3-padding w3-padding-16">
-        <div class="ui active dimmer" style="display: none" id="dimmer">
-            <div class="ui text loader" id="loading" style="display: none">Por favor espere...</div>
-            <div class="w3-display-middle" id="exito" style="display: none">
-                <img src="~/images/success.svg" style="height: 45px"><br>
-                <h4 style="color: white">La Solicitud ha sido aceptada con exito!</h4>
-                <button class="ui secondary button green w3-center" onclick="ocultarMensajes()">Aceptar</button>
-            </div>
-            <div class="w3-display-middle" id="error" style="display: none">
-                <img src="~/images/error.svg" style="height: 45px"><br>
-                <h4 style="color: white">Ha ocurrido un error, y no se podido aceptar la solicitud.<br>Por favor vuelve a intentar</h4>
-                <button class="ui secondary button green w3-center" onclick="ocultarMensajes()">Aceptar</button>
-            </div>
-            <div class="w3-display-middle" id="warning" style="display: none">
-                <img src="~/images/warning.svg" style="height: 45px"><br>
-                <h4 style="color: white" id="precioAceptar"></h4>
-                <button class="ui inverted red button w3-center" onclick="ocultarMensajes()">Salir</button>
-                <button class="ui inverted green button w3-center" onclick="aceptarSolicitud()">Confirmar</button>
-            </div>
-        </div>
         <div class="row" id="goyete">
             <div class="ui grid stackable container">
                 <div class="sixteen wide column w3-padding-64">
                     <div class="ui segments">
-                        <div class="ui segment sticky" style="background-color: #FBFBFB">
+                        <div class="ui grey secondary segment">
                             <div class="ui secondary menu">
-                                <select class="ui dropdown">
+                                <select class="ui dropdown" id="agrupacionesList">
                                     <option value="" selected disabled>Seleccione una agrupaci&oacute;n...</option>
                                 </select>
                             </div>
                         </div>
                         <div class="ui raised segment" id="fletesContext" style="min-height: 300px">
                             <div class="ui active tab w3-padding">
+                                <h4 class="ui horizontal divider text header w3-text-cerebro-red w3-padding">Agrupacion</h4>
+                                <select id="usuariosMunicipalidad" class="ui fluid dropdown w3-padding">
+                                    <option value="">Seleccione usuarios para agregarlos a la agrupaci&oacute;n...</option>
+                                </select>
                                 <table class="ui compact celled grey table">
                                     <thead>
                                         <tr>
@@ -116,12 +103,12 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="ui right aligned segment" style="background-color: #FBFBFB">
+                        <div class="ui right aligned grey secondary segment">
                             <h4 class="ui horizontal divider text header w3-text-cerebro-red small w3-padding">Crear agrupacion</h4>
                             <div class="ui text container">
-                                <div class="ui action input fluid">
-                                    <input placeholder="Search..." type="text">
-                                    <button class="ui button">Confirmar</button>
+                                <div class="ui action input fluid small">
+                                    <input id="nombre" placeholder="Nombre de la agrupaci&oacute;n a crear..." type="text">
+                                    <button class="ui button w3-cerebro-blue" onclick="addAgrupacion()">Confirmar</button>
                                 </div>
                             </div>
                         </div>
@@ -131,3 +118,108 @@
         </div>
     </div>
 </div>
+<script>
+    var email = '@User.Claims.ToList()[0].Value';
+	var municipalidad = '@User.Claims.ToList()[3].Value';
+    function getAgrupacionesByUsuario() {
+        if (email !== ""){ 
+            $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email, function (response) {
+                if (response !== undefined) { 
+                    while (document.getElementById("agrupacionesList").hasChildNodes()) {
+                        document.getElementById("agrupacionesList").removeChild(document.getElementById("agrupacionesList").lastChild);
+                    }
+                    $.each(response, function (index, agrupacion) {
+                        var option = document.createElement("option");
+                        option.value = agrupacion;
+                        option.innerHTML = agrupacion;
+                        document.getElementById("agrupacionesList").appendChild(option);
+                    });
+                }
+            });
+        }
+	}
+	function addAgrupacion() {
+		"use strict";
+		var agrupacion = document.getElementById("nombre").value;
+		var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=true";
+		if (agrupacion !== "") {
+			$.post("https://www.cerebro-serviceLayer.com/api/agrupaciones", postInfo, function(response){
+				if(response === true){
+					alert("agrupacion creada");
+				}
+				else{
+					alert("agrupacion no creada");
+				}
+			});
+		}
+    }
+    function deleteAgrupacion(nombre) {
+        if (nombre !== "" && municipalidad !== "") { 
+            var deleteInfo = "nombre=" + nombre + "&nombre_municipalidad=" + municipalidad;
+            $.ajax({
+                url: 'https://www.cerebro-serviceLayer.com/api/agrupaciones?' + deleteInfo,
+                type: 'DELETE',
+                success: function (data) {
+                    if (data === true) {
+                        alert("agrupacion eliminada");
+                    } else {
+                        alert("agrupacion no eliminada");
+                    }
+                }
+            });
+        }
+    }
+    function toggleAdminAgrupacion(agrupacion, email, esAdmin) {
+        if (agrupacion !== "" && email !== "" && municipalidad !== "") { 
+            var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=" + esAdmin;
+            $.ajax({
+                url: 'https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?' + postInfo,
+                type: 'PUT',
+                success: function (data) {
+                    if (data === true) {
+                        alert("admin cambiado");
+                    } else {
+                        alert("admin no cambiado");
+                    }
+                }
+            });
+        }
+    }
+    function deleteUsuarioAgrupacion(agrupacion, email) {
+        if (agrupacion !== "" && email !== "" && municipalidad !== "") { 
+            var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad;
+            $.ajax({
+                url: 'https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?' + postInfo,
+                type: 'DELETE',
+                success: function (data) {
+                    if (data === true) {
+                        alert("agrupacion eliminada");
+                    } else {
+                        alert("agrupacion no eliminada");
+                    }
+                }
+            });
+        }
+    }
+    function getUsuariosByAgrupacion(agrupacion) {
+        if (agrupacion !== "") {
+            $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/" + agrupacion, function () { 
+
+            });
+        }
+    }
+    function getUsuariosByMunicipalidad() {
+        if (municipalidad !== "") {
+            $.get("https://www.cerebro-serviceLayer.com/api/usuarios/municipalidad/" + municipalidad, function (response) {
+                if (response !== undefined) {
+                    $.each(response, function (index, usuario) {
+                        var option = document.createElement("option");
+                        option.value = usuario.email;
+                        option.innerHTML = usuario.nombre;
+                        document.getElementById("usuariosMunicipalidad").appendChild(option);
+                    });
+                }
+            });
+        }
+    }
+</script>
