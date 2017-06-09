@@ -10,6 +10,7 @@ namespace cerebro_frontOffice.Controllers
     {
         public IActionResult Agrupacion()
         {
+            ViewData["Title"] = "Agrupacion";
             return View();
         }
     }

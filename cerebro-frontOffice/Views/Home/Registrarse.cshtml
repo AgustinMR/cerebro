@@ -1,52 +1,35 @@
-﻿<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <link rel="stylesheet" href="~/css/cerebro.css">
-  <link rel="stylesheet" href="~/css/w3.css">
-  <link rel="stylesheet" href="~/css/semantic.min.css">
-  <title>Registrarse | Cerebro</title>
-  <script src="~/js/jquery.js"></script>
-  <script src="~/js/semantic.min.js"></script>
-  <script src="~/js/site.js"></script>
-</head>
-<body class="w3-cerebro-blue">
-   <div class="bgimg-4 w3-cerebro-blue w3-opacity" id="backgr"></div>
-	<div class="w3-bar w3-top">
-		<div class="w3-content">
-			<img src="~/images/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
-		</div>
-	</div>
-    <div class="w3-col s12 m8 l5 w3-container">
-		<div class="w3-panel w3-white w3-round w3-display-middle w3-card-4" style="min-width: 300px; max-width: 450px">
-			<div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image w3-margin-top" style="height: 35px"></div><h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Registrarse en cerebro</h4>
-			<div class="ui labeled input fluid w3-margin-bottom w3-margin">
-  				<div class="ui basic label w3-text-cerebro-red">Nombre:</div>
-  				<input placeholder="Nombre o nickname de usuario..." type="text">
-			</div>
-			<div class="ui labeled input fluid w3-margin-bottom w3-margin">
-  				<div class="ui basic label w3-text-cerebro-red">Email:</div>
-  				<input placeholder="Direcci&oacute;n de correo..." type="text">
-			</div>
-			<div class="ui labeled input fluid w3-margin-bottom w3-margin">
-  				<div class="ui basic label w3-text-cerebro-red">Password:</div>
-  				<input placeholder="Contrase&ntilde;a..." type="password">
-			</div>
-			<div class="ui labeled input fluid w3-margin-bottom w3-margin">
-  				<div class="ui basic label w3-text-cerebro-red">Municipalidad:</div>
-  				<select id="" class="ui dropdown fluid"></select>
-			</div>
-			<div class="w3-center w3-margin w3-padding-16"><button class="ui button secondary w3-cerebro-blue">Confirmar</button></div>
-		</div>
-	</div>
-    <script>
-		$(document).ready(function() {
-			"use strict";
-			blurBackground();
-			$('.ui.dropdown').dropdown();
-		});
-	</script>
-</body>
-</html>
+﻿<div class="bgimg-4 w3-cerebro-blue w3-opacity" id="backgr"></div>
+<div class="w3-bar w3-top">
+    <div class="w3-content">
+        <img src="~/images/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
+    </div>
+</div>
+<div class="w3-col s12 m8 l5 w3-container">
+    <div class="w3-panel w3-white w3-round w3-display-middle w3-card-4" style="min-width: 300px; max-width: 450px">
+        <div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image w3-margin-top" style="height: 35px"></div><h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Registrarse en cerebro</h4>
+        <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+            <div class="ui basic label w3-text-cerebro-red">Nombre:</div>
+            <input placeholder="Nombre o nickname de usuario..." type="text">
+        </div>
+        <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+            <div class="ui basic label w3-text-cerebro-red">Email:</div>
+            <input placeholder="Direcci&oacute;n de correo..." type="text">
+        </div>
+        <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+            <div class="ui basic label w3-text-cerebro-red">Password:</div>
+            <input placeholder="Contrase&ntilde;a..." type="password">
+        </div>
+        <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+            <div class="ui basic label w3-text-cerebro-red">Municipalidad:</div>
+            <select id="" class="ui dropdown fluid"></select>
+        </div>
+        <div class="w3-center w3-margin w3-padding-16"><button class="ui button secondary w3-cerebro-blue">Confirmar</button></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        "use strict";
+        //blurBackground();
+        $('.ui.dropdown').dropdown();
+    });
+</script>
