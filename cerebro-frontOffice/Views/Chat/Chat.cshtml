@@ -53,7 +53,7 @@
                 else
                 {
                     <div class="section"><h4 class="ui header w3-text-cerebro-red">Municipalidad</h4></div>
-                }                
+                }
                 <div class="divider"> <strong>/</strong> </div>
                 <div class="active section"><h4 class="ui text header w3-text-silver">Chat</h4></div>
             </div>
@@ -106,18 +106,6 @@
                             <h3 class="ui horizontal divider text header w3-padding small w3-text-cerebro-red">Agrupacion actual</h3>
                         </div>
                         <div id="chat" class="ui grey segment" style="background-image: url(img/gplay.png); height: 500px; max-height: 500px;overflow-y: auto">
-                            <div class="w3-row w3-margin-top w3-margin-bottom">
-                                <div class="w3-half w3-white w3-round w3-card">
-                                    <div class="w3-row w3-small w3-margin-left"><span class="w3-text-cerebro-red">Agustin Maidana</span><span class="w3-right w3-margin-right w3-text-grey">15:55</span></div>
-                                    <div class="w3-row w3-text-dark-gray w3-margin-left w3-margin-right" style="margin-bottom: 3px">f</div>
-                                </div>
-                            </div>
-                            <div class="w3-row w3-margin-top w3-margin-bottom">
-                                <div class="w3-half w3-right w3-pale-green w3-round w3-card">
-                                    <div class="w3-row w3-small w3-margin-left"><span class="w3-text-cerebro-red">Yo</span><span class="w3-right w3-margin-right w3-text-grey">15:55</span></div>
-                                    <div class="w3-row w3-text-dark-gray w3-margin-left w3-margin-right" style="margin-bottom: 3px">f</div>
-                                </div>
-                            </div>
                         </div>
                         <div class="ui segment secondary" style="background-color: #F3F3F3">
                             <div class="ui secondary menu w3-center">
@@ -136,12 +124,12 @@
     $(document).ready(function () {
         "use strict";
         var pusher = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
-        var channel = pusher.subscribe(this.agrupacion);
+        var channel = pusher.subscribe("Mdeo");
         var email = '@User.Claims.ToList()[0].Value';
         channel.bind('mensaje-nuevo', function (data) {
             var e = JSON.stringify(data);
             var x = JSON.parse(e);
-            if (x.email === email) {
+            if (x.email !== email) {
                 var ele1 = document.createElement("div");
                 ele1.className = 'w3-row w3-margin-top w3-margin-bottom';
                 var ele2 = document.createElement("div");
@@ -197,11 +185,11 @@
 
 
 
-    $(".mensaje").on('keyup', function (e) {
+    $("#mensaje").on('keyup', function (e) {
         if (e.keyCode == 13) {
-            $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=Mdeo& autor=" + '@User.Claims.ToList()[1].Value' + " & mensaje=" + document.getElementById("mensaje") + " & email=" + '@User.Claims.ToList()[0].Value', function (response) {
-                 console.log(response);
-             });
+            $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=Mdeo&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + '@User.Claims.ToList()[0].Value', function (response) {
+                document.getElementById("mensaje").value = "";
+            });
         }
     });
 </script>
