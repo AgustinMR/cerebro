@@ -1,18 +1,25 @@
 ﻿<script>
-        $(document).ready(function () {
-            $('.ui.sidebar')
-                .sidebar('attach events', '.toc.item')
-                .sidebar('setting', 'transition', 'overlay')
-                .sidebar('setting', 'dimPage', false);
-            $('.ui.dropdown').dropdown('setting', 'allowAdditions', true);
-        });
+    $(document).ready(function () {
+        $('.ui.sidebar')
+            .sidebar('attach events', '.toc.item')
+            .sidebar('setting', 'transition', 'overlay')
+            .sidebar('setting', 'dimPage', false);
+        $('.ui.dropdown').dropdown('setting', 'allowAdditions', true);
+    });
 </script>
 <div class="ui sidebar vertical left inverted menu w3-cerebro-blue">
     <div class="w3-center w3-margin-top"><img src="~/images/cerebro.png" style="height: 30px" class="w3-image"></div>
     <div class="ui horizontal divider"></div>
     <div class="w3-center">
-        <i class="home big icon circular link"></i>
-        <h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">Usuario</h3>
+        <a href="/inicio/inicio"><i class="home big icon circular link"></i></a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">@User.Claims.ToList()[0].Value</h3>
+        }
+        else
+        {
+            <h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">Usuario</h3>
+        }
         <a class="ui toc item header small active" href="/Chat/Chat">Chat</a>
         <a class="ui toc item header small" href="/Agrupacion/Agrupacion">Agrupaciones</a>
         <a class="ui toc item header small" href="/Simulador/Simulador">Simulador</a>
@@ -24,14 +31,29 @@
         <div class="ui menu secondary" style="background-color: #FBFBFB; padding-bottom: 0px">
             <a class="ui toc item left aligned"><i class="sidebar icon"></i></a>
             <div class="right menu">
-                <h4 class="ui item header right aligned">Usuario</h4>
-                <a class="ui item right aligned w3-right"><i class="sign out icon w3-text-cerebro-red"></i></a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h4 class="ui item header right aligned" id="email">@User.Claims.ToList()[0].Value</h4>
+                    <a class="ui item right aligned w3-right" asp-controller="Account" asp-action="Logout"><i class="sign out icon w3-text-cerebro-red"></i></a>
+                }
+                else
+                {
+                    <h4 class="ui item header right aligned">Usuario</h4>
+                    <a class="ui item right aligned w3-right"><i class="sign out icon w3-text-cerebro-red"></i></a>
+                }
             </div>
         </div>
         <div class="w3-center w3-display-topmiddle" style="margin-top: 7px"><img src="~/images/cerebro-logo.png" class="w3-image" style="height: 35px"></div>
         <div class="ui secondary menu w3-light-gray w3-padding">
             <div class="ui breadcrumb item">
-                <div class="section"><h4 class="ui header w3-text-cerebro-red">Municipalidad</h4></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="section"><h4 class="ui header w3-text-cerebro-red">@User.Claims.ToList()[3].Value</h4></div>
+                }
+                else
+                {
+                    <div class="section"><h4 class="ui header w3-text-cerebro-red">Municipalidad</h4></div>
+                }                
                 <div class="divider"> <strong>/</strong> </div>
                 <div class="active section"><h4 class="ui text header w3-text-silver">Chat</h4></div>
             </div>
@@ -65,13 +87,14 @@
                             <div class="ui secondary menu">
                                 <div class="ui icon input" style="width: 100%;">
                                     <input id="tituloFiltro" placeholder="Buscar agrupaciones..." type="text">
-                                    <i class="search circular inverted link icon" onclick="getAllSolicitudes();"></i>
+                                    <i class="search circular inverted link icon"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="ui raised segment" id="fletesContext">
                             <div class="ui active tab">
                                 <div class="ui divided items w3-padding-16" id="items" style="min-height: 323px">
+
                                 </div>
                             </div>
                         </div>
@@ -82,7 +105,7 @@
                         <div class="ui grey segment w3-center" style="background-color: #FBFBFB">
                             <h3 class="ui horizontal divider text header w3-padding small w3-text-cerebro-red">Agrupacion actual</h3>
                         </div>
-                        <div class="ui grey segment" style="background-image: url(img/gplay.png); height: 500px; max-height: 500px;overflow-y: auto">
+                        <div id="chat" class="ui grey segment" style="background-image: url(img/gplay.png); height: 500px; max-height: 500px;overflow-y: auto">
                             <div class="w3-row w3-margin-top w3-margin-bottom">
                                 <div class="w3-half w3-white w3-round w3-card">
                                     <div class="w3-row w3-small w3-margin-left"><span class="w3-text-cerebro-red">Agustin Maidana</span><span class="w3-right w3-margin-right w3-text-grey">15:55</span></div>
@@ -99,14 +122,86 @@
                         <div class="ui segment secondary" style="background-color: #F3F3F3">
                             <div class="ui secondary menu w3-center">
                                 <div class="ui icon input" style="width: 100%">
-                                    <input type="text" placeholder="Escriba aqu&iacute; su mensaje, precione enter para enviar" class="w3-border-silver">
+                                    <input id="mensaje" type="text" placeholder="Escriba aqu&iacute; su mensaje, precione enter para enviar" class="w3-border-silver">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        "use strict";
+        var pusher = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
+        var channel = pusher.subscribe(this.agrupacion);
+        var email = '@User.Claims.ToList()[0].Value';
+        channel.bind('mensaje-nuevo', function (data) {
+            var e = JSON.stringify(data);
+            var x = JSON.parse(e);
+            if (x.email === email) {
+                var ele1 = document.createElement("div");
+                ele1.className = 'w3-row w3-margin-top w3-margin-bottom';
+                var ele2 = document.createElement("div");
+                ele2.className = 'w3-half w3-white w3-round w3-card';
+                ele1.appendChild(ele2);
+                var ele3 = document.createElement("div");
+                ele3.className = 'w3-row w3-small w3-margin-left';
+                var span1 = document.createElement("span");
+                span1.className = "w3-text-cerebro-red";
+                span1.innerHTML = x.autor;
+                ele3.appendChild(span1);
+                var span2 = document.createElement("span");
+                span2.className = "w3-right w3-margin-right w3-text-grey";
+                var fecha = x.datetime.toString().split('T', 2);
+                var fecha2 = fecha[1].split(".", 2);
+                span2.innerHTML = fecha2[0];
+                ele3.appendChild(span2);
+                ele2.appendChild(ele3);
+                var ele4 = document.createElement("div");
+                ele4.style.marginBottom = '3px';
+                ele4.className = 'w3-row w3-text-dark-gray w3-margin-left w3-margin-right';
+                ele4.textContent = x.mensaje;
+                ele2.appendChild(ele4);
+                document.getElementById("chat").appendChild(ele1);
+            } else {
+                var ele1 = document.createElement("div");
+                ele1.className = 'w3-row w3-margin-top w3-margin-bottom';
+                var ele2 = document.createElement("div");
+                ele2.className = 'w3-half w3-right w3-pale-green w3-round w3-card';
+                ele1.appendChild(ele2);
+                var ele3 = document.createElement("div");
+                ele3.className = 'w3-row w3-small w3-margin-left';
+                var span1 = document.createElement("span");
+                span1.className = "w3-text-cerebro-red";
+                span1.innerHTML = x.autor;
+                ele3.appendChild(span1);
+                var span2 = document.createElement("span");
+                span2.className = "w3-right w3-margin-right w3-text-grey";
+                var fecha = x.datetime.toString().split('T', 2);
+                var fecha2 = fecha[1].split(".", 2);
+                span2.innerHTML = fecha2[0];
+                ele3.appendChild(span2);
+                ele2.appendChild(ele3);
+                var ele4 = document.createElement("div");
+                ele4.style.marginBottom = '3px';
+                ele4.className = 'w3-row w3-text-dark-gray w3-margin-left w3-margin-right';
+                ele4.textContent = x.mensaje;
+                ele2.appendChild(ele4);
+                document.getElementById("chat").appendChild(ele1);
+            }
+        });
+    });
+
+
+
+    $(".mensaje").on('keyup', function (e) {
+        if (e.keyCode == 13) {
+            $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=Mdeo& autor=" + '@User.Claims.ToList()[1].Value' + " & mensaje=" + document.getElementById("mensaje") + " & email=" + '@User.Claims.ToList()[0].Value', function (response) {
+                 console.log(response);
+             });
+        }
+    });
+</script>

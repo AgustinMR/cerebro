@@ -16,13 +16,11 @@ namespace cerebro_frontOffice.Controllers
 
         public IActionResult Login()
         {
-            ViewData["Title"] = "Login";
             return View();
         }
 
         public IActionResult Registrarse()
         {
-            ViewData["Title"] = "Registrarse";
             return View();
         }
     }

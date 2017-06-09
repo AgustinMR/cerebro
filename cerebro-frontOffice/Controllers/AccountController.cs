@@ -44,7 +44,8 @@ namespace cerebro_frontOffice.Controllers
                         {
                             new Claim("email", email),
                             new Claim("nombre", usuarios.Nombre),
-                            new Claim("tipo", "Visitante")
+                            new Claim("tipo", "Visitante"),
+                            new Claim("muni", usuarios.NombreMunicipalidad)
                         };
 
                         var id = new ClaimsIdentity(claims, "password");
@@ -62,7 +63,8 @@ namespace cerebro_frontOffice.Controllers
                         {
                             new Claim("email", email),
                             new Claim("nombre", usuarios.Nombre),
-                            new Claim("tipo", "Operador")
+                            new Claim("tipo", "Operador"),
+                            new Claim("muni", usuarios.NombreMunicipalidad)
                         };
 
                         var id = new ClaimsIdentity(claims, usuarios.Password);
