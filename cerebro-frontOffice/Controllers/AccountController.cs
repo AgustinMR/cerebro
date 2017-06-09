@@ -51,7 +51,7 @@ namespace cerebro_frontOffice.Controllers
                         var p = new ClaimsPrincipal(id);
 
                         await HttpContext.Authentication.SignInAsync("Cookies", p);
-                        return Redirect("/inicio");
+                        return Redirect("/inicio/inicio");
                     }
                 }
                 else if (usuarios.Tipo == 1)
@@ -69,7 +69,7 @@ namespace cerebro_frontOffice.Controllers
                         var p = new ClaimsPrincipal(id);
 
                         await HttpContext.Authentication.SignInAsync("Cookies", p);
-                        return Redirect("/inicio");
+                        return Redirect("/inicio/inicio");
                     }
                 }
                 else

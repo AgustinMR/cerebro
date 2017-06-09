@@ -10,6 +10,7 @@ namespace cerebro_frontOffice.Controllers
     {
         public IActionResult Inicio()
         {
+            ViewData["Title"] = "Inicio";
             return View();
         }
     }

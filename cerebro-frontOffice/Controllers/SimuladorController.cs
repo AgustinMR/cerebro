@@ -10,6 +10,7 @@ namespace cerebro_frontOffice.Controllers
     {
         public IActionResult Simulador()
         {
+            ViewData["Title"] = "Simulador";
             return View();
         }
     }

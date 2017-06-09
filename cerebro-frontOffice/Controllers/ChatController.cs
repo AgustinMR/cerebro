@@ -10,6 +10,7 @@ namespace cerebro_frontOffice.Controllers
     {
         public IActionResult Chat()
         {
+            ViewData["Title"] = "Chat";
             return View();
         }
     }
