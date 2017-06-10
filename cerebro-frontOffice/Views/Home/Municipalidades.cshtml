@@ -1,0 +1,42 @@
+﻿<div class="w3-cerebro-blue" style="height:100%; width:100%"><div class="bgimg-4" id="backgr" style="height: 100%"></div></div>
+<div class="ui stackable grid internally celled text container w3-display-topmiddle w3-padding-64">
+    <div class="ui eight wide right aligned column w3-padding-24">
+        <h1 class="ui header text inverted w3-xxlarge">Bienvenido a</h1>
+        <img src="images/cerebro.png" class="w3-image" style="height: 60px"><hr>
+        <h2 class="ui header text inverted">Seleccione municipalidad a la c&uacute;al ingresar</h2>
+    </div>
+    <div class="ui eight wide column w3-padding-24">
+        <div class="ui raised segment" style="max-height: 500px; overflow-y: auto">
+            <div class="ui middle aligned animated divided selection list w3-center" id="list">
+                <div class="item w3-padding-16">
+                    <h3 class="ui header text link w3-text-silver w3-hover-text-cerebro-red">Montevideo</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+		$(document).ready(function() {
+			"use strict";
+			cargarMunicipalidades();
+			$('.ui.dropdown').dropdown();
+			blurBackground();
+		});
+		function cargarMunicipalidades() {
+			$.get("https://www.cerebro-serviceLayer.com/api/municipalidades", function (response) {
+				$.each(response, function (index, municipalidad) {
+					var x = JSON.parse(JSON.stringify(municipalidad));
+					var item = document.createElement("div");
+					item.className = "item w3-padding-16";
+                    item.addEventListener("click", function () {
+                        window.location = "https://www." + x.nombre.toLowerCase() + ".cerebro-frontOffice.com/Home/Index";
+					});
+					var h3 = document.createElement("h3");
+					h3.className = "ui header text link w3-text-silver w3-hover-text-cerebro-red";
+					h3.innerHTML = x.nombre;
+					item.appendChild(h3);
+					document.getElementById("list").appendChild(item);
+				});
+			});
+    	}
+</script>
