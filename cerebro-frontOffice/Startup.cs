@@ -65,16 +65,14 @@ namespace cerebro_frontOffice
                 AuthenticationScheme = "Cookies",
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
-
                 LoginPath = new PathString("/home/login")
-
             });
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Municipalidades}/{id?}");
             });
         }
     }
