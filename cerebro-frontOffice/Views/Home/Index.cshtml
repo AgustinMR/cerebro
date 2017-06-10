@@ -6,6 +6,17 @@
       });
 </script>
 <div class="ui inverted vertical center aligned w3-display-container w3-cerebro-blue">
+    <div class="ui active page dimmer" style="display: none" id="dimmer">
+        <div class="w3-display-middle" id="dialog" style="display: none">
+            <h2 class="ui header text inverted">Ingrese PIN verificador entregado por Twitter:</h2>
+            <div class="ui labeled input w3-margin">
+                <div class="ui basic label w3-text-cerebro-red">PIN</div>
+                <input placeholder="Ingrese aqu&iacute; el c&oacute;digo" id="codigoPin" type="text">
+            </div><div class="ui horizontal divider"></div>
+            <button class="ui inverted button" onclick="ocultarDimmer()">Cancelar</button>
+            <button class="ui twitter icon button" onclick="terminarRegistroTwitter()">Registrarse <i class="ui twitter icon"></i></button>
+        </div>
+    </div>
     <div class="bgimg-4 w3-opacity" id="backgr"></div>
     <div class="ui container w3-display-topmiddle w3-margin-top">
         <div class="ui large secondary inverted pointing menu w3-border-0">
@@ -26,8 +37,8 @@
             </div>
             <div class="six wide column left aligned">
                 <h2 class="ui header text inverted">Comenzar con...</h2>
-                <i class="facebook f very big circular link icon"></i>
-                <i class="twitter very big circular link icon"></i>
+                <button class="ui circular icon button facebook  huge" onclick="registrarFacebook()"><i class="ui facebook f icon"></i></button>
+                <button class="ui circular icon button twitter huge" onclick="registrarTwitter()"><i class="ui twitter icon"></i></button>
             </div>
         </div>
     </div>
@@ -130,3 +141,79 @@
         </div>
     </div>
 </div>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({ appId: '623498791182427', cookie: true, xfbml: true, version: 'v2.8' });
+    };
+    //$('input[type=checkbox]').removeAttr('checked');
+    function registrarFacebook() {
+        FB.login(function (response) {
+            if (response.status === 'connected') {
+                FB.api('/me', 'GET', { "fields": "id,name,email" }, function (user) {
+                    //window.location = "https://www.cerebro-frontOffice.com/inicio?user=" + user.email;
+
+                }
+                );
+            } else {
+            }
+        }, { scope: 'public_profile,email' });
+    }
+    function statusChangeCallback(response) {
+        if (response.status === 'connected') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+    }
+    var cb = new Codebird;
+    cb.setConsumerKey("dez0wzcNcfJLc0DySfLJDKGwL", "fof6aJ0u9yvektL4TJpXQnzyrtMEEZLZj47sdQJzItO3HiRWZn");
+    function registrarTwitter() {
+        cb.__call(
+            "oauth_requestToken",
+            { oauth_callback: "oob" },
+            function (reply, rate, err) {
+                if (err) {
+                    console.log("error response or timeout exceeded" + err.error);
+                }
+                if (reply) {
+                    cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                    cb.__call(
+                        "oauth_authorize",
+                        {},
+                        function (auth_url) {
+                            window.codebird_auth = window.open(auth_url);
+                        }
+                    );
+                }
+            }
+        );
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("dialog").style.display = "block";
+    }
+    function terminarRegistroTwitter() {
+        if (document.getElementById("codigoPin").value !== ""){ 
+            cb.__call(
+                "oauth_accessToken",
+                { oauth_verifier: document.getElementById("codigoPin").value },
+                function (reply, rate, err) {
+                    if (err) {
+                        console.log("error response or timeout exceeded" + err.error);
+                    }
+                    if (reply) {
+                        // store the authenticated token, which may be different from the request token (!)
+                        cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                    }
+                }
+            );
+        }
+    }
+    function ocultarDimmer() { 
+        document.getElementById("dimmer").style.display = "none";
+        document.getElementById("dialog").style.display = "none";
+    }
+</script>
