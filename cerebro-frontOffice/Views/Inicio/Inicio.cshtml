@@ -16,10 +16,6 @@
         {
             <h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">@User.Claims.ToList()[0].Value</h3>
         }
-        else
-        {
-            <h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">Usuario</h3>
-        }
         <a class="ui toc item header small" href="/Chat/Chat">Chat</a>
         <a class="ui toc item header small" href="/Agrupacion/Agrupacion">Agrupaciones</a>
         <a class="ui toc item header small" href="/Simulador/Simulador">Simulador</a>
@@ -36,11 +32,6 @@
                     <h4 class="ui item header right aligned">@User.Claims.ToList()[0].Value</h4>
                     <a class="ui item right aligned w3-right" asp-controller="Account" asp-action="Logout"><i class="sign out icon w3-text-cerebro-red"></i></a>
                 }
-                else
-                {
-                    <h4 class="ui item header right aligned">Usuario</h4>
-                    <a class="ui item right aligned w3-right"><i class="sign out icon w3-text-cerebro-red"></i></a>
-                }
             </div>
         </div>
         <div class="w3-center w3-display-topmiddle" style="margin-top: 7px"><img src="~/images/cerebro-logo.png" class="w3-image" style="height: 35px"></div>
@@ -50,10 +41,6 @@
                 {
                     <div class="section"><h4 class="ui header w3-text-cerebro-red">@User.Claims.ToList()[3].Value</h4></div>
                 }
-                else
-                {
-                    <div class="section"><h4 class="ui header w3-text-cerebro-red">Municipalidad</h4></div>
-                } 
                 <div class="divider"> <strong>/</strong> </div>
                 <div class="active section"><h4 class="ui text header w3-text-silver">Inicio</h4></div>
             </div>
@@ -112,7 +99,72 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+<script>
+    var email = '@User.Claims.ToList()[0].Value';
+    var muni = '@User.Claims.ToList()[3].Value';
+    var map;
+    var source;
+    var dispositivos;
+    $(document).ready(function () {
+        "use strict";
+        var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
+        source = new ol.source.Vector({ wrapX: false });
+        var vector = new ol.layer.Vector({ source: source });
+
+        map = new ol.Map({
+            layers: [raster, vector],
+            target: 'map',
+            view: new ol.View({
+                projection: 'EPSG:4326',
+                center: [-56.22540901390569, -34.86341907811338],
+                zoom: 10
+            })
+        });
+        cargarDispositivos();
+
+        map.on("click", function (e) {
+            var feature = map.forEachFeatureAtPixel(e.pixel,
+                function (feature) {
+                    return feature;
+                });
+            if (feature) {
+                for (var dis of dispositivos) {
+                    if (String(dis.ubicacion) === String(feature.getGeometry().getCoordinates())) {
+                        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/datos/" + dis.Id, function (response) { 
+                            //alert(response);
+                        });
+                        console.log("ID dispositivo: " + dis.Id);
+                    }
+                }
+            }
+        });
+    });
+
+    function cargarDispositivos() {
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muni/" + muni, function (response) {
+            dispositivos = response;
+            for (var res in response) { 
+                var point_feature = new ol.Feature({});
+                var point_geom = new ol.geom.Point(response[res].ubicacion);
+                point_feature.setGeometry(point_geom);
+                var vectorLayer = new ol.layer.Vector({
+                    source: new ol.source.Vector({
+                        features: [point_feature]
+                    }),
+                    style: new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: 7,
+                            fill: new ol.style.Fill({
+                                color: 'orange'
+                            })
+                        })
+                    })
+                });
+                map.addLayer(vectorLayer);
+            }
+        });
+    }
+</script>
