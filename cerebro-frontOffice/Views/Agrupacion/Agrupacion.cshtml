@@ -25,6 +25,31 @@
     </div>
 </div>
 <div class="pusher" style="background-image:url(images/ub1610v2.jpg); background-attachment:fixed; background-size:cover">
+    <div class="ui active dimmer" style="display: none" id="dimmer">
+        <div class="ui text loader big" id="loading" style="display: none">Por favor espere...</div>
+        <div class="w3-display-middle" id="exito" style="display: none">
+            <h1 class="ui header text inverted">Agrupacion creada correctamente!</h1>
+            <button class="ui circular green huge icon button inverted" onclick="ocultarMensajes()"><i class="checkmark icon"></i></button>
+        </div>
+        <div class="w3-display-middle" id="exitoMod" style="display: none">
+            <h1 class="ui header text inverted">Informaci&oacute;n actualizada correctamente!</h1>
+            <button class="ui circular green huge icon button inverted" onclick="ocultarMensajes()"><i class="checkmark icon"></i></button>
+        </div>
+        <div class="w3-display-middle" id="exitoEliminar" style="display: none">
+            <h1 class="ui header text inverted">Agrupacion eliminada correctamente.</h1>
+            <button class="ui circular green huge icon button inverted" onclick="ocultarMensajes()"><i class="checkmark icon"></i></button>
+        </div>
+        <div class="w3-display-middle" id="error" style="display: none">
+            <h1 class="ui header text inverted">Ha ocurrido un error, por favor vuelve a intentar...</h1>
+            <button class="ui circular orange huge icon button inverted" onclick="ocultarMensajes()"><i class="warning icon"></i></button>
+        </div>
+        <div class="w3-display-middle" id="warning" style="display: none">
+            <h2 style="color: white" class="ui text header inverted">Se eliminar&aacute; la agrupaci&oacute;n <span id="agrupacionEliminar" class="ui orange text header small"></span></h2>
+            <h2 class="ui horizontal divider text header inverted w3-padding w3-margin-bottom">&iquest;Continuar?</h2>
+            <button class="ui inverted button w3-center" onclick="ocultarMensajes()">Cancelar</button>
+            <button class="ui inverted red button w3-center" onclick="deleteAgrupacion()">Eliminar</button>
+        </div>
+    </div>
     <div class="w3-bar w3-card" style="background-color: #FBFBFB">
         <div class="ui menu secondary" style="background-color: #FBFBFB; padding-bottom: 0px">
             <a class="ui toc item left aligned"><i class="sidebar icon"></i></a>
@@ -50,51 +75,49 @@
     </div>
     <div class="ui grid stackable container w3-padding w3-padding-16">
         <div class="row" id="goyete">
-            <div class="ui grid stackable container">
-                <div class="sixteen wide column w3-padding-64">
+            <div class="ui grid stackable container w3-padding-32">
+                <div class="four wide column w3-padding-32">
                     <div class="ui segments">
-                        <div class="ui grey secondary segment">
-                            <div class="ui secondary menu">
-                                <select class="ui dropdown" id="agrupacionesList">
-                                    <option value="" selected disabled>Seleccione una agrupaci&oacute;n...</option>
-                                </select>
-                                <div class="right menu"><button class="ui icon circular button"><i class="trash icon w3-text-cerebro-red"></i></button></div>
+                        <div class="ui segment sticky" style="background-color: #FBFBFB; height: 44px">
+                            <h4 class="ui header text w3-text-cerebro-blue w3-left">Agrupaciones</h4>
+                            <button class="ui icon button w3-right" style="margin-top: -10px; margin-right: -5px" id="botonEliminar" onclick="eliminarAgrupacion()"><i class="trash icon w3-text-cerebro-red"></i></button>
+                        </div>
+                        <div class="ui raised segment" id="fletesContext">
+                            <div class="ui active tab">
+                                <div class="ui middle aligned divided animated list" id="agrupacionesList">
+                                </div>
                             </div>
                         </div>
-                        <div class="ui raised segment" id="fletesContext" style="min-height: 300px">
+                    </div>
+                </div>
+                <div class="twelve wide column w3-padding-32">
+                    <div class="ui segments">
+                        <div class="ui segment blurring grey">
+                            <div class="ui active inverted dimmer" style="display: none" id="dimmerAdmin"></div>
+                            <select id="usuariosMunicipalidad" class="ui fluid dropdown w3-padding" onchange="addUsuarioAgrupacion()">
+                                <option value="">Seleccione usuarios para agregarlos a la agrupaci&oacute;n...</option>
+                            </select>
+                        </div>
+                        <div class="ui raised blurring segment" style="min-height: 300px">
+                            <div class="ui active inverted dimmer" style="display: none" id="dimmerAdmin2"></div>
                             <div class="ui active tab w3-padding">
-                                <h4 class="ui horizontal divider text header w3-text-cerebro-red w3-padding">Agrupacion</h4>
-                                <select id="usuariosMunicipalidad" class="ui fluid dropdown w3-padding">
-                                    <option value="">Seleccione usuarios para agregarlos a la agrupaci&oacute;n...</option>
-                                </select>
-                                <table class="ui compact celled grey table">
+                                <h4 class="ui horizontal divider text header w3-text-cerebro-red w3-padding" id="agrupacionActual"></h4>
+                                <table class="ui compact celled grey table" id="tabla">
                                     <thead>
                                         <tr>
-                                            <th>esAdmin</th>
-                                            <th>Nombre</th>
+                                            <th style="width: 10%">esAdmin</th>
                                             <th>E-mail</th>
                                             <th style="width: 10%">Acci&oacute;n</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="collapsing">
-                                                <div class="ui fitted slider checkbox">
-                                                    <input type="checkbox"> <label></label>
-                                                </div>
-                                            </td>
-                                            <td>John Lilki</td>
-                                            <td>jhlilk22@yahoo.com</td>
-                                            <td class="w3-center"><i class="ui remove user icon link"></i></td>
-                                        </tr>
-                                    </tbody>
+                                    <tbody id="usuariosActualesBody"></tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="ui right aligned grey secondary segment">
                             <h4 class="ui horizontal divider text header w3-text-cerebro-red small w3-padding">Crear agrupacion</h4>
-                            <div class="ui text container">
-                                <div class="ui action input fluid small">
+                            <div class="ui container">
+                                <div class="ui action input fluid">
                                     <input id="nombre" placeholder="Nombre de la agrupaci&oacute;n a crear..." type="text">
                                     <button class="ui button w3-cerebro-blue" onclick="addAgrupacion()">Confirmar</button>
                                 </div>
@@ -110,80 +133,106 @@
     var email = '@User.Claims.ToList()[0].Value';
 	var municipalidad = '@User.Claims.ToList()[3].Value';
     function getAgrupacionesByUsuario() {
-        if (email !== ""){ 
+        if (email !== ""){
             $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email, function (response) {
-                if (response !== undefined) { 
+                if (response !== undefined) {
                     while (document.getElementById("agrupacionesList").hasChildNodes()) {
                         document.getElementById("agrupacionesList").removeChild(document.getElementById("agrupacionesList").lastChild);
                     }
                     $.each(response, function (index, agrupacion) {
-                        var option = document.createElement("option");
-                        option.value = agrupacion;
-                        option.innerHTML = agrupacion;
-                        document.getElementById("agrupacionesList").appendChild(option);
+                        var item = document.createElement("div");
+                        item.className = "item";
+                        var a = document.createElement("a");
+                        a.className = "ui header text small link";
+                        a.innerHTML = agrupacion;
+                        a.addEventListener("click", function () {
+                            getUsuariosByAgrupacion(agrupacion);
+                        });
+                        item.appendChild(a);
+                        document.getElementById("agrupacionesList").appendChild(item);
                     });
                 }
             });
         }
 	}
-	function addAgrupacion() {
-		"use strict";
+    function addAgrupacion() {
+        "use strict";
+        mostrarMensajeLoading();
 		var agrupacion = document.getElementById("nombre").value;
         var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=true";
         if (agrupacion !== "") {
             $.post("https://www.cerebro-serviceLayer.com/api/agrupaciones?" + postInfo, function (response) {
-				if(response === "ok"){
-					alert("agrupacion creada");
+                if (response === "ok") {
+                    getAgrupacionesByUsuario(email);
+                    mostrarMensajeExito();
+                    getUsuariosByAgrupacion(agrupacion);
+                    document.getElementById("agrupacionActual").innerHTML = agrupacion;
+                    document.getElementById("nombre").value = "";
 				}
-				else{
-					alert("agrupacion no creada");
+                else {
+                    mostrarMensajeError();
 				}
 			});
 		}
     }
-    function deleteAgrupacion(nombre) {
-        if (nombre !== "" && municipalidad !== "") { 
+    function addUsuarioAgrupacion() {
+        var agrupacion = document.getElementById("agrupacionActual").innerHTML;
+        var email = document.getElementById("usuariosMunicipalidad").value;
+        if (agrupacion !== "" && municipalidad !== "" && email !== "") {
+            var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=false";
+            $.post("https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?" + postInfo, function (response) {
+                if (response === "ok") {
+                    getUsuariosByAgrupacion(agrupacion);
+                }
+                else {
+                    mostrarMensajeError();
+                }
+            });
+        }
+    }
+    function deleteAgrupacion() {
+        mostrarMensajeLoading();
+        var nombre = document.getElementById("agrupacionActual").innerHTML;
+        if (nombre !== "" && municipalidad !== "") {
             var deleteInfo = "nombre=" + nombre + "&nombre_municipalidad=" + municipalidad;
             $.ajax({
                 url: 'https://www.cerebro-serviceLayer.com/api/agrupaciones?' + deleteInfo,
                 type: 'DELETE',
                 success: function (data) {
-                    if (data === true) {
-                        alert("agrupacion eliminada");
+                    if (data === "ok") {
+                        getAgrupacionesByUsuario(email);
+                        document.getElementById("agrupacionActual").innerHTML = "";
+                        //document.getElementById("tabla").style.display = "none";
+                        mostrarMensajeExitoEliminar();
                     } else {
-                        alert("agrupacion no eliminada");
+                        mostrarMensajeError();
                     }
                 }
             });
         }
     }
     function toggleAdminAgrupacion(agrupacion, email, esAdmin) {
-        if (agrupacion !== "" && email !== "" && municipalidad !== "") { 
+        if (agrupacion !== "" && email !== "" && municipalidad !== "") {
             var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=" + esAdmin;
             $.ajax({
                 url: 'https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?' + postInfo,
                 type: 'PUT',
-                success: function (data) {
-                    if (data === true) {
-                        alert("admin cambiado");
-                    } else {
-                        alert("admin no cambiado");
-                    }
-                }
+                success: function (data) {}
             });
         }
     }
     function deleteUsuarioAgrupacion(agrupacion, email) {
-        if (agrupacion !== "" && email !== "" && municipalidad !== "") { 
+        if (agrupacion !== "" && email !== "" && municipalidad !== "") {
             var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad;
             $.ajax({
                 url: 'https://www.cerebro-serviceLayer.com/api/agrupaciones/usuario?' + postInfo,
                 type: 'DELETE',
                 success: function (data) {
-                    if (data === true) {
-                        alert("agrupacion eliminada");
-                    } else {
-                        alert("agrupacion no eliminada");
+                    if (data === "ok") {
+                        getUsuariosByAgrupacion(agrupacion);
+                    }
+                    else {
+                        mostrarMensajeError();
                     }
                 }
             });
@@ -191,8 +240,60 @@
     }
     function getUsuariosByAgrupacion(agrupacion) {
         if (agrupacion !== "") {
-            $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/" + agrupacion, function () { 
-
+            $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/" + agrupacion, function (response) {
+                if (response !== undefined) {
+                    var admin = false;
+                    document.getElementById("agrupacionActual").innerHTML = agrupacion;
+                    document.getElementById("dimmerAdmin").style.display = "none";
+                    document.getElementById("dimmerAdmin2").style.display = "none";
+                    document.getElementById("botonEliminar").className = "ui icon button w3-right";
+                    while (document.getElementById("usuariosActualesBody").hasChildNodes()) {
+                        document.getElementById("usuariosActualesBody").removeChild(document.getElementById("usuariosActualesBody").lastChild);
+                    }
+                    $.each(response, function (index, usuario) {
+                        if (usuario.usuario_email === email) {
+                            if (usuario.admin === true) { 
+                                admin = true;
+                            }
+                        }
+                        var tr = document.createElement("tr");
+                        var td = document.createElement("td");
+                        td.className = "collapsing";
+                        var div = document.createElement("div");
+                        div.className = "ui fitted slider checkbox";
+                        var input = document.createElement("input");
+                        input.type = "checkbox";
+                        input.addEventListener("change", function () {
+                            toggleAdminAgrupacion(agrupacion, usuario.usuario_email, input.checked);
+                        });
+                        var label = document.createElement("label");
+                        if (usuario.admin === true) {
+                            input.checked = true;
+                        }
+                        div.appendChild(input);
+                        div.appendChild(label);
+                        td.appendChild(div);
+                        var td2 = document.createElement("td");
+                        td2.innerHTML = usuario.usuario_email;
+                        var td4 = document.createElement("td");
+                        td4.className = "w3-center";
+                        var img = document.createElement("i");
+                        img.className = "ui remove user icon link";
+                        img.addEventListener("click", function () {
+                            deleteUsuarioAgrupacion(agrupacion, usuario.usuario_email);
+                        });
+                        td4.appendChild(img);
+                        tr.appendChild(td);
+                        tr.appendChild(td2);
+                        tr.appendChild(td4);
+                        document.getElementById("usuariosActualesBody").appendChild(tr);
+                    });
+                    if (!admin) {
+                        document.getElementById("dimmerAdmin").style.display = "block";
+                        document.getElementById("dimmerAdmin2").style.display = "block";
+                        document.getElementById("botonEliminar").className = "ui icon disabled button w3-right";
+                    }
+                }
             });
         }
     }
@@ -203,11 +304,83 @@
                     $.each(response, function (index, usuario) {
                         var option = document.createElement("option");
                         option.value = usuario.email;
-                        option.innerHTML = usuario.nombre;
+                        option.innerHTML = usuario.nombre + " - " + usuario.email;
                         document.getElementById("usuariosMunicipalidad").appendChild(option);
                     });
                 }
             });
+        }
+    }
+    function mostrarMensajeExito() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("exito").style.display = "block";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("exitoMod").style.display = "none";
+        document.getElementById("dimmerAdmin").style.display = "none";
+        document.getElementById("dimmerAdmin2").style.display = "none";
+        document.getElementById("exitoEliminar").style.display = "none";
+    }
+
+    function mostrarMensajeError() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "block";
+        document.getElementById("warning").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("exitoSugerencia").style.display = "none";
+    }
+
+    function mostrarMensajeWarning() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("warning").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("exitoMod").style.display = "none";
+        document.getElementById("exitoEliminar").style.display = "none";
+    }
+
+    function mostrarMensajeLoading() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+        document.getElementById("loading").style.display = "block";
+        document.getElementById("exitoMod").style.display = "none";
+        document.getElementById("exitoEliminar").style.display = "none";
+    }
+    function mostrarMensajeExitoMod() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("exitoMod").style.display = "block";
+        document.getElementById("exitoEliminar").style.display = "none";
+    }
+    function mostrarMensajeExitoEliminar() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("exitoMod").style.display = "none";
+        document.getElementById("exitoEliminar").style.display = "block";
+    }
+    function ocultarMensajes() {
+        document.getElementById("dimmer").style.display = "none";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("exitoSugerencia").style.display = "none";
+    }
+    function eliminarAgrupacion() {
+        if (document.getElementById("agrupacionActual").innerHTML !== "") {
+            document.getElementById("agrupacionEliminar").innerHTML = document.getElementById("agrupacionActual").innerHTML;
+            mostrarMensajeWarning();
         }
     }
 </script>
