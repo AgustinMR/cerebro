@@ -10,17 +10,24 @@ namespace cerebro_frontOffice.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["Title"] = "Home";
+            ViewData["Title"] = "";
             return View();
         }
 
         public IActionResult Login()
         {
+            ViewData["Title"] = "Login";
             return View();
         }
 
         public IActionResult Registrarse()
         {
+            ViewData["Title"] = "Registrarse";
+            return View();
+        }
+
+        public IActionResult Municipalidades() {
+            ViewData["Title"] = "Municipalidades";
             return View();
         }
     }
