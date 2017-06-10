@@ -1,13 +1,14 @@
 ﻿<script>
-        $(document).ready(function () {
-            $('.ui.sidebar')
-                .sidebar('attach events', '.toc.item')
-                .sidebar('setting', 'transition', 'overlay')
-                .sidebar('setting', 'dimPage', false);
-            $('.ui.dropdown').dropdown('setting', 'allowAdditions', true);
-        });
+    $(document).ready(function () {
+        $('.ui.sidebar')
+            //.sidebar('attach events', '.toc.item')
+            .sidebar('setting', 'transition', 'overlay')
+            .sidebar('setting', 'dimPage', false);
+        $('#menuSidebar').sidebar('attach events', '.toc.item');      
+        $('.ui.dropdown').dropdown('setting', 'allowAdditions', true);
+    });
 </script>
-<div class="ui sidebar vertical left inverted menu w3-cerebro-blue">
+<div class="ui sidebar vertical left inverted menu w3-cerebro-blue" id="menuSidebar">
     <div class="w3-center w3-margin-top"><img src="~/images/cerebro.png" style="height: 30px" class="w3-image"></div>
     <div class="ui horizontal divider"></div>
     <div class="w3-center">
@@ -20,6 +21,17 @@
         <a class="ui toc item header small" href="/Agrupacion/Agrupacion">Agrupaciones</a>
         <a class="ui toc item header small" href="/Simulador/Simulador">Simulador</a>
         <a class="ui toc item header small">Reportes</a>
+    </div>
+</div>
+<div class="ui sidebar wide vertical right inverted menu" id="infoDispositivo">
+    <div class="ui horizontal divider"></div>
+    <div class="w3-center">
+        <i class="info big icon circular inverted active"></i>
+        <h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">Nombre dispositivo</h3>
+        <h4 class="ui text header inverted">10/6/2017 - 15:05</h4>
+        <h4 class="ui text header inverted">TEXTO</h4>
+        <div class="ui horizontal header divider small inverted w3-padding">Contenido</div>
+        <h4 class="ui header text small inverted w3-padding w3-margin">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4>
     </div>
 </div>
 <div class="pusher" style="background-image:url(images/ub1610v2.jpg); background-attachment:fixed; background-size:cover">
@@ -47,25 +59,6 @@
         </div>
     </div>
     <div class="ui grid stackable container w3-padding w3-padding-16">
-        <div class="ui active dimmer" style="display: none" id="dimmer">
-            <div class="ui text loader" id="loading" style="display: none">Por favor espere...</div>
-            <div class="w3-display-middle" id="exito" style="display: none">
-                <img src="~/images/success.svg" style="height: 45px"><br>
-                <h4 style="color: white">La Solicitud ha sido aceptada con exito!</h4>
-                <button class="ui secondary button green w3-center" onclick="ocultarMensajes()">Aceptar</button>
-            </div>
-            <div class="w3-display-middle" id="error" style="display: none">
-                <img src="~/images/error.svg" style="height: 45px"><br>
-                <h4 style="color: white">Ha ocurrido un error, y no se podido aceptar la solicitud.<br>Por favor vuelve a intentar</h4>
-                <button class="ui secondary button green w3-center" onclick="ocultarMensajes()">Aceptar</button>
-            </div>
-            <div class="w3-display-middle" id="warning" style="display: none">
-                <img src="~/images/warning.svg" style="height: 45px"><br>
-                <h4 style="color: white" id="precioAceptar"></h4>
-                <button class="ui inverted red button w3-center" onclick="ocultarMensajes()">Salir</button>
-                <button class="ui inverted green button w3-center" onclick="aceptarSolicitud()">Confirmar</button>
-            </div>
-        </div>
         <div class="row" id="goyete">
             <div class="ui grid stackable container">
                 <div class="six wide column w3-padding-64">
@@ -166,5 +159,8 @@
                 map.addLayer(vectorLayer);
             }
         });
+    }
+    function mostrarInfoDispositivo() {
+        $('#infoDispositivo').sidebar('show');
     }
 </script>
