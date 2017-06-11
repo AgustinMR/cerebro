@@ -64,25 +64,31 @@ export class EventoComponent implements OnInit {
     }
 
     enviarImg() {
-        var form = new FormData();
-        form.append("files", "D:\\Bruno\\Captura.PNG");
+        $.ajax({
+            url: 'https://www.cerebro-frontoffice.com/api/dispositivos',
+            type: 'POST',
 
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://www.cerebro-frontoffice.com/api/dispositivos",
-            "method": "POST",
-            "headers": {
-                "cache-control": "no-cache",
-                "postman-token": "d9bd4eba-8257-8aed-7c58-1b35a7300a48"
+            data: new FormData($('form')[0]),
+
+            cache: false,
+            contentType: false,
+            processData: false,
+
+            xhr: function () {
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) {
+                    myXhr.upload.addEventListener('progress', function (e: any) {
+                        if (e.lengthComputable) {
+                            $('progress').attr({
+                                value: e.loaded,
+                                max: e.total,
+                            });
+                        }
+                    }, false);
+                }
+                return myXhr;
             },
-            "processData": false,
-            "contentType": false,
-            "mimeType": "multipart/form-data",
-            "data": form
-        }
-
-        $.ajax(settings).done();
+        });
     }
 
     mostrarStep1() {
