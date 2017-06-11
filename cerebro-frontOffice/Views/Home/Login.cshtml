@@ -53,6 +53,35 @@
             $('.ui.dropdown').dropdown();
             blurBackground();
         });
+        window.fbAsyncInit = function () {
+            FB.init({ appId: '623498791182427', cookie: true, xfbml: true, version: 'v2.8' });
+        };
+        function registrarFacebook() {
+            FB.login(function (response) {
+                if (response.status === 'connected') {
+                    FB.api('/me', 'GET', { "fields": "id,name,email" }, function (user) {
+                        var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
+                        var municipalidad = muniL[0].toUpperCase();
+                        for (var h = 1; h < muniL.length; h++) {
+                            municipalidad += muniL[h];
+                        }
+                        if (municipalidad !== undefined && municipalidad !== "") {
+                            var postInfo = "email=" + user.email + "&nombre_municipalidad=" + municipalidad + "&nombre=" + user.name;
+                            $.post("https://www.cerebro-serviceLayer.com/api/usuarios/visitante?" + postInfo, function (response) {
+                                if (response == "OK") {
+                                    mostrarMensajeExito();
+                                }
+                                else {
+                                    mostrarMensajeError();
+                                }
+                            });
+                        }
+                    }
+                    );
+                } else {
+                }
+            }, { scope: 'public_profile,email' });
+        }
         function cargarMunicipalidades() {
             $.get("https://www.cerebro-serviceLayer.com/api/municipalidades", function (response) {
                 $.each(response, function (index, municipalidad) {

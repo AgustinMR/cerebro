@@ -16,6 +16,15 @@
             <button class="ui inverted button" onclick="ocultarDimmer()">Cancelar</button>
             <button class="ui twitter icon button" onclick="terminarRegistroTwitter()">Registrarse <i class="ui twitter icon"></i></button>
         </div>
+        <div class="w3-display-middle" id="exito" style="display: none">
+            <h1 class="ui header text inverted">Registro completado con exito!</h1>
+            <h3 class="ui header text inverted horizontal divider">Ser&aacute;s llevado a la p&aacute;gina de inicio de sesi&oacute;n</h3>
+            <button class="ui circular green huge icon button inverted" onclick="ocultarDimmer()"><i class="checkmark icon"></i></button>
+        </div>
+        <div class="w3-display-middle" id="error" style="display: none">
+            <h1 class="ui header text inverted">Ha ocurrido un error, por favor vuelve a intentar...</h1>
+            <button class="ui circular orange huge icon button inverted" onclick="ocultarDimmer()"><i class="warning icon"></i></button>
+        </div>
     </div>
     <div class="bgimg-4 w3-opacity" id="backgr"></div>
     <div class="ui container w3-display-topmiddle w3-margin-top">
@@ -172,7 +181,12 @@
                     if (municipalidad !== undefined && municipalidad !== "") {
                         var postInfo = "email=" + user.email + "&nombre_municipalidad=" + municipalidad + "&nombre=" + user.name;
                         $.post("https://www.cerebro-serviceLayer.com/api/usuarios/visitante?" + postInfo, function (response) { 
-                            alert(response);
+                            if (response == "OK") {
+                                mostrarMensajeExito();
+                            }
+                            else {
+                                mostrarMensajeError();
+                            }
                         });
                     }
                 }
@@ -180,18 +194,6 @@
             } else {
             }
         }, { scope: 'public_profile,email' });
-    }
-    function statusChangeCallback(response) {
-        if (response.status === 'connected') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    function checkLoginState() {
-        FB.getLoginStatus(function (response) {
-            statusChangeCallback(response);
-        });
     }
     var cb = new Codebird;
     cb.setConsumerKey("dez0wzcNcfJLc0DySfLJDKGwL", "fof6aJ0u9yvektL4TJpXQnzyrtMEEZLZj47sdQJzItO3HiRWZn");
@@ -235,8 +237,24 @@
             );
         }
     }
+    function mostrarMensajeExito() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("exito").style.display = "block";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dialog").style.display = "none";
+    }
+
+    function mostrarMensajeError() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "block";
+        document.getElementById("dialog").style.display = "none";
+    }
+
     function ocultarDimmer() { 
         document.getElementById("dimmer").style.display = "none";
         document.getElementById("dialog").style.display = "none";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
     }
 </script>
