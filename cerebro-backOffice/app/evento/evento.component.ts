@@ -33,6 +33,7 @@ export class EventoComponent implements OnInit {
         for (var h = 1; h < muniL.length; h++) {
             this.nombre_municipalidad += muniL[h];
         }
+        //this.nombre_municipalidad = "Mdeo";
 
         this.cargarDispositivos();
     }
@@ -60,6 +61,28 @@ export class EventoComponent implements OnInit {
                 );
             }
         );
+    }
+
+    enviarImg() {
+        var form = new FormData();
+        form.append("files", "D:\\Bruno\\Captura.PNG");
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://www.cerebro-frontoffice.com/api/dispositivos",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+                "postman-token": "d9bd4eba-8257-8aed-7c58-1b35a7300a48"
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form
+        }
+
+        $.ajax(settings).done();
     }
 
     mostrarStep1() {
