@@ -41,7 +41,7 @@
             </form>
             <h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Iniciar con redes sociales</h4>
             <div class="w3-center w3-margin-bottom">
-                <button class="ui circular big facebook icon button"><i class="facebook f icon"></i></button>
+                <button class="ui circular big facebook icon button" onclick="autenticarFacebook()"><i class="facebook f icon"></i></button>
                 <button class="ui circular big twitter icon button"><i class="twitter icon"></i></button>
             </div>
         </div>
@@ -56,7 +56,7 @@
         window.fbAsyncInit = function () {
             FB.init({ appId: '623498791182427', cookie: true, xfbml: true, version: 'v2.8' });
         };
-        function registrarFacebook() {
+        function autenticarFacebook() {
             FB.login(function (response) {
                 if (response.status === 'connected') {
                     FB.api('/me', 'GET', { "fields": "id,name,email" }, function (user) {
@@ -67,13 +67,8 @@
                         }
                         if (municipalidad !== undefined && municipalidad !== "") {
                             var postInfo = "email=" + user.email + "&nombre_municipalidad=" + municipalidad + "&nombre=" + user.name;
-                            $.post("https://www.cerebro-serviceLayer.com/api/usuarios/visitante?" + postInfo, function (response) {
-                                if (response == "OK") {
-                                    mostrarMensajeExito();
-                                }
-                                else {
-                                    mostrarMensajeError();
-                                }
+                            $.post("https://www.cerebro-frontOffice.com/Account/Login", postInfo, function () { 
+
                             });
                         }
                     }
