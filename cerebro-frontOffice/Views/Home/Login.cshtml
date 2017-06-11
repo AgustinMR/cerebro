@@ -1,104 +1,145 @@
-﻿<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link rel="stylesheet" href="~/css/cerebro.css">
-    <link rel="stylesheet" href="~/css/w3.css">
-    <link rel="stylesheet" href="~/css/semantic.min.css">
-    <title>Iniciar Sesi&oacute;n | Cerebro</title>
-    <script src="~/js/jquery.js"></script>
-    <script src="~/js/semantic.min.js"></script>
-    <script src="~/js/site.js"></script>
-</head>
-<body class="w3-cerebro-blue">
-    <div class="w3-cerebro-blue" style="height:100%; width:100%"><div class="bgimg-4" id="backgr" style="height: 100%"></div></div>
-    <div class="w3-bar w3-top">
-        <div class="w3-content">
-            <img src="~/images/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
-        </div>
+﻿<div class="w3-cerebro-blue" style="height:100%; width:100%"><div class="bgimg-4" id="backgr" style="height: 100%"></div></div>
+<div class="w3-bar w3-top">
+    <div class="w3-content">
+        <img src="~/images/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
     </div>
-    <div class="ui stackable text container w3-display-middle">
-        <div class="ui raised segment">
-            <div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image" style="height: 40px"></div><h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Iniciar con cerebro</h4>
-            <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" role="form">
-                <div class="ui labeled input fluid w3-margin-bottom w3-margin">
-                    <div class="ui basic label w3-text-cerebro-red">Email:</div>
-                    <input id="email" name="email" placeholder="Ingrese aqu&iacute; su email..." type="text" required>
-                </div>
-                <div class="ui labeled input fluid w3-margin-bottom w3-margin">
-                    <div class="ui basic label w3-text-cerebro-red">Password:</div>
-                    <input id="pass" name="pass" placeholder="Ingrese aqu&iacute; su contrase&ntilde;a..." type="password" required>
-                </div>
-                <div class="ui labeled input fluid w3-margin-bottom w3-margin">
-                    <div class="ui basic label w3-text-cerebro-red">Municipalidad:</div>
-                    <select id="muni" required for="muni" name="muni" class="ui fluid dropdown">
-                        <option value="" selected disabled>Seleccione municipalidad a ingresar</option>
-                    </select>
-                </div>
-                <div class="w3-center"><button class="ui button secondary w3-cerebro-red w3-margin-bottom">Iniciar Sesi&oacute;n</button></div>
-            </form>
-            <h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Iniciar con redes sociales</h4>
-            <div class="w3-center w3-margin-bottom">
-                <button class="ui circular big facebook icon button"><i class="facebook f icon"></i></button>
-                <button class="ui circular big twitter icon button"><i class="twitter icon"></i></button>
+</div>
+<div class="ui stackable text container w3-display-middle">
+    <div class="ui raised segment">
+        <div class="ui active page twitter dimmer" style="display: none" id="dimmer">
+            <div class="w3-display-middle" id="dialog" style="display: none">
+                <h2 class="ui header text inverted">Ingrese PIN verificador entregado por Twitter:</h2>
+                <div class="ui labeled input w3-margin">
+                    <div class="ui basic label w3-text-cerebro-red">PIN</div>
+                    <input placeholder="Ingrese aqu&iacute; el c&oacute;digo" id="codigoPin" type="text">
+                </div><div class="ui horizontal divider"></div>
+                <button class="ui inverted button" onclick="ocultarDimmer()">Cancelar</button>
+                <button class="ui twitter icon button" onclick="autenticarTwitter()">Iniciar Sesi&oacute;n <i class="ui twitter icon"></i></button>
             </div>
         </div>
+        <div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image" style="height: 40px"></div><h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Iniciar con cerebro</h4>
+        <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" role="form">
+            <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+                <div class="ui basic label w3-text-cerebro-red">Email:</div>
+                <input id="email" name="email" placeholder="Ingrese aqu&iacute; su email..." type="text" required>
+            </div>
+            <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+                <div class="ui basic label w3-text-cerebro-red">Password:</div>
+                <input id="pass" name="pass" placeholder="Ingrese aqu&iacute; su contrase&ntilde;a..." type="password" required>
+            </div>
+            <div class="ui labeled input fluid w3-margin-bottom w3-margin">
+                <div class="ui basic label w3-text-cerebro-red">Municipalidad:</div>
+                <select id="muni" required for="muni" name="muni" class="ui fluid dropdown">
+                    <option value="" selected disabled>Seleccione municipalidad a ingresar</option>
+                </select>
+            </div>
+            <div class="w3-center"><button class="ui button secondary w3-cerebro-red w3-margin-bottom">Iniciar Sesi&oacute;n</button></div>
+        </form>
+        <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" id="form" role="form" style="display:none">
+            <input name="email" id="emailLogin" type="text" required>
+            <input name="pass" id="passLogin" type="password" required>
+            <input name="muni" id="muniLogin" type="password" required>
+        </form>
+        <h4 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Iniciar con redes sociales</h4>
+        <div class="w3-center w3-margin-bottom">
+            <button class="ui circular big facebook icon button" onclick="autenticarFacebook()"><i class="facebook f icon"></i></button>
+            <button class="ui circular big twitter icon button" onclick="mostrarDialogoTwitter()"><i class="twitter icon"></i></button>
+        </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            "use strict";
-            cargarMunicipalidades();
-            $('.ui.dropdown').dropdown();
-            blurBackground();
-        });
-        window.fbAsyncInit = function () {
-            FB.init({ appId: '623498791182427', cookie: true, xfbml: true, version: 'v2.8' });
-        };
-        function registrarFacebook() {
-            FB.login(function (response) {
-                if (response.status === 'connected') {
-                    FB.api('/me', 'GET', { "fields": "id,name,email" }, function (user) {
-                        var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
-                        var municipalidad = muniL[0].toUpperCase();
-                        for (var h = 1; h < muniL.length; h++) {
-                            municipalidad += muniL[h];
-                        }
-                        if (municipalidad !== undefined && municipalidad !== "") {
-                            var postInfo = "email=" + user.email + "&nombre_municipalidad=" + municipalidad + "&nombre=" + user.name;
-                            $.post("https://www.cerebro-serviceLayer.com/api/usuarios/visitante?" + postInfo, function (response) {
-                                if (response == "OK") {
-                                    mostrarMensajeExito();
-                                }
-                                else {
-                                    mostrarMensajeError();
-                                }
-                            });
-                        }
+</div>
+<script>
+    $(document).ready(function () {
+        "use strict";
+        cargarMunicipalidades();
+        $('.ui.dropdown').dropdown();
+        blurBackground();
+    });
+    window.fbAsyncInit = function () {
+        FB.init({ appId: '623498791182427', cookie: true, xfbml: true, version: 'v2.8' });
+    };
+    var cb = new Codebird;
+    cb.setConsumerKey("dez0wzcNcfJLc0DySfLJDKGwL", "fof6aJ0u9yvektL4TJpXQnzyrtMEEZLZj47sdQJzItO3HiRWZn");
+    function autenticarFacebook() {
+        FB.login(function (response) {
+            if (response.status === 'connected') {
+                FB.api('/me', 'GET', { "fields": "id,name,email" }, function (user) {
+                    var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
+                    var municipalidad = muniL[0].toUpperCase();
+                    for (var h = 1; h < muniL.length; h++) {
+                        municipalidad += muniL[h];
                     }
-                    );
-                } else {
+                    if (municipalidad !== undefined && municipalidad !== "") {
+                        $.post("https://www.cerebro-serviceLayer.com/api/usuarios/loginVisitante?");
+                        document.getElementById("emailLogin").value = user.email;
+                        document.getElementById("passLogin").value = "";
+                        document.getElementById("muniLogin").value = municipalidad;
+                        var form = document.getElementById("form");
+                        form.submit();
+                    }
                 }
-            }, { scope: 'public_profile,email' });
+                );
+            } else {
+            }
+        }, { scope: 'public_profile,email' });
+    }
+    function autenticarTwitter() { 
+        if (document.getElementById("codigoPin").value !== "") {
+            cb.__call(
+                "oauth_accessToken",
+                { oauth_verifier: document.getElementById("codigoPin").value },
+                function (reply, rate, err) {
+                    if (err) {
+                        console.log("error response or timeout exceeded" + err.error);
+                    }
+                    if (reply) {
+                        cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                    }
+                }
+            );
         }
-        function cargarMunicipalidades() {
-            $.get("https://www.cerebro-serviceLayer.com/api/municipalidades", function (response) {
-                $.each(response, function (index, municipalidad) {
-                    var x = JSON.parse(JSON.stringify(municipalidad));
-                    var option = document.createElement("option");
-                    option.value = x.nombre;
-                    option.innerHTML = x.nombre;
-                    document.getElementById("muni").appendChild(option);
-                });
-                var option2 = document.createElement("option");
-                option2.value = "";
-                option2.selected = true;
-                option2.disabled = true;
-                option2.innerHTML = "Seleccione su municipalidad...";
-                document.getElementById("muni").appendChild(option2);
+    }
+    function cargarMunicipalidades() {
+        $.get("https://www.cerebro-serviceLayer.com/api/municipalidades", function (response) {
+            $.each(response, function (index, municipalidad) {
+                var x = JSON.parse(JSON.stringify(municipalidad));
+                var option = document.createElement("option");
+                option.value = x.nombre;
+                option.innerHTML = x.nombre;
+                document.getElementById("muni").appendChild(option);
             });
-        }
-    </script>
-</body>
-</html>
+            var option2 = document.createElement("option");
+            option2.value = "";
+            option2.selected = true;
+            option2.disabled = true;
+            option2.innerHTML = "Seleccione su municipalidad...";
+            document.getElementById("muni").appendChild(option2);
+        });
+    }
+    function mostrarDialogoTwitter() {
+        cb.__call(
+            "oauth_requestToken",
+            { oauth_callback: "oob" },
+            function (reply, rate, err) {
+                if (err) {
+                    console.log("error response or timeout exceeded" + err.error);
+                }
+                if (reply) {
+                    cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                    cb.__call(
+                        "oauth_authorize",
+                        {},
+                        function (auth_url) {
+                            window.codebird_auth = window.open(auth_url);
+                        }
+                    );
+                }
+            }
+        );
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("dialog").style.display = "block";
+    }
+    function ocultarDimmer() { 
+        document.getElementById("dimmer").style.display = "none";
+        document.getElementById("dialog").style.display = "none";
+    }
+</script>
