@@ -22,7 +22,7 @@ namespace cerebro_frontOffice
         public String medida {get; set; }
         [BsonElement]
         [DataMember]
-        public ObjectId imagen { get; set; }
+        public string imagenId { get; set; }
         [DataMember]
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime datetime { get; set; }

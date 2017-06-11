@@ -65,7 +65,7 @@ export class EventoComponent implements OnInit {
 
     enviarImg() {
         $.ajax({
-            url: 'https://www.cerebro-frontoffice.com/api/dispositivos',
+            url: 'https://www.cerebro-frontoffice.com/api/dispositivos/img',
             type: 'POST',
 
             data: new FormData($('form')[0]),
@@ -88,7 +88,24 @@ export class EventoComponent implements OnInit {
                 }
                 return myXhr;
             },
+            success: function (data: any, textStatus: any, xhr: any) {
+                console.log(xhr.responseText);
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://www.cerebro-frontoffice.com/api/dispositivos?dispositivoId=593af1c0e2b13e0268b344ee&tipoDeDato=Texto&medida=holaaaaString&imagenId=" + xhr.responseText,
+                    "method": "POST",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+
+                $.ajax(settings).done(function (response: any) {
+                    console.log(response);
+                });
+            }
         });
+
     }
 
     mostrarStep1() {
