@@ -23,7 +23,7 @@ namespace cerebro_ServiceLayer.Controllers
                 {
                     return Ok(TipoRetorno.OK.ToString());
                 }
-                return InternalServerError();
+                return Ok("false");
             }
             return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
