@@ -5,7 +5,7 @@ CREATE TABLE MUNICIPALIDADES (
 );
 
 CREATE TABLE USUARIOS (
-  email varchar(30) NOT NULL,
+  email varchar(50) NOT NULL,
   nombre_municipalidad varchar(30) NOT NULL,
   nombre varchar(30) NULL,
   password varchar(30) NULL,
@@ -25,7 +25,7 @@ CREATE TABLE PRIVILEGIOS  (
 CREATE TABLE PRIVILEGIOS_USUARIOS  (
   nombre_privilegio varchar(30) NOT NULL,
   nombre_municipalidad_privilegio varchar(30) NOT NULL,
-  usuario_email varchar(30) NOT NULL,
+  usuario_email varchar(50) NOT NULL,
   nombre_municipalidad_usuario varchar(30) NOT NULL,
   PRIMARY KEY (nombre_privilegio, nombre_municipalidad_privilegio, usuario_email, nombre_municipalidad_usuario),
   FOREIGN KEY (nombre_privilegio, nombre_municipalidad_privilegio) REFERENCES PRIVILEGIOS (nombre, nombre_municipalidad),
@@ -42,7 +42,7 @@ CREATE TABLE AGRUPACIONES (
 CREATE TABLE AGRUPACIONES_USUARIOS (
   nombre_agrupacion varchar(30) NOT NULL,
   nombre_municipalidad_agrupacion varchar(30) NOT NULL,
-  usuario_email varchar(30) NOT NULL,
+  usuario_email varchar(50) NOT NULL,
   nombre_municipalidad_usuario varchar(30) NOT NULL,
   admin bit NOT NULL,
   PRIMARY KEY (nombre_agrupacion, nombre_municipalidad_agrupacion, usuario_email, nombre_municipalidad_usuario),

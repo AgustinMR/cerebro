@@ -29,14 +29,17 @@ namespace cerebro_frontOffice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddMvc();
-
             services.AddCors(options =>
             {
-                options.AddPolicy("mypolicy",
-                builder => builder.WithOrigins("*"));
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
             });
+
+            // Add framework services.
+            services.AddMvc();
 
             var connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=cerebroDB;Persist Security Info=True;User ID=sqlserver;Password=sqlserver";
             services.AddDbContext<cerebroDBContext>(options => options.UseSqlServer(connection));
@@ -67,6 +70,8 @@ namespace cerebro_frontOffice
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/home/login")
             });
+
+            app.UseCors("CorsPolicy");
 
             app.UseMvc(routes =>
             {
