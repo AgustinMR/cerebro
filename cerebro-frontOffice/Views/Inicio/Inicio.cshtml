@@ -4,7 +4,7 @@
             //.sidebar('attach events', '.toc.item')
             .sidebar('setting', 'transition', 'overlay')
             .sidebar('setting', 'dimPage', false);
-        $('#menuSidebar').sidebar('attach events', '.toc.item');      
+        $('#menuSidebar').sidebar('attach events', '.toc.item');
         $('.ui.dropdown').dropdown('setting', 'allowAdditions', true);
     });
 </script>
@@ -27,11 +27,12 @@
     <div class="ui horizontal divider"></div>
     <div class="w3-center">
         <i class="info big icon circular inverted active"></i>
-        <h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">Nombre dispositivo</h3>
-        <h4 class="ui text header inverted">10/6/2017 - 15:05</h4>
-        <h4 class="ui text header inverted">TEXTO</h4>
-        <div class="ui horizontal header divider small inverted w3-padding">Contenido</div>
-        <h4 class="ui header text small inverted w3-padding w3-margin">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4>
+        <h3 id="nomDis" class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px"></h3>
+        <h4 id="fechaHoraDis" class="ui text header inverted"></h4>
+        <h4 id="tipoDis" class="ui text header inverted"></h4>
+        <div class="ui horizontal header divider small inverted w3-padding">Ultima medici&oacute;n</div>
+        <h4 id="contenidoDis" class="ui header text small inverted w3-padding w3-margin"></h4>
+        <img id="imgDis" src="" />
     </div>
 </div>
 <div class="pusher" style="background-image:url(images/ub1610v2.jpg); background-attachment:fixed; background-size:cover">
@@ -84,7 +85,7 @@
                                 <div class="ui icon labeled input">
                                     <div class="ui label">Radio:</div>
                                     <input id="radio" type="text" value="1000">
-                                    <i class="inverted circular marker link icon" onclick="dibujarPuntoCerca()"></i>
+                                    <i class="inverted circular marker link icon" onclick="mostrarInfoDispositivo()"></i>
                                 </div>
                             </div>
                         </div>
@@ -124,14 +125,51 @@
                     return feature;
                 });
             if (feature) {
+                document.getElementById("nomDis").innerHTML = "";
+                document.getElementById("fechaHoraDis").innerHTML = "";
+                document.getElementById("tipoDis").innerHTML = "";
+                document.getElementById("contenidoDis").innerHTML = "";
+                document.getElementById("imgDis").src = "";
                 for (var dis of dispositivos) {
                     if (String(dis.ubicacion) === String(feature.getGeometry().getCoordinates())) {
-                        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/datos/" + dis.Id, function (response) { 
-                            //alert(response);
+                        var nombre = dis.nombre;
+                        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/datos/" + dis.Id, function (response) {
+                            if (response != null) {
+                                
+                                document.getElementById("nomDis").innerHTML = nombre;
+
+                                var dateTime = response.datetime.split("T");
+                                var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                                var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                                document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
+                                document.getElementById("tipoDis").innerHTML = response.tipoDeDato;
+                                if (String(response.tipoDeDato) === "Texto" || String(response.tipoDeDato) === "Numerico") {
+                                    document.getElementById("contenidoDis").innerHTML = response.medida;
+                                } else if (String(response.tipoDeDato) === "Imagen") {
+                                    var settings = {
+                                        "async": true,
+                                        "crossDomain": true,
+                                        "url": "https://www.cerebro-servicelayer.com/api/dispositivos/img/" + response.imagenId,
+                                        "method": "GET",
+                                        "headers": {
+                                            "cache-control": "no-cache"
+                                        }
+                                    }
+
+                                    $.ajax(settings).done(function (data) {
+                                        document.getElementById("imgDis").src = "data:image/png;base64," + data;
+                                    });
+                                }
+                                mostrarInfoDispositivo();
+                            } else {
+                                console.log("null");
+                            }
                         });
-                        console.log("ID dispositivo: " + dis.Id);
+                        //console.log("ID dispositivo: " + dis.Id);
                     }
                 }
+            } else {
+                //ocultarInfoDispositivo();
             }
         });
     });
@@ -139,7 +177,7 @@
     function cargarDispositivos() {
         $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muni/" + muni, function (response) {
             dispositivos = response;
-            for (var res in response) { 
+            for (var res in response) {
                 var point_feature = new ol.Feature({});
                 var point_geom = new ol.geom.Point(response[res].ubicacion);
                 point_feature.setGeometry(point_geom);
@@ -162,5 +200,8 @@
     }
     function mostrarInfoDispositivo() {
         $('#infoDispositivo').sidebar('show');
+    }
+    function ocultarInfoDispositivo() {
+        $('#infoDispositivo').sidebar('hide');
     }
 </script>

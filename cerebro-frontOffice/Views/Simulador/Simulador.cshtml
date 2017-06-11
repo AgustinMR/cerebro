@@ -1,11 +1,14 @@
 ﻿<script>
-        $(document).ready(function () {
-            $('.ui.sidebar')
-                .sidebar('attach events', '.toc.item')
-                .sidebar('setting', 'transition', 'overlay')
-                .sidebar('setting', 'dimPage', false);
-            $('.ui.dropdown').dropdown();
-        });
+    var muni = '@User.Claims.ToList()[3].Value';
+    var dispositivos;
+    $(document).ready(function () {
+        $('.ui.sidebar')
+            .sidebar('attach events', '.toc.item')
+            .sidebar('setting', 'transition', 'overlay')
+            .sidebar('setting', 'dimPage', false);
+        $('.ui.dropdown').dropdown();
+        getDispositivosByMunicipalidad();
+    });
 </script>
 <div class="ui sidebar vertical left inverted menu w3-cerebro-blue">
     <div class="w3-center w3-margin-top"><img src="~/images/cerebro.png" style="height: 30px" class="w3-image"></div>
@@ -46,107 +49,57 @@
             </div>
         </div>
     </div>
-    <div class="ui stackable text container w3-padding w3-padding-32" id="main">
-        <div class="ui divided items">
-            <div class="ui item">
-                <div class="ui grey segments" style="width: 100%">
-                    <div class="ui secondary grey segment">
-                        <h4 class="ui header left aligned w3-left" style="margin-top: -10px">Florida</h4>
-                        <h4 class="ui header left aligned w3-left w3-text-cerebro-red" style="margin-top: -10px; margin-left: 7px">Sensor de temperatura</h4>
-                        <button class="ui icon button very small compact w3-right" style="margin-top: -14px; margin-right: -14px"><i class="remove icon w3-text-cerebro-red"></i></button>
-                    </div>
-                    <div class="ui segment">
-                        <div class="ui labeled input">
-                            <div class="ui label">Desde:</div>
-                            <input placeholder="datos comenzando..." type="text">
-                        </div>
-                        <h4 class="ui vertical divider text header">Datos a enviar</h4>
-                        <div class="ui labeled w3-right input">
-                            <div class="ui label">Hasta:</div>
-                            <input placeholder="datos hasta..." type="text">
-                        </div>
-                    </div>
-                    <div class="ui right aligned segment">
-                        <div class="ui right labeled input w3-left">
-                            <div class="ui label">Intervalo:</div>
-                            <input placeholder="Invervalo entre env&iacute;o..." type="number" min="1">
-                            <div class="ui basic label">seg.</div>
-                        </div>
-                        <div class="ui inverted icon buttons">
-                            <button class="ui button"><i class="play green icon"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui item">
-                <div class="ui grey segments" style="width: 100%">
-                    <div class="ui secondary grey segment">
-                        <h4 class="ui header left aligned w3-left" style="margin-top: -10px">Florida</h4>
-                        <h4 class="ui header left aligned w3-left w3-text-cerebro-red" style="margin-top: -10px; margin-left: 7px">Sensor de algo que envie texto</h4>
-                        <button class="ui icon button very small compact w3-right" style="margin-top: -14px; margin-right: -14px"><i class="remove icon w3-text-cerebro-red"></i></button>
-                    </div>
-                    <div class="ui segment">
-                        <h4 class="ui horizontal divider text header">Datos a enviar</h4>
-                        <div class="field">
-                            <div class="ui slider checkbox">
-                                <input name="throughput" checked="checked" type="radio">
-                                <label>Texto ingresado</label>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="ui slider checkbox">
-                                <input name="throughput" type="radio">
-                                <label>Texto aleatorio con palabras claves</label>
-                            </div>
-                        </div>
-                        <div class="ui labeled input fluid w3-margin-top">
-                            <div class="ui label">Texto:</div>
-                            <input placeholder="texto a ser enviado por el dispositivo simulado..." type="text">
-                        </div>
-                        <select class="ui dropdown search fluid w3-margin-top" multiple="">
-                            <option value="" selected disabled></option>
-                        </select>
-                    </div>
-                    <div class="ui right aligned segment">
-                        <div class="ui right labeled input w3-left">
-                            <div class="ui label">Intervalo:</div>
-                            <input placeholder="Tiempo entre envio..." type="number" min="1">
-                            <div class="ui basic label">seg.</div>
-                        </div>
-                        <div class="ui inverted icon buttons">
-                            <button class="ui toggle button"><i class="play green icon"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui item">
-                <div class="ui grey segments" style="width: 100%">
-                    <div class="ui secondary grey segment">
-                        <h4 class="ui header left aligned w3-left" style="margin-top: -10px">Florida</h4>
-                        <h4 class="ui header left aligned w3-left w3-text-cerebro-red" style="margin-top: -10px; margin-left: 7px">Sensor de algo que envie alguna imagen</h4>
-                        <button class="ui icon button very small compact w3-right" style="margin-top: -14px; margin-right: -14px"><i class="remove icon w3-text-cerebro-red"></i></button>
-                    </div>
-                    <div class="ui segment">
-                        <h4 class="ui horizontal divider text header">imagenes a enviar</h4>
-                        <span class="ui horizontal divider"><i class="ui circular add green link icon"></i></span>
-                        <div class="ui middle aligned divided list">
-                            <div class="item">
-                                <div class="ui transparent input"><input type="file"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui right aligned segment">
-                        <div class="ui right labeled input w3-left">
-                            <div class="ui label">Intervalo:</div>
-                            <input placeholder="Tiempo entre envio..." type="number" min="1">
-                            <div class="ui basic label">seg.</div>
-                        </div>
-                        <div class="ui inverted icon buttons">
-                            <button class="ui toggle button"><i class="play green icon"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="ui stackable text container w3-padding w3-padding-32">
+        <div class="active section">
+            <h4 class="ui text header w3-text-silver">Seleccione dispositivo a ingresar: </h4>
+            <select class="ui dropdown" id="dispositivosList">
+                <option value="" selected disabled>Seleccione dispositivo a agregar...</option>
+            </select>
+            <button class="ui icon button w3-margin-left" onClick="addDispositivo()"><i class="add icon green"></i></button>
+        </div>
+
+        <div class="ui divided items" id="main">
+            
         </div>
     </div>
 </div>
+<script>
+    function getDispositivosByMunicipalidad() {
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muni/" + muni, function (data) {
+            if (data !== undefined) {
+                dispositivos = data;
+                while (document.getElementById("dispositivosList").firstChild) {
+                    document.getElementById("dispositivosList").removeChild(document.getElementById("dispositivosList").firstChild);
+                }
+                $.each(data, function (index, dispositivo) {
+                    var option = document.createElement("option");
+                    option.value = dispositivo.Id;
+                    option.innerHTML = dispositivo.nombre;
+                    document.getElementById("dispositivosList").appendChild(option);
+                });
+            }
+        });
+    }
+
+    function addDispositivo() {
+        var id = document.getElementById("dispositivosList").value;
+        //console.log(id);
+        if (dispositivos !== undefined && id !== undefined) {
+            $.each(dispositivos, function (index, x) {
+                if (x.Id === id) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/tipos/" + x.tipo, function (tipo) {
+                        if (tipo !== undefined) {
+                            if (tipo.tipo === 0) { //texto
+                                newDispositivoTexto(x, "tipo", x.Id);
+                            } else if (tipo.tipo === 1) { //numerico
+                                newDispositivoNumerico(x, "tipo", x.Id);
+                            } else if (tipo.tipo === 2) { //imagen
+                                newDispositivoImagen(x, "tipo", x.Id)
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+</script>
