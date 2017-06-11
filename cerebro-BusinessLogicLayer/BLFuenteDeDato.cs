@@ -52,5 +52,10 @@ namespace cerebro_BusinessLogicLayer
         {
             return dal.getDatosDispositivo(id);
         }
+
+        public byte[] getImg(string id)
+        {
+            return dal.getImg(id);
+        }
     }
 }

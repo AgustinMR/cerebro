@@ -86,5 +86,12 @@ namespace cerebro_ServiceLayer.Controllers
         {
             return new BLFuenteDeDato().getDatosDispositivo(id);
         }
+
+        [HttpGet]
+        [Route("img/{id}")]
+        public byte[] getImg(string id)
+        {
+            return new BLFuenteDeDato().getImg(id);
+        }
     }
 }

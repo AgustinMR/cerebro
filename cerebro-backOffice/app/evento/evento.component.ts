@@ -93,7 +93,7 @@ export class EventoComponent implements OnInit {
                 var settings = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "https://www.cerebro-frontoffice.com/api/dispositivos?dispositivoId=593af1c0e2b13e0268b344ee&tipoDeDato=Texto&medida=holaaaaString&imagenId=" + xhr.responseText,
+                    "url": "https://www.cerebro-frontoffice.com/api/dispositivos?dispositivoId=593af183e2b13e0268b344ec&tipoDeDato=Imagen&medida=holaaaaString&imagenId=" + xhr.responseText,
                     "method": "POST",
                     "headers": {
                         "cache-control": "no-cache"

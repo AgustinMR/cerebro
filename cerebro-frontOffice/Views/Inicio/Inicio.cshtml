@@ -32,7 +32,7 @@
         <h4 id="tipoDis" class="ui text header inverted"></h4>
         <div class="ui horizontal header divider small inverted w3-padding">Ultima medici&oacute;n</div>
         <h4 id="contenidoDis" class="ui header text small inverted w3-padding w3-margin"></h4>
-        <i id="imgDis"></i>
+        <img id="imgDis" src="" />
     </div>
 </div>
 <div class="pusher" style="background-image:url(images/ub1610v2.jpg); background-attachment:fixed; background-size:cover">
@@ -125,13 +125,18 @@
                     return feature;
                 });
             if (feature) {
+                document.getElementById("nomDis").innerHTML = "";
+                document.getElementById("fechaHoraDis").innerHTML = "";
+                document.getElementById("tipoDis").innerHTML = "";
+                document.getElementById("contenidoDis").innerHTML = "";
+                document.getElementById("imgDis").src = "";
                 for (var dis of dispositivos) {
                     if (String(dis.ubicacion) === String(feature.getGeometry().getCoordinates())) {
-                        var nombre = "";
+                        var nombre = dis.nombre;
                         $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/datos/" + dis.Id, function (response) {
                             if (response != null) {
-                                //alert(response);
-                                document.getElementById("nomDis").innerHTML = dis.nombre;
+                                
+                                document.getElementById("nomDis").innerHTML = nombre;
 
                                 var dateTime = response.datetime.split("T");
                                 var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
@@ -141,8 +146,19 @@
                                 if (String(response.tipoDeDato) === "Texto" || String(response.tipoDeDato) === "Numerico") {
                                     document.getElementById("contenidoDis").innerHTML = response.medida;
                                 } else if (String(response.tipoDeDato) === "Imagen") {
+                                    var settings = {
+                                        "async": true,
+                                        "crossDomain": true,
+                                        "url": "https://www.cerebro-servicelayer.com/api/dispositivos/img/" + response.imagenId,
+                                        "method": "GET",
+                                        "headers": {
+                                            "cache-control": "no-cache"
+                                        }
+                                    }
 
-                                    //document.getElementById("imgDis").innerHTML =
+                                    $.ajax(settings).done(function (data) {
+                                        document.getElementById("imgDis").src = "data:image/png;base64," + data;
+                                    });
                                 }
                                 mostrarInfoDispositivo();
                             } else {
@@ -152,7 +168,7 @@
                         //console.log("ID dispositivo: " + dis.Id);
                     }
                 }
-            } else { 
+            } else {
                 //ocultarInfoDispositivo();
             }
         });

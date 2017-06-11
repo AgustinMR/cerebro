@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using cerebro;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.IO;
+using MongoDB.Driver.GridFS;
 
 namespace cerebro_DataAccessLayer
 {
@@ -79,6 +81,21 @@ namespace cerebro_DataAccessLayer
             var mongo = new MongoClient();
             var bd = mongo.GetDatabase("cerebroDB");
             return bd.GetCollection<DatosDispositivo>("DatosDispositivo").Find(e => e.dispositivoId == id).FirstOrDefault();
+        }
+
+        public byte[] getImg(string id)
+        {
+            var mongo = new MongoClient();
+            IMongoDatabase db = mongo.GetDatabase("cerebroDB"); ;
+
+            var bucket = new GridFSBucket(db, new GridFSBucketOptions
+            {
+                BucketName = "Imagenes",
+                ChunkSizeBytes = 1048576,
+                WriteConcern = WriteConcern.WMajority
+            });
+
+            return bucket.DownloadAsBytes(ObjectId.Parse(id));
         }
     }
 }

@@ -13,5 +13,6 @@ namespace cerebro_BusinessLogicLayer
         List<FuenteDeDato> getAllFuenteDeDato();
         List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni);
         DatosDispositivo getDatosDispositivo(string id);
+        byte[] getImg(string id);
     }
 }

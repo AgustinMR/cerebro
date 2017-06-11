@@ -19,7 +19,7 @@ namespace cerebro_frontOffice
         public string tipoDeDato { get; set; }
         [BsonElement]
         [DataMember]
-        public String medida {get; set; }
+        public string medida {get; set; }
         [BsonElement]
         [DataMember]
         public string imagenId { get; set; }
