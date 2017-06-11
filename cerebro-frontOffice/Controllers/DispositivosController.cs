@@ -13,8 +13,8 @@ using System.IO;
 
 namespace cerebro_frontOffice.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/dispositivos")]
-    [EnableCors("mypolicy")]
     public class DispositivosController : Controller
     {
         [HttpPost]
@@ -28,7 +28,7 @@ namespace cerebro_frontOffice.Controllers
                 source = memoryStream.ToArray();
             }
             var mongo = new MongoClient();
-            IMongoDatabase db = mongo.GetDatabase("cerebroDB");
+            IMongoDatabase db = mongo.GetDatabase("test");
 
             var bucket = new GridFSBucket(db, new GridFSBucketOptions
             {
