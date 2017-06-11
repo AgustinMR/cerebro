@@ -19,10 +19,10 @@ namespace cerebro_frontOffice
         public string tipoDeDato { get; set; }
         [BsonElement]
         [DataMember]
-        public String medida {get; set; }
+        public string medida {get; set; }
         [BsonElement]
         [DataMember]
-        public ObjectId imagen { get; set; }
+        public string imagenId { get; set; }
         [DataMember]
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime datetime { get; set; }

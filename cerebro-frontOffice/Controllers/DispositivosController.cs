@@ -18,7 +18,7 @@ namespace cerebro_frontOffice.Controllers
     public class DispositivosController : Controller
     {
         [HttpPost]
-        [Route("")]
+        [Route("img")]
         public IActionResult Trigger(IFormFile files)
         {
             byte[] source;
@@ -28,7 +28,7 @@ namespace cerebro_frontOffice.Controllers
                 source = memoryStream.ToArray();
             }
             var mongo = new MongoClient();
-            IMongoDatabase db = mongo.GetDatabase("test");
+            IMongoDatabase db = mongo.GetDatabase("cerebroDB");
 
             var bucket = new GridFSBucket(db, new GridFSBucketOptions
             {
@@ -38,10 +38,18 @@ namespace cerebro_frontOffice.Controllers
             });
 
             ObjectId id = bucket.UploadFromBytes(files.FileName, source);
+            return Ok(id.ToString());
+        }
 
-            //var eventos = bd.GetCollection<DatosDispositivo>("DatosDispositivo");
-            //eventos.InsertOne(datos);
-            return Ok(id);
+        [HttpPost]
+        [Route("")]
+        public IActionResult Datos(DatosDispositivo datos)
+        {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            var eventos = bd.GetCollection<DatosDispositivo>("DatosDispositivo");
+            eventos.InsertOne(datos);
+            return Ok("OK");
         }
 
         //private async void tmp() {
