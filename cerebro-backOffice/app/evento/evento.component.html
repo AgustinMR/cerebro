@@ -69,8 +69,12 @@
                             <option value="">Seleccione un dispositivo...</option>
                             <option *ngFor="let dis of dispositivos" value="{{dis.Id}}"> {{dis.nombre}} </option>
                         </select>
-                        <input type="file" id="files" multiple />
+
+                        <form enctype="multipart/form-data">
+                            <input name="files" type="file" />
+                        </form>
                         <button (click)="enviarImg()">Hola</button>
+
                         <div class="ui labeled fluid input w3-margin-top">
                             <div class="ui label w3-text-cerebro-red">Tipo de datos que envia:</div>
                             <label id="tipoDatoDis">Texto</label>

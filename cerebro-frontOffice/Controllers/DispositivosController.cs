@@ -13,8 +13,8 @@ using System.IO;
 
 namespace cerebro_frontOffice.Controllers
 {
-    [EnableCors("CorsPolicy")]
     [Route("api/dispositivos")]
+    [EnableCors("CorsPolicy")]
     public class DispositivosController : Controller
     {
         [HttpPost]
