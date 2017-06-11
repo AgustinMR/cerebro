@@ -1,12 +1,14 @@
 ﻿<script>
-      $(document).ready(function () {
-          blurBackground();
-          $('.ui.sidebar').sidebar('attach events', '.toc.item');
-          $('.ui.embed').embed();
-      });
+    $(document).ready(function () {
+        blurBackground();
+        $('.ui.sidebar').sidebar('attach events', '.toc.item');
+        $('.ui.embed').embed();
+    });
+    document.getElementById("codigoPin").value = "";
 </script>
 <div class="ui inverted vertical center aligned w3-display-container w3-cerebro-blue">
     <div class="ui active page dimmer" style="display: none" id="dimmer">
+        <div class="ui text loader big" id="loading" style="display: none">Por favor espere...</div>
         <div class="w3-display-middle" id="dialog" style="display: none">
             <h2 class="ui header text inverted">Ingrese PIN verificador entregado por Twitter:</h2>
             <div class="ui labeled input w3-margin">
@@ -19,7 +21,7 @@
         <div class="w3-display-middle" id="exito" style="display: none">
             <h1 class="ui header text inverted">Registro completado con exito!</h1>
             <h3 class="ui header text inverted horizontal divider">Ser&aacute;s llevado a la p&aacute;gina de inicio de sesi&oacute;n</h3>
-            <button class="ui circular green huge icon button inverted" onclick="ocultarDimmer()"><i class="checkmark icon"></i></button>
+            <button class="ui circular green huge icon button inverted" onclick="ocultarDimmerConLogin()"><i class="checkmark icon"></i></button>
         </div>
         <div class="w3-display-middle" id="error" style="display: none">
             <h1 class="ui header text inverted">Ha ocurrido un error, por favor vuelve a intentar...</h1>
@@ -163,30 +165,39 @@
         </div>
     </div>
 </div>
+<form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" id="form" role="form" style="display:none">
+    <input name="email" id="emailLogin" type="text" required>
+    <input name="pass" id="passLogin" type="password" required>
+    <input name="muni" id="muniLogin" type="password" required>
+</form>
 <script>
     window.fbAsyncInit = function () {
         FB.init({ appId: '623498791182427', cookie: true, xfbml: true, version: 'v2.8' });
     };
-    //$('input[type=checkbox]').removeAttr('checked');
     function registrarFacebook() {
         FB.login(function (response) {
             if (response.status === 'connected') {
                 FB.api('/me', 'GET', { "fields": "id,name,email" }, function (user) {
-                    //window.location = "https://www.cerebro-frontOffice.com/inicio?user=" + user.email;
                     var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
                     var municipalidad = muniL[0].toUpperCase();
                     for (var h = 1; h < muniL.length; h++) {
                         municipalidad += muniL[h];
                     }
                     if (municipalidad !== undefined && municipalidad !== "") {
+                        mostrarMensajeLoading();
                         var postInfo = "email=" + user.email + "&nombre_municipalidad=" + municipalidad + "&nombre=" + user.name;
-                        $.post("https://www.cerebro-serviceLayer.com/api/usuarios/visitante?" + postInfo, function (response) { 
+                        $.post("https://www.cerebro-serviceLayer.com/api/usuarios/visitante?" + postInfo, function (response) {
                             if (response == "OK") {
+                                document.getElementById("emailLogin").value = user.email;
+                                document.getElementById("passLogin").value = "";
+                                document.getElementById("muniLogin").value = municipalidad;
                                 mostrarMensajeExito();
                             }
                             else {
                                 mostrarMensajeError();
                             }
+                        }).fail(function (response) {
+                            mostrarMensajeError();
                         });
                     }
                 }
@@ -198,6 +209,7 @@
     var cb = new Codebird;
     cb.setConsumerKey("dez0wzcNcfJLc0DySfLJDKGwL", "fof6aJ0u9yvektL4TJpXQnzyrtMEEZLZj47sdQJzItO3HiRWZn");
     function registrarTwitter() {
+        document.getElementById("codigoPin").value = "";
         cb.__call(
             "oauth_requestToken",
             { oauth_callback: "oob" },
@@ -221,17 +233,47 @@
         document.getElementById("dialog").style.display = "block";
     }
     function terminarRegistroTwitter() {
-        if (document.getElementById("codigoPin").value !== ""){ 
+        if (document.getElementById("codigoPin").value !== "") {
             cb.__call(
                 "oauth_accessToken",
                 { oauth_verifier: document.getElementById("codigoPin").value },
                 function (reply, rate, err) {
                     if (err) {
-                        console.log("error response or timeout exceeded" + err.error);
+                        mostrarMensajeError();
                     }
                     if (reply) {
-                        // store the authenticated token, which may be different from the request token (!)
                         cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                        cb.__call(
+                            "account_verifyCredentials",
+                            {},
+                            function (reply) {
+                                var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
+                                var municipalidad = muniL[0].toUpperCase();
+                                for (var h = 1; h < muniL.length; h++) {
+                                    municipalidad += muniL[h];
+                                }
+                                if (municipalidad !== undefined && municipalidad !== "") {
+                                    mostrarMensajeLoading();
+                                    var postInfo = "email=" + reply.screen_name + "&nombre_municipalidad=" + municipalidad + "&nombre=" + reply.name;
+                                    $.post("https://www.cerebro-serviceLayer.com/api/usuarios/visitante?" + postInfo, function (response) {
+                                        if (response == "OK") {
+                                            document.getElementById("emailLogin").value = reply.screen_name;
+                                            document.getElementById("passLogin").value = "";
+                                            document.getElementById("muniLogin").value = municipalidad;
+                                            document.getElementById("codigoPin").value = "";
+                                            mostrarMensajeExito();
+                                        }
+                                        else {
+                                            mostrarMensajeError();
+                                            document.getElementById("codigoPin").value = "";
+                                        }
+                                    }).fail(function (response) {
+                                        mostrarMensajeError();
+                                        document.getElementById("codigoPin").value = "";
+                                    });
+                                }
+                            }
+                        );
                     }
                 }
             );
@@ -242,6 +284,7 @@
         document.getElementById("exito").style.display = "block";
         document.getElementById("error").style.display = "none";
         document.getElementById("dialog").style.display = "none";
+        document.getElementById("loading").style.display = "none";
     }
 
     function mostrarMensajeError() {
@@ -249,12 +292,30 @@
         document.getElementById("exito").style.display = "none";
         document.getElementById("error").style.display = "block";
         document.getElementById("dialog").style.display = "none";
+        document.getElementById("loading").style.display = "none";
     }
 
-    function ocultarDimmer() { 
+    function mostrarMensajeLoading() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dialog").style.display = "none";
+        document.getElementById("loading").style.display = "block";
+    }
+
+    function ocultarDimmer() {
         document.getElementById("dimmer").style.display = "none";
         document.getElementById("dialog").style.display = "none";
         document.getElementById("exito").style.display = "none";
         document.getElementById("error").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+    }
+    function ocultarDimmerConLogin() { 
+        document.getElementById("dimmer").style.display = "none";
+        document.getElementById("dialog").style.display = "none";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("form").submit();
     }
 </script>
