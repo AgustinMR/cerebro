@@ -6,6 +6,7 @@
             .sidebar('attach events', '.toc.item')
             .sidebar('setting', 'transition', 'overlay')
             .sidebar('setting', 'dimPage', false);
+        $('.ui.dropdown').dropdown();
         getDispositivosByMunicipalidad();
     });
 </script>
@@ -93,7 +94,7 @@
                             } else if (tipo.tipo === 1) { //numerico
                                 newDispositivoNumerico(x);
                             } else if (tipo.tipo === 2) { //imagen
-                                //newDispositivoImagen(x)
+                                newDispositivoImagen(x);
                             }
                         }
                     });
