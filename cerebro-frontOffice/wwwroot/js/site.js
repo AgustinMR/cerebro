@@ -19,65 +19,145 @@ function toggleTipoUsuario() {
 var sim = [];
 var env = [];
 
-function sendNum(id, frec, web) {
+function sendNum(id, frec, web, nombre) {
     for (i = 0; i < sim.length; i++) {
         if (sim[i] === id) {
             setTimeout(function () {
-                console.log("Id: " + id + "," + frec + "," + web);
-                var medida = 0;
-                if (document.getElementById("desde" + id).value !== "" && document.getElementById("hasta" + id).value !== "") {
-                    try {
-                        var max = Number(document.getElementById("hasta" + id).value) + 1;
-                        var min = Number(document.getElementById("desde" + id).value);
-                        var tmp = Math.floor(Math.random() * (max - min));
-                        medida = tmp + min;
+                try {
+                    //console.log("Id: " + id + "," + frec + "," + web);
+                    var medida = 0;
+                    if (document.getElementById("desde" + id).value !== "" && document.getElementById("hasta" + id).value !== "") {
+                        try {
+                            var max = Number(document.getElementById("hasta" + id).value) + 1;
+                            var min = Number(document.getElementById("desde" + id).value);
+                            var tmp = Math.floor(Math.random() * (max - min));
+                            medida = tmp + min;
+                        }
+                        catch (err) {
+                            console.log("Input error");
+                        }
+                    } else {
+                        medida = Math.floor((Math.random() * 100) + 1);
                     }
-                    catch (err) {
-                        console.log("Input error");
-                    }
-                } else {
-                    medida = Math.floor((Math.random() * 100) + 1);
+                    //alert(medida);
+                    $.post("https://www.cerebro-frontOffice.com/api/dispositivos?dispositivoId=" + id + "&nombre=" + nombre + "&tipoDeDato=Numerico&medida=" + medida + "&imagenId=", function (res) {
+                        console.log(res);
+                    });
+                    sendNum(id, frec, web, nombre);
                 }
-                //alert(medida);
-                $.post("https://www.cerebro-frontOffice.com/api/dispositivos?dispositivoId=" + id + "&tipoDeDato=Numerico&medida=" + medida + "&imagenId=", function (res) {
-                    //alert(res);
-                });
-                sendNum(id, frec, web, tipo);
+                catch (err) {
+                    console.log("Div borrado");
+                }
             }, frec * 1000);
         }
     }
 }
 
-function sendTxt(id, frec, web) {
+function sendTxt(id, frec, web, nombre) {
     for (i = 0; i < sim.length; i++) {
         if (sim[i] === id) {
             setTimeout(function () {
-                console.log("Id: " + id + "," + frec + "," + web);
-                alert(document.getElementById("select" + id).value);
-                //var medida = 0;
-                //if (document.getElementById("desde" + id).value !== "" && document.getElementById("hasta" + id).value !== "") {
-                //    try {
-                //        var max = Number(document.getElementById("hasta" + id).value) + 1;
-                //        var min = Number(document.getElementById("desde" + id).value);
-                //        var tmp = Math.floor(Math.random() * (max - min));
-                //        medida = tmp + min;
-                //    }
-                //    catch (err) {
-                //        console.log("Input error");
-                //    }
-                //} else {
-                //    medida = Math.floor((Math.random() * 100) + 1);
-                //}
-                ////alert(medida);
-                //$.post("https://www.cerebro-frontOffice.com/api/dispositivos?dispositivoId=" + id + "&tipoDeDato=Numerico&medida=" + medida + "&imagenId=", function (res) {
-                //    //alert(res);
-                //});
-                //sendNum(id, frec, web, tipo);
+                try {
+                    //console.log("Id: " + id + "," + frec + "," + web);
+                    var e = $('#select' + id).dropdown("get value");
+                    var medida = "Ok";
+                    if (document.getElementById("radio1" + id).checked && e.length > 1) {
+                        var max = (e.length - 1);
+                        medida = e[Math.floor(Math.random() * (max))];
+                    } else if (document.getElementById("radio2" + id).checked && document.getElementById("texto" + id).value != "") {
+                        medida = document.getElementById("texto" + id).value;
+                    } else {
+                        console.log("Debe ingresar al menos una palabra");
+                    }
+                    //alert(medida);
+                    $.post("https://www.cerebro-frontOffice.com/api/dispositivos?dispositivoId=" + id + "&nombre=" + nombre + "&tipoDeDato=Texto&medida=" + medida + "&imagenId=", function (res) {
+                        console.log(res);
+                    });
+                    sendTxt(id, frec, web, nombre);
+                }
+                catch (err) {
+                    console.log("Div borrado");
+                }
             }, frec * 1000);
         }
     }
-    //alert("txt");
 }
+
+function sendImg(id, frec, web, nombre) {
+    for (i = 0; i < sim.length; i++) {
+        if (sim[i] === id) {
+            setTimeout(function () {
+                try {
+                    console.log("Id: " + id + "," + frec + "," + web);
+                    var archivo = document.getElementById("imgs" + id).files;
+                    if (archivo.length !== 0) {
+                        //var archivoR = archivo[Math.floor(Math.random() * (archivo.length))];
+
+                        alert(jQuery('#imgs' + id)[0].files[0].name);
+                        //var data = new FormData();
+                        //jQuery.each(jQuery('#imgs' + id)[0].files, function (i, file) {
+                            
+                        //    alert(i);
+                        //    data.append('file-' + i, file);
+                        //});
+                        //alert(archivoR.name);
+                        jQuery.ajax({
+                            url: 'https://www.cerebro-frontOffice.com/api/dispositivos/img',
+                            data: new FormData($('#imgs' + id)[0]),
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            type: 'POST',
+                            success: function (data) {
+                                alert(data);
+                            }
+                        });
+                        //$.ajax({
+                        //    url: 'https://www.cerebro-frontOffice.com/api/dispositivos/img',
+                        //    type: 'POST',
+
+                        //    data: data,
+
+                        //    cache: false,
+                        //    contentType: false,
+                        //    processData: false,
+
+                        //    xhr: function () {
+                        //        var myXhr = $.ajaxSettings.xhr();
+                        //        if (myXhr.upload) {
+                        //            myXhr.upload.addEventListener('progress', function (e) {
+                        //                if (e.lengthComputable) {
+                        //                    $('progress').attr({
+                        //                        value: e.loaded,
+                        //                        max: e.total,
+                        //                    });
+                        //                }
+                        //            }, false);
+                        //        }
+                        //        return myXhr;
+                        //    },
+                        //    success: function (data, textStatus, xhr) {
+                        //        var imgID = xhr.responseText;
+                        //        console.log(xhr.responseText);
+                        //        var medida = 0;
+                        //        medida = Math.floor((Math.random() * 100) + 1);
+                        //        //alert(medida);
+                        //        //$.post("https://www.cerebro-frontOffice.com/api/dispositivos?dispositivoId=" + id + "&nombre=" + nombre + "&tipoDeDato=Imagen&medida=" + medida + "&imagenId=" + imgID, function (res) {
+                        //        //    console.log(res);
+                        //        //});
+                        //        sendImg(id, frec, web, nombre);
+                        //    }
+                        //});
+                    }
+                }
+                catch (err) {
+                    console.log("Div borrado" + err);
+                }
+            }, frec * 1000);
+        }
+    }
+}
+
 
 function newDispositivoNumerico(dispositivo) {
     "use strict";
@@ -94,6 +174,7 @@ function newDispositivoNumerico(dispositivo) {
             if (res !== null) {
                 var frec = res.frecuenciaLectura;
                 var web = res.uriWebService;
+                var nombre = dispositivo.nombre;
 
                 var segments = document.createElement("div");
                 segments.className = "ui segments";
@@ -180,7 +261,7 @@ function newDispositivoNumerico(dispositivo) {
                     }
                     if (t) {
                         env[env.length] = dispositivo.Id;
-                        sendNum(dispositivo.Id, frec, web);
+                        sendNum(dispositivo.Id, frec, web, nombre);
                     }
                 });
                 var iPlay = document.createElement("i");
@@ -212,6 +293,7 @@ function newDispositivoTexto(dispositivo) {
             if (res !== null) {
                 var frec = res.frecuenciaLectura;
                 var web = res.uriWebService;
+                var nombre = dispositivo.nombre;
 
                 var segments = document.createElement("div");
                 segments.className = "ui segments";
@@ -265,6 +347,7 @@ function newDispositivoTexto(dispositivo) {
                 divCheck1.className = "ui slider checkbox";
                 var input1 = document.createElement("input");
                 input1.name = "radio" + dispositivo.Id;
+                input1.id = "radio1" + dispositivo.Id;
                 input1.checked = "checked";
                 input1.type = "radio";
                 divCheck1.appendChild(input1);
@@ -278,6 +361,7 @@ function newDispositivoTexto(dispositivo) {
                 divCheck2.className = "ui slider checkbox";
                 var input2 = document.createElement("input");
                 input2.name = "radio" + dispositivo.Id;
+                input2.id = "radio2" + dispositivo.Id;
                 input2.type = "radio";
                 divCheck2.appendChild(input2);
                 var label2 = document.createElement("label");
@@ -291,15 +375,17 @@ function newDispositivoTexto(dispositivo) {
                 label3.innerHTML = "Texto:";
                 var input3 = document.createElement("input");
                 input3.type = "text";
+                input3.id = "texto" + dispositivo.Id;
                 input3.placeholder = "texto a ser enviado por el dispositivo simulado...";
                 divInput.appendChild(label3);
                 divInput.appendChild(input3);
                 var select = document.createElement("select");
                 select.id = "select" + dispositivo.Id;
-                select.className = "ui dropdown search fluid w3-margin-top multiple";
+                select.className = "ui dropdown search fluid w3-margin-top";
+                select.multiple = true;
                 var option = document.createElement("option");
                 option.value = "";
-                option.innerHTML = "palabras claves a ser enviadas junto con texto aleatorio...";
+                option.innerHTML = "palabras o frases a ser enviadas aleatoreamente...";
                 option.selected = "true";
                 option.disabled = "true";
                 select.appendChild(option);
@@ -322,7 +408,7 @@ function newDispositivoTexto(dispositivo) {
                     }
                     if (t) {
                         env[env.length] = dispositivo.Id;
-                        sendTxt(dispositivo.Id, frec, web);
+                        sendTxt(dispositivo.Id, frec, web, nombre);
                     }
                 });
                 var iPlay = document.createElement("i");
@@ -343,67 +429,118 @@ function newDispositivoTexto(dispositivo) {
 
 function newDispositivoImagen(dispositivo, tipo, x) {
     "use strict";
-    var segments = document.createElement("div");
-    segments.className = "ui segments";
-    segments.id = "dispositivo" + x;
-    var segment1 = document.createElement("div");
-    segment1.className = "ui secondary grey segment";
-    var segment2 = document.createElement("div");
-    segment2.className = "ui segment";
-    var segment3 = document.createElement("div");
-    segment3.className = "ui right aligned segment";
-    // ****************** segment 1 **********************//
-    var h4_1 = document.createElement("h4");
-    h4_1.className = "ui left aligned header w3-left";
-    h4_1.style.marginTop = "-10px";
-    h4_1.innerHTML = dispositivo.municipalidad;
-    var h4_2 = document.createElement("h4");
-    h4_2.className = "ui left aligned header w3-left w3-text-cerebro-red";
-    h4_2.style.marginTop = "-10px";
-    h4_2.style.marginLeft = "7px";
-    h4_2.innerHTML = dispositivo.nombre;
-    var button = document.createElement("button");
-    button.className = "ui icon button very small compact w3-right";
-    button.style.marginTop = "-14px";
-    button.style.marginRight = "-14px";
-    button.addEventListener("click", function () {
-        document.getElementById("main").removeChild(segments);
-    });
-    var i1 = document.createElement("i");
-    i1.className = "remove icon w3-text-cerebro-red";
-    button.appendChild(i1);
-    segment1.appendChild(h4_1);
-    segment1.appendChild(h4_2);
-    segment1.appendChild(button);
-    // ****************** segment 2 **********************//
-    var h4_3 = document.createElement("h4");
-    h4_3.className = "ui horizontal divider text header";
-    h4_3.innerHTML = "Imagenes a enviar";
-    var span = document.createElement("span");
-    span.className = "ui horizontal divider";
-    var i = document.createElement("i");
-    i.className = "ui circular add green link icon";
-    span.appendChild(i);
-    var list = document.createElement("div");
-    list.className = "ui middle aligned divided list";
-    segment2.appendChild(h4_3);
-    segment2.appendChild(span);
-    segment2.appendChild(list);
-    //****************** segment 3 **********************//
-    var divPlay = document.createElement("div");
-    divPlay.className = "ui inverted icon buttons";
-    var play = document.createElement("button");
-    play.className = "ui button";
-    play.addEventListener("click", function () {
-        sendNum(dispositivo.Id);
-    });
-    var iPlay = document.createElement("i");
-    iPlay.className = "play green icon";
-    play.appendChild(iPlay);
-    divPlay.appendChild(play);
-    segment3.appendChild(divPlay);
-    segments.appendChild(segment1);
-    segments.appendChild(segment2);
-    segments.appendChild(segment3);
-    document.getElementById("main").insertBefore(segments, document.getElementById("main").firstChild);
+    var bool = true;
+    for (var i = 0; i < sim.length; i++) {
+        if (sim[i] === dispositivo.Id) {
+            bool = false;
+        }
+    }
+
+    if (bool) {
+        sim[sim.length] = dispositivo.Id;
+        $.get("https://www.cerebro-serviceLayer.com/api/tipos/" + dispositivo.tipo, function (res) {
+            if (res !== null) {
+                var frec = res.frecuenciaLectura;
+                var web = res.uriWebService;
+                var nombre = dispositivo.nombre;
+
+                var segments = document.createElement("div");
+                segments.className = "ui segments";
+                segments.id = "dispositivo" + dispositivo.Id;
+                var segment1 = document.createElement("div");
+                segment1.className = "ui secondary grey segment";
+                var segment2 = document.createElement("div");
+                segment2.className = "ui segment";
+                var segment3 = document.createElement("div");
+                segment3.className = "ui right aligned segment";
+                // ****************** segment 1 **********************//
+                var h4_1 = document.createElement("h4");
+                h4_1.className = "ui left aligned header w3-left";
+                h4_1.style.marginTop = "-10px";
+                h4_1.innerHTML = dispositivo.municipalidad;
+                var h4_2 = document.createElement("h4");
+                h4_2.className = "ui left aligned header w3-left w3-text-cerebro-red";
+                h4_2.style.marginTop = "-10px";
+                h4_2.style.marginLeft = "7px";
+                h4_2.innerHTML = dispositivo.nombre;
+                var button = document.createElement("button");
+                button.className = "ui icon button very small compact w3-right";
+                button.style.marginTop = "-14px";
+                button.style.marginRight = "-14px";
+                button.addEventListener("click", function () {
+                    for (var h = 0; h < sim.length; h++) {
+                        if (sim[h] === dispositivo.Id) {
+                            sim[h] = 0;
+                        }
+                    }
+                    for (var f = 0; f < env.length; f++) {
+                        if (env[f] === dispositivo.Id) {
+                            env[f] = 0;
+                        }
+                    }
+                    document.getElementById("main").removeChild(segments);
+                });
+                var i1 = document.createElement("i");
+                i1.className = "remove icon w3-text-cerebro-red";
+                button.appendChild(i1);
+                segment1.appendChild(h4_1);
+                segment1.appendChild(h4_2);
+                segment1.appendChild(button);
+                // ****************** segment 2 **********************//
+                var h4_3 = document.createElement("h4");
+                h4_3.className = "ui horizontal divider text header";
+                h4_3.innerHTML = "Imagenes a enviar";
+                var span = document.createElement("span");
+                span.className = "ui horizontal divider";
+                var i = document.createElement("i");
+                i.className = "ui circular add green link icon";
+                span.appendChild(i);
+                var list = document.createElement("div");
+                list.className = "ui middle aligned divided list";
+
+                var impDiv = document.createElement("div");
+                impDiv.className = "ui transparent input";
+                var formImp = document.createElement("form");
+                formImp.enctype = "multipart/form-data";
+                var imp = document.createElement("input");
+                imp.name = "files";
+                imp.id = "imgs" + dispositivo.Id;
+                imp.type = "file";
+                imp.multiple = true;
+                impDiv.appendChild(formImp);
+                formImp.appendChild(imp);                
+                list.appendChild(impDiv);
+
+                segment2.appendChild(h4_3);
+                segment2.appendChild(span);
+                segment2.appendChild(list);
+                //****************** segment 3 **********************//
+                var divPlay = document.createElement("div");
+                divPlay.className = "ui inverted icon buttons";
+                var play = document.createElement("button");
+                play.className = "ui button";
+                play.addEventListener("click", function () {
+                    var t = true;
+                    for (var j = 0; j < env.length; j++) {
+                        if (env[j] === dispositivo.Id) {
+                            t = false;
+                        }
+                    }
+                    if (t) {
+                        env[env.length] = dispositivo.Id;
+                        sendImg(dispositivo.Id, frec, web, nombre);
+                    }
+                });
+                var iPlay = document.createElement("i");
+                iPlay.className = "play green icon";
+                play.appendChild(iPlay);
+                divPlay.appendChild(play);
+                segment3.appendChild(divPlay);
+                segments.appendChild(segment1);
+                segments.appendChild(segment2);
+                segments.appendChild(segment3);
+                document.getElementById("main").insertBefore(segments, document.getElementById("main").firstChild);
+            }
+        });
+    }
 }

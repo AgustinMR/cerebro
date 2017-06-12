@@ -64,47 +64,50 @@ export class EventoComponent implements OnInit {
     }
 
     enviarImg() {
-        $.ajax({
-            url: 'https://www.cerebro-frontoffice.com/api/dispositivos/img',
-            type: 'POST',
+        alert($('form')[0]);
+        console.log($('form')[0]);
+        console.log($('form')[0].name);
+        //$.ajax({
+        //    url: 'https://www.cerebro-frontoffice.com/api/dispositivos/img',
+        //    type: 'POST',
 
-            data: new FormData($('form')[0]),
+        //    data: new FormData($('form')[0]),
 
-            cache: false,
-            contentType: false,
-            processData: false,
+        //    cache: false,
+        //    contentType: false,
+        //    processData: false,
 
-            xhr: function () {
-                var myXhr = $.ajaxSettings.xhr();
-                if (myXhr.upload) {
-                    myXhr.upload.addEventListener('progress', function (e: any) {
-                        if (e.lengthComputable) {
-                            $('progress').attr({
-                                value: e.loaded,
-                                max: e.total,
-                            });
-                        }
-                    }, false);
-                }
-                return myXhr;
-            },
-            success: function (data: any, textStatus: any, xhr: any) {
-                console.log(xhr.responseText);
-                var settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "https://www.cerebro-frontoffice.com/api/dispositivos?dispositivoId=593af183e2b13e0268b344ec&tipoDeDato=Imagen&medida=holaaaaString&imagenId=" + xhr.responseText,
-                    "method": "POST",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                }
+        //    xhr: function () {
+        //        var myXhr = $.ajaxSettings.xhr();
+        //        if (myXhr.upload) {
+        //            myXhr.upload.addEventListener('progress', function (e: any) {
+        //                if (e.lengthComputable) {
+        //                    $('progress').attr({
+        //                        value: e.loaded,
+        //                        max: e.total,
+        //                    });
+        //                }
+        //            }, false);
+        //        }
+        //        return myXhr;
+        //    },
+        //    success: function (data: any, textStatus: any, xhr: any) {
+        //        console.log(xhr.responseText);
+        //        var settings = {
+        //            "async": true,
+        //            "crossDomain": true,
+        //            "url": "https://www.cerebro-frontoffice.com/api/dispositivos?dispositivoId=593af183e2b13e0268b344ec&nombre=nombre&tipoDeDato=Imagen&medida=holaaaaString&imagenId=" + xhr.responseText,
+        //            "method": "POST",
+        //            "headers": {
+        //                "cache-control": "no-cache"
+        //            }
+        //        }
 
-                $.ajax(settings).done(function (response: any) {
-                    console.log(response);
-                });
-            }
-        });
+        //        $.ajax(settings).done(function (response: any) {
+        //            console.log(response);
+        //        });
+        //    }
+        //});
 
     }
 
