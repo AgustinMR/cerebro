@@ -69,7 +69,6 @@
                         municipalidad += muniL[h];
                     }
                     if (municipalidad !== undefined && municipalidad !== "") {
-                        $.post("https://www.cerebro-serviceLayer.com/api/usuarios/loginVisitante?");
                         document.getElementById("emailLogin").value = user.email;
                         document.getElementById("passLogin").value = "";
                         document.getElementById("muniLogin").value = municipalidad;
@@ -93,6 +92,24 @@
                     }
                     if (reply) {
                         cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                        cb.__call(
+                            "account_verifyCredentials",
+                            {},
+                            function (reply) {
+                                var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
+                                var municipalidad = muniL[0].toUpperCase();
+                                for (var h = 1; h < muniL.length; h++) {
+                                    municipalidad += muniL[h];
+                                }
+                                if (municipalidad !== undefined && municipalidad !== "") {
+                                    document.getElementById("emailLogin").value = reply.screen_name;
+                                    document.getElementById("passLogin").value = "";
+                                    document.getElementById("muniLogin").value = municipalidad;
+                                    var form = document.getElementById("form");
+                                    form.submit();
+                                }
+                            }
+                        );
                     }
                 }
             );
