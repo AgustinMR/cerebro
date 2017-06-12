@@ -1,0 +1,118 @@
+﻿<script>
+    $(document).ready(function () {
+        $('.ui.sidebar')
+            .sidebar('setting', 'transition', 'overlay')
+            .sidebar('setting', 'dimPage', false);
+        $('#menuSidebar').sidebar('attach events', '.toc.item');
+        $('.ui.dropdown').dropdown();
+    });
+</script>
+<div class="ui sidebar vertical left inverted menu w3-cerebro-blue" id="menuSidebar">
+    <div class="w3-center w3-margin-top"><img src="~/images/cerebro.png" style="height: 30px" class="w3-image"></div>
+    <div class="ui horizontal divider"></div>
+    <div class="w3-center">
+        <a href="/inicio/inicio"><i class="home big icon circular link"></i></a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">@User.Claims.ToList()[0].Value</h3>
+        }
+        <a class="ui toc item header small" href="/Chat/Chat">Chat</a>
+        <a class="ui toc item header small" href="/Agrupacion/Agrupacion">Agrupaciones</a>
+        <a class="ui toc item header small" href="/Simulador/Simulador">Simulador</a>
+        <a class="ui toc item header small active" href="/Reporte/Reporte">Reportes</a>
+    </div>
+</div>
+<div class="ui sidebar very wide vertical right inverted menu" id="mapSidebar">
+    <div id="map" style="height: 100%; width: 100%"></div>
+</div>
+<div class="pusher" style="background-image:url(images/ub1610v2.jpg); background-attachment:fixed; background-size:cover">
+    <div class="w3-bar w3-card" style="background-color: #FBFBFB">
+        <div class="ui menu secondary" style="background-color: #FBFBFB; padding-bottom: 0px">
+            <a class="ui toc item left aligned"><i class="sidebar icon"></i></a>
+            <div class="right menu">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h4 class="ui item header right aligned">@User.Claims.ToList()[0].Value</h4>
+                    <a class="ui item right aligned w3-right" asp-controller="Account" asp-action="Logout"><i class="sign out icon w3-text-cerebro-red"></i></a>
+                }
+            </div>
+        </div>
+        <div class="w3-center w3-display-topmiddle" style="margin-top: 7px"><img src="~/images/cerebro-logo.png" class="w3-image" style="height: 35px"></div>
+        <div class="ui secondary menu w3-light-gray w3-padding">
+            <div class="ui breadcrumb item">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="section"><h4 class="ui header w3-text-cerebro-red">@User.Claims.ToList()[3].Value</h4></div>
+                }
+                <div class="divider"> <strong>/</strong> </div>
+                <div class="active section"><h4 class="ui text header w3-text-silver">Reportes</h4></div>
+            </div>
+        </div>
+    </div>
+    <div class="ui grid stackable container w3-padding w3-padding-16">
+        <div class="row" id="goyete">
+            <div class="ui stackable container w3-padding-32">
+                <div class="ui segments">
+                    <div class="ui secondary segment">
+                        <select class="ui compact dropdown" id="tipoDato">
+                            <option value="" disabled selected>Tipo de Dato</option>
+                            <option value="NUMERICO">Numerico</option>
+                            <option value="IMAGEN">Imagen</option>
+                            <option value="TEXTO">Texto</option>
+                        </select>
+                        <select class="ui compact dropdown" id="tipoDispositivo"><option value="" disabled selected>Tipo de Dispositivo</option></select>
+                        <button class="ui icon button w3-text-cerebro-red w3-right" onclick="mostrarMapSidebar()" data-tooltip="Filtrar por Ubicaci&oacute;n"><i class="ui marker icon"></i></button>
+                    </div>
+                    <table class="ui celled grey table segment" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th width="20%" class="ui text header small w3-text-cerebro-blue">Dispositivo</th>
+                                <th width="10%" class="ui text header small w3-text-cerebro-blue">Fecha</th>
+                                <th width="10%" class="ui text header small w3-text-cerebro-blue">Hora</th>
+                                <th class="ui text header small w3-text-cerebro-blue">Contenido</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuariosActualesBody"></tbody>
+                    </table>
+                    <div class="ui right aligned segment" style="background-color: #FBFBFB">
+                        <div class="ui container">
+                            <div class="ui right pagination menu small pointing">
+                                <a class="icon item"><i class="left chevron icon w3-text-cerebro-red"></i></a>
+                                <span class="ui item header small w3-text-cerebro-blue">1</span>
+                                <a class="icon item"><i class="right chevron icon w3-text-cerebro-red"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function getHistorialDispositivos() {
+        var tipoDato = document.getElementById("tipoDato").value;
+        var tipoDispositivo = document.getElementById("tipoDispositivo").value;
+        $.get("https://www.cerebro-serviceLayer.com/api/");
+    }
+    $(document).ready(function () {
+        "use strict";
+        var map;
+        var source;
+        var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
+        source = new ol.source.Vector({ wrapX: false });
+        var vector = new ol.layer.Vector({ source: source });
+
+        map = new ol.Map({
+            layers: [raster, vector],
+            target: 'map',
+            view: new ol.View({
+                projection: 'EPSG:4326',
+                center: [-56.22540901390569, -34.86341907811338],
+                zoom: 10
+            })
+        });
+    });
+    function mostrarMapSidebar() {
+        $('#mapSidebar').sidebar('show');
+    }
+</script>
