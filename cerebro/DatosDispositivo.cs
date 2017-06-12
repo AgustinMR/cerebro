@@ -20,6 +20,9 @@ namespace cerebro
         public string dispositivoId { get; set; }
         [BsonElement]
         [DataMember]
+        public string nombre { get; set; }
+        [BsonElement]
+        [DataMember]
         public string tipoDeDato { get; set; }
         [BsonElement]
         [DataMember]

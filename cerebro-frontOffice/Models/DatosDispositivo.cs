@@ -16,6 +16,9 @@ namespace cerebro_frontOffice
         public string dispositivoId { get; set; }
         [BsonElement]
         [DataMember]
+        public string nombre { get; set; }
+        [BsonElement]
+        [DataMember]
         public string tipoDeDato { get; set; }
         [BsonElement]
         [DataMember]
