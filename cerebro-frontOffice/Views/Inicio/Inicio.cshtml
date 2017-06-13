@@ -135,7 +135,7 @@
                         var nombre = dis.nombre;
                         $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/datos/" + dis.Id, function (response) {
                             if (response != null) {
-                                
+
                                 document.getElementById("nomDis").innerHTML = nombre;
 
                                 var dateTime = response.datetime.split("T");
@@ -145,7 +145,20 @@
                                 document.getElementById("tipoDis").innerHTML = response.tipoDeDato;
                                 if (String(response.tipoDeDato) === "Texto" || String(response.tipoDeDato) === "Numerico") {
                                     document.getElementById("contenidoDis").innerHTML = response.medida;
+                                    var pusher = new Pusher('474881b81d9d92dd2713', {
+                                        encrypted: true
+                                    });
+
+                                    var channel = pusher.subscribe(dis.Id);
+                                    channel.bind('dato-nuevo', function (data) {
+                                        var dateTime = data.datetime.split("T");
+                                        var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                                        var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                                        document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
+                                        document.getElementById("contenidoDis").innerHTML = data.medida;
+                                    });
                                 } else if (String(response.tipoDeDato) === "Imagen") {
+                                    //alert(response.imagenId);
                                     var settings = {
                                         "async": true,
                                         "crossDomain": true,
@@ -157,10 +170,36 @@
                                     }
 
                                     $.ajax(settings).done(function (data) {
+                                        //alert(data);
                                         document.getElementById("imgDis").src = "data:image/png;base64," + data;
+                                    });
+                                    var pusher = new Pusher('474881b81d9d92dd2713', {
+                                        encrypted: true
+                                    });
+
+                                    var channel = pusher.subscribe(dis.Id);
+                                    channel.bind('dato-nuevo', function (data) {
+                                        var dateTime = data.datetime.split("T");
+                                        var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                                        var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                                        document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
+                                        var settings = {
+                                            "async": true,
+                                            "crossDomain": true,
+                                            "url": "https://www.cerebro-servicelayer.com/api/dispositivos/img/" + data.imagenId,
+                                            "method": "GET",
+                                            "headers": {
+                                                "cache-control": "no-cache"
+                                            }
+                                        }
+
+                                        $.ajax(settings).done(function (data2) {
+                                            document.getElementById("imgDis").src = "data:image/png;base64," + data2;
+                                        });
                                     });
                                 }
                                 mostrarInfoDispositivo();
+
                             } else {
                                 console.log("null");
                             }

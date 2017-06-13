@@ -49,6 +49,11 @@ namespace cerebro_frontOffice.Controllers
             var bd = mongo.GetDatabase("cerebroDB");
             var eventos = bd.GetCollection<DatosDispositivo>("DatosDispositivo");
             eventos.InsertOne(datos);
+
+            var options = new PusherOptions();
+            options.Cluster = "mt1";
+            var pusher = new Pusher("342739", "474881b81d9d92dd2713", "c14d6443376ba1f06b0f", options);
+            var result = pusher.TriggerAsync(datos.dispositivoId, "dato-nuevo", datos);
             return Ok("OK");
         }
 

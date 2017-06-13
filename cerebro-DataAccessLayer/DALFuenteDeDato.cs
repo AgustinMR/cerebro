@@ -80,7 +80,7 @@ namespace cerebro_DataAccessLayer
         public DatosDispositivo getDatosDispositivo(string id) {
             var mongo = new MongoClient();
             var bd = mongo.GetDatabase("cerebroDB");
-            return bd.GetCollection<DatosDispositivo>("DatosDispositivo").Find(e => e.dispositivoId == id).FirstOrDefault();
+            return bd.GetCollection<DatosDispositivo>("DatosDispositivo").Find(e => e.dispositivoId == id).SortByDescending(e => e.datetime).FirstOrDefault();
         }
 
         public byte[] getImg(string id)
