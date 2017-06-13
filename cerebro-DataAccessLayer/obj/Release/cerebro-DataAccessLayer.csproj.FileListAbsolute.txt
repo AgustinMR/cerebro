@@ -44,3 +44,5 @@ C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-DataAccessLayer\bin\Release
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-DataAccessLayer\obj\Release\cerebro-DataAccessLayer.csprojResolveAssemblyReference.cache
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-DataAccessLayer\obj\Release\cerebro-DataAccessLayer.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-DataAccessLayer\obj\Release\cerebro-DataAccessLayer.pdb
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-DataAccessLayer\bin\Release\MongoDB.Driver.GridFS.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-DataAccessLayer\bin\Release\MongoDB.Driver.GridFS.xml

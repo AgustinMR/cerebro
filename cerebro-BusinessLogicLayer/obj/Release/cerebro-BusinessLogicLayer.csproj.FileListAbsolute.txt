@@ -40,3 +40,5 @@ C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-BusinessLogicLayer\bin\Rele
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-BusinessLogicLayer\obj\Release\cerebro-BusinessLogicLayer.csprojResolveAssemblyReference.cache
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-BusinessLogicLayer\obj\Release\cerebro-BusinessLogicLayer.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-BusinessLogicLayer\obj\Release\cerebro-BusinessLogicLayer.pdb
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-BusinessLogicLayer\bin\Release\MongoDB.Driver.GridFS.dll
+C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-BusinessLogicLayer\bin\Release\MongoDB.Driver.GridFS.xml
