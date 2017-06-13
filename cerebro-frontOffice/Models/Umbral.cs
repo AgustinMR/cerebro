@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cerebro
+namespace cerebro_frontOffice.Models
 {
     [DataContract]
     public class Umbral

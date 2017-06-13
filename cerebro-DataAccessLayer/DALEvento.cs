@@ -75,5 +75,15 @@ namespace cerebro_DataAccessLayer
             }
             return false;
         }
+
+        public bool addDatosEvento(string idEve, string nombre)
+        {
+            DatosEvento e = new DatosEvento(idEve, nombre);
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            var datosEventos = bd.GetCollection<DatosEvento>("DatosEvento");
+            datosEventos.InsertOne(e);
+            return true;
+        }
     }
 }
