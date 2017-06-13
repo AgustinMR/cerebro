@@ -24,7 +24,7 @@ namespace cerebro_frontOffice.Controllers
             byte[] source;
             using (var memoryStream = new MemoryStream())
             {
-                files.CopyToAsync(memoryStream);
+                files.CopyTo(memoryStream);
                 source = memoryStream.ToArray();
             }
             var mongo = new MongoClient();

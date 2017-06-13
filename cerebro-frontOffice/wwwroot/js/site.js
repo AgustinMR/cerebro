@@ -88,70 +88,37 @@ function sendImg(id, frec, web, nombre) {
         if (sim[i] === id) {
             setTimeout(function () {
                 try {
-                    console.log("Id: " + id + "," + frec + "," + web);
-                    var archivo = document.getElementById("imgs" + id).files;
-                    if (archivo.length !== 0) {
-                        //var archivoR = archivo[Math.floor(Math.random() * (archivo.length))];
-
-                        alert(jQuery('#imgs' + id)[0].files[0].name);
-                        //var data = new FormData();
-                        //jQuery.each(jQuery('#imgs' + id)[0].files, function (i, file) {
-                            
-                        //    alert(i);
-                        //    data.append('file-' + i, file);
-                        //});
-                        //alert(archivoR.name);
+                    //console.log("Id: " + id + "," + frec + "," + web);
+                    var num = document.getElementById("inputDiv" + id).getElementsByTagName('FORM').length;
+                    var forms = document.getElementById("inputDiv" + id).getElementsByTagName('FORM');
+                    //alert(num);
+                    var random = Math.floor(Math.random() * (num));
+                    if (forms[random][0].files.length !== 0) {
                         jQuery.ajax({
                             url: 'https://www.cerebro-frontOffice.com/api/dispositivos/img',
-                            data: new FormData($('#imgs' + id)[0]),
+                            data: new FormData($('form')[random]),
                             cache: false,
                             contentType: false,
                             processData: false,
                             type: 'POST',
                             success: function (data) {
-                                alert(data);
+                                var imgID = data;
+                                //console.log(imgID);
+                                var medida = 0;
+                                medida = Math.floor((Math.random() * 100) + 1);
+                                //alert(medida);
+                                $.post("https://www.cerebro-frontOffice.com/api/dispositivos?dispositivoId=" + id + "&nombre=" + nombre + "&tipoDeDato=Imagen&medida=" + medida + "&imagenId=" + imgID, function (res) {
+                                    //console.log(res);
+                                });
+                                sendImg(id, frec, web, nombre);
                             }
                         });
-                        //$.ajax({
-                        //    url: 'https://www.cerebro-frontOffice.com/api/dispositivos/img',
-                        //    type: 'POST',
-
-                        //    data: data,
-
-                        //    cache: false,
-                        //    contentType: false,
-                        //    processData: false,
-
-                        //    xhr: function () {
-                        //        var myXhr = $.ajaxSettings.xhr();
-                        //        if (myXhr.upload) {
-                        //            myXhr.upload.addEventListener('progress', function (e) {
-                        //                if (e.lengthComputable) {
-                        //                    $('progress').attr({
-                        //                        value: e.loaded,
-                        //                        max: e.total,
-                        //                    });
-                        //                }
-                        //            }, false);
-                        //        }
-                        //        return myXhr;
-                        //    },
-                        //    success: function (data, textStatus, xhr) {
-                        //        var imgID = xhr.responseText;
-                        //        console.log(xhr.responseText);
-                        //        var medida = 0;
-                        //        medida = Math.floor((Math.random() * 100) + 1);
-                        //        //alert(medida);
-                        //        //$.post("https://www.cerebro-frontOffice.com/api/dispositivos?dispositivoId=" + id + "&nombre=" + nombre + "&tipoDeDato=Imagen&medida=" + medida + "&imagenId=" + imgID, function (res) {
-                        //        //    console.log(res);
-                        //        //});
-                        //        sendImg(id, frec, web, nombre);
-                        //    }
-                        //});
+                    } else {
+                        console.log("Falta Imagen");
                     }
                 }
                 catch (err) {
-                    console.log("Div borrado" + err);
+                    console.log("Div borrado");
                 }
             }, frec * 1000);
         }
@@ -492,24 +459,38 @@ function newDispositivoImagen(dispositivo, tipo, x) {
                 h4_3.innerHTML = "Imagenes a enviar";
                 var span = document.createElement("span");
                 span.className = "ui horizontal divider";
+                span.addEventListener("click", function () {
+                    var inputDiv = document.getElementById("inputDiv" + dispositivo.Id);
+
+                    var inpDivN = document.createElement("div");
+
+                    var formImpN = document.createElement("form");
+                    formImpN.enctype = "multipart/form-data";
+
+                    var impN = document.createElement("input");
+                    impN.name = "files";
+                    impN.type = "file";
+
+                    inpDivN.appendChild(formImpN);
+                    formImpN.appendChild(impN);
+                    inputDiv.appendChild(inpDivN);
+                });
                 var i = document.createElement("i");
                 i.className = "ui circular add green link icon";
                 span.appendChild(i);
                 var list = document.createElement("div");
                 list.className = "ui middle aligned divided list";
+                list.id = "inputDiv" + dispositivo.Id;
 
-                var impDiv = document.createElement("div");
-                impDiv.className = "ui transparent input";
+                var inpDiv = document.createElement("div");
                 var formImp = document.createElement("form");
                 formImp.enctype = "multipart/form-data";
                 var imp = document.createElement("input");
                 imp.name = "files";
-                imp.id = "imgs" + dispositivo.Id;
                 imp.type = "file";
-                imp.multiple = true;
-                impDiv.appendChild(formImp);
-                formImp.appendChild(imp);                
-                list.appendChild(impDiv);
+                inpDiv.appendChild(formImp);
+                formImp.appendChild(imp);
+                list.appendChild(inpDiv);
 
                 segment2.appendChild(h4_3);
                 segment2.appendChild(span);
