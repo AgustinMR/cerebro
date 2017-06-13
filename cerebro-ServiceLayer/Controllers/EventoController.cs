@@ -61,5 +61,13 @@ namespace cerebro_ServiceLayer.Controllers
         {
             return new BLEvento().updateEvento(e);
         }
+
+        [HttpPost]
+        [Route("dll")]
+        public void dispararAccionEvento(string idEve, string nombre)
+        {
+            new BLEvento().dispararAccionEvento(idEve, nombre);
+        }
+
     }
 }
