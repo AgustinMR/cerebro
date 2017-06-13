@@ -1,5 +1,6 @@
 ﻿<script>
     $(document).ready(function () {
+        getHistorialDatos();
         $('.ui.sidebar')
             .sidebar('setting', 'transition', 'overlay')
             .sidebar('setting', 'dimPage', false);
@@ -53,33 +54,59 @@
         <div class="row" id="goyete">
             <div class="ui stackable container w3-padding-32">
                 <div class="ui segments">
-                    <div class="ui secondary segment">
+                    <div class="ui raised segment" style="height: 40px">
+                        <div class="ui menu pointing secondary" style="margin-top: -16px; border-bottom-width: 0px">
+                            <a class="active item w3-text-cerebro-red" id="m1" onclick="mostrarReporteDatos()">Historico de Datos</a>
+                            <a class="item" id="m2" onclick="mostrarReporteEventos()">Historico de Eventos</a>
+                        </div>
+                    </div>
+                    <div class="ui segment" style="background-color: #FBFBFB">
                         <select class="ui compact dropdown" id="tipoDato">
                             <option value="" disabled selected>Tipo de Dato</option>
                             <option value="NUMERICO">Numerico</option>
                             <option value="IMAGEN">Imagen</option>
                             <option value="TEXTO">Texto</option>
                         </select>
-                        <select class="ui compact dropdown" id="tipoDispositivo"><option value="" disabled selected>Tipo de Dispositivo</option></select>
+                        <div class="ui icon input">
+                            <input id="dispositivoFiltrar" placeholder="Buscar por dispositivo..." type="text">
+                            <i class="inverted circular search link icon"></i>
+                        </div>
                         <button class="ui icon button w3-text-cerebro-red w3-right" onclick="mostrarMapSidebar()" data-tooltip="Filtrar por Ubicaci&oacute;n"><i class="ui marker icon"></i></button>
                     </div>
-                    <table class="ui celled grey table segment" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th width="20%" class="ui text header small w3-text-cerebro-blue">Dispositivo</th>
-                                <th width="10%" class="ui text header small w3-text-cerebro-blue">Fecha</th>
-                                <th width="10%" class="ui text header small w3-text-cerebro-blue">Hora</th>
-                                <th class="ui text header small w3-text-cerebro-blue">Contenido</th>
-                            </tr>
-                        </thead>
-                        <tbody id="usuariosActualesBody"></tbody>
-                    </table>
-                    <div class="ui right aligned segment" style="background-color: #FBFBFB">
+                    <div class="ui grey segment" style="padding: 0px" id="tabla1">
+                        <table class="ui celled striped table" style="width: 100%">
+                            <thead class="full-width">
+                                <tr>
+                                    <th width="20%" class="ui text header small w3-text-cerebro-blue">Dispositivo</th>
+                                    <th width="10%" class="ui text header small w3-text-cerebro-blue">Tipo</th>
+                                    <th width="10%" class="ui text header small w3-text-cerebro-blue">Fecha</th>
+                                    <th width="10%" class="ui text header small w3-text-cerebro-blue">Hora</th>
+                                    <th width="50%" class="ui text header small w3-text-cerebro-blue">Contenido</th>
+                                </tr>
+                            </thead>
+                            <tbody id="datosTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="ui grey segment" style="padding: 0px; display:none" id="tabla2">
+                        <table class="ui celled table" style="width: 100%">
+                            <thead class="full-width">
+                                <tr>
+                                    <th width="20%" class="ui text header small w3-text-cerebro-blue">Evento</th>
+                                    <th width="10%" class="ui text header small w3-text-cerebro-blue">Tipo</th>
+                                    <th width="10%" class="ui text header small w3-text-cerebro-blue">Fecha</th>
+                                    <th width="10%" class="ui text header small w3-text-cerebro-blue">Hora</th>
+                                    <th width="50%" class="ui text header small w3-text-cerebro-blue">Contenido</th>
+                                </tr>
+                            </thead>
+                            <tbody id="eventosTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="ui right aligned segment w3-light-gray">
                         <div class="ui container">
                             <div class="ui right pagination menu small pointing">
-                                <a class="icon item"><i class="left chevron icon w3-text-cerebro-red"></i></a>
-                                <span class="ui item header small w3-text-cerebro-blue">1</span>
-                                <a class="icon item"><i class="right chevron icon w3-text-cerebro-red"></i></a>
+                                <a onclick="cargarResultadosAnteriores_datos()" class="icon item"><i class="left chevron icon w3-text-cerebro-red"></i></a>
+                                <span class="ui item header small w3-text-cerebro-blue" id="paginaActual">1</span>
+                                <a class="icon item" onclick="cargarResultadosSiguientes_datos()"><i class="right chevron icon w3-text-cerebro-red"></i></a>
                             </div>
                         </div>
                     </div>
@@ -89,10 +116,66 @@
     </div>
 </div>
 <script>
-    function getHistorialDispositivos() {
+    function mostrarReporteDatos() {
+        getHistorialDatos();
+        document.getElementById("tabla2").style.display = "none";
+        document.getElementById("tabla1").style.display = "block";
+        document.getElementById("m1").className = "active item w3-text-cerebro-red";
+        document.getElementById("m2").className = "item";
+    }
+    function mostrarReporteEventos() { 
+        document.getElementById("tabla2").style.display = "block";
+        document.getElementById("tabla1").style.display = "none";
+        document.getElementById("m2").className = "active item w3-text-cerebro-red";
+        document.getElementById("m1").className = "item";
+    }
+    function cargarResultadosSiguientes_datos() {
+        if (document.getElementById("datosTableBody").childNodes.length > 0) { 
+            getHistorialDatos((Number(document.getElementById("paginaActual").innerHTML) + 1));
+            document.getElementById("paginaActual").innerHTML = (Number(document.getElementById("paginaActual").innerHTML) + 1).toString();
+        }
+    }
+    function cargarResultadosAnteriores_datos() {
+        var paginaActual = Number(document.getElementById("paginaActual").innerHTML);
+        if (paginaActual > 1) {
+            getHistorialDatos((paginaActual - 1));
+            document.getElementById("paginaActual").innerHTML = (paginaActual - 1).toString();
+        }
+    }
+    function getHistorialDatos(pagina) {
+        if (pagina === undefined) { 
+            pagina = 1;
+        }
         var tipoDato = document.getElementById("tipoDato").value;
-        var tipoDispositivo = document.getElementById("tipoDispositivo").value;
-        $.get("https://www.cerebro-serviceLayer.com/api/");
+        var dispositivo = document.getElementById("dispositivoFiltrar").value;
+        $.get("https://www.cerebro-serviceLayer.com/api/historial/datos", "tipoDato=" + tipoDato + "&dispositivo=" + dispositivo + "&pagina="+pagina, function (response) {
+            if (response !== undefined) {
+                while (document.getElementById("datosTableBody").hasChildNodes()) {
+                    document.getElementById("datosTableBody").removeChild(document.getElementById("datosTableBody").lastChild);
+                }
+                $.each(response, function (index, dispositivo) {
+                    var tr = document.createElement("tr");
+                    var td1 = document.createElement("td");
+                    td1.innerHTML = dispositivo.nombre;
+                    tr.appendChild(td1);
+                    var td2 = document.createElement("td");
+                    td2.innerHTML = dispositivo.tipoDeDato;
+                    tr.appendChild(td2);
+                    var datetime = dispositivo.datetime;
+                    var fecha = datetime.slice(0, datetime.indexOf("T"));
+                    var td3 = document.createElement("td");
+                    td3.innerHTML = datetime.slice(0, datetime.indexOf("T"));
+                    tr.appendChild(td3);
+                    var td4 = document.createElement("td");
+                    td4.innerHTML = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                    tr.appendChild(td4);
+                    var td5 = document.createElement("td");
+                    td5.innerHTML = dispositivo.medida;
+                    tr.appendChild(td5);
+                    document.getElementById("datosTableBody").appendChild(tr);
+                });
+            }
+        });
     }
     $(document).ready(function () {
         "use strict";

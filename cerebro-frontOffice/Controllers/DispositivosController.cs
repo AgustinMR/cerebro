@@ -57,22 +57,7 @@ namespace cerebro_frontOffice.Controllers
             return Ok("OK");
         }
 
-        [HttpGet]
-        [Route("datos")]
-        public async Task<List<DatosDispositivo>> getDatosDispositivosAsync(string tipoDato)
-        {
-            var mongo = new MongoClient();
-            var bd = mongo.GetDatabase("cerebroDB");
-            var datos = bd.GetCollection<DatosDispositivo>("DatosDispositivo");
-            var sort = Builders<DatosDispositivo>.Sort.Descending("datetime");
-            if (tipoDato != null && tipoDato != "")
-            {
-                var builder = Builders<DatosDispositivo>.Filter;
-                var filter = builder.Eq("tipoDeDato", tipoDato);
-                return await datos.Find(filter).Sort(sort).ToListAsync();
-            }
-            else return await datos.Find(new BsonDocument()).Sort(sort).ToListAsync();
-        }
+        
 
         //private async void tmp() {
         //    var options = new PusherOptions();
