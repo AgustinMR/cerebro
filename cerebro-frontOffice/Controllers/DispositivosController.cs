@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using RestSharp;
 using cerebro_frontOffice.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace cerebro_frontOffice.Controllers
 {
@@ -21,7 +22,7 @@ namespace cerebro_frontOffice.Controllers
     {
         [HttpPost]
         [Route("img")]
-        public IActionResult Trigger(IFormFile files)
+        public IActionResult Imagenes(IFormFile files)
         {
             byte[] source;
             using (var memoryStream = new MemoryStream())
@@ -123,6 +124,22 @@ namespace cerebro_frontOffice.Controllers
             }
         }
 
+        private IHostingEnvironment _hostingEnvironment;
 
+        public DispositivosController(IHostingEnvironment environment)
+        {
+            _hostingEnvironment = environment;
+        }
+
+
+        [HttpPost]
+        [Route("dll")]
+        public void DLLs(IFormFile files, string nombre)
+        {
+            using (var fileStream = new FileStream("C:\\DLLs\\" + nombre + ".dll", FileMode.Create))
+            {
+                files.CopyTo(fileStream);
+            }
+        }
     }
 }
