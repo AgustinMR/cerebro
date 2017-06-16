@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accion.cs" />
     <Compile Include="Administrador.cs" />
     <Compile Include="Agrupacion.cs" />
     <Compile Include="Agrupacion_Usuario.cs" />
