@@ -90,12 +90,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\acciones\accion.component.css" />
+    <Content Include="app\acciones\accion.component.html" />
     <Content Include="app\app.component.css" />
     <Content Include="app\app.component.html" />
     <Content Include="app\dispositivo\dispositivo.component.css" />
     <Content Include="app\dispositivo\dispositivo.component.html" />
-    <Content Include="app\estadistica\estadistica.component.css" />
-    <Content Include="app\estadistica\estadistica.component.html" />
     <Content Include="app\evento\evento.component.css" />
     <Content Include="app\evento\evento.component.html" />
     <Content Include="app\inicio\inicio.component.css" />
@@ -147,13 +147,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <TypeScriptCompile Include="app\acciones\accion.component.ts" />
+    <TypeScriptCompile Include="app\acciones\accion.service.ts" />
     <TypeScriptCompile Include="app\app-routing.module.ts" />
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\dispositivo\dispositivo.component.ts" />
     <TypeScriptCompile Include="app\dispositivo\dispositivo.service.ts" />
-    <TypeScriptCompile Include="app\estadistica\estadistica.component.ts" />
-    <TypeScriptCompile Include="app\estadistica\estadistica.service.ts" />
     <TypeScriptCompile Include="app\evento\evento.component.ts" />
     <TypeScriptCompile Include="app\evento\evento.service.ts" />
     <TypeScriptCompile Include="app\inicio\inicio.component.ts" />

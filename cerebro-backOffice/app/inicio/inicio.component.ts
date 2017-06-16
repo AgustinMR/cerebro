@@ -19,25 +19,17 @@ export class InicioComponent implements OnInit {
     evento = false;
     tipo = false;
     usuario = false;
-    estadistica = true;
     autenticado: any;
     login = true;
     inicio = false;
-
-    showEstadistica() {
-        this.dispositivo = false;
-        this.evento = false;
-        this.tipo = false;
-        this.usuario = false;
-        this.estadistica = true;
-    }
+    accion = false;
 
     showDispositivo() {
         this.dispositivo = true;
         this.evento = false;
         this.tipo = false;
         this.usuario = false;
-        this.estadistica = false;
+        this.accion = false;
     }
 
     showEvento() {
@@ -45,7 +37,7 @@ export class InicioComponent implements OnInit {
         this.evento = true;
         this.tipo = false;
         this.usuario = false;
-        this.estadistica = false;
+        this.accion = false;
     }
 
     showTipo() {
@@ -53,7 +45,7 @@ export class InicioComponent implements OnInit {
         this.evento = false;
         this.tipo = true;
         this.usuario = false;
-        this.estadistica = false;
+        this.accion = false;
     }
 
     showUsuario() {
@@ -61,7 +53,15 @@ export class InicioComponent implements OnInit {
         this.evento = false;
         this.tipo = false;
         this.usuario = true;
-        this.estadistica = false;
+        this.accion = false;
+    }
+
+    showAcciones() {
+        this.dispositivo = false;
+        this.evento = false;
+        this.tipo = false;
+        this.usuario = false;
+        this.accion = true;
     }
 
     constructor(private http: Http, private loginService: LoginService) { }

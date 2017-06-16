@@ -33,8 +33,6 @@ export class EventoComponent implements OnInit {
         for (var h = 1; h < muniL.length; h++) {
             this.nombre_municipalidad += muniL[h];
         }
-        //this.nombre_municipalidad = "Mdeo";
-
         this.cargarDispositivos();
     }
 
@@ -78,12 +76,12 @@ export class EventoComponent implements OnInit {
         var i1 = document.createElement("i");
         i1.className = "icon remove";
         var select = document.createElement("select");
-        select.id = "select" + num;
+        select.id = "select0";
         select.className = "ui fluid dropdown";
-        var option = document.createElement("option");
-        option.value = "";
-        option.innerHTML = "Seleccione un dispositivo...";
-        select.appendChild(option);
+        var option0 = document.createElement("option");
+        option0.value = "";
+        option0.innerHTML = "Seleccione un dispositivo...";
+        select.appendChild(option0);
         for (var d of this.dispositivos) {
             var option = document.createElement("option");
             option.value = d.Id;
@@ -114,7 +112,11 @@ export class EventoComponent implements OnInit {
         segments2.appendChild(segments4);
         segments2.appendChild(imp);
         document.getElementById("dispositivosDiv").insertBefore(segments, document.getElementById("dispositivosDiv").firstChild);
-        $('.ui.dropdown').dropdown();
+        $('.ui.dropdown').dropdown({
+            onChange: function (val: any) {
+                alert(val);
+            }
+        });
     }
 
     enviarImg() {
