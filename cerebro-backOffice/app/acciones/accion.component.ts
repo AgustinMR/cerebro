@@ -39,6 +39,7 @@ export class AccionComponent implements OnInit {
 
     enviarDll() {
         var forms = document.getElementById("nuevo").getElementsByTagName('FORM');
+        var _this = this;
         if (this.nombre != "" && forms[0][0].files.length != 0) {
             var form = new FormData($('form')[0]);
             form.append("nombre", this.nombre);
@@ -61,9 +62,8 @@ export class AccionComponent implements OnInit {
             $.ajax(settings).done(function (response: any) {
                 (<HTMLInputElement>document.getElementById("nombre")).value = "";
                 forms[0][0].value = "";
-                this.getAcciones();
+                _this.getAcciones();
                 alert("done");
-                //console.log(response);
             });
         } else {
             console.log("error");
@@ -76,7 +76,7 @@ export class AccionComponent implements OnInit {
                 this.acciones = data;
             },
             responseError => console.log(responseError),
-            () => console.log("Acciones cargadas")
+            () => { }
         );
     }
 
@@ -89,13 +89,31 @@ export class AccionComponent implements OnInit {
     }
 
     delAcciones() {
-        alert(this.accionSelect);
+        var _this = this;
+        var forms = document.getElementById("modificar").getElementsByTagName('FORM');
         if (this.accionSelect != "") {
-            this.service.deleteAccion(this.accionSelect).subscribe(
-                (data: Response) => this.getAcciones(),
-                responseError => console.log(responseError),
-                () => console.log("Accion eliminada")
-            );
+            var form = new FormData();
+            form.append("id", this.accionSelect);
+
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://www.cerebro-frontoffice.com/api/dispositivos/dllDel",
+                "method": "DELETE",
+                "headers": {
+                    "cache-control": "no-cache"
+                },
+                "processData": false,
+                "contentType": false,
+                "mimeType": "multipart/form-data",
+                "data": form
+            }
+
+            $.ajax(settings).done(function (response: any) {
+                (<HTMLInputElement>document.getElementById("nombreMod")).value = "";
+                forms[0][0].value = "";
+                _this.getAcciones();
+            });
         }
     }
 
@@ -126,6 +144,7 @@ export class AccionComponent implements OnInit {
                     forms[0][0].value = "";
                     _this.getAcciones();
                 });
+                this.getAcciones();
             } else {
                 var form2 = new FormData();
                 form2.append("nombre", this.nombreMod);
@@ -150,6 +169,7 @@ export class AccionComponent implements OnInit {
                     forms[0][0].value = "";
                     _this.getAcciones();
                 });
+                this.getAcciones();
             }
         }
     }

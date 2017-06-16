@@ -10,13 +10,17 @@ namespace cerebro_BusinessLogicLayer
 {
     public interface IBLEvento
     {
-        bool addEvento(Evento e);
+        string addEvento(Evento e);
         bool addUmbral(Umbral u);
         bool updateEvento(Evento e);
         bool deleteEvento(ObjectId id);
         Evento getEvento(ObjectId id);
         List<Evento> getAllEventos();
-        void dispararAccionEvento(string idEve, string nombre);
+        void dispararAccionEvento(string idEve);
         List<Accion> getAcciones(string muni);
+        List<Evento> getEventosMuni(string muni);
+        List<Umbral> getUmbralesEve(string idEve);
+        bool updateUmbral(Umbral u);
+        bool deleteUmbral(ObjectId id);
     }
 }
