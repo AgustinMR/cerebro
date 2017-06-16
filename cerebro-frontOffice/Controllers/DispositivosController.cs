@@ -13,6 +13,7 @@ using System.IO;
 using RestSharp;
 using cerebro_frontOffice.Models;
 using Microsoft.AspNetCore.Hosting;
+using cerebro.frontOffice.Models;
 
 namespace cerebro_frontOffice.Controllers
 {
@@ -134,12 +135,59 @@ namespace cerebro_frontOffice.Controllers
 
         [HttpPost]
         [Route("dll")]
-        public void DLLs(IFormFile files, string nombre)
+        public void DLLs(IFormFile files, string nombre, string muni)
         {
-            using (var fileStream = new FileStream("C:\\DLLs\\" + nombre + ".dll", FileMode.Create))
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            var accion = bd.GetCollection<Accion>("Accion");
+            Accion a = new Accion(muni, nombre);
+            accion.InsertOne(a);
+            using (var fileStream = new FileStream("C:\\DLLs\\" + a.Id + ".dll", FileMode.Create))
             {
                 files.CopyTo(fileStream);
             }
+        }
+
+        [HttpPut]
+        [Route("dll")]
+        public void DLLsMod(IFormFile files, string nombre, string id)
+        {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            var accion = bd.GetCollection<Accion>("Accion");
+            var update = Builders<Accion>.Update.Set(e => e.nombre, nombre);
+            var filter = Builders<Accion>.Filter.Eq("Id", ObjectId.Parse(id));
+            bd.GetCollection<Accion>("Accion").FindOneAndUpdate(filter, update);
+
+            using (var fileStream = new FileStream("C:\\DLLs\\" +id + ".dll", FileMode.Create))
+            {
+                files.CopyTo(fileStream);
+            }
+        }
+
+        [HttpPut]
+        [Route("dllMod")]
+        public void DLLsMod(string nombre, string id)
+        {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            var accion = bd.GetCollection<Accion>("Accion");
+            var update = Builders<Accion>.Update.Set(e => e.nombre, nombre);
+            var filter = Builders<Accion>.Filter.Eq("Id", ObjectId.Parse(id));
+            bd.GetCollection<Accion>("Accion").FindOneAndUpdate(filter, update);
+        }
+
+        [HttpDelete]
+        [Route("dllDel")]
+        public void DLLs(string id)
+        {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            var accion = bd.GetCollection<Accion>("Accion");
+            DeleteResult r = accion.DeleteOne(e => e.Id == ObjectId.Parse(id));
+
+            FileInfo fi = new FileInfo("C:\\DLLs\\"+id+".dll");
+            fi.Delete();
         }
     }
 }
