@@ -57,5 +57,10 @@ namespace cerebro_BusinessLogicLayer
         {
             return dal.getImg(id);
         }
+
+        public List<FuenteDeDato> getDispositivosByMunicipalidad(string municipalidad, string tipo)
+        {
+            return dal.getDispositivosByMunicipalidad(municipalidad, tipo);
+        }
     }
 }
