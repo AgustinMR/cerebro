@@ -46,5 +46,3 @@ C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-DataAccessLayer\obj\Release
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-DataAccessLayer\obj\Release\cerebro-DataAccessLayer.pdb
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-DataAccessLayer\bin\Release\MongoDB.Driver.GridFS.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-DataAccessLayer\bin\Release\MongoDB.Driver.GridFS.xml
-C:\GitHub\cerebro\cerebro-DataAccessLayer\bin\Release\MongoDB.Driver.GridFS.dll
-C:\GitHub\cerebro\cerebro-DataAccessLayer\bin\Release\MongoDB.Driver.GridFS.xml

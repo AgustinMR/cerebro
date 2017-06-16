@@ -142,5 +142,3 @@ C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\obj\Release\ce
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.GridFS.dll
 C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.GridFS.xml
-C:\GitHub\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.GridFS.dll
-C:\GitHub\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.GridFS.xml
