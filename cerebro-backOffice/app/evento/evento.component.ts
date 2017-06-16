@@ -33,8 +33,6 @@ export class EventoComponent implements OnInit {
         for (var h = 1; h < muniL.length; h++) {
             this.nombre_municipalidad += muniL[h];
         }
-        //this.nombre_municipalidad = "Mdeo";
-
         this.cargarDispositivos();
     }
 
@@ -78,12 +76,12 @@ export class EventoComponent implements OnInit {
         var i1 = document.createElement("i");
         i1.className = "icon remove";
         var select = document.createElement("select");
-        select.id = "select" + num;
+        select.id = "select0";
         select.className = "ui fluid dropdown";
-        var option = document.createElement("option");
-        option.value = "";
-        option.innerHTML = "Seleccione un dispositivo...";
-        select.appendChild(option);
+        var option0 = document.createElement("option");
+        option0.value = "";
+        option0.innerHTML = "Seleccione un dispositivo...";
+        select.appendChild(option0);
         for (var d of this.dispositivos) {
             var option = document.createElement("option");
             option.value = d.Id;
@@ -92,11 +90,6 @@ export class EventoComponent implements OnInit {
         }
         var segments2 = document.createElement("div");
         segments2.className = "ui labeled fluid input w3-margin-top";
-        var segments3 = document.createElement("div");
-        segments3.className = "ui label w3-text-cerebro-red";
-        segments3.innerHTML = "Tipo de datos que envia:";
-        var lbl = document.createElement("label");
-        lbl.innerHTML = "Texto";
         var segments4 = document.createElement("div");
         segments4.className = "ui label w3-text-cerebro-red";
         segments4.innerHTML = "Umbral:";
@@ -109,34 +102,13 @@ export class EventoComponent implements OnInit {
         button.appendChild(i1);
         segments.appendChild(select);
         segments.appendChild(segments2);
-        segments2.appendChild(segments3);
-        segments2.appendChild(lbl);
         segments2.appendChild(segments4);
         segments2.appendChild(imp);
         document.getElementById("dispositivosDiv").insertBefore(segments, document.getElementById("dispositivosDiv").firstChild);
-        $('.ui.dropdown').dropdown();
-    }
-
-    enviarImg() {
-        var form = new FormData($('form')[0]);
-        form.append("nombre", "hola");
-
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://www.cerebro-frontoffice.com/api/dispositivos/dll",
-            "method": "POST",
-            "headers": {
-                "cache-control": "no-cache"
-            },
-            "processData": false,
-            "contentType": false,
-            "mimeType": "multipart/form-data",
-            "data": form
-        }
-
-        $.ajax(settings).done(function (response: any) {
-            console.log(response);
+        $('.ui.dropdown').dropdown({
+            onChange: function (val: any) {
+                alert(val);
+            }
         });
     }
 

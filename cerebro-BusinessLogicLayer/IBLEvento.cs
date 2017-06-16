@@ -17,5 +17,6 @@ namespace cerebro_BusinessLogicLayer
         Evento getEvento(ObjectId id);
         List<Evento> getAllEventos();
         void dispararAccionEvento(string idEve, string nombre);
+        List<Accion> getAcciones(string muni);
     }
 }
