@@ -60,27 +60,11 @@
                 <div id="step2" style="display: none;">
                     <div class="ui secondary menu">
                         <div class="right menu">
-                            <button class="circular positive ui icon button"><i class="icon add"></i></button>
+                            <button class="circular positive ui icon button" (click)="addDisEvento()"><i class="icon add"></i></button>
                         </div>
                     </div>
-                    <div class="ui segment grey">
-                        <button class="circular inverted orange compact ui icon button w3-margin-bottom"><i class="icon remove"></i></button>
-                        <select class="ui fluid dropdown">
-                            <option value="">Seleccione un dispositivo...</option>
-                            <option *ngFor="let dis of dispositivos" value="{{dis.Id}}"> {{dis.nombre}} </option>
-                        </select>
+                    <div id="dispositivosDiv">
 
-                        <form enctype="multipart/form-data">
-                            <input name="files" type="file" />
-                        </form>
-                        <button (click)="enviarImg()">Hola</button>
-
-                        <div class="ui labeled fluid input w3-margin-top">
-                            <div class="ui label w3-text-cerebro-red">Tipo de datos que envia:</div>
-                            <label id="tipoDatoDis">Texto</label>
-                            <div class="ui label w3-text-cerebro-red">Umbral:</div>
-                            <input name="nombre" id="nombre" placeholder="Ingrese el valor m&aacute;ximo hasta el cu&aacute;l se considera normal..." type="text">
-                        </div>
                     </div>
                 </div>
                 <div id="step3" style="display: none">
@@ -161,3 +145,7 @@
         </div>
     </div>
 </div>
+<!--<form enctype="multipart/form-data">
+                                <input name="files" type="file" />
+                            </form>
+                            <button (click)="enviarImg()">Hola</button>-->

@@ -61,10 +61,10 @@ function sendTxt(id, frec, web, nombre) {
                     //console.log("Id: " + id + "," + frec + "," + web);
                     var e = $('#select' + id).dropdown("get value");
                     var medida = "Ok";
-                    if (document.getElementById("radio1" + id).checked && e.length > 1) {
+                    if (document.getElementById("radio2" + id).checked && e.length > 1) {
                         var max = (e.length - 1);
                         medida = e[Math.floor(Math.random() * (max))];
-                    } else if (document.getElementById("radio2" + id).checked && document.getElementById("texto" + id).value != "") {
+                    } else if (document.getElementById("radio1" + id).checked && document.getElementById("texto" + id).value != "") {
                         medida = document.getElementById("texto" + id).value;
                     } else {
                         console.log("Debe ingresar al menos una palabra");

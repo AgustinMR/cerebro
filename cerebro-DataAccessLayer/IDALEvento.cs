@@ -16,6 +16,6 @@ namespace cerebro_DataAccessLayer
         bool deleteEvento(ObjectId id);
         Evento getEvento(ObjectId id);
         List<Evento> getAllEventos();
-
+        bool addDatosEvento(string idEve, string nombre);
     }
 }

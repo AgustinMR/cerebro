@@ -16,5 +16,6 @@ namespace cerebro_BusinessLogicLayer
         bool deleteEvento(ObjectId id);
         Evento getEvento(ObjectId id);
         List<Evento> getAllEventos();
+        void dispararAccionEvento(string idEve, string nombre);
     }
 }

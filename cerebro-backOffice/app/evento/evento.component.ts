@@ -63,49 +63,81 @@ export class EventoComponent implements OnInit {
         );
     }
 
-    enviarImg() {
-        $.ajax({
-            url: 'https://www.cerebro-frontoffice.com/api/dispositivos/img',
-            type: 'POST',
+    addDisEvento() {
+        var num = document.getElementById("dispositivosDiv").getElementsByTagName('SELECT').length;
+        //alert(num);
 
-            data: new FormData($('form')[0]),
-
-            cache: false,
-            contentType: false,
-            processData: false,
-
-            xhr: function () {
-                var myXhr = $.ajaxSettings.xhr();
-                if (myXhr.upload) {
-                    myXhr.upload.addEventListener('progress', function (e: any) {
-                        if (e.lengthComputable) {
-                            $('progress').attr({
-                                value: e.loaded,
-                                max: e.total,
-                            });
-                        }
-                    }, false);
-                }
-                return myXhr;
-            },
-            success: function (data: any, textStatus: any, xhr: any) {
-                console.log(xhr.responseText);
-                var settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "https://www.cerebro-frontoffice.com/api/dispositivos?dispositivoId=593af183e2b13e0268b344ec&nombre=nombre&tipoDeDato=Imagen&medida=holaaaaString&imagenId=" + xhr.responseText,
-                    "method": "POST",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                }
-
-                $.ajax(settings).done(function (response: any) {
-                    console.log(response);
-                });
-            }
+        var segments = document.createElement("div");
+        segments.id = "mainDiv" + num;
+        segments.className = "ui segment grey";
+        var button = document.createElement("button");
+        button.className = "circular inverted orange compact ui icon button w3-margin-bottom";
+        button.addEventListener("click", function () {
+            document.getElementById("dispositivosDiv").removeChild(segments);
         });
+        var i1 = document.createElement("i");
+        i1.className = "icon remove";
+        var select = document.createElement("select");
+        select.id = "select" + num;
+        select.className = "ui fluid dropdown";
+        var option = document.createElement("option");
+        option.value = "";
+        option.innerHTML = "Seleccione un dispositivo...";
+        select.appendChild(option);
+        for (var d of this.dispositivos) {
+            var option = document.createElement("option");
+            option.value = d.Id;
+            option.innerHTML = d.nombre;
+            select.appendChild(option);
+        }
+        var segments2 = document.createElement("div");
+        segments2.className = "ui labeled fluid input w3-margin-top";
+        var segments3 = document.createElement("div");
+        segments3.className = "ui label w3-text-cerebro-red";
+        segments3.innerHTML = "Tipo de datos que envia:";
+        var lbl = document.createElement("label");
+        lbl.innerHTML = "Texto";
+        var segments4 = document.createElement("div");
+        segments4.className = "ui label w3-text-cerebro-red";
+        segments4.innerHTML = "Umbral:";
+        var imp = document.createElement("input");
+        imp.id = "nombre" + num;
+        imp.placeholder = "Ingrese el valor máximo hasta el cuál se considera normal...";
+        imp.type = "text";
 
+        segments.appendChild(button);
+        button.appendChild(i1);
+        segments.appendChild(select);
+        segments.appendChild(segments2);
+        segments2.appendChild(segments3);
+        segments2.appendChild(lbl);
+        segments2.appendChild(segments4);
+        segments2.appendChild(imp);
+        document.getElementById("dispositivosDiv").insertBefore(segments, document.getElementById("dispositivosDiv").firstChild);
+        $('.ui.dropdown').dropdown();
+    }
+
+    enviarImg() {
+        var form = new FormData($('form')[0]);
+        form.append("nombre", "hola");
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://www.cerebro-frontoffice.com/api/dispositivos/dll",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache"
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form
+        }
+
+        $.ajax(settings).done(function (response: any) {
+            console.log(response);
+        });
     }
 
     mostrarStep1() {
