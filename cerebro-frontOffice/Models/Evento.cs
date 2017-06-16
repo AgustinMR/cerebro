@@ -19,9 +19,6 @@ namespace cerebro_frontOffice.Models
         public string nombre { get; set; }
         [BsonElement]
         [DataMember]
-        public List<FuenteDeDato> dispositivos { get; set; }
-        [BsonElement]
-        [DataMember]
         public string accion { get; set; }
 
         public Evento() { }
@@ -32,11 +29,10 @@ namespace cerebro_frontOffice.Models
             this.nombre = nombre;
         }
 
-        public Evento(string municipalidad, string nombre, List<FuenteDeDato> dispositivos, string accion)
+        public Evento(string municipalidad, string nombre, string accion)
         {
             this.municipalidad = municipalidad;
             this.nombre = nombre;
-            this.dispositivos = dispositivos;
             this.accion = accion;
         }
     }

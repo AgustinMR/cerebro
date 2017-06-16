@@ -23,7 +23,6 @@ export class FuenteDeDatoService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         var postInfo = "ubicacion=" + ubicacion + "&userAgent=" + userAgent + "&direccionIP=" + dirIp + "&id=" + id;
-        //console.log(postInfo);
         return this.http.put("https://www.cerebro-serviceLayer.com/api/dispositivos?" + postInfo, {}, options).map(data => data.json());
     }
 
