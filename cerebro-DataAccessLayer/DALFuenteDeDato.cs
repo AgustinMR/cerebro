@@ -97,5 +97,16 @@ namespace cerebro_DataAccessLayer
 
             return bucket.DownloadAsBytes(ObjectId.Parse(id));
         }
+
+        public List<FuenteDeDato> getDispositivosByMunicipalidad(string municipalidad, string tipo) {
+            var dispositivos = new MongoClient().GetDatabase("cerebroDB").GetCollection<FuenteDeDato>("FuenteDeDato");
+            var tipos = new MongoClient().GetDatabase("cerebroDB").GetCollection<TipoDeFuenteDeDato>("TipoDeFuenteDeDato").AsQueryable();
+            // tipos.Where(t => t.municipalidad == municipalidad).Where(t => t.tipo == ObjectId.Parse(tipo)).Select(t => t.Id)
+            return (from d in dispositivos.AsQueryable()
+                   join t in tipos on d.tipo equals t.Id
+                   where d.municipalidad == municipalidad
+                   where t.tipo.ToString() == tipo
+                   select d).ToList();
+        }
     }
 }

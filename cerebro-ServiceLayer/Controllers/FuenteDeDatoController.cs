@@ -57,6 +57,13 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpGet]
+        [Route("municipalidad/{municipalidad}/{tipo}")]
+        public List<FuenteDeDato> getDispositivosByMunicipalidad(string municipalidad, string tipo)
+        {
+            return new BLFuenteDeDato().getDispositivosByMunicipalidad(municipalidad, tipo);
+        }
+
+        [HttpGet]
         [Route("{id}")]
         public FuenteDeDato getFuenteDeDato(string id)
         {
