@@ -20,17 +20,17 @@ import { TipoDeFuenteDeDatoService } from './tipo/tipo.service';
 // Usuarios
 import { UsuarioComponent } from './usuario/usuario.component';
 import { UsuarioService } from './usuario/usuario.service';
-// Estadistica
-import { EstadisticaComponent } from './estadistica/estadistica.component';
-import { EstadisticaService } from './estadistica/estadistica.service';
 // Inicio
 import { InicioComponent } from './inicio/inicio.component';
 import { LoginService } from './inicio/login.service'
+// Accion
+import { AccionComponent } from './acciones/accion.component';
+import { AccionService } from './acciones/accion.service'
 
 @NgModule({
     imports: [BrowserModule, AppRoutingModule, CommonModule, ReactiveFormsModule, FormsModule, HttpModule],
-    declarations: [AppComponent, FuenteDeDatoComponent, TipoDeFuenteDeDatoComponent, EventoComponent, UsuarioComponent, EstadisticaComponent, InicioComponent],
-    providers: [FuenteDeDatoService, TipoDeFuenteDeDatoService, EventoService, UsuarioService, EstadisticaService, HttpModule, LoginService],
+    declarations: [AppComponent, FuenteDeDatoComponent, TipoDeFuenteDeDatoComponent, EventoComponent, UsuarioComponent, InicioComponent, AccionComponent],
+    providers: [FuenteDeDatoService, TipoDeFuenteDeDatoService, EventoService, UsuarioService, HttpModule, LoginService, AccionService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

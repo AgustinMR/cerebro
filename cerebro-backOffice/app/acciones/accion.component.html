@@ -1,0 +1,70 @@
+﻿<div class="ui raised segment w3-padding w3-padding-16 w3-display-container" style="background-color: #FDFDFD">
+    <div class="ui active inverted dimmer" style="display: none" id="message">
+        <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
+        <div class="w3-display-middle" id="success" style="display: none">
+            <h3 class="ui text header">El Evento ha sido creado correctamente!</h3>
+            <button class="circular inverted green ui icon button big"><i class="icon checkmark"></i></button>
+        </div>
+        <div class="w3-display-middle" id="error" style="display: none">
+            <h3 class="ui text header">Ha ocurrido un error, por favor vuelve a intentar...</h3>
+            <button class="circular inverted red ui icon button big"><i class="icon warning"></i></button>
+        </div>
+        <div class="w3-display-middle" id="confirmation" style="display: none">
+            <i class="ui big circular orange warning icon"></i>
+            <h3>Se eliminar&aacute; el Evento...<br>&iquest;Continuar?</h3>
+            <div class="ui buttons w3-margin-top">
+                <button class="ui button">Cancelar</button>
+                <div class="or" data-text="o"></div>
+                <button class="ui negative button">Eliminar</button>
+            </div>
+        </div>
+    </div>
+    <img src="../../Content/cerebro-logo.png" style="height: 40px; margin-top: -20px" class="w3-display-topmiddle">
+    <h4 class="ui horizontal divider header w3-text-cerebro-blue">Acciones</h4>
+    <div class="ui secondary center pointing aligned menu">
+        <a onclick="changeTab(event, 'nuevo')" class="item tabButtons active w3-text-cerebro-red">Nueva</a>
+        <a onclick="changeTab(event, 'modificar')" class="item tabButtons">Modificar</a>
+    </div>
+    <div id="nuevo" class="tab w3-container">
+        <div class="container w3-padding-24">
+            <div class="ui segments">
+                <div class="ui right aligned segment">
+                    <div class="ui labeled fluid input w3-margin-bottom">
+                        <div class="ui basic label w3-text-cerebro-red">Nombre:</div>
+                        <input name="nombre" id="nombre" placeholder="Ingrese el nombre de la acci&oacute;n..." type="text">
+                    </div>
+                    <div class="ui labeled fluid input">
+                        <div class="ui basic label w3-text-cerebro-red">Acci&oacute;n:</div>
+                        <input name="file" id="file" placeholder="Ingrese el nombre de la acci&oacute;n..." type="file">
+                    </div>
+                </div>
+                <div class="ui right aligned grey segment">
+                    <button class="ui button w3-cerebro-blue">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modificar" class="tab w3-container" style="display:none">
+        <div class="ui segments">
+            <div class="ui secondary segment">
+                <select class="ui fluid search dropdown" style="padding: 0px; margin: 0px">
+                    <option value="" selected disabled>Seleccione un Dispositivo para ver y modificar...</option>
+                </select>
+            </div>
+            <div class="ui right aligned segment">
+                <div class="ui labeled fluid input w3-margin-bottom">
+                    <div class="ui basic label w3-text-cerebro-red">Nombre:</div>
+                    <input name="nombre" id="nombre" placeholder="Ingrese el nombre de la acci&oacute;n..." type="text">
+                </div>
+                <div class="ui labeled fluid input">
+                    <div class="ui basic label w3-text-cerebro-red">Acci&oacute;n:</div>
+                    <input name="file" id="file" placeholder="Ingrese el nombre de la acci&oacute;n..." type="file">
+                </div>
+            </div>
+            <div class="ui right aligned grey segment">
+                <button class="ui button w3-cerebro-red secondary">Eliminar</button>
+                <button class="ui button w3-cerebro-blue">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

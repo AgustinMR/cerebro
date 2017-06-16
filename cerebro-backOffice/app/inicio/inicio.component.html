@@ -45,6 +45,7 @@
                 <a href="javascript:void(0);" class="item" (click)="showTipo()">Tipos</a>
                 <a href="javascript:void(0);" class="item" (click)="showDispositivo()">Dispositivos</a>
                 <a href="javascript:void(0);" class="item" (click)="showEvento()">Eventos</a>
+                <a href="javascript:void(0);" class="item" (click)="showAcciones()">Acciones</a>
                 <a href="javascript:void(0);" class="item" (click)="showUsuario()">Usuarios</a>
             </div>
         </div>
@@ -54,5 +55,6 @@
         <cerebro-tipo-de-fuente-de-dato *ngIf="tipo"></cerebro-tipo-de-fuente-de-dato>
         <cerebro-evento *ngIf="evento"></cerebro-evento>
         <cerebro-usuario *ngIf="usuario"></cerebro-usuario>
+        <cerebro-accion-evento *ngIf="accion"></cerebro-accion-evento>
     </div>
 </div>
