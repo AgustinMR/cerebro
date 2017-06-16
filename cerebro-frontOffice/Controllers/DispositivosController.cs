@@ -66,61 +66,61 @@ namespace cerebro_frontOffice.Controllers
             var mongo = new MongoClient();
             var bd = mongo.GetDatabase("cerebroDB");
             List<Umbral> umbrales = bd.GetCollection<Umbral>("Umbral").Find(u => u.fuenteDeDatoId == idDis).ToList();
-            List<Evento> eventos = bd.GetCollection<Evento>("Evento").Find(new BsonDocument()).ToList();
+
+            List<string> eve = new List<string>();
             for (int i = 0; i < umbrales.Count; i++)
             {
-                for (int j = 0; j < eventos.Count; j++)
+                eve.Add(umbrales[i].eventoId);
+            }
+
+            for (int j = 0; j < eve.Count; j++)
+            {
+                List<Umbral> umbralesEventos = bd.GetCollection<Umbral>("Umbral").Find(u => u.eventoId == eve[j]).ToList();
+                int hayEvento = 0;
+                for (int h = 0; h < umbralesEventos.Count; h++)
                 {
-                    if (umbrales[i].eventoId.Equals(eventos[j].Id.ToString()))
+                    var filter = Builders<DatosDispositivo>.Filter.Eq("dispositivoId", umbralesEventos[h].fuenteDeDatoId);
+                    List<DatosDispositivo> umb = bd.GetCollection<DatosDispositivo>("DatosDispositivo")
+                        .Find(filter)
+                        .Limit(5)
+                        .Sort(Builders<DatosDispositivo>.Sort.Descending("datetime"))
+                        .ToList();
+                    bool evee = false;
+                    for (int z = 0; z < umb.Count; z++)
                     {
-                        int hayEvento = 0;
-                        for (int h = 0; h < eventos[j].dispositivos.Count; h++)
+                        var builder = Builders<Umbral>.Filter;
+                        var filter2 = builder.Eq("fuenteDeDatoId", umbralesEventos[h].fuenteDeDatoId) & builder.Eq("eventoId", eve[j]);
+                        if (bd.GetCollection<Umbral>("Umbral").Find(filter2) != null)
                         {
-                            //eventos[j].dispositivos[h]
-                            var filter = Builders<DatosDispositivo>.Filter.Eq("dispositivoId", eventos[j].dispositivos[h].Id.ToString());
-                            List<DatosDispositivo> umb = bd.GetCollection<DatosDispositivo>("DatosDispositivo")
-                                .Find(filter)
-                                .Limit(5)
-                                .Sort(Builders<DatosDispositivo>.Sort.Descending("datetime"))
-                                .ToList();
-                            bool evee = false;
-                            for (int z = 0; z < umb.Count; z++)
+                            if (umb[z].tipoDeDato == "Texto")
                             {
-                                var builder = Builders<Umbral>.Filter;
-                                var filter2 = builder.Eq("fuenteDeDatoId", eventos[j].dispositivos[h].Id.ToString()) & builder.Eq("eventoId", eventos[j].Id.ToString());
-                                if (bd.GetCollection<Umbral>("Umbral").Find(filter2) != null)
+                                if (umb[z].medida.Equals(medida))
                                 {
-                                    if (umb[z].tipoDeDato == "Texto")
-                                    {
-                                        if (umb[z].medida.Equals(medida))
-                                        {
-                                            evee = true;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (int.Parse(umb[z].medida) < int.Parse(medida))
-                                        {
-                                            evee = true;
-                                        }
-                                    }
+                                    evee = true;
                                 }
                             }
-                            if (evee == true)
-                                hayEvento += 1;
-                        }
-                        if (hayEvento == eventos[j].dispositivos.Count)
-                        {
-                            //disparo evento
-                            var client = new RestClient("https://www.cerebro-servicelayer.com/api/eventos/dll?idDis=" + eventos[j].Id.ToString() + "&medida=" + eventos[j].nombre);
-                            var request = new RestRequest(Method.POST);
-                            request.AddHeader("cache-control", "no-cache");
-                            client.ExecuteAsync(request, Response =>
+                            else
                             {
-
-                            });
+                                if (int.Parse(umb[z].medida) < int.Parse(medida))
+                                {
+                                    evee = true;
+                                }
+                            }
                         }
                     }
+                    if (evee == true)
+                        hayEvento += 1;
+                }
+                if (hayEvento == eve.Count)
+                {
+                    //disparo evento
+                    var client = new RestClient("https://www.cerebro-servicelayer.com/api/eventos/dll?idEve=" + eve[j]);
+                    var request = new RestRequest(Method.POST);
+                    request.AddHeader("cache-control", "no-cache");
+                    client.ExecuteAsync(request, Response =>
+                    {
+
+                    });
                 }
             }
         }
@@ -159,7 +159,7 @@ namespace cerebro_frontOffice.Controllers
             var filter = Builders<Accion>.Filter.Eq("Id", ObjectId.Parse(id));
             bd.GetCollection<Accion>("Accion").FindOneAndUpdate(filter, update);
 
-            using (var fileStream = new FileStream("C:\\DLLs\\" +id + ".dll", FileMode.Create))
+            using (var fileStream = new FileStream("C:\\DLLs\\" + id + ".dll", FileMode.Create))
             {
                 files.CopyTo(fileStream);
             }
@@ -186,7 +186,7 @@ namespace cerebro_frontOffice.Controllers
             var accion = bd.GetCollection<Accion>("Accion");
             DeleteResult r = accion.DeleteOne(e => e.Id == ObjectId.Parse(id));
 
-            FileInfo fi = new FileInfo("C:\\DLLs\\"+id+".dll");
+            FileInfo fi = new FileInfo("C:\\DLLs\\" + id + ".dll");
             fi.Delete();
         }
     }

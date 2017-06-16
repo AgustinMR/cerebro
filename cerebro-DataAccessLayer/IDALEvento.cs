@@ -10,7 +10,7 @@ namespace cerebro_DataAccessLayer
 {
     public interface IDALEvento
     {
-        bool addEvento(Evento e);
+        string addEvento(Evento e);
         bool addUmbral(Umbral u);
         bool updateEvento(Evento e);
         bool deleteEvento(ObjectId id);
@@ -18,5 +18,9 @@ namespace cerebro_DataAccessLayer
         List<Evento> getAllEventos();
         bool addDatosEvento(string idEve, string nombre);
         List<Accion> getAcciones(string muni);
+        List<Evento> getEventosMuni(string muni);
+        List<Umbral> getUmbralesEve(string idEve);
+        bool updateUmbral(Umbral u);
+        bool deleteUmbral(ObjectId id);
     }
 }

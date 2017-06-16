@@ -25,5 +25,14 @@ namespace cerebro
         [DataMember]
         public string valorLimite { get; set; }
 
+        public Umbral() { }
+
+        public Umbral(string Id, string eventoId, string fuenteDeDatoId, string valorLimite)
+        {
+            this.Id = ObjectId.Parse(Id);
+            this.eventoId = eventoId;
+            this.fuenteDeDatoId = fuenteDeDatoId;
+            this.valorLimite = valorLimite;
+        }
     }
 }

@@ -17,14 +17,11 @@ namespace cerebro_ServiceLayer.Controllers
     {
         [HttpPost]
         [Route("addEvento")]
-        public bool addEvento([FromUri]Evento e)
+        public string addEvento([FromUri]Evento e)
         {
-            if (e != null)
-            {
-                BLEvento IBLEve = new BLEvento();
-                return IBLEve.addEvento(e);
-            }
-            return false;
+
+            BLEvento IBLEve = new BLEvento();
+            return IBLEve.addEvento(e);
         }
 
         [HttpPost]
@@ -57,16 +54,17 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpPut]
         [Route("")]
-        public bool updateEvento(Evento e)
+        public bool updateEvento(string id, string nombre, string accion)
         {
+            Evento e = new Evento(ObjectId.Parse(id),nombre,accion);
             return new BLEvento().updateEvento(e);
         }
 
         [HttpPost]
         [Route("dll")]
-        public void dispararAccionEvento(string idEve, string nombre)
+        public void dispararAccionEvento(string idEve)
         {
-            new BLEvento().dispararAccionEvento(idEve, nombre);
+            new BLEvento().dispararAccionEvento(idEve);
         }
 
         [HttpGet]
@@ -74,6 +72,35 @@ namespace cerebro_ServiceLayer.Controllers
         public List<Accion> getAcciones(string id)
         {
             return new BLEvento().getAcciones(id);
+        }
+
+        [HttpGet]
+        [Route("muni/{id}")]
+        public List<Evento> getEventosMuni(string id)
+        {
+            return new BLEvento().getEventosMuni(id);
+        }
+
+        [HttpGet]
+        [Route("umbrales/{id}")]
+        public List<Umbral> getUmbralesEve(string id)
+        {
+            return new BLEvento().getUmbralesEve(id);
+        }
+
+        [HttpPut]
+        [Route("umbrales")]
+        public bool updateUmbral(string id, string idEve, string idDis, string valor)
+        {
+            Umbral u = new Umbral(id, idEve, idDis, valor);
+            return new BLEvento().updateUmbral(u);
+        }
+
+        [HttpDelete]
+        [Route("umbrales/{id}")]
+        public bool deleteUmbral(string id)
+        {
+            return new BLEvento().deleteUmbral(ObjectId.Parse(id));
         }
     }
 }
