@@ -69,5 +69,11 @@ namespace cerebro_ServiceLayer.Controllers
             new BLEvento().dispararAccionEvento(idEve, nombre);
         }
 
+        [HttpGet]
+        [Route("acciones/{id}")]
+        public List<Accion> getAcciones(string id)
+        {
+            return new BLEvento().getAcciones(id);
+        }
     }
 }

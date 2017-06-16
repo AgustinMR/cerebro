@@ -67,5 +67,9 @@ namespace cerebro_BusinessLogicLayer
                 }
             }
         }
+
+        public List<Accion> getAcciones(string muni) {
+            return dal.getAcciones(muni);
+        }
     }
 }

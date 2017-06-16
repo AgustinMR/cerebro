@@ -17,5 +17,6 @@ namespace cerebro_DataAccessLayer
         Evento getEvento(ObjectId id);
         List<Evento> getAllEventos();
         bool addDatosEvento(string idEve, string nombre);
+        List<Accion> getAcciones(string muni);
     }
 }

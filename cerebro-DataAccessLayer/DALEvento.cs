@@ -85,5 +85,20 @@ namespace cerebro_DataAccessLayer
             datosEventos.InsertOne(e);
             return true;
         }
+
+        public List<Accion> getAcciones(string muni) {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            List<Accion> doc = bd.GetCollection<Accion>("Accion").Find(new BsonDocument()).ToList();
+            List<Accion> returnList = new List<Accion>();
+            for (int i = 0; i < doc.Count; i++)
+            {
+                if (doc[i].municipalidad.Equals(muni))
+                {
+                    returnList.Add(doc[i]);
+                }
+            }
+            return returnList;
+        }
     }
 }

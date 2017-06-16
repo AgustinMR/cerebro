@@ -20,6 +20,9 @@ namespace cerebro
         [BsonElement]
         [DataMember]
         public List<FuenteDeDato> dispositivos { get; set; }
+        [BsonElement]
+        [DataMember]
+        public string accion { get; set; }
 
         public Evento() { }
 
@@ -29,11 +32,12 @@ namespace cerebro
             this.nombre = nombre;
         }
 
-        public Evento(string municipalidad, string nombre, List<FuenteDeDato> dispositivos)
+        public Evento(string municipalidad, string nombre, List<FuenteDeDato> dispositivos, string accion)
         {
             this.municipalidad = municipalidad;
             this.nombre = nombre;
             this.dispositivos = dispositivos;
+            this.accion = accion;
         }
     }
 }
