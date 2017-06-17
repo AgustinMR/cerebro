@@ -40,18 +40,30 @@
                 <option value="">Seleccione el tipo del Dispositivo</option>
                 <option *ngFor="let tip of tipoDeFuneteDeDato" value="{{tip.Id}}"> {{tip.nombre}} </option>
             </select>
+            <div class="ui toggle checkbox w3-margin-bottom">
+                <input name="public" type="checkbox" id="sumulado">
+                <label>Dispositivo simulado.</label>
+            </div>
             <div class="ui labeled fluid input">
                 <div class="ui label">Nombre:</div>
                 <input [(ngModel)]="nombreNew" name="nombre" id="nombre" placeholder="Nombre del Dispositivo..." type="text">
             </div>
-            <div class="ui labeled fluid input w3-margin-top">
-                <div class="ui label">Direcci&oacute;n IP:</div>
-                <input [(ngModel)]="ipNew" id="ip" placeholder="Direcci&oacute;n IP desde la cual se enviar&aacute; datos..." type="text">
-            </div>
-            <div class="ui labeled fluid input w3-margin-top">
-                <div class="ui label">User Agent:</div>
-                <input [(ngModel)]="userAgentNew" id="userAgent" placeholder="User Agent del dispositivo..." type="text">
-            </div>
+            <div class="w3-margin-top">
+                <select name="origen" [(ngModel)]="privilegioSelect" id="privilegiosSelect" class="ui search dropdown">
+                    <option value="" selected disabled>Seleccione un privilegio</option>
+                    <option *ngFor="let p of privilegios" value="{{p.nombre}}"> {{p.nombre}} </option>
+                </select>
+            </div>  
+            <div id="ipCH">
+                <div class="ui labeled fluid input w3-margin-top">
+                    <div class="ui label">Direcci&oacute;n IP:</div>
+                    <input [(ngModel)]="ipNew" id="ip" placeholder="Direcci&oacute;n IP desde la cual se enviar&aacute; datos..." type="text">
+                </div>
+                <div class="ui labeled fluid input w3-margin-top">
+                    <div class="ui label">User Agent:</div>
+                    <input [(ngModel)]="userAgentNew" id="userAgent" placeholder="User Agent del dispositivo..." type="text">
+                </div>
+            </div>          
             <button class="ui button w3-left w3-margin-top w3-cerebro-blue" (click)="nuevoPunto()">Marcar Ubicaci&oacute;n</button>
         </div>
     </div>

@@ -12,10 +12,10 @@ export class FuenteDeDatoService {
         return this.http.get("https://www.cerebro-serviceLayer.com/api/tipos/muni/" + muni).map(data => data.json());
     }
 
-    public agregarFuente(dirIp: string, userAgent: string, tipo: string, ubicacion: string, municipalidad: string, nombre: string) {
+    public agregarFuente(dirIp: string, userAgent: string, tipo: string, ubicacion: string, municipalidad: string, nombre: string, privilegios: string, simulado: boolean) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        var postInfo = "municipalidad=" + municipalidad + "&ubicacion=" + ubicacion + "&userAgent=" + userAgent + "&direccionIP=" + dirIp + "&tipo=" + tipo + "&nombre=" + nombre;
+        var postInfo = "municipalidad=" + municipalidad + "&ubicacion=" + ubicacion + "&userAgent=" + userAgent + "&direccionIP=" + dirIp + "&tipo=" + tipo + "&nombre=" + nombre + "&privilegios=" + privilegios + "&simulado=" + simulado;
         return this.http.post("https://www.cerebro-serviceLayer.com/api/dispositivos?" + postInfo, {}, options).map(data => data.json());
     }
 
@@ -29,11 +29,15 @@ export class FuenteDeDatoService {
     public obtenerDis(muni: string) {
         return this.http.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muni/" + muni).map(data => data.json());
     }
-    
+
     public deleteDis(id: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.delete("https://www.cerebro-serviceLayer.com/api/dispositivos/" + id, options).map(data => data.json());
+    }
+
+    public obtenerPrivilegios(muni: string) {
+        return this.http.get("https://www.cerebro-servicelayer.com/api/usuarios/privilegios?muni=" + muni).map(data => data.json());
     }
 
 }
