@@ -31,12 +31,14 @@ export class FuenteDeDatoComponent implements OnInit {
     tipoDeFuneteDeDato: any;
     tiposRet: any;
     dispositivosMod: any;
+    privilegios: any;
 
     tipoDeFuneteDeDatoSelect = "";
     tipoDeFuneteDeDatoSelectMod = "";
     selectBorrar = "";
     ipNew = "";
     userAgentNew = "";
+    privilegioSelect = "";
 
     ipMod = "";
     nombreMod = "";
@@ -51,6 +53,14 @@ export class FuenteDeDatoComponent implements OnInit {
         $(document).ready(function () {
             $('.ui.sidebar').sidebar('attach events', '.toc.item');
             $('.ui.dropdown').dropdown();
+        });
+
+        $('#sumulado').change(function () {
+            if ($(this).is(":checked")) {
+                document.getElementById("ipCH").style.display = "none";
+            } else {
+                document.getElementById("ipCH").style.display = "block";
+            }
         });
 
         var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
@@ -101,6 +111,7 @@ export class FuenteDeDatoComponent implements OnInit {
             (data: Response) => {
                 this.tipoDeFuneteDeDato = data;
                 this.cargarDispositivos();
+                this.cargarPrivilegios();
             },
             responseError => console.log(responseError),
             () => console.log("Tipos de fuentes de datos cargadas")
@@ -111,14 +122,26 @@ export class FuenteDeDatoComponent implements OnInit {
         this.dispositivos.obtenerDis(this.nombre_municipalidad).subscribe(
             (data: Response) => {
                 this.dispositivosMod = data;
-                //this.getDispositivosList();
             },
             responseError => console.log(responseError),
             () => console.log("Fuentes de datos cargadas")
         );
     }
 
+    cargarPrivilegios() {
+        this.dispositivos.obtenerPrivilegios(this.nombre_municipalidad).subscribe(
+            (data: Response) => {
+                this.privilegios = data;
+            },
+            responseError => console.log(responseError),
+            () => console.log("Privilegios cargados")
+        );
+    }
+
     nuevoPunto() {
+        //if ($('#sumulado').is(':checked')) {
+        //    alert('checked');
+        //}
         if (this.tipoGuardar == "nuevo") {
             this.source.clear();
         } else if (this.tipoGuardar == "modificar") {
@@ -133,8 +156,16 @@ export class FuenteDeDatoComponent implements OnInit {
 
     guardar() {
         if (this.tipoGuardar == "nuevo") {
-            if (this.ipNew != "" && this.userAgentNew != "" && this.tipoDeFuneteDeDatoSelect != "" && this.nombreNew != "" && this.geom != "") {
-                this.dispositivos.agregarFuente(this.ipNew, this.userAgentNew, this.tipoDeFuneteDeDatoSelect, this.geom, this.nombre_municipalidad, this.nombreNew).subscribe(
+            var userAgent = this.userAgentNew;
+            var ipNew = this.ipNew;
+            var simulado = false;
+            if ($('#sumulado').is(':checked')) {
+                userAgent = null;
+                ipNew = null;
+                simulado = true;
+            }
+            if (this.tipoDeFuneteDeDatoSelect != "" && this.nombreNew != "" && this.geom != "" && this.privilegioSelect != "") {
+                this.dispositivos.agregarFuente(ipNew, userAgent, this.tipoDeFuneteDeDatoSelect, this.geom, this.nombre_municipalidad, this.nombreNew, this.privilegioSelect, simulado).subscribe(
                     (data: Response) => {
                         this.ipNew = "";
                         this.userAgentNew = "";
@@ -149,7 +180,6 @@ export class FuenteDeDatoComponent implements OnInit {
             }
         } else if (this.tipoGuardar == "modificar") {
             if (this.ipMod != "" && this.userAgentMod != "" && this.geomMod != "") {
-                //console.log(this.tipoDeFuneteDeDatoSelectMod);
                 this.dispositivos.modificarFuente(this.ipMod, this.userAgentMod, this.geomMod, this.tipoDeFuneteDeDatoSelectMod).subscribe(
                     (data: Response) => {
                         this.nombreMod = "";

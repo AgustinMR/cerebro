@@ -63,5 +63,9 @@ namespace cerebro_BusinessLogicLayer
         {
             return dal.setPrivilegioUsuario(email, privilegio);
         }
+
+        public List<Privilegio> getPrivilegios(string municipalidad) {
+            return dal.getPrivilegios(municipalidad);
+        }
     }
 }
