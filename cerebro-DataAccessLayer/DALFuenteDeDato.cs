@@ -98,15 +98,19 @@ namespace cerebro_DataAccessLayer
             return bucket.DownloadAsBytes(ObjectId.Parse(id));
         }
 
-        public List<FuenteDeDato> getDispositivosByMunicipalidad(string municipalidad, string tipo) {
-            var dispositivos = new MongoClient().GetDatabase("cerebroDB").GetCollection<FuenteDeDato>("FuenteDeDato");
-            var tipos = new MongoClient().GetDatabase("cerebroDB").GetCollection<TipoDeFuenteDeDato>("TipoDeFuenteDeDato").AsQueryable();
-            // tipos.Where(t => t.municipalidad == municipalidad).Where(t => t.tipo == ObjectId.Parse(tipo)).Select(t => t.Id)
-            return (from d in dispositivos.AsQueryable()
-                   join t in tipos on d.tipo equals t.Id
-                   where d.municipalidad == municipalidad
-                   where t.tipo.ToString() == tipo
-                   select d).ToList();
+        public async Task<List<FuenteDeDato>> getDispositivosByMunicipalidad(string municipalidad, string tipo)
+        {
+            TipoDeDato git;
+            if (tipo == "Numerico" || tipo == "numerico") git = TipoDeDato.NUMERICO;
+            else if (tipo == "Texto" || tipo == "texto") git = TipoDeDato.TEXTO;
+            else if (tipo == "Imagen" || tipo == "Imagen") git = TipoDeDato.IMAGEN;
+            else git = TipoDeDato.VIDEO;
+            var mongo = new MongoClient().GetDatabase("cerebroDB");
+            var dispositivos = mongo.GetCollection<FuenteDeDato>("FuenteDeDato");
+            var tipos = (from t in mongo.GetCollection<TipoDeFuenteDeDato>("TipoDeFuenteDeDato").AsQueryable() where t.municipalidad == municipalidad where t.tipo == git select t.Id).ToList();
+            var builder = Builders<FuenteDeDato>.Filter;
+            var filter = builder.Eq("municipalidad", municipalidad) & builder.In("tipo", tipos);
+            return await dispositivos.Find(filter).ToListAsync();
         }
     }
 }

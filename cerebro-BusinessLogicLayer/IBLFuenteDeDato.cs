@@ -1,6 +1,7 @@
 ﻿using cerebro;
 using MongoDB.Bson;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace cerebro_BusinessLogicLayer
 {
@@ -13,7 +14,7 @@ namespace cerebro_BusinessLogicLayer
         List<FuenteDeDato> getAllFuenteDeDato();
         List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni);
         DatosDispositivo getDatosDispositivo(string id);
-        List<FuenteDeDato> getDispositivosByMunicipalidad(string municipalidad, string tipo);
+        Task<List<FuenteDeDato>> getDispositivosByMunicipalidad(string municipalidad, string tipo);
         byte[] getImg(string id);
     }
 }

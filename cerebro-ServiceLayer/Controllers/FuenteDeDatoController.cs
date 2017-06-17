@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -60,9 +61,9 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpGet]
         [Route("municipalidad/{municipalidad}/{tipo}")]
-        public List<FuenteDeDato> getDispositivosByMunicipalidad(string municipalidad, string tipo)
+        public async Task<List<FuenteDeDato>> getDispositivosByMunicipalidadAsync(string municipalidad, string tipo)
         {
-            return new BLFuenteDeDato().getDispositivosByMunicipalidad(municipalidad, tipo);
+            return await new BLFuenteDeDato().getDispositivosByMunicipalidad(municipalidad, tipo);
         }
 
         [HttpGet]
