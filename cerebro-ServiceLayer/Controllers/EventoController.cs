@@ -1,17 +1,21 @@
 ﻿using cerebro;
 using cerebro_BusinessLogicLayer;
 using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace cerebro_ServiceLayer.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/eventos")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EventoController : ApiController
     {
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         [Route("addEvento")]
         public string addEvento([FromUri]Evento e)
         {
@@ -20,35 +24,35 @@ namespace cerebro_ServiceLayer.Controllers
             return IBLEve.addEvento(e);
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         [Route("addUmbral")]
         public bool addUmbral([FromUri]Umbral u)
         {
             return new BLEvento().addUmbral(u);
         }
 
-        [System.Web.Http.HttpDelete]
+        [HttpDelete]
         [Route("{id}")]
         public bool deleteEvento(string id)
         {
             return new BLEvento().deleteEvento(ObjectId.Parse(id));
         }
 
-        [System.Web.Http.HttpGet]
+        [HttpGet]
         [Route("")]
         public List<Evento> getAllEventos()
         {
             return new BLEvento().getAllEventos();
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         [Route("{id}")]
         public Evento getEvento(string id)
         {
             return new BLEvento().getEvento(ObjectId.Parse(id));
         }
 
-        [System.Web.Http.HttpPut]
+        [HttpPut]
         [Route("")]
         public bool updateEvento(string id, string nombre, string accion)
         {
@@ -56,35 +60,36 @@ namespace cerebro_ServiceLayer.Controllers
             return new BLEvento().updateEvento(e);
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         [Route("dll")]
-        public void dispararAccionEvento(string idEve)
+        public string dispararAccionEvento(string idEve)
         {
             new BLEvento().dispararAccionEvento(idEve);
+            return ("ok");
         }
 
-        [System.Web.Http.HttpGet]
+        [HttpGet]
         [Route("acciones/{id}")]
         public List<Accion> getAcciones(string id)
         {
             return new BLEvento().getAcciones(id);
         }
 
-        [System.Web.Http.HttpGet]
+        [HttpGet]
         [Route("muni/{id}")]
         public List<Evento> getEventosMuni(string id)
         {
             return new BLEvento().getEventosMuni(id);
         }
 
-        [System.Web.Http.HttpGet]
+        [HttpGet]
         [Route("umbrales/{id}")]
         public List<Umbral> getUmbralesEve(string id)
         {
             return new BLEvento().getUmbralesEve(id);
         }
 
-        [System.Web.Http.HttpPut]
+        [HttpPut]
         [Route("umbrales")]
         public bool updateUmbral(string id, string idEve, string idDis, string valor)
         {
@@ -92,7 +97,7 @@ namespace cerebro_ServiceLayer.Controllers
             return new BLEvento().updateUmbral(u);
         }
 
-        [System.Web.Http.HttpDelete]
+        [HttpDelete]
         [Route("umbrales/{id}")]
         public bool deleteUmbral(string id)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 
 namespace cerebro_ServiceLayer
@@ -9,10 +10,12 @@ namespace cerebro_ServiceLayer
     {
         public static void Register(HttpConfiguration config)
         {
+            // Web API configuration and services
 
-            config.EnableCors();
+            // Web API routes
             config.MapHttpAttributeRoutes();
-            //config.Formatters.Add(new BsonMediaTypeFormatter());
+            config.EnableCors();
+            config.Formatters.Add(new BsonMediaTypeFormatter());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

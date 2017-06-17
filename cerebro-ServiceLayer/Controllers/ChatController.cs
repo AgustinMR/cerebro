@@ -1,19 +1,18 @@
-﻿using cerebro;
-using cerebro_BusinessLogicLayer;
-using cerebro_ServiceLayer.Models;
+﻿using cerebro_SignalrServer;
 using PusherServer;
-using System.Collections.Generic;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-
 namespace cerebro_ServiceLayer.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/chats")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ChatController : ApiController
     {
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         [Route("")]
         public IHttpActionResult Trigger([FromUri]ChatMensaje m)
         {
