@@ -1,3 +1,89 @@
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\csc.exe
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\csc.exe.config
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\csc.rsp
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\csi.exe
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\csi.rsp
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\System.AppContext.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\System.Collections.Immutable.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\System.Diagnostics.StackTrace.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\System.IO.FileSystem.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\System.IO.FileSystem.Primitives.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\vbc.exe
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\vbc.exe.config
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\vbc.rsp
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\VBCSCompiler.exe
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\roslyn\VBCSCompiler.exe.config
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.dll.config
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.pdb
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\Antlr3.Runtime.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\EntityFramework.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\EntityFramework.SqlServer.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\Microsoft.Web.Infrastructure.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\MongoDB.Bson.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\MongoDB.Driver.Core.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\MongoDB.Driver.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\Newtonsoft.Json.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\PusherServer.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Net.Http.Formatting.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Cors.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Helpers.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Http.Cors.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Http.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Http.WebHost.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Mvc.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Optimization.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Razor.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.WebPages.Deployment.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.WebPages.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.WebPages.Razor.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\WebGrease.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro-DataAccessLayer.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\MongoDB.Driver.GridFS.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\Antlr3.Runtime.pdb
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro.pdb
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.pdb
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.dll.config
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\EntityFramework.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\EntityFramework.SqlServer.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\MongoDB.Bson.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\MongoDB.Driver.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\MongoDB.Driver.Core.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\Newtonsoft.Json.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\PusherServer.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Helpers.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Http.Cors.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Mvc.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Optimization.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Razor.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.WebPages.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.WebPages.Deployment.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.WebPages.Razor.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Net.Http.Formatting.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Http.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\System.Web.Http.WebHost.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro-DataAccessLayer.pdb
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\cerebro-DataAccessLayer.dll.config
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\bin\MongoDB.Driver.GridFS.xml
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.csprojResolveAssemblyReference.cache
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.dll
+c:\users\bruno\documents\visual studio 2017\Projects\cerebro-ServiceLayer\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.pdb
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\roslyn\csc.exe
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\roslyn\csc.exe.config
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\roslyn\csc.rsp
@@ -27,10 +113,13 @@ C:\GitHub\cerebro\cerebro-ServiceLayer\bin\roslyn\VBCSCompiler.exe.config
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.dll.config
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.pdb
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\Antlr3.Runtime.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\EntityFramework.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\EntityFramework.SqlServer.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\Microsoft.Web.Infrastructure.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\MongoDB.Bson.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.Core.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.dll
@@ -39,13 +128,23 @@ C:\GitHub\cerebro\cerebro-ServiceLayer\bin\PusherServer.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Net.Http.Formatting.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Runtime.InteropServices.RuntimeInformation.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Cors.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Helpers.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.Cors.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.WebHost.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Mvc.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Optimization.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Razor.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.WebPages.Deployment.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.WebPages.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.WebPages.Razor.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\WebGrease.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-DataAccessLayer.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.GridFS.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\Antlr3.Runtime.pdb
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro.pdb
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.pdb
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.dll.config
-C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro.pdb
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\EntityFramework.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\EntityFramework.SqlServer.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
@@ -54,91 +153,32 @@ C:\GitHub\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.Core.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\Newtonsoft.Json.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\PusherServer.xml
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Helpers.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.Cors.xml
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Mvc.xml
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Optimization.xml
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Razor.xml
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.WebPages.xml
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.WebPages.Deployment.xml
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.WebPages.Razor.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Net.Http.Formatting.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.WebHost.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-DataAccessLayer.pdb
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro-DataAccessLayer.dll.config
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.GridFS.xml
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\EntityFramework.resources.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\EntityFramework.SqlServer.resources.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Web.Helpers.resources.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Web.Mvc.resources.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Web.Optimization.resources.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Web.Razor.resources.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Web.WebPages.resources.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Web.WebPages.Razor.resources.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Net.Http.Formatting.resources.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Web.Http.resources.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\bin\es\System.Web.Http.WebHost.resources.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.csprojResolveAssemblyReference.cache
 C:\GitHub\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.dll
 C:\GitHub\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.pdb
-C:\GitHub\cerebro\cerebro-ServiceLayer\bin\cerebro.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\csc.exe
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\csc.exe.config
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\csc.rsp
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\csi.exe
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\csi.rsp
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\System.AppContext.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\System.Diagnostics.StackTrace.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\System.IO.FileSystem.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\System.IO.FileSystem.Primitives.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\System.Reflection.Metadata.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\vbc.exe
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\vbc.exe.config
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\vbc.rsp
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\VBCSCompiler.exe
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.dll.config
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-ServiceLayer.pdb
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\EntityFramework.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\EntityFramework.SqlServer.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\MongoDB.Bson.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.Core.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\Newtonsoft.Json.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\PusherServer.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\System.Net.Http.Formatting.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\System.Runtime.InteropServices.RuntimeInformation.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\System.Web.Cors.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.Cors.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.WebHost.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-DataAccessLayer.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.pdb
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-BusinessLogicLayer.dll.config
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro.pdb
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\EntityFramework.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\EntityFramework.SqlServer.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\MongoDB.Bson.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.Core.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\Newtonsoft.Json.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\PusherServer.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.Cors.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\System.Net.Http.Formatting.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\System.Web.Http.WebHost.xml
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-DataAccessLayer.pdb
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro-DataAccessLayer.dll.config
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\es\EntityFramework.resources.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\es\EntityFramework.SqlServer.resources.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\es\System.Net.Http.Formatting.resources.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\es\System.Web.Http.resources.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\es\System.Web.Http.WebHost.resources.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.csprojResolveAssemblyReference.cache
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\obj\Release\cerebro-ServiceLayer.pdb
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\cerebro.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.GridFS.dll
-C:\Users\Agustin\Documents\Proyectos\cerebro\cerebro-ServiceLayer\bin\MongoDB.Driver.GridFS.xml

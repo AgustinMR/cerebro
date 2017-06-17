@@ -1,18 +1,17 @@
-﻿using System.Web.Http;
-using System.Web.Http.Cors;
+﻿using cerebro;
 using cerebro_BusinessLogicLayer;
-using cerebro;
-using System.Collections.Generic;
 using cerebro_ServiceLayer.Models;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace cerebro_ServiceLayer.Controllers
 {
-    [RoutePrefix("api/usuarios")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("api/usuarios")]
     public class UsuarioController : ApiController
     {
-
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         [Route("visitante")]
         public IHttpActionResult addVisitante([FromUri]Visitante vis)
         {
@@ -28,7 +27,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         [Route("operador")]
         public IHttpActionResult addOperador([FromUri]Operador op)
         {
@@ -44,7 +43,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         [Route("administrador")]
         public IHttpActionResult addAdministrador([FromUri]Administrador admin)
         {
@@ -60,7 +59,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
-        [HttpDelete]
+        [System.Web.Http.HttpDelete]
         [Route("visitante")]
         public IHttpActionResult deleteVisitante([FromUri]Visitante vis)
         {
@@ -76,7 +75,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
-        [HttpDelete]
+        [System.Web.Http.HttpDelete]
         [Route("operador")]
         public IHttpActionResult deleteOperador([FromUri]Operador op)
         {
@@ -92,7 +91,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
-        [HttpDelete]
+        [System.Web.Http.HttpDelete]
         [Route("administrador")]
         public IHttpActionResult deleteAdministrador([FromUri]Administrador admin)
         {
@@ -108,7 +107,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
-        [HttpPut]
+        [System.Web.Http.HttpPut]
         [Route("visitante")]
         public IHttpActionResult updateVisitante([FromUri]Visitante vis)
         {
@@ -124,7 +123,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
-        [HttpPut]
+        [System.Web.Http.HttpPut]
         [Route("operador")]
         public IHttpActionResult updateOperador([FromUri]Operador op)
         {
@@ -140,7 +139,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
-        [HttpPut]
+        [System.Web.Http.HttpPut]
         [Route("administrador")]
         public IHttpActionResult updateAdministrador([FromUri]Administrador admin)
         {
@@ -156,7 +155,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest(TipoRetorno.ERROR_DATOS_NULL.ToString());
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         [Route("loginVisitante")]
         public bool loginVisitante([FromUri]Visitante vis)
         {
@@ -168,7 +167,7 @@ namespace cerebro_ServiceLayer.Controllers
             return false;
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         [Route("loginOperador")]
         public bool loginOperador([FromUri]Operador op)
         {
@@ -180,7 +179,7 @@ namespace cerebro_ServiceLayer.Controllers
             return false;
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         [Route("loginAdministrador")]
         public bool loginAdministrador([FromUri]Administrador admin)
         {
@@ -192,35 +191,35 @@ namespace cerebro_ServiceLayer.Controllers
             return false;
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("obtener")]
         public Usuario getUsuario(string email)
         {
             return new BLUsuario().obtenerUsuario(email);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("")]
         public List<Usuario> getUsuarios()
         {
             return new BLUsuario().obtenerUsuarios();
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("municipalidad/{municipalidad}")]
         public List<Usuario> getUsuarios(string municipalidad)
         {
             return new BLUsuario().obtenerUsuarios(municipalidad);
         }
 
-        [HttpPut]
+        [System.Web.Http.HttpPut]
         [Route("enabled")]
         public bool toggleUsuarioEnabled(string email, bool enabled)
         {
             return new BLUsuario().toggleUsuarioEnabled(email, enabled);
         }
 
-        [HttpPut]
+        [System.Web.Http.HttpPut]
         [Route("privilegio")]
         public bool setPrivilegioUsuario(string email, string privilegio)
         {

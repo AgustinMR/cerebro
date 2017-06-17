@@ -3,19 +3,17 @@ using cerebro_BusinessLogicLayer;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
+
 namespace cerebro_ServiceLayer.Controllers
 {
-    [RoutePrefix("api/dispositivos")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("api/dispositivos")]
     public class FuenteDeDatoController : ApiController
     {
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         [Route("")]
         public bool addFuenteDeDato(string municipalidad, string ubicacion, string userAgent, string direccionIP, string tipo, string nombre)
         {
@@ -42,35 +40,35 @@ namespace cerebro_ServiceLayer.Controllers
             return new BLFuenteDeDato().deleteFuenteDeDato(ObjectId.Parse(id));
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("")]
         public List<FuenteDeDato> getAllFuenteDeDato()
         {
             return new BLFuenteDeDato().getAllFuenteDeDato();
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("muni/{id}")]
         public List<FuenteDeDato> getAllFuenteDeDatoMuni(string id)
         {
             return new BLFuenteDeDato().getAllFuenteDeDatoMuni(id);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("municipalidad/{municipalidad}/{tipo}")]
         public List<FuenteDeDato> getDispositivosByMunicipalidad(string municipalidad, string tipo)
         {
             return new BLFuenteDeDato().getDispositivosByMunicipalidad(municipalidad, tipo);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("{id}")]
         public FuenteDeDato getFuenteDeDato(string id)
         {
             return new BLFuenteDeDato().getFuenteDeDato(ObjectId.Parse(id));
         }
 
-        [HttpPut]
+        [System.Web.Http.HttpPut]
         [Route("")]
         public bool updateFuenteDeDato(string ubicacion, string userAgent, string direccionIP, string id)
         {
@@ -87,14 +85,14 @@ namespace cerebro_ServiceLayer.Controllers
             return new BLFuenteDeDato().updateFuenteDeDato(ff);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("datos/{id}")]
         public DatosDispositivo getDatosDispositivo(string id)
         {
             return new BLFuenteDeDato().getDatosDispositivo(id);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("img/{id}")]
         public byte[] getImg(string id)
         {

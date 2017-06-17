@@ -7,46 +7,46 @@ using System.Web.Http.Cors;
 
 namespace cerebro_ServiceLayer.Controllers
 {
-    [RoutePrefix("api/tipos")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("api/tipos")]
     public class TipoDeFuenteDeDatoController : ApiController
     {
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         [Route("")]
         public bool addTipoDeFuenteDeDato([FromUri]TipoDeFuenteDeDato t)
         {
             return new BLTipoDeFuenteDeDato().addTipoDeFuenteDeDato(t);
         }
 
-        [HttpDelete]
+        [System.Web.Http.HttpDelete]
         [Route("{id}")]
         public bool deleteTipoDeFuenteDeDato(string id)
         {
             return new BLTipoDeFuenteDeDato().deleteTipoDeFuenteDeDato(ObjectId.Parse(id));
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("")]
         public List<TipoDeFuenteDeDato> getAllTipoDeFuenteDeDatos()
         {
             return new BLTipoDeFuenteDeDato().getAllTipoDeFuenteDeDatos();
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("{id}")]
         public TipoDeFuenteDeDato getTipoDeFuenteDeDato(string id)
         {
             return new BLTipoDeFuenteDeDato().getTipoDeFuenteDeDato(ObjectId.Parse(id));
         }
 
-        [HttpPut]
+        [System.Web.Http.HttpPut]
         [Route("")]
         public bool updateTipoDeFuenteDeDato([FromUri]TipoDeFuenteDeDato t)
         {
             return new BLTipoDeFuenteDeDato().updateTipoDeFuenteDeDato(t);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("muni/{id}")]
         public List<TipoDeFuenteDeDato> getAllTipoDeFuenteDeDatos(string id)
         {

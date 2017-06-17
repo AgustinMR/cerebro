@@ -1,21 +1,17 @@
 ﻿using cerebro;
 using cerebro_BusinessLogicLayer;
-using System;
+using MongoDB.Bson;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace cerebro_ServiceLayer.Controllers
 {
-    [RoutePrefix("api/municipalidades")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("api/municipalidades")]
     public class MunicipalidadController : ApiController
     {
-
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         [Route("")]
         public IHttpActionResult addAgrupacion([FromUri]Municipalidad muni)
         {
@@ -28,7 +24,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest();
         }
 
-        [HttpDelete]
+        [System.Web.Http.HttpDelete]
         [Route("")]
         public IHttpActionResult deleteMunicipalidad([FromUri]Municipalidad muni)
         {
@@ -41,7 +37,7 @@ namespace cerebro_ServiceLayer.Controllers
             return BadRequest();
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("")]
         public List<Municipalidad> getMunicipalidades()
         {
@@ -49,14 +45,14 @@ namespace cerebro_ServiceLayer.Controllers
             return IBLMuni.getMunicipalidades();
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("{municipalidad}")]
         public Municipalidad getMunicipalidad(string municipalidad)
         {
             return new BLMunicipalidad().getMunicipalidad(municipalidad);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [Route("{municipalidad}/dispositivos")]
         public List<FuenteDeDato> getDispositivosByMunicipalidad(string municipalidad)
         {
