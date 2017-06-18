@@ -14,6 +14,7 @@ namespace cerebro_DataAccessLayer
         public UsuariosDbContext() : base("name=cerebroConnectionString") { }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Privilegio> Privilegios { get; set; }
+        public DbSet<PrivilegiosUsuarios> PrivilegiosUsu { get; set; }
     }
 
     public class DALUsuario : IDALUsuario
@@ -93,9 +94,9 @@ namespace cerebro_DataAccessLayer
             return false;
         }
 
-        public Usuario obtenerUsuario(string email)
+        public Usuario obtenerUsuario(string email, string municipalidad)
         {
-            return (from u in new UsuariosDbContext().Usuarios where u.email == email select u).SingleOrDefault();
+            return new UsuariosDbContext().Usuarios.Find(email, municipalidad);
         }
 
         public List<Usuario> obtenerUsuarios()
@@ -108,25 +109,41 @@ namespace cerebro_DataAccessLayer
             return (from u in new UsuariosDbContext().Usuarios where u.nombre_municipalidad == municipalidad select u).ToList();
         }
 
-        public bool toggleUsuarioEnabled(string email, bool enabled)
+        public bool toggleUsuarioEnabled(string email, string muni, bool enabled)
         {
-            Usuario u = obtenerUsuario(email);
-            u.enabled = enabled;
-            return modificarUsuario(u);
+            UsuariosDbContext context = new UsuariosDbContext();
+            Usuario UsuDB = context.Usuarios.Find(email, muni);
+            UsuDB.enabled = enabled;
+            return context.SaveChanges() > 0;
         }
 
-        public bool setPrivilegioUsuario(string email, string privilegio)
+        public bool setPrivilegioUsuario(string email, string muni, string privilegio)
         {
-            Usuario u = obtenerUsuario(email);
-            var p = new List<Privilegio>();
-            p.Add(new Privilegio(privilegio, u.nombre_municipalidad));
-            u.PRIVILEGIOS = p;
-            return modificarUsuario(u);
+            PrivilegiosUsuarios p = new PrivilegiosUsuarios();
+            p.Usuario_email = email;
+            p.Usuario_nombre_municipalidad = muni;
+            p.Privilegio_nombre_municipalidad = muni;
+            p.Privilegio_nombre = privilegio;
+            UsuariosDbContext context = new UsuariosDbContext();
+            context.PrivilegiosUsu.Add(p);
+            return context.SaveChanges() > 0;
         }
 
         public List<Privilegio> getPrivilegios(string municipalidad)
         {
             return (from u in new UsuariosDbContext().Privilegios where u.nombre_municipalidad == municipalidad select u).ToList();
+        }
+
+        public List<PrivilegiosUsuarios> getPrivilegiosUsuarios(string email, string muni)
+        {
+            return (from u in new UsuariosDbContext().PrivilegiosUsu where u.Usuario_email == email where u.Usuario_nombre_municipalidad == muni where u.Privilegio_nombre_municipalidad == muni select u).ToList();
+        }
+
+        public bool deletePrivilegioUsuario(string email, string muni, string privilegio) {
+            UsuariosDbContext context = new UsuariosDbContext();
+            PrivilegiosUsuarios PrivUsu = context.PrivilegiosUsu.Find(privilegio,muni,email,muni);
+            context.PrivilegiosUsu.Remove(PrivUsu);
+            return context.SaveChanges() > 0;
         }
     }
 }
