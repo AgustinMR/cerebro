@@ -33,21 +33,29 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpGet]
         [Route("datos/total")]
-        public string getTotalDatosByTipo(string tipo, string municipalidad) {
+        public List<string> getTotalDatosByTipo(string tipo, string municipalidad) {
             var bd = new MongoClient().GetDatabase("cerebroDB");
             var dispositivosMunicipalidad = (from e in bd.GetCollection<FuenteDeDato>("FuenteDeDato").AsQueryable() where e.municipalidad == municipalidad select e.Id).ToList();
             var datos = bd.GetCollection<DatosDispositivo>("DatosDispositivo");
             var builder = Builders<DatosDispositivo>.Filter;
             var filter = builder.In("dispositivoId", dispositivosMunicipalidad) & builder.Eq("tipoDeDato", tipo);
-            return (from d in datos.AsQueryable()
-                    where dispositivosMunicipalidad.Contains(ObjectId.Parse(d.dispositivoId))
-                    where d.tipoDeDato == tipo
-                    group d by d.nombre into g
-                    select new { nombre = g.Key, cantidad = g.Count() }).ToList().ToJson();
+            long total = datos.Count(filter);
+            List<string> ret = new List<string>();
+            foreach(var d in dispositivosMunicipalidad) {
+                //ret.Add((from x in datos.AsQueryable());
+            }
+            return ret;
+            
+            //datos.Find(filter).;
+            //return (from d in datos.AsQueryable()
+            //        where dispositivosMunicipalidad.Contains(ObjectId.Parse(d.dispositivoId))
+            //        where d.tipoDeDato == tipo
+            //        group d by d.nombre into g
+            //        select new { nombre = g.Key, cantidad = g.Count() }).ToList()..ToJson();
             //var query = datos.Find(filter).Sort(Builders<DatosDispositivo>.Sort.Descending("datetime")).sort;
             //return datos.AsQueryable()
             //        .Where(d => d.tipoDeDato == tipo)
-            //        .Where(d => dispositivosMunicipalidad.Contains(ObjectId.Parse(d.dispositivoId)))
+            //        //.Where(d => dispositivosMunicipalidad.Contains(ObjectId.Parse(d.dispositivoId)))
             //        .GroupBy(d => d.nombre)
             //        .Select(g => new { nombre = g.Key, cantidad = g.Count() }).ToList().ToJson();
         }
