@@ -33,26 +33,10 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpGet]
         [Route("datos/total")]
-        public List<Object[]> getTotalDatosByTipo(string tipo, string municipalidad) {
+        public int getTotalDatosByTipo(string dispositivo) {
             var bd = new MongoClient().GetDatabase("cerebroDB");
-            TipoDeDato tipoD;
-            if (tipo.ToLower() == "numerico") tipoD = TipoDeDato.NUMERICO;
-            else if (tipo.ToLower() == "texto") tipoD = TipoDeDato.TEXTO;
-            else if (tipo.ToLower() == "imagen") tipoD = TipoDeDato.IMAGEN;
-            else tipoD = TipoDeDato.VIDEO;
-            var tipos = (from t in bd.GetCollection<TipoDeFuenteDeDato>("TipoDeFuenteDeDato").AsQueryable() where t.municipalidad == municipalidad where t.tipo == tipoD select t.Id).ToList();
-            var dispositivos = (from e in bd.GetCollection<FuenteDeDato>("FuenteDeDato").AsQueryable() where e.municipalidad == municipalidad where tipos.Contains(e.tipo) select e).ToList();
-            var builder = Builders<DatosDispositivo>.Filter;
             var datos = bd.GetCollection<DatosDispositivo>("DatosDispositivo");
-            List<Object[]> ret = new List<Object[]>();
-            foreach(var d in dispositivos) {
-                int r = (from x in datos.AsQueryable() where x.tipoDeDato == tipo where x.nombre == d.nombre group x by x.nombre into g select g.Count()).FirstOrDefault();
-                int total = (from x in datos.AsQueryable() where x.tipoDeDato == tipo where tipos.Contains(d.tipo) select x).Count();
-                double i = r;
-                if (total > r) i = ((r*total)/100);
-                ret.Add(new Object[] {d.nombre, r});
-            }
-            return ret;
+            return (from x in datos.AsQueryable() where x.dispositivoId == dispositivo group x by x.dispositivoId into g select g.Count()).FirstOrDefault();
         }
 
         [HttpGet]
