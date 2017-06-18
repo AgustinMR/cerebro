@@ -62,7 +62,7 @@
         </div>
     </div>
     <div id="modificar" class="tab w3-container" style="display:none">
-        <select name="nombre_mod" [(ngModel)]="nombreMod" id="nombre_mod" class="ui fluid search dropdown w3-margin-top" (change)="onChange($event.target.value)">
+        <select id="selectTipoMod" class="ui fluid search dropdown w3-margin-top" (change)="onChange($event.target.value)">
             <option value="" selected disabled>Seleccione un tipo de dispositivo para verlo y modificarlo...</option>
             <option *ngFor="let tip of tipoMod" value="{{tip.Id}}"> {{tip.nombre}} </option>
         </select>

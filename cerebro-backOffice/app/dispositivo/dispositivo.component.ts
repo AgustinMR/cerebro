@@ -32,6 +32,7 @@ export class FuenteDeDatoComponent implements OnInit {
     tiposRet: any;
     dispositivosMod: any;
     privilegios: any;
+    simuladoMod: any;
 
     tipoDeFuneteDeDatoSelect = "";
     tipoDeFuneteDeDatoSelectMod = "";
@@ -39,6 +40,7 @@ export class FuenteDeDatoComponent implements OnInit {
     ipNew = "";
     userAgentNew = "";
     privilegioSelect = "";
+    privilegioSelectMod = "";
 
     ipMod = "";
     nombreMod = "";
@@ -179,8 +181,14 @@ export class FuenteDeDatoComponent implements OnInit {
                 );
             }
         } else if (this.tipoGuardar == "modificar") {
-            if (this.ipMod != "" && this.userAgentMod != "" && this.geomMod != "") {
-                this.dispositivos.modificarFuente(this.ipMod, this.userAgentMod, this.geomMod, this.tipoDeFuneteDeDatoSelectMod).subscribe(
+            var userAgentMod = this.userAgentMod;
+            var ipMod = this.ipMod;
+            if (this.simuladoMod) {
+                userAgentMod = null;
+                ipMod = null;
+            }
+            if (this.geomMod != "") {
+                this.dispositivos.modificarFuente(ipMod, userAgentMod, this.geomMod, this.tipoDeFuneteDeDatoSelectMod, this.privilegioSelectMod, this.nombreMod).subscribe(
                     (data: Response) => {
                         this.nombreMod = "";
                         this.ipMod = "";
@@ -204,9 +212,18 @@ export class FuenteDeDatoComponent implements OnInit {
     onChange(val: any) {
         for (var dis of this.dispositivosMod) {
             if (dis.Id == val) {
+                if (dis.simulado == true) {
+                    document.getElementById("ipCHMod").style.display = "none";
+                    this.simuladoMod = true;
+                } else {
+                    document.getElementById("ipCHMod").style.display = "block";
+                    this.ipMod = dis.direccionIP;
+                    this.userAgentMod = dis.userAgent;
+                    this.simuladoMod = false;
+                }
                 this.nombreMod = dis.nombre;
-                this.ipMod = dis.direccionIP;
-                this.userAgentMod = dis.userAgent;
+                $('#privilegiosSelectMod').dropdown('set selected', dis.privilegios);
+                $('#privilegiosSelectMod').dropdown('refresh');
 
                 if (this.geomMod != "") {
                     this.source.clear();

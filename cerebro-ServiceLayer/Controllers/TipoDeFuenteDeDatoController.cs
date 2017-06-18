@@ -41,8 +41,13 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpPut]
         [Route("")]
-        public bool updateTipoDeFuenteDeDato([FromUri]TipoDeFuenteDeDato t)
+        public bool updateTipoDeFuenteDeDato(string id, string nombre, int frecuenciaLectura, string uriWebService)
         {
+            TipoDeFuenteDeDato t = new TipoDeFuenteDeDato();
+            t.Id = ObjectId.Parse(id);
+            t.nombre = nombre;
+            t.frecuenciaLectura = frecuenciaLectura;
+            t.uriWebService = uriWebService;
             return new BLTipoDeFuenteDeDato().updateTipoDeFuenteDeDato(t);
         }
 
