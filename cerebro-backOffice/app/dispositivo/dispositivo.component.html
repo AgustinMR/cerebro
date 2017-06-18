@@ -35,22 +35,34 @@
         <a onclick="changeTab(event, 'quitar')" (click)="borrarMapa('quitar')" class="item tabButtons">Eliminar</a>
     </div>
     <div id="nuevo" class="tab w3-container">
+        <select name="tipo" [(ngModel)]="tipoDeFuneteDeDatoSelect" id="tipo" class="ui fluid search dropdown w3-margin-top">
+            <option value="">Seleccione el tipo del Dispositivo</option>
+            <option *ngFor="let tip of tipoDeFuneteDeDato" value="{{tip.Id}}"> {{tip.nombre}} </option>
+        </select>
         <div class="container w3-padding w3-padding-24">
-            <select name="tipo" [(ngModel)]="tipoDeFuneteDeDatoSelect" id="tipo" class="ui fluid dropdown w3-margin-bottom">
-                <option value="">Seleccione el tipo del Dispositivo</option>
-                <option *ngFor="let tip of tipoDeFuneteDeDato" value="{{tip.Id}}"> {{tip.nombre}} </option>
-            </select>
+            <div class="ui toggle checkbox w3-margin-bottom">
+                <input name="public" type="checkbox" id="sumulado">
+                <label>Dispositivo simulado.</label>
+            </div>
+            <div class="w3-margin-bottom">
+                <select name="origen" [(ngModel)]="privilegioSelect" id="privilegiosSelect" class="ui search dropdown">
+                    <option value="" selected disabled>Seleccione un privilegio</option>
+                    <option *ngFor="let p of privilegios" value="{{p.nombre}}"> {{p.nombre}} </option>
+                </select>
+            </div>
             <div class="ui labeled fluid input">
                 <div class="ui label">Nombre:</div>
                 <input [(ngModel)]="nombreNew" name="nombre" id="nombre" placeholder="Nombre del Dispositivo..." type="text">
             </div>
-            <div class="ui labeled fluid input w3-margin-top">
-                <div class="ui label">Direcci&oacute;n IP:</div>
-                <input [(ngModel)]="ipNew" id="ip" placeholder="Direcci&oacute;n IP desde la cual se enviar&aacute; datos..." type="text">
-            </div>
-            <div class="ui labeled fluid input w3-margin-top">
-                <div class="ui label">User Agent:</div>
-                <input [(ngModel)]="userAgentNew" id="userAgent" placeholder="User Agent del dispositivo..." type="text">
+            <div id="ipCH">
+                <div class="ui labeled fluid input w3-margin-top">
+                    <div class="ui label">Direcci&oacute;n IP:</div>
+                    <input [(ngModel)]="ipNew" id="ip" placeholder="Direcci&oacute;n IP desde la cual se enviar&aacute; datos..." type="text">
+                </div>
+                <div class="ui labeled fluid input w3-margin-top">
+                    <div class="ui label">User Agent:</div>
+                    <input [(ngModel)]="userAgentNew" id="userAgent" placeholder="User Agent del dispositivo..." type="text">
+                </div>
             </div>
             <button class="ui button w3-left w3-margin-top w3-cerebro-blue" (click)="nuevoPunto()">Marcar Ubicaci&oacute;n</button>
         </div>
@@ -61,19 +73,27 @@
             <option *ngFor="let dis of dispositivosMod" value="{{dis.Id}}"> {{dis.nombre}} </option>
         </select>
         <div class="container w3-padding w3-padding-24">
+            <div class="w3-margin-bottom">
+                <select name="origen" [(ngModel)]="privilegioSelectMod" id="privilegiosSelectMod" class="ui search dropdown">
+                    <option value="" selected disabled>Seleccione un privilegio</option>
+                    <option *ngFor="let p of privilegios" value="{{p.nombre}}"> {{p.nombre}} </option>
+                </select>
+            </div>
             <div class="ui labeled fluid input">
                 <div class="ui label">Nombre:</div>
                 <input [(ngModel)]="nombreMod" name="nombre" id="nombre" placeholder="Nombre del Dispositivo..." type="text">
+            </div>            
+            <div id="ipCHMod">
+                <div class="ui labeled fluid input w3-margin-top">
+                    <div class="ui label">Direcci&oacute;n IP:</div>
+                    <input [(ngModel)]="ipMod" id="ip_mod" placeholder="Direcci&oacute;n IP desde la cual se enviar&aacute; datos..." type="text">
+                </div>
+                <div class="ui labeled fluid input w3-margin-top">
+                    <div class="ui label">User Agent:</div>
+                    <input [(ngModel)]="userAgentMod" id="userAgent_mod" placeholder="User Agent del dispositivo..." type="text">
+                </div>
+                <button class="ui button w3-left w3-margin-top w3-cerebro-blue" (click)="nuevoPunto()">Marcar Ubicaci&oacute;n</button>
             </div>
-            <div class="ui labeled fluid input w3-margin-top">
-                <div class="ui label">Direcci&oacute;n IP:</div>
-                <input [(ngModel)]="ipMod" id="ip_mod" placeholder="Direcci&oacute;n IP desde la cual se enviar&aacute; datos..." type="text">
-            </div>
-            <div class="ui labeled fluid input w3-margin-top">
-                <div class="ui label">User Agent:</div>
-                <input [(ngModel)]="userAgentMod" id="userAgent_mod" placeholder="User Agent del dispositivo..." type="text">
-            </div>
-            <button class="ui button w3-left w3-margin-top w3-cerebro-blue" (click)="nuevoPunto()">Marcar Ubicaci&oacute;n</button>
         </div>
     </div>
     <div id="quitar" class="tab w3-container" style="display:none">

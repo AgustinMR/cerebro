@@ -13,6 +13,7 @@ namespace cerebro_DataAccessLayer
     {
         public UsuariosDbContext() : base("name=cerebroConnectionString") { }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Privilegio> Privilegios { get; set; }
     }
 
     public class DALUsuario : IDALUsuario
@@ -71,7 +72,8 @@ namespace cerebro_DataAccessLayer
                 else
                     return false;
             }
-            else if (usu.GetType() == typeof(Operador)) {
+            else if (usu.GetType() == typeof(Operador))
+            {
                 UsuariosDbContext context = new UsuariosDbContext();
                 Usuario UsuDB = context.Usuarios.Find(usu.email, usu.nombre_municipalidad);
                 if (UsuDB != null && UsuDB.GetType() == typeof(Operador) && ((Operador)UsuDB).password == ((Operador)usu).password)
@@ -120,6 +122,11 @@ namespace cerebro_DataAccessLayer
             p.Add(new Privilegio(privilegio, u.nombre_municipalidad));
             u.PRIVILEGIOS = p;
             return modificarUsuario(u);
+        }
+
+        public List<Privilegio> getPrivilegios(string municipalidad)
+        {
+            return (from u in new UsuariosDbContext().Privilegios where u.nombre_municipalidad == municipalidad select u).ToList();
         }
     }
 }

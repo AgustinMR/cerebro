@@ -21,6 +21,7 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
     nombre_municipalidad: any = "";
     tipoSeleccionado = "";
     tipoMod: any;
+    selectTipoMod = "";
 
     ngOnInit(): void {
         $(document).ready(function () {
@@ -47,13 +48,16 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
         this.tipos.agregarTipo(this.nombre, this.tipoDeDato, this.endpointWS, this.frecLectura, this.nombre_municipalidad).subscribe(
             (data: Response) => { this.repuesta = data; this.mostrarMensajeExito(); },
             responseError => { console.log("Error: " + responseError); this.mostrarMensajeError(); },
-            () => console.log(this.repuesta)
+            () => {
+                this.nombre = "";
+                this.tipoDeDato = "";
+                this.endpointWS = "";
+                this.frecLectura = "";
+                this.getTipos();
+                console.log(this.repuesta);
+            }
         );
-        this.nombre = "";
-        this.tipoDeDato = "";
-        this.endpointWS = "";
-        this.frecLectura = "";
-        this.getTipos();
+        
     }
 
     nombreMod = "";
@@ -62,16 +66,20 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
     frecLecturaMod = "";
 
     modificarTipoDeFuenteDeDato() {
-        if (this.nombreMod != "") {
-            this.tipos.modificarTipo(this.nombreMod, this.tipoDeDatoMod, this.endpointWSMod, this.frecLecturaMod, this.nombre_municipalidad).subscribe(
+        if (this.selectTipoMod != "") {
+            this.tipos.modificarTipo(this.nombreMod, this.endpointWSMod, this.frecLecturaMod, this.selectTipoMod).subscribe(
                 (data: Response) => { this.repuesta = data; this.mostrarMensajeTipoModificado(); },
                 responseError => { console.log("Error: " + responseError); this.mostrarMensajeError(); },
-                () => console.log(this.repuesta)
+                () => {
+                    this.nombreMod = "";
+                    this.tipoDeDatoMod = "";
+                    this.endpointWSMod = "";
+                    this.frecLecturaMod = "";
+                    this.selectTipoMod = "";
+                    this.getTipos();
+                    console.log(this.repuesta);
+                }
             );
-            this.nombreMod = "";
-            this.tipoDeDatoMod = "";
-            this.endpointWSMod = "";
-            this.frecLecturaMod = "";
         } else {
             console.log("datos incorrectos");
         }
@@ -98,6 +106,7 @@ export class TipoDeFuenteDeDatoComponent implements OnInit {
                     this.tipoSeleccionado = this.tipoMod[i].Id;
                 }
             }
+            this.selectTipoMod = deviceValue;
         } else {
             this.nombreMod = "";
             this.tipoDeDatoMod = "";

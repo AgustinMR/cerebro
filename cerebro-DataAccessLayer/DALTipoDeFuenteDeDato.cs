@@ -87,8 +87,8 @@ namespace cerebro_DataAccessLayer
             {
                 var mongo = new MongoClient();
                 var bd = mongo.GetDatabase("cerebroDB");
-                var update = Builders<TipoDeFuenteDeDato>.Update.Set(e => e.frecuenciaLectura, t.frecuenciaLectura).Set(e => e.municipalidad, t.municipalidad).Set(e => e.tipo, t.tipo).Set(e => e.nombre, t.nombre).Set(e => e.uriWebService, t.uriWebService);
-                var filter = Builders<TipoDeFuenteDeDato>.Filter.Eq("nombre", t.nombre) & Builders<TipoDeFuenteDeDato>.Filter.Eq("municipalidad", t.municipalidad);
+                var update = Builders<TipoDeFuenteDeDato>.Update.Set(e => e.frecuenciaLectura, t.frecuenciaLectura).Set(e => e.nombre, t.nombre).Set(e => e.uriWebService, t.uriWebService);
+                var filter = Builders<TipoDeFuenteDeDato>.Filter.Eq("Id", t.Id);
                 bd.GetCollection<TipoDeFuenteDeDato>("TipoDeFuenteDeDato").FindOneAndUpdate(filter, update);
                 return true;
             }

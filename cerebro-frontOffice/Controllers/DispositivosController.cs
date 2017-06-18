@@ -14,6 +14,7 @@ using RestSharp;
 using cerebro_frontOffice.Models;
 using Microsoft.AspNetCore.Hosting;
 using cerebro.frontOffice.Models;
+using System.Net.Http;
 
 namespace cerebro_frontOffice.Controllers
 {
@@ -21,6 +22,8 @@ namespace cerebro_frontOffice.Controllers
     [EnableCors("CorsPolicy")]
     public class DispositivosController : Controller
     {
+        public System.Func<System.Net.Http.HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2, System.Security.Cryptography.X509Certificates.X509Chain, System.Net.Security.SslPolicyErrors, bool> ServerCertificateValidationCallback { get { return default(System.Func<System.Net.Http.HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2, System.Security.Cryptography.X509Certificates.X509Chain, System.Net.Security.SslPolicyErrors, bool>); } set { } }
+
         [HttpPost]
         [Route("img")]
         public IActionResult Imagenes(IFormFile files)
@@ -58,10 +61,12 @@ namespace cerebro_frontOffice.Controllers
             options.Cluster = "mt1";
             var pusher = new Pusher("342739", "474881b81d9d92dd2713", "c14d6443376ba1f06b0f", options);
             var result = pusher.TriggerAsync("datos-dispositivos", "dato-nuevo", datos);
+
+            Evento(datos.dispositivoId, datos.medida);
             return Ok("OK");
         }
 
-        private /*async*/ void Evento(string idDis, string medida)
+        private void Evento(string idDis, string medida)
         {
             var mongo = new MongoClient();
             var bd = mongo.GetDatabase("cerebroDB");
@@ -94,14 +99,14 @@ namespace cerebro_frontOffice.Controllers
                         {
                             if (umb[z].tipoDeDato == "Texto")
                             {
-                                if (umb[z].medida.Equals(medida))
+                                if (umb[z].medida.Equals(umbralesEventos[h].valorLimite))
                                 {
                                     evee = true;
                                 }
                             }
                             else
                             {
-                                if (int.Parse(umb[z].medida) < int.Parse(medida))
+                                if (int.Parse(umb[z].medida) < int.Parse(umbralesEventos[h].valorLimite))
                                 {
                                     evee = true;
                                 }
@@ -111,16 +116,16 @@ namespace cerebro_frontOffice.Controllers
                     if (evee == true)
                         hayEvento += 1;
                 }
-                if (hayEvento == eve.Count)
+                if (hayEvento == umbralesEventos.Count)
                 {
-                    //disparo evento
-                    var client = new RestClient("https://www.cerebro-servicelayer.com/api/eventos/dll?idEve=" + eve[j]);
-                    var request = new RestRequest(Method.POST);
-                    request.AddHeader("cache-control", "no-cache");
-                    client.ExecuteAsync(request, Response =>
+                    using (var httpClientHandler = new HttpClientHandler())
                     {
-
-                    });
+                        httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                        using (var client = new HttpClient(httpClientHandler))
+                        {
+                            var result = client.PostAsync("https://www.cerebro-servicelayer.com/api/eventos/dll?idEve=" + eve[j], null).Result;
+                        }
+                    }                                        
                 }
             }
         }

@@ -226,5 +226,12 @@ namespace cerebro_ServiceLayer.Controllers
         {
             return new BLUsuario().setPrivilegioUsuario(email, privilegio);
         }
+
+        [HttpGet]
+        [Route("privilegios")]
+        public List<Privilegio> getPrivilegios(string muni)
+        {
+            return new BLUsuario().getPrivilegios(muni);
+        }
     }
 }
