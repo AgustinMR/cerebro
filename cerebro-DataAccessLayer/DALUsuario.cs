@@ -14,6 +14,7 @@ namespace cerebro_DataAccessLayer
         public UsuariosDbContext() : base("name=cerebroConnectionString") { }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Privilegio> Privilegios { get; set; }
+        public DbSet<PrivilegiosUsuarios> PrivilegiosUsu { get; set; }
     }
 
     public class DALUsuario : IDALUsuario
@@ -118,10 +119,13 @@ namespace cerebro_DataAccessLayer
 
         public bool setPrivilegioUsuario(string email, string muni, string privilegio)
         {
+            PrivilegiosUsuarios p = new PrivilegiosUsuarios();
+            p.Usuario_email = email;
+            p.Usuario_nombre_municipalidad = muni;
+            p.Privilegio_nombre_municipalidad = muni;
+            p.Privilegio_nombre = privilegio;
             UsuariosDbContext context = new UsuariosDbContext();
-            Usuario UsuDB = context.Usuarios.Find(email, muni);
-            Privilegio p = new UsuariosDbContext().Privilegios.Find(privilegio, muni);
-            UsuDB.PRIVILEGIOS.Add(p);
+            context.PrivilegiosUsu.Add(p);
             return context.SaveChanges() > 0;
         }
 
@@ -130,11 +134,16 @@ namespace cerebro_DataAccessLayer
             return (from u in new UsuariosDbContext().Privilegios where u.nombre_municipalidad == municipalidad select u).ToList();
         }
 
-        public ICollection<Privilegio> getPrivilegiosUsuarios(string email, string muni)
+        public List<PrivilegiosUsuarios> getPrivilegiosUsuarios(string email, string muni)
         {
-            Usuario usu = (from u in new UsuariosDbContext().Usuarios where u.email == email where u.nombre_municipalidad == muni select u).SingleOrDefault();
-            return usu.PRIVILEGIOS;
+            return (from u in new UsuariosDbContext().PrivilegiosUsu where u.Usuario_email == email where u.Usuario_nombre_municipalidad == muni where u.Privilegio_nombre_municipalidad == muni select u).ToList();
         }
 
+        public bool deletePrivilegioUsuario(string email, string muni, string privilegio) {
+            UsuariosDbContext context = new UsuariosDbContext();
+            PrivilegiosUsuarios PrivUsu = context.PrivilegiosUsu.Find(privilegio,muni,email,muni);
+            context.PrivilegiosUsu.Remove(PrivUsu);
+            return context.SaveChanges() > 0;
+        }
     }
 }

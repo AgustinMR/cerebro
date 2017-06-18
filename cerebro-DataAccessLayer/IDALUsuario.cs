@@ -15,6 +15,7 @@ namespace cerebro_DataAccessLayer
         bool toggleUsuarioEnabled(string email, string muni, bool enabled);
         bool setPrivilegioUsuario(string email, string muni, string privilegio);
         List<Privilegio> getPrivilegios(string municipalidad);
-        ICollection<Privilegio> getPrivilegiosUsuarios(string email, string muni);
+        List<PrivilegiosUsuarios> getPrivilegiosUsuarios(string email, string muni);
+        bool deletePrivilegioUsuario(string email, string muni, string privilegio);
     }
 }

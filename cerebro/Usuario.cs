@@ -19,7 +19,10 @@ namespace cerebro
         public bool enabled { get; set; }
         public ICollection<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }
         public Municipalidad MUNICIPALIDADES { get; set; }
-        public ICollection<Privilegio> PRIVILEGIOS { get; set; }
 
+        public Usuario()
+        {
+            this.AGRUPACIONES_USUARIOS = new HashSet<Agrupacion_Usuario>();
+        }
     }
 }

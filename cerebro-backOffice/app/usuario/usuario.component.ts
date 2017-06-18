@@ -20,6 +20,7 @@ export class UsuarioComponent implements OnInit {
     usuarioSelect = "";
     estadoActual = "";
     privilegios: any;
+    privilegiosUsuario: any;
 
     constructor(private usuarios: UsuarioService) {
     }
@@ -47,9 +48,21 @@ export class UsuarioComponent implements OnInit {
                 document.getElementById("nombreAct").innerHTML = this.usuariosMunicipalidad[x].nombre;
                 document.getElementById("emailAct").innerHTML = this.usuariosMunicipalidad[x].email;
                 if (this.usuariosMunicipalidad[x].enabled == true) {
-                    //alert("if");
                     $('#estadoActual').prop('checked', true);
                 }
+                this.usuarios.obtenerPrivilegiosUsu(this.usuariosMunicipalidad[x].email, this.nombre_municipalidad).subscribe(
+                    (data: Response) => {
+                        this.privilegiosUsuario = data;
+                        $('#privilegiosSelect').dropdown('clear');
+                        $('#privilegiosSelect').dropdown('refresh');
+                        for (var pri of this.privilegiosUsuario) {
+                            $('#privilegiosSelect').dropdown('set selected', pri.Privilegio_nombre);
+                            $('#privilegiosSelect').dropdown('refresh');
+                        }
+                    },
+                    responseError => console.log(responseError),
+                    () => console.log("Privilegios usu cargados")
+                );
             }
         }
     }
@@ -73,6 +86,43 @@ export class UsuarioComponent implements OnInit {
             responseError => console.log(responseError),
             () => console.log("Privilegios cargados")
         );
+    }
+
+    guardar() {
+        var b = false;
+        if ($('#estadoActual').is(':checked')) {
+            b = true;
+        }
+        this.usuarios.toggleEnabled(this.usuarioSelect, this.nombre_municipalidad, b).subscribe(
+            (data: Response) => { },
+            responseError => console.log(responseError),
+            () => { }
+        );
+        var e = $('#privilegiosSelect').dropdown("get value");
+        var pirvTmp = this.privilegiosUsuario;
+        for (var i = 0; i < (e.length -1); i++) {
+            var c = true;
+            for (var privUsu of this.privilegiosUsuario) {
+                if (privUsu.Privilegio_nombre == e[i].split("'")[1]) {
+                    pirvTmp.splice(e[i].split("'")[1], 1);
+                    c = false;
+                }
+            }
+            if (c) {
+                this.usuarios.modificarPrivilegios(this.usuarioSelect, this.nombre_municipalidad, e[i].split("'")[1]).subscribe(
+                    (data: Response) => { },
+                    responseError => console.log(responseError),
+                    () => { }
+                );
+            }
+        }
+        for (var privUsuBorrar of pirvTmp) {
+            this.usuarios.eliminarPrivilegios(this.usuarioSelect, this.nombre_municipalidad, privUsuBorrar.Privilegio_nombre).subscribe(
+                (data: Response) => { },
+                responseError => console.log(responseError),
+                () => { }
+            );
+        }
     }
 
 }

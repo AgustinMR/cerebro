@@ -17,7 +17,7 @@
     </Key>
     <Property Name="nombre_agrupacion" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="nombre_municipalidad_agrupacion" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="usuario_email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="usuario_email" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="nombre_municipalidad_usuario" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="admin" Type="bit" Nullable="false" />
   </EntityType>
@@ -45,7 +45,7 @@
     </Key>
     <Property Name="nombre_privilegio" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="nombre_municipalidad_privilegio" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="usuario_email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="usuario_email" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="nombre_municipalidad_usuario" Type="varchar" MaxLength="30" Nullable="false" />
   </EntityType>
   <EntityType Name="USUARIOS">
@@ -53,14 +53,14 @@
       <PropertyRef Name="email" />
       <PropertyRef Name="nombre_municipalidad" />
     </Key>
-    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="30" />
     <Property Name="password" Type="varchar" MaxLength="30" />
     <Property Name="tipo" Type="int" Nullable="false" />
     <Property Name="enabled" Type="bit" Nullable="false" />
   </EntityType>
-  <Association Name="FK__AGRUPACIO__nombr__300424B4">
+  <Association Name="FK__AGRUPACIO__nombr__2F10007B">
     <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
     <End Role="AGRUPACIONES" Type="Self.AGRUPACIONES" Multiplicity="*" />
     <ReferentialConstraint>
@@ -72,7 +72,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__AGRUPACIONES_USU__32E0915F">
+  <Association Name="FK__AGRUPACIONES_USU__31EC6D26">
     <End Role="AGRUPACIONES" Type="Self.AGRUPACIONES" Multiplicity="1" />
     <End Role="AGRUPACIONES_USUARIOS" Type="Self.AGRUPACIONES_USUARIOS" Multiplicity="*" />
     <ReferentialConstraint>
@@ -86,7 +86,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__AGRUPACIONES_USU__33D4B598">
+  <Association Name="FK__AGRUPACIONES_USU__32E0915F">
     <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
     <End Role="AGRUPACIONES_USUARIOS" Type="Self.AGRUPACIONES_USUARIOS" Multiplicity="*" />
     <ReferentialConstraint>
@@ -100,7 +100,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PRIVILEGI__nombr__29572725">
+  <Association Name="FK__PRIVILEGI__nombr__286302EC">
     <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
     <End Role="PRIVILEGIOS" Type="Self.PRIVILEGIOS" Multiplicity="*" />
     <ReferentialConstraint>
@@ -112,7 +112,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PRIVILEGIOS_USUA__2C3393D0">
+  <Association Name="FK__PRIVILEGIOS_USUA__2B3F6F97">
     <End Role="PRIVILEGIOS" Type="Self.PRIVILEGIOS" Multiplicity="1" />
     <End Role="PRIVILEGIOS_USUARIOS" Type="Self.PRIVILEGIOS_USUARIOS" Multiplicity="*" />
     <ReferentialConstraint>
@@ -126,7 +126,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PRIVILEGIOS_USUA__2D27B809">
+  <Association Name="FK__PRIVILEGIOS_USUA__2C3393D0">
     <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
     <End Role="PRIVILEGIOS_USUARIOS" Type="Self.PRIVILEGIOS_USUARIOS" Multiplicity="*" />
     <ReferentialConstraint>
@@ -140,7 +140,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__USUARIOS__nombre__267ABA7A">
+  <Association Name="FK__USUARIOS__nombre__25869641">
     <End Role="MUNICIPALIDADES" Type="Self.MUNICIPALIDADES" Multiplicity="1" />
     <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
     <ReferentialConstraint>
@@ -159,31 +159,31 @@
     <EntitySet Name="PRIVILEGIOS" EntityType="Self.PRIVILEGIOS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PRIVILEGIOS_USUARIOS" EntityType="Self.PRIVILEGIOS_USUARIOS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__AGRUPACIO__nombr__300424B4" Association="Self.FK__AGRUPACIO__nombr__300424B4">
+    <AssociationSet Name="FK__AGRUPACIO__nombr__2F10007B" Association="Self.FK__AGRUPACIO__nombr__2F10007B">
       <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
       <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AGRUPACIONES_USU__31EC6D26" Association="Self.FK__AGRUPACIONES_USU__31EC6D26">
+      <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
+      <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
     </AssociationSet>
     <AssociationSet Name="FK__AGRUPACIONES_USU__32E0915F" Association="Self.FK__AGRUPACIONES_USU__32E0915F">
-      <End Role="AGRUPACIONES" EntitySet="AGRUPACIONES" />
-      <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
-    </AssociationSet>
-    <AssociationSet Name="FK__AGRUPACIONES_USU__33D4B598" Association="Self.FK__AGRUPACIONES_USU__33D4B598">
       <End Role="USUARIOS" EntitySet="USUARIOS" />
       <End Role="AGRUPACIONES_USUARIOS" EntitySet="AGRUPACIONES_USUARIOS" />
     </AssociationSet>
-    <AssociationSet Name="FK__PRIVILEGI__nombr__29572725" Association="Self.FK__PRIVILEGI__nombr__29572725">
+    <AssociationSet Name="FK__PRIVILEGI__nombr__286302EC" Association="Self.FK__PRIVILEGI__nombr__286302EC">
       <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
       <End Role="PRIVILEGIOS" EntitySet="PRIVILEGIOS" />
     </AssociationSet>
-    <AssociationSet Name="FK__PRIVILEGIOS_USUA__2C3393D0" Association="Self.FK__PRIVILEGIOS_USUA__2C3393D0">
+    <AssociationSet Name="FK__PRIVILEGIOS_USUA__2B3F6F97" Association="Self.FK__PRIVILEGIOS_USUA__2B3F6F97">
       <End Role="PRIVILEGIOS" EntitySet="PRIVILEGIOS" />
       <End Role="PRIVILEGIOS_USUARIOS" EntitySet="PRIVILEGIOS_USUARIOS" />
     </AssociationSet>
-    <AssociationSet Name="FK__PRIVILEGIOS_USUA__2D27B809" Association="Self.FK__PRIVILEGIOS_USUA__2D27B809">
+    <AssociationSet Name="FK__PRIVILEGIOS_USUA__2C3393D0" Association="Self.FK__PRIVILEGIOS_USUA__2C3393D0">
       <End Role="USUARIOS" EntitySet="USUARIOS" />
       <End Role="PRIVILEGIOS_USUARIOS" EntitySet="PRIVILEGIOS_USUARIOS" />
     </AssociationSet>
-    <AssociationSet Name="FK__USUARIOS__nombre__267ABA7A" Association="Self.FK__USUARIOS__nombre__267ABA7A">
+    <AssociationSet Name="FK__USUARIOS__nombre__25869641" Association="Self.FK__USUARIOS__nombre__25869641">
       <End Role="MUNICIPALIDADES" EntitySet="MUNICIPALIDADES" />
       <End Role="USUARIOS" EntitySet="USUARIOS" />
     </AssociationSet>

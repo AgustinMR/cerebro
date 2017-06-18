@@ -69,9 +69,14 @@ namespace cerebro_BusinessLogicLayer
             return dal.getPrivilegios(municipalidad);
         }
 
-        public ICollection<Privilegio> getPrivilegiosUsuarios(string email, string muni)
+        public List<PrivilegiosUsuarios> getPrivilegiosUsuarios(string email, string muni)
         {
             return dal.getPrivilegiosUsuarios(email, muni);
         }
+
+        public bool deletePrivilegioUsuario(string email, string muni, string privilegio) {
+            return dal.deletePrivilegioUsuario(email,muni,privilegio);
+        }
+
     }
 }

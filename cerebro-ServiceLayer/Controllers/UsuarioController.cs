@@ -220,11 +220,18 @@ namespace cerebro_ServiceLayer.Controllers
             return new BLUsuario().toggleUsuarioEnabled(email, muni, enabled);
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("privilegio")]
         public bool setPrivilegioUsuario(string email, string muni, string privilegio)
         {
             return new BLUsuario().setPrivilegioUsuario(email, muni, privilegio);
+        }
+
+        [HttpDelete]
+        [Route("privilegio")]
+        public bool deletePrivilegioUsuario(string email, string muni, string privilegio)
+        {
+            return new BLUsuario().deletePrivilegioUsuario(email, muni, privilegio);
         }
 
         [HttpGet]
@@ -236,7 +243,7 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpGet]
         [Route("privilegiosUsu")]
-        public ICollection<Privilegio> getPrivilegiosUsuarios(string email, string muni)
+        public List<PrivilegiosUsuarios> getPrivilegiosUsuarios(string email, string muni)
         {
             return new BLUsuario().getPrivilegiosUsuarios(email, muni);
         }

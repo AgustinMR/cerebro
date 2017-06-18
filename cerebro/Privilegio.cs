@@ -16,7 +16,6 @@ namespace cerebro
         public string nombre_municipalidad { get; set; }
 
         public Municipalidad MUNICIPALIDADES { get; set; }
-        public ICollection<Usuario> USUARIOS { get; set; }
 
         public Privilegio() {}
 

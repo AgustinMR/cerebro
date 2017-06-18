@@ -63,7 +63,7 @@ export class AccionComponent implements OnInit {
                 (<HTMLInputElement>document.getElementById("nombre")).value = "";
                 forms[0][0].value = "";
                 _this.getAcciones();
-                alert("done");
+                //alert("done");
             });
         } else {
             console.log("error");
