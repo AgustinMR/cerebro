@@ -15,10 +15,10 @@ export class TipoDeFuenteDeDatoService {
         return this.http.post("https://www.cerebro-serviceLayer.com/api/tipos?" + postInfo, {}, options).map(data => data.json());
     }
 
-    public modificarTipo(nombre: string, tipoDeDato: string, endpointWS: string, frecLectura: string, municipalidad: string) {
+    public modificarTipo(nombre: string, endpointWS: string, frecLectura: string, id: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        var postInfo = "nombre=" + nombre + "&municipalidad=" + municipalidad + "&frecuenciaLectura=" + frecLectura + "&tipo=" + tipoDeDato + "&uriWebService=" + endpointWS;
+        var postInfo = "id=" + id + "&nombre=" + nombre + "&frecuenciaLectura=" + frecLectura +"&uriWebService=" + endpointWS;
         return this.http.put("https://www.cerebro-serviceLayer.com/api/tipos?" + postInfo, {}, options).map(data => data.json());
     }
 
