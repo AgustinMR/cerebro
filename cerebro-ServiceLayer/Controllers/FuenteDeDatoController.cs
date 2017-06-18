@@ -54,9 +54,15 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpGet]
         [Route("muni/{id}")]
-        public List<FuenteDeDato> getAllFuenteDeDatoMuni(string id)
-        {
+        public List<FuenteDeDato> getAllFuenteDeDatoMuni(string id) {
             return new BLFuenteDeDato().getAllFuenteDeDatoMuni(id);
+        }
+
+        [HttpGet]
+        [Route("muniUsu/")]
+        public List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni, string email)
+        {
+            return new BLFuenteDeDato().getAllFuenteDeDatoMuni(muni, email);
         }
 
         [HttpGet]
