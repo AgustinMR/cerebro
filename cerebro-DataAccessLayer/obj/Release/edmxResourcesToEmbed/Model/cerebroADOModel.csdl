@@ -19,7 +19,7 @@
     </Key>
     <Property Name="nombre_agrupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nombre_municipalidad_agrupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="usuario_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="usuario_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nombre_municipalidad_usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="admin" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="AGRUPACIONES" Relationship="Self.FK__AGRUPACIONES_USU__2B3F6F97" FromRole="AGRUPACIONES_USUARIOS" ToRole="AGRUPACIONES" />
@@ -40,12 +40,11 @@
       <PropertyRef Name="email" />
       <PropertyRef Name="nombre_municipalidad" />
     </Key>
-    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="AGRUPACIONES_USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__2C3393D0" FromRole="USUARIOS" ToRole="AGRUPACIONES_USUARIOS" />
     <NavigationProperty Name="MUNICIPALIDADES" Relationship="Self.FK__USUARIOS__nombre__25869641" FromRole="USUARIOS" ToRole="MUNICIPALIDADES" />
-    <NavigationProperty Name="PRIVILEGIOS" Relationship="cerebroADOModel.PRIVILEGIOS_USUARIOS" FromRole="Usuario" ToRole="PRIVILEGIOS" />
     <Property Name="enabled" Type="Boolean" Nullable="false" />
   </EntityType>
   <Association Name="FK__AGRUPACIO__nombr__286302EC">
@@ -126,8 +125,13 @@
       <End Role="Municipalidad" EntitySet="MUNICIPALIDADES" />
       <End Role="PRIVILEGIOS" EntitySet="PRIVILEGIOS" />
     </AssociationSet>
-    <AssociationSet Name="PRIVILEGIOS_USUARIOS" Association="cerebroADOModel.PRIVILEGIOS_USUARIOS">
-      <End Role="PRIVILEGIOS" EntitySet="PRIVILEGIOS" />
+    <EntitySet Name="PrivilegiosUsuariosSet" EntityType="cerebroADOModel.PrivilegiosUsuarios" />
+    <AssociationSet Name="PrivilegiosUsuariosPrivilegio" Association="cerebroADOModel.PrivilegiosUsuariosPrivilegio">
+      <End Role="PrivilegiosUsuarios" EntitySet="PrivilegiosUsuariosSet" />
+      <End Role="Privilegio" EntitySet="PRIVILEGIOS" />
+    </AssociationSet>
+    <AssociationSet Name="UsuarioPrivilegiosUsuarios" Association="cerebroADOModel.UsuarioPrivilegiosUsuarios">
+      <End Role="PrivilegiosUsuarios" EntitySet="PrivilegiosUsuariosSet" />
       <End Role="Usuario" EntitySet="USUARIOS" />
     </AssociationSet>
   </EntityContainer>
@@ -146,7 +150,6 @@
     <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="nombre_municipalidad" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="MUNICIPALIDADES" Relationship="cerebroADOModel.FK__PRIVILEGI__nombr__286302EC" FromRole="PRIVILEGIOS" ToRole="Municipalidad" />
-    <NavigationProperty Name="USUARIOS" Relationship="cerebroADOModel.PRIVILEGIOS_USUARIOS" FromRole="PRIVILEGIOS" ToRole="Usuario" />
   </EntityType>
   <Association Name="FK__PRIVILEGI__nombr__286302EC">
     <End Type="cerebroADOModel.Municipalidad" Role="Municipalidad" Multiplicity="1" />
@@ -160,8 +163,44 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="PRIVILEGIOS_USUARIOS">
-    <End Type="cerebroADOModel.Privilegio" Role="PRIVILEGIOS" Multiplicity="*" />
-    <End Type="cerebroADOModel.Usuario" Role="Usuario" Multiplicity="*" />
+  <EntityType Name="PrivilegiosUsuarios">
+    <Key>
+      <PropertyRef Name="Privilegio_nombre" />
+      <PropertyRef Name="Privilegio_nombre_municipalidad" />
+      <PropertyRef Name="Usuario_email" />
+      <PropertyRef Name="Usuario_nombre_municipalidad" />
+    </Key>
+    <Property Name="Privilegio_nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Privilegio_nombre_municipalidad" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Usuario_email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Usuario_nombre_municipalidad" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="PrivilegiosUsuariosPrivilegio">
+    <End Type="cerebroADOModel.PrivilegiosUsuarios" Role="PrivilegiosUsuarios" Multiplicity="*" />
+    <End Type="cerebroADOModel.Privilegio" Role="Privilegio" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Privilegio">
+        <PropertyRef Name="nombre" />
+        <PropertyRef Name="nombre_municipalidad" />
+      </Principal>
+      <Dependent Role="PrivilegiosUsuarios">
+        <PropertyRef Name="Privilegio_nombre" />
+        <PropertyRef Name="Privilegio_nombre_municipalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuarioPrivilegiosUsuarios">
+    <End Type="cerebroADOModel.PrivilegiosUsuarios" Role="PrivilegiosUsuarios" Multiplicity="*" />
+    <End Type="cerebroADOModel.Usuario" Role="Usuario" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="email" />
+        <PropertyRef Name="nombre_municipalidad" />
+      </Principal>
+      <Dependent Role="PrivilegiosUsuarios">
+        <PropertyRef Name="Usuario_email" />
+        <PropertyRef Name="Usuario_nombre_municipalidad" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>

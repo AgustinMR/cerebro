@@ -112,6 +112,9 @@
     <Compile Include="Model\Privilegio.cs">
       <DependentUpon>cerebroADOModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\PrivilegiosUsuarios.cs">
+      <DependentUpon>cerebroADOModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Usuario.cs">
       <DependentUpon>cerebroADOModel.tt</DependentUpon>
     </Compile>

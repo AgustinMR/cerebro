@@ -30,5 +30,6 @@ namespace cerebro_DataAccessLayer.Model
         public virtual DbSet<Municipalidad> MUNICIPALIDADES { get; set; }
         public virtual DbSet<Usuario> USUARIOS { get; set; }
         public virtual DbSet<Privilegio> PRIVILEGIOS { get; set; }
+        public virtual DbSet<PrivilegiosUsuarios> PrivilegiosUsuariosSet { get; set; }
     }
 }

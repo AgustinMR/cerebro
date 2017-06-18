@@ -69,15 +69,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="PRIVILEGIOS_USUARIOS" TypeName="cerebroADOModel.PRIVILEGIOS_USUARIOS" StoreEntitySet="PRIVILEGIOS_USUARIOS">
-      <EndProperty Name="Usuario">
-        <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad_usuario" />
-        <ScalarProperty Name="email" ColumnName="usuario_email" />
-      </EndProperty>
-      <EndProperty Name="PRIVILEGIOS">
-        <ScalarProperty Name="nombre_municipalidad" ColumnName="nombre_municipalidad_privilegio" />
-        <ScalarProperty Name="nombre" ColumnName="nombre_privilegio" />
-      </EndProperty>
-    </AssociationSetMapping>
+    <EntitySetMapping Name="PrivilegiosUsuariosSet">
+      <EntityTypeMapping TypeName="IsTypeOf(cerebroADOModel.PrivilegiosUsuarios)">
+        <MappingFragment StoreEntitySet="PRIVILEGIOS_USUARIOS">
+          <ScalarProperty Name="Usuario_nombre_municipalidad" ColumnName="nombre_municipalidad_usuario" />
+          <ScalarProperty Name="Usuario_email" ColumnName="usuario_email" />
+          <ScalarProperty Name="Privilegio_nombre_municipalidad" ColumnName="nombre_municipalidad_privilegio" />
+          <ScalarProperty Name="Privilegio_nombre" ColumnName="nombre_privilegio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

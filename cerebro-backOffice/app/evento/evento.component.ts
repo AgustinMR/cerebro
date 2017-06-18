@@ -174,7 +174,7 @@ export class EventoComponent implements OnInit {
                             () => { }
                         );
                     } else {
-                        alert(this.eventoSelect + " " + idDis +" " +  valLim);
+                        //alert(this.eventoSelect + " " + idDis +" " +  valLim);
                         this.eventos.addUmbral(this.eventoSelect, idDis, valLim).subscribe(
                             (data: Response) => { },
                             responseError => console.log(responseError),
@@ -183,7 +183,6 @@ export class EventoComponent implements OnInit {
                     }
                     document.getElementById("dispositivosDivMod").removeChild(divVal);
                 }
-                //falta borrar umbrales borrados
                 for (var umbT of umbralesTmp) {
                     this.eventos.deleteUmbral(umbT.Id).subscribe(
                         (data: Response) => { },
