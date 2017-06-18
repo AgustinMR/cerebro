@@ -39,9 +39,9 @@ namespace cerebro_BusinessLogicLayer
             return dal.loginUsuario(usu);
         }
 
-        public Usuario obtenerUsuario(string email)
+        public Usuario obtenerUsuario(string email, string muni)
         {
-            return dal.obtenerUsuario(email);
+            return dal.obtenerUsuario(email, muni);
         }
 
         public List<Usuario> obtenerUsuarios()
@@ -54,18 +54,29 @@ namespace cerebro_BusinessLogicLayer
             return dal.obtenerUsuarios(municipalidad);
         }
 
-        public bool toggleUsuarioEnabled(string email, bool enabled)
+        public bool toggleUsuarioEnabled(string email, string muni, bool enabled)
         {
-            return dal.toggleUsuarioEnabled(email, enabled);
+            return dal.toggleUsuarioEnabled(email, muni, enabled);
         }
 
-        public bool setPrivilegioUsuario(string email, string privilegio)
+        public bool setPrivilegioUsuario(string email, string muni, string privilegio)
         {
-            return dal.setPrivilegioUsuario(email, privilegio);
+            return dal.setPrivilegioUsuario(email, muni, privilegio);
         }
 
-        public List<Privilegio> getPrivilegios(string municipalidad) {
+        public List<Privilegio> getPrivilegios(string municipalidad)
+        {
             return dal.getPrivilegios(municipalidad);
         }
+
+        public List<PrivilegiosUsuarios> getPrivilegiosUsuarios(string email, string muni)
+        {
+            return dal.getPrivilegiosUsuarios(email, muni);
+        }
+
+        public bool deletePrivilegioUsuario(string email, string muni, string privilegio) {
+            return dal.deletePrivilegioUsuario(email,muni,privilegio);
+        }
+
     }
 }

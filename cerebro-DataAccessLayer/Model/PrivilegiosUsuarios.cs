@@ -12,11 +12,11 @@ namespace cerebro_DataAccessLayer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Privilegio
+    public partial class PrivilegiosUsuarios
     {
-        public string nombre { get; set; }
-        public string nombre_municipalidad { get; set; }
-    
-        public virtual Municipalidad MUNICIPALIDADES { get; set; }
+        public string Privilegio_nombre { get; set; }
+        public string Privilegio_nombre_municipalidad { get; set; }
+        public string Usuario_email { get; set; }
+        public string Usuario_nombre_municipalidad { get; set; }
     }
 }
