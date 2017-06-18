@@ -93,9 +93,9 @@ namespace cerebro_DataAccessLayer
             return false;
         }
 
-        public Usuario obtenerUsuario(string email)
+        public Usuario obtenerUsuario(string email, string municipalidad)
         {
-            return (from u in new UsuariosDbContext().Usuarios where u.email == email select u).SingleOrDefault();
+            return new UsuariosDbContext().Usuarios.Find(email, municipalidad);
         }
 
         public List<Usuario> obtenerUsuarios()
@@ -108,25 +108,33 @@ namespace cerebro_DataAccessLayer
             return (from u in new UsuariosDbContext().Usuarios where u.nombre_municipalidad == municipalidad select u).ToList();
         }
 
-        public bool toggleUsuarioEnabled(string email, bool enabled)
+        public bool toggleUsuarioEnabled(string email, string muni, bool enabled)
         {
-            Usuario u = obtenerUsuario(email);
-            u.enabled = enabled;
-            return modificarUsuario(u);
+            UsuariosDbContext context = new UsuariosDbContext();
+            Usuario UsuDB = context.Usuarios.Find(email, muni);
+            UsuDB.enabled = enabled;
+            return context.SaveChanges() > 0;
         }
 
-        public bool setPrivilegioUsuario(string email, string privilegio)
+        public bool setPrivilegioUsuario(string email, string muni, string privilegio)
         {
-            Usuario u = obtenerUsuario(email);
-            var p = new List<Privilegio>();
-            p.Add(new Privilegio(privilegio, u.nombre_municipalidad));
-            u.PRIVILEGIOS = p;
-            return modificarUsuario(u);
+            UsuariosDbContext context = new UsuariosDbContext();
+            Usuario UsuDB = context.Usuarios.Find(email, muni);
+            Privilegio p = new UsuariosDbContext().Privilegios.Find(privilegio, muni);
+            UsuDB.PRIVILEGIOS.Add(p);
+            return context.SaveChanges() > 0;
         }
 
         public List<Privilegio> getPrivilegios(string municipalidad)
         {
             return (from u in new UsuariosDbContext().Privilegios where u.nombre_municipalidad == municipalidad select u).ToList();
         }
+
+        public ICollection<Privilegio> getPrivilegiosUsuarios(string email, string muni)
+        {
+            Usuario usu = (from u in new UsuariosDbContext().Usuarios where u.email == email where u.nombre_municipalidad == muni select u).SingleOrDefault();
+            return usu.PRIVILEGIOS;
+        }
+
     }
 }

@@ -26,4 +26,8 @@ export class UsuarioService {
         return this.http.put("https://www.cerebro-serviceLayer.com/api/usuarios/privilegio", postInfo, options).map(data => data.json());
     }
 
+    public obtenerPrivilegios(muni: string) {
+        return this.http.get("https://www.cerebro-servicelayer.com/api/usuarios/privilegios?muni=" + muni).map(data => data.json());
+    }
+
 }

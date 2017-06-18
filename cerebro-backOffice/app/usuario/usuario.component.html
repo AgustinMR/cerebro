@@ -7,18 +7,17 @@
         <option *ngFor="let usuario of usuariosMunicipalidad" value="{{usuario.email}}"> {{usuario.nombre}} </option>
     </select>
     <div class="container w3-padding w3-padding-16">
-        <select name="origen" [(ngModel)]="privilegioSelect" id="privilegiosSelect" class="ui search dropdown">
-            <option value="" selected disabled>Seleccione un privilegio</option>
-            <option value="NUMERICO">Publico</option>
-            <option value="TEXTO">Operador</option>
-            <option value="IMAGEN">Operador Avanzado</option>
+        <select [(ngModel)]="privilegioSelect" id="privilegiosSelect" class="ui search dropdown fluid" multiple="">
+            <!--<option value="" selected disabled>Seleccione un privilegio</option>-->
+            <option value="" selected disabled>Seleccione los privilegios del usuario...</option>
+            <option *ngFor="let p of privilegios" value="{{p.nombre}}"> {{p.nombre}} </option>
         </select>
         <div class="item ui segment secondary">
             <div class="content">
                 <div class="ui small header w3-text-cerebro-red" id="nombreAct"></div>
                 <div class="meta"><span class="ui small header" id="emailAct"></span></div>
                 <div class="ui toggle checkbox w3-margin-top">
-                    <input name="public" type="checkbox" id="estadoActual">
+                    <input name="Checkbox" type="checkbox" id="estadoActual">
                     <label>Habilitado para iniciar sesi&oacute;n en la Municipalidad.</label>
                 </div>
             </div>
