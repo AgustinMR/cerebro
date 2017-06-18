@@ -56,7 +56,7 @@ namespace cerebro_ServiceLayer.Controllers
         [Route("")]
         public bool updateEvento(string id, string nombre, string accion)
         {
-            Evento e = new Evento(ObjectId.Parse(id),nombre,accion);
+            Evento e = new Evento(ObjectId.Parse(id), nombre, accion);
             return new BLEvento().updateEvento(e);
         }
 

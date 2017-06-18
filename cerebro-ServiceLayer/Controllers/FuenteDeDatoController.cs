@@ -18,7 +18,7 @@ namespace cerebro_ServiceLayer.Controllers
     {
         [HttpPost]
         [Route("")]
-        public bool addFuenteDeDato(string municipalidad, string ubicacion, string userAgent, string direccionIP, string tipo, string nombre)
+        public bool addFuenteDeDato(string municipalidad, string ubicacion, string userAgent, string direccionIP, string tipo, string nombre, string privilegios, Boolean simulado)
         {
             FuenteDeDato f = new FuenteDeDato();
             f.municipalidad = municipalidad;
@@ -33,6 +33,8 @@ namespace cerebro_ServiceLayer.Controllers
             f.direccionIP = direccionIP;
             f.tipo = new ObjectId(tipo);
             f.nombre = nombre;
+            f.privilegios = privilegios;
+            f.simulado = simulado;
             return new BLFuenteDeDato().addFuenteDeDato(f);
         }
 
@@ -73,7 +75,7 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpPut]
         [Route("")]
-        public bool updateFuenteDeDato(string ubicacion, string userAgent, string direccionIP, string id)
+        public bool updateFuenteDeDato(string ubicacion, string userAgent, string direccionIP, string id, string privilegios, string nombre)
         {
             FuenteDeDato ff = new BLFuenteDeDato().getFuenteDeDato(ObjectId.Parse(id));
             ff.userAgent = userAgent;
@@ -85,6 +87,8 @@ namespace cerebro_ServiceLayer.Controllers
             doubleArray[0] = Double.Parse(tmp2[0].Trim() + "," + tmp2[1].Trim());
             doubleArray[1] = Double.Parse(tmp3[0].Trim() + "," + tmp3[1].Trim());
             ff.ubicacion = doubleArray;
+            ff.privilegios = privilegios;
+            ff.nombre = nombre;
             return new BLFuenteDeDato().updateFuenteDeDato(ff);
         }
 

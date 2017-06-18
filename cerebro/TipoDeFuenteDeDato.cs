@@ -23,12 +23,14 @@ namespace cerebro
         public string municipalidad { set; get; }
         [BsonElement]
         [DataMember]
-        public string frecuenciaLectura { set; get; }
+        public int frecuenciaLectura { set; get; }
         [BsonElement]
         [DataMember]
         public TipoDeDato tipo {set; get;}
         [BsonElement]
         [DataMember]
         public string uriWebService { set; get; }
+
+        public TipoDeFuenteDeDato() { }
     }
 }
