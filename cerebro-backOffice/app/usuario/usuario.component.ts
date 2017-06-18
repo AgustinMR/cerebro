@@ -19,6 +19,7 @@ export class UsuarioComponent implements OnInit {
     privilegioSelect = "";
     usuarioSelect = "";
     estadoActual = "";
+    privilegios: any;
 
     constructor(private usuarios: UsuarioService) {
     }
@@ -37,6 +38,7 @@ export class UsuarioComponent implements OnInit {
         }
 
         this.cargarUsuarios();
+        this.cargarPrivilegios();
     }
 
     getUsuario(email: string) {
@@ -44,8 +46,9 @@ export class UsuarioComponent implements OnInit {
             if (this.usuariosMunicipalidad[x].email == email) {
                 document.getElementById("nombreAct").innerHTML = this.usuariosMunicipalidad[x].nombre;
                 document.getElementById("emailAct").innerHTML = this.usuariosMunicipalidad[x].email;
-                if (this.usuariosMunicipalidad[x].enabled === true) {
-                    $('estadoActual').checkbox('check');
+                if (this.usuariosMunicipalidad[x].enabled == true) {
+                    //alert("if");
+                    $('#estadoActual').prop('checked', true);
                 }
             }
         }
@@ -59,6 +62,16 @@ export class UsuarioComponent implements OnInit {
             },
             responseError => console.log("Error al cargar usuarios - " + responseError),
             () => console.log("usuarios cargados")
+        );
+    }
+
+    cargarPrivilegios() {
+        this.usuarios.obtenerPrivilegios(this.nombre_municipalidad).subscribe(
+            (data: Response) => {
+                this.privilegios = data;
+            },
+            responseError => console.log(responseError),
+            () => console.log("Privilegios cargados")
         );
     }
 
