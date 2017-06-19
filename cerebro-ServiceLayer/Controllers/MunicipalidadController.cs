@@ -17,7 +17,7 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult addAgrupacion([FromUri]Municipalidad muni)
+        public IHttpActionResult addMunicipalidad([FromUri]Municipalidad muni)
         {
             if (muni != null)
             {

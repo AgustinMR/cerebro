@@ -14,4 +14,18 @@ export class LoginService {
         var postInfo = "email=" + email + "&nombre_municipalidad=" + nombre_municipalidad + "&password=" + password;
         return this.http.post("https://www.cerebro-serviceLayer.com/api/usuarios/loginAdministrador?" + postInfo, {}, options).map(data => data.json());
     }
+
+    public addMuni(nombre: string, geom: string) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        var postInfo = "nombre=" + nombre + "&ubicacion=" + geom;
+        return this.http.post("https://www.cerebro-serviceLayer.com/api/municipalidades?" + postInfo, {}, options).map(data => data.json());
+    }
+
+    public addAdmin(nombreMuni: string, email: string, nombre: string, pass: string) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        var postInfo = "email=" + email + "&nombre_municipalidad=" + nombreMuni + "&nombre=" + nombre + "&password=" + pass;
+        return this.http.post("https://www.cerebro-serviceLayer.com/api/usuarios/administrador?" + postInfo, {}, options).map(data => data.json());
+    }
 }
