@@ -23,6 +23,7 @@ export class InicioComponent implements OnInit {
     login = true;
     inicio = false;
     accion = false;
+    registrarMunicipalidad = false;
 
     showDispositivo() {
         this.dispositivo = true;
@@ -46,6 +47,11 @@ export class InicioComponent implements OnInit {
         this.tipo = true;
         this.usuario = false;
         this.accion = false;
+    }
+
+    showCrearMunicipalidad() {
+        this.registrarMunicipalidad = true;
+        this.login = false;
     }
 
     showUsuario() {
