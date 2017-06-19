@@ -9,28 +9,58 @@
     <a href="javascript:void(0);" class="toc item w3-center">Salir</a>
 </div>
 <div class="pusher">
-    <div class="w3-content w3-display-topmiddle" *ngIf="login">
-        <div class="w3-panel w3-center" style="width: 500px; min-width: 300px">
-            <div class="w3-bar-item ui centered">
-                <h4 class="ui horizontal w3-padding"><img src="../../Content/cerebro-logo.png" style="height: 37px"></h4>
+    <div class="ui stackable text container w3-display-middle" *ngIf="login">
+        <img src="../../Content/cerebro-logo.png" style="height: 45px" class="ui center aligned header icon">
+        <div class="ui piled raised segments">
+            <div class="ui segment w3-display-container" style="min-width: 300px">
+                <h3 class="ui horizontal divider header w3-padding w3-padding-16 w3-text-cerebro-blue">Iniciar Sesi&oacute;n</h3>
+                <div class="ui labeled fluid input w3-padding">
+                    <div class="ui basic label w3-text-cerebro-blue">Email:</div>
+                    <input id="email" type="email" name="email" placeholder="Email del administrador..." required>
+                </div>
+                <div class="ui labeled fluid input w3-margin-bottom w3-padding">
+                    <div class="ui basic label">Contrase&ntilde;a:</div>
+                    <input placeholder="Contrase&ntilde;a del administrador..." id="pass" type="password" name="pass" required>
+                </div>
+            </div>
+            <div class="ui grey secondary segment center aligned">
+                <button type="submit" class="ui right labeled icon button w3-cerebro-blue" (click)="ingresar()"><i class="sign in icon"></i>Ingresar</button>
             </div>
         </div>
-        <div class="ui raised segment grey" style="width: 500px; min-width: 300px">
-            <div class="w3-bar-item">
-                <h4 class="ui horizontal divider header w3-padding w3-padding-24 w3-text-cerebro-blue">Iniciar Sesi&oacute;n</h4>
-                <form action="login" method="post" class="w3-container">
-                    <div class="ui labeled fluid input w3-margin-bottom">
-                        <div class="ui label">Email:</div>
-                        <input id="email" type="email" name="email" placeholder="Ingrese aqu&iacute; su direcci&oacute;n de correo..." required>
-                    </div>
-                    <div class="ui labeled fluid input w3-margin-bottom">
-                        <div class="ui label">Contrase&ntilde;a:</div>
-                        <input placeholder="Ingrese aqu&iacute; su contrase&ntilde;a..." id="pass" type="password" name="pass" required>
-                    </div>
-                    <div class="w3-center w3-margin-top w3-margin-bottom w3-padding" style="height: 50px">
-                        <button type="submit" class="ui right labeled icon button w3-right w3-text-cerebro-red" (click)="ingresar()"><i class="sign in icon"></i>Ingresar</button>
-                    </div>
-                </form>
+        <div class="w3-center">
+            <p class="ui header text small center aligned" style="margin-top: -20px">&iquest;Tu Municipalidad no est&aacute; en la Lista?</p>
+            <a class="link ui header text w3-text-cerebro-red" href="javascript:void(0);" (click)="showCrearMunicipalidad()">Crear Nueva</a>
+        </div>
+    </div>
+    <div class="ui stackable text container w3-display-middle" *ngIf="registrarMunicipalidad">
+        <img src="../../Content/cerebro-logo.png" style="height: 45px" class="ui center aligned header icon">
+        <div class="ui piled raised segments">
+            <div class="ui segment w3-display-container" style="min-width: 300px">
+                <h3 class="ui horizontal divider header w3-padding w3-padding-16 w3-text-cerebro-blue">Crear Municipalidad</h3>
+                <div class="ui labeled fluid input w3-margin-bottom w3-padding">
+                    <div class="ui basic label w3-text-cerebro-blue">Nombre:</div>
+                    <input id="muni" type="text" name="muni" placeholder="Ingrese el nombre de la municipalidad..." required>
+                </div>
+                <h5 class="ui horizontal divider header w3-padding w3-text-cerebro-red">Administrador</h5>
+                <div class="ui labeled fluid input w3-padding">
+                    <div class="ui basic label w3-text-cerebro-blue">Nombre:</div>
+                    <input id="nombre" type="text" name="nombre" placeholder="Nombre del administrador..." required>
+                </div>
+                <div class="ui labeled fluid input w3-padding">
+                    <div class="ui basic label w3-text-cerebro-blue">Email:</div>
+                    <input id="email" type="email" name="email" placeholder="Email del administrador..." required>
+                </div>
+                <div class="ui labeled fluid input w3-margin-bottom w3-padding">
+                    <div class="ui basic label">Contrase&ntilde;a:</div>
+                    <input placeholder="Contrase&ntilde;a del administrador..." id="pass" type="password" name="pass" required>
+                </div>
+                <i class="circular marker large link icon w3-display-bottommiddle w3-cerebro-blue" style="margin-bottom: -20px; z-index: 999"></i>
+            </div>
+            <div class="ui grey segment" id="map" style="height: 350px">
+
+            </div>
+            <div class="ui grey secondary segment center aligned">
+                <button type="submit" class="ui right labeled icon button green"><i class="sign in icon"></i>Confirmar</button>
             </div>
         </div>
     </div>
