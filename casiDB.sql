@@ -1,6 +1,6 @@
 CREATE TABLE MUNICIPALIDADES (
   nombre varchar(30) NOT NULL,
-  ubicacion varchar(255) NOT NULL,
+  ubicacion varchar(5000) NOT NULL,
   PRIMARY KEY (nombre)
 );
 

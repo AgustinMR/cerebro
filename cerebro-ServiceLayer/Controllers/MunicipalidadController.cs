@@ -17,15 +17,18 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult addMunicipalidad([FromUri]Municipalidad muni)
+        public IHttpActionResult addMunicipalidad(string nombre, string ubicacion)
         {
+            Municipalidad muni = new Municipalidad();
+            muni.nombre = nombre;
+            muni.ubicacion = ubicacion;
             if (muni != null)
             {
                 IBLMunicipalidad IBLMuni = new BLMunicipalidad();
                 IBLMuni.addMunicipalidad(muni);
-                return Ok();
+                return Ok("OK");
             }
-            return BadRequest();
+            return BadRequest("Error");
         }
 
         [HttpDelete]

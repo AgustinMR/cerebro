@@ -1,8 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { LoginService } from './login.service'; 
+import { LoginService } from './login.service';
 import { Http, HttpModule, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
+declare var ol: any;
 declare var $: any;
 
 @Component({
@@ -13,7 +14,7 @@ declare var $: any;
     providers: [LoginService]
 })
 export class InicioComponent implements OnInit {
-     
+
     nombre_municipalidad: any = "";
     dispositivo = false;
     evento = false;
@@ -24,6 +25,21 @@ export class InicioComponent implements OnInit {
     inicio = false;
     accion = false;
     registrarMunicipalidad = false;
+
+    source: any;
+    map: any;
+    draw: any;
+    vector: any;
+    geom = "";
+    mapDiv: any;
+
+    nomMuni = "";
+    nomAdmin = "";
+    emailAdmin = "";
+    passAdmin = "";
+
+    email = "";
+    pass = "";
 
     showDispositivo() {
         this.dispositivo = true;
@@ -83,10 +99,32 @@ export class InicioComponent implements OnInit {
         for (var h = 1; h < muniL.length; h++) {
             this.nombre_municipalidad += muniL[h];
         }
+
+        var features = new ol.Collection();
+        this.draw = new ol.interaction.Draw({
+            source: this.source,
+            features: features,
+            type: "Polygon"
+        });
+
+        this.draw.on('drawend', function (evt: any) {
+            this.geom = evt.feature.getGeometry().getCoordinates();
+            var polygon = new ol.geom.Polygon(evt.feature.getGeometry().getCoordinates());
+            var feature = new ol.Feature(polygon);
+            var vectorSource = new ol.source.Vector();
+            vectorSource.addFeature(feature);
+
+            var vectorLayer = new ol.layer.Vector({
+                source: vectorSource
+            });
+            this.map.addLayer(vectorLayer);
+            this.map.removeInteraction(this.draw);
+            //alert(evt.feature.getGeometry().getCoordinates());
+        }, this);
     }
 
     ingresar() {
-        this.loginService.loginAdmin("admin", this.nombre_municipalidad, "hola").subscribe(
+        this.loginService.loginAdmin(this.email, this.nombre_municipalidad, this.pass).subscribe(
             (data: Response) => {
                 this.autenticado = data;
                 if (this.autenticado == true) {
@@ -97,5 +135,43 @@ export class InicioComponent implements OnInit {
             responseError => console.log("Error: " + responseError),
             () => console.log(this.autenticado)
         );
+    }
+
+    addMuni() {
+        if (this.nomMuni != "" && this.nomAdmin != "" && this.passAdmin != "" && this.emailAdmin != "") {
+            this.loginService.addMuni(this.nomMuni, this.geom).subscribe(
+                (data: Response) => {
+                    this.loginService.addAdmin(this.nomMuni, this.emailAdmin, this.nomAdmin, this.passAdmin).subscribe(
+                        (data: Response) => { },
+                        responseError => console.log("Error: " + responseError),
+                        () => console.log("Usuario creado")
+                    );
+                },
+                responseError => console.log("Error: " + responseError),
+                () => console.log("Municipalidad creada")
+            );
+        }
+        this.registrarMunicipalidad = false;
+        this.login = true;
+    }
+
+    mapa() {
+        $('#map').html("");
+        //alert("mapa");
+        var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
+        this.source = new ol.source.Vector({ wrapX: false });
+        this.vector = new ol.layer.Vector({ source: this.source });
+
+        this.map = new ol.Map({
+            layers: [raster, this.vector],
+            target: 'map',
+            view: new ol.View({
+                projection: 'EPSG:4326',
+                center: [-56.16466616190428, -34.89647351494282],
+                zoom: 12
+            })
+        });
+
+        this.map.addInteraction(this.draw);
     }
 }
