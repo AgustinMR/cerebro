@@ -12,6 +12,7 @@ namespace cerebro_BusinessLogicLayer
         bool deleteFuenteDeDato(ObjectId id);
         FuenteDeDato getFuenteDeDato(ObjectId id);
         List<FuenteDeDato> getAllFuenteDeDato();
+        List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni, string email);
         List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni);
         DatosDispositivo getDatosDispositivo(string id);
         Task<List<FuenteDeDato>> getDispositivosByMunicipalidad(string municipalidad, string tipo);

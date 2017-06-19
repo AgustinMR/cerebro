@@ -61,23 +61,35 @@ namespace cerebro_DataAccessLayer
             return true;
         }
 
-        public List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni)
+        public List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni, string email)
         {
+            List<PrivilegiosUsuarios> privUsu = new DALUsuario().getPrivilegiosUsuarios(email, muni);
             var mongo = new MongoClient();
             var bd = mongo.GetDatabase("cerebroDB");
-            List<FuenteDeDato> doc = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(new BsonDocument()).ToList();
+            List<FuenteDeDato> doc = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(e => e.municipalidad == muni).ToList();
             List<FuenteDeDato> returnList = new List<FuenteDeDato>();
             for (int i = 0; i < doc.Count; i++)
             {
-                if (doc[i].municipalidad.Equals(muni))
+                for (int j = 0; j < privUsu.Count; j++)
                 {
-                    returnList.Add(doc[i]);
+                    if (privUsu[j].Privilegio_nombre.Equals(doc[i].privilegios)) {
+                        returnList.Add(doc[i]);
+                    }                    
                 }
             }
             return returnList;
         }
 
-        public DatosDispositivo getDatosDispositivo(string id) {
+        public List<FuenteDeDato> getAllFuenteDeDatoMuni(string muni)
+        {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            List<FuenteDeDato> doc = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(e => e.municipalidad == muni).ToList();
+            return doc;
+        }
+
+        public DatosDispositivo getDatosDispositivo(string id)
+        {
             var mongo = new MongoClient();
             var bd = mongo.GetDatabase("cerebroDB");
             return bd.GetCollection<DatosDispositivo>("DatosDispositivo").Find(e => e.dispositivoId == id).SortByDescending(e => e.datetime).FirstOrDefault();
