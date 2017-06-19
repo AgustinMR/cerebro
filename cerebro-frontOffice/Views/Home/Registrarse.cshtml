@@ -41,7 +41,7 @@
                     <option value="" selected disabled>Seleccione Municipalidad a la cual registrarse</option>
                 </select>
             </div>
-            <div class="w3-center"><button class="ui button secondary w3-cerebro-red w3-margin">Registrarse</button></div>
+            <div class="w3-center"><button class="ui button secondary w3-cerebro-red w3-margin" onclick="addOperador()">Registrarse</button></div>
         </div>
     </div>
     <script>
@@ -60,6 +60,15 @@
                     option.innerHTML = x.nombre;
                     document.getElementById("muni").appendChild(option);
                 });
+            });
+        }
+
+        function addOperador() {
+            var postInfo = "email=" + document.getElementById("email").value + "&nombre_municipalidad=" + document.getElementById("muni").value + "&nombre=" + document.getElementById("nombre").value + "&password=" + document.getElementById("pass").value;
+            $.post("https://www.cerebro-serviceLayer.com/api/usuarios/operador?" + postInfo, function (response) {
+                document.getElementById("email").value = "";
+                document.getElementById("nombre").value = "";
+                document.getElementById("pass").value = "";
             });
         }
     </script>

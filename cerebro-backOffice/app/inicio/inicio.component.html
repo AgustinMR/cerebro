@@ -16,11 +16,11 @@
                 <h3 class="ui horizontal divider header w3-padding w3-padding-16 w3-text-cerebro-blue">Iniciar Sesi&oacute;n</h3>
                 <div class="ui labeled fluid input w3-padding">
                     <div class="ui basic label w3-text-cerebro-blue">Email:</div>
-                    <input id="email" type="email" name="email" placeholder="Email del administrador..." required>
+                    <input [(ngModel)]="email" id="email" type="email" name="email" placeholder="Email del administrador..." required>
                 </div>
                 <div class="ui labeled fluid input w3-margin-bottom w3-padding">
                     <div class="ui basic label">Contrase&ntilde;a:</div>
-                    <input placeholder="Contrase&ntilde;a del administrador..." id="pass" type="password" name="pass" required>
+                    <input  [(ngModel)]="pass" placeholder="Contrase&ntilde;a del administrador..." id="pass" type="password" name="pass" required>
                 </div>
             </div>
             <div class="ui grey secondary segment center aligned">
@@ -39,28 +39,28 @@
                 <h3 class="ui horizontal divider header w3-padding w3-padding-16 w3-text-cerebro-blue">Crear Municipalidad</h3>
                 <div class="ui labeled fluid input w3-margin-bottom w3-padding">
                     <div class="ui basic label w3-text-cerebro-blue">Nombre:</div>
-                    <input id="muni" type="text" name="muni" placeholder="Ingrese el nombre de la municipalidad..." required>
+                    <input [(ngModel)]="nomMuni" id="muni" type="text" name="muni" placeholder="Ingrese el nombre de la municipalidad..." required>
                 </div>
                 <h5 class="ui horizontal divider header w3-padding w3-text-cerebro-red">Administrador</h5>
                 <div class="ui labeled fluid input w3-padding">
                     <div class="ui basic label w3-text-cerebro-blue">Nombre:</div>
-                    <input id="nombre" type="text" name="nombre" placeholder="Nombre del administrador..." required>
+                    <input [(ngModel)]="nomAdmin" id="nombreAdmin" type="text" name="nombre" placeholder="Nombre del administrador..." required>
                 </div>
                 <div class="ui labeled fluid input w3-padding">
                     <div class="ui basic label w3-text-cerebro-blue">Email:</div>
-                    <input id="email" type="email" name="email" placeholder="Email del administrador..." required>
+                    <input [(ngModel)]="emailAdmin" id="emailAdmin" type="email" name="email" placeholder="Email del administrador..." required>
                 </div>
                 <div class="ui labeled fluid input w3-margin-bottom w3-padding">
                     <div class="ui basic label">Contrase&ntilde;a:</div>
-                    <input placeholder="Contrase&ntilde;a del administrador..." id="pass" type="password" name="pass" required>
+                    <input [(ngModel)]="passAdmin" placeholder="Contrase&ntilde;a del administrador..." id="passAdmin" type="password" name="pass" required>
                 </div>
-                <i class="circular marker large link icon w3-display-bottommiddle w3-cerebro-blue" style="margin-bottom: -20px; z-index: 999"></i>
+                <i class="circular marker large link icon w3-display-bottommiddle w3-cerebro-blue" style="margin-bottom: -20px; z-index: 999" (click)="mapa()"></i>
             </div>
-            <div class="ui grey segment" id="map" style="height: 350px">
+            <div class="ui grey segment" id="map" style="height: 350px; padding: 0px">
 
             </div>
             <div class="ui grey secondary segment center aligned">
-                <button type="submit" class="ui right labeled icon button green"><i class="sign in icon"></i>Confirmar</button>
+                <button type="submit" class="ui right labeled icon button green" (click)="addMuni()"><i class="sign in icon"></i>Confirmar</button>
             </div>
         </div>
     </div>
