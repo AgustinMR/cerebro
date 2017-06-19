@@ -50,9 +50,42 @@
             </div>
         </div>
     </div>
-    <div class="ui grid stackable container w3-padding w3-padding-16">
-        <div class="row" id="goyete">
-            <div class="ui stackable container w3-padding-32">
+    <div class="ui stackable grid container w3-padding-48">
+        <div class="row">
+            <div class="sixteen wide column">
+                <div class="ui segments">
+                    <div class="ui segment" style="height: 45px">
+                        <h4 class="ui header text center aligned w3-text-silver w3-display-middle" style="margin-top: 0px">Dispositivos por tipo</h4>
+                        <select class="ui compact dropdown w3-left" id="tipoGrafica" onChange="changeTipoGrafica()">
+                            <option selected value="NUMERICO">Numerico</option>
+                            <option value="IMAGEN">Imagen</option>
+                            <option value="IMAGEN">Video</option>
+                            <option value="TEXTO">Texto</option>
+                        </select>
+                        <button class="circular basic ui icon button compact small w3-right" style="margin-top: -7px; margin-right: -5px"><i class="chevron down icon w3-text-cerebro-red"></i></button>
+                    </div>
+                    <div class="ui segment grey" style="height: 230px" id="graf1"></div>
+                    <div class="ui segment grey" style="height: 230px; display: none" id="graf2"></div>
+                    <div class="ui segment grey" style="height: 230px; display: none" id="graf3"></div>
+                    <div class="ui segment grey" style="height: 230px; display: none" id="graf4"></div>
+                </div>
+                <div class="ui segments">
+                    <div class="ui segment" style="height: 40px">
+                        <h4 class="ui header text center aligned w3-text-silver">Eventos por tipo</h4>
+                        <button class="circular basic ui icon button compact small w3-right" style="margin-top: -38px; margin-right: -5px"><i class="chevron down icon w3-text-cerebro-red"></i></button>
+                    </div>
+                    <div class="ui segment grey" style="height: 230px" id="graf5"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="six wide column">
+                <div class="ui segments">
+                    <div class="ui segment"></div>
+                    <div class="ui segment"></div>
+                </div>
+            </div>
+            <div class="ten wide column">
                 <div class="ui segments">
                     <div class="ui raised segment" style="height: 40px">
                         <div class="ui menu pointing secondary" style="margin-top: -16px; border-bottom-width: 0px">
@@ -116,6 +149,64 @@
     </div>
 </div>
 <script>
+    var email = '@User.Claims.ToList()[0].Value';
+    var municipalidad = '@User.Claims.ToList()[3].Value';
+    alert(municipalidad);
+    var dispositivos;
+    var chartNumerico;
+    var chartImagen;
+    var chartVideo;
+    var chartTexto;
+    Highcharts.setOptions({ global: { useUTC: false } });
+    $(document).ready(function () {
+        "use strict";
+        cargarGraficaDatosNumericos();
+        getHistorialDatos(1);
+        var pusher = new Pusher('474881b81d9d92dd2713', { encrypted: true });
+        var channel = pusher.subscribe("datos-dispositivos");
+        channel.bind('dato-nuevo', function (dato) {
+            if (dato.tipoDeDato.toLowerCase() === "numerico") {
+                $.each(chartNumerico.series, function (index, serie) {
+                    if (serie.name === dato.nombre) {
+                        var datetime = dato.datetime;
+                        var fecha = datetime.slice(0, datetime.indexOf("T"));
+                        var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                        var x = fecha + " " + hora;
+                        var y = parseFloat(dato.medida);
+                        serie.addPoint([x, y]);
+                    }
+                });
+            } else if (dato.tipoDeDato.toLowerCase() === "imagen") {
+                $.each(chartNumerico.series, function (index, serie) {
+                    if (serie.name === dato.nombre) {
+                        var datetime = dato.datetime;
+                        var fecha = datetime.slice(0, datetime.indexOf("T"));
+                        var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                        var x = fecha + " " + hora;
+                        var y = parseFloat(dato.medida);
+                        serie.addPoint([x, y]);
+                    }
+                });
+            }
+        });
+        var map;
+        var source;
+        var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
+        source = new ol.source.Vector({ wrapX: false });
+        var vector = new ol.layer.Vector({ source: source });
+        map = new ol.Map({
+            layers: [raster, vector],
+            target: 'map',
+            view: new ol.View({
+                projection: 'EPSG:4326',
+                center: [-56.22540901390569, -34.86341907811338],
+                zoom: 10
+            })
+        });
+    });
+    function mostrarMapSidebar() {
+        $('#mapSidebar').sidebar('show');
+    }
     function mostrarReporteDatos() {
         getHistorialDatos();
         document.getElementById("tabla2").style.display = "none";
@@ -123,14 +214,14 @@
         document.getElementById("m1").className = "active item w3-text-cerebro-red";
         document.getElementById("m2").className = "item";
     }
-    function mostrarReporteEventos() { 
+    function mostrarReporteEventos() {
         document.getElementById("tabla2").style.display = "block";
         document.getElementById("tabla1").style.display = "none";
         document.getElementById("m2").className = "active item w3-text-cerebro-red";
         document.getElementById("m1").className = "item";
     }
     function cargarResultadosSiguientes_datos() {
-        if (document.getElementById("datosTableBody").childNodes.length > 0) { 
+        if (document.getElementById("datosTableBody").childNodes.length > 0) {
             getHistorialDatos((Number(document.getElementById("paginaActual").innerHTML) + 1));
             document.getElementById("paginaActual").innerHTML = (Number(document.getElementById("paginaActual").innerHTML) + 1).toString();
         }
@@ -142,13 +233,44 @@
             document.getElementById("paginaActual").innerHTML = (paginaActual - 1).toString();
         }
     }
+    function changeTipoGrafica() {
+        var tipo = document.getElementById("tipoGrafica").value;
+        if (tipo.toLowerCase() === "numerico") {
+            cargarGraficaDatosNumericos();
+            document.getElementById("graf1").style.display = "block";
+            document.getElementById("graf2").style.display = "none";
+            document.getElementById("graf3").style.display = "none";
+            document.getElementById("graf4").style.display = "none";
+        }
+        else if (tipo.toLowerCase() === "imagen") {
+            cargarGraficaDatosImagen();
+            document.getElementById("graf1").style.display = "none";
+            document.getElementById("graf2").style.display = "block";
+            document.getElementById("graf3").style.display = "none";
+            document.getElementById("graf4").style.display = "none";
+        }
+        else if (tipo.toLowerCase() === "video") {
+            cargarGraficaDatosVideo();
+            document.getElementById("graf1").style.display = "none";
+            document.getElementById("graf2").style.display = "none";
+            document.getElementById("graf3").style.display = "block";
+            document.getElementById("graf4").style.display = "none";
+        }
+        else if (tipo.toLowerCase() === "texto") {
+            cargarGraficaDatosTexto();
+            document.getElementById("graf1").style.display = "none";
+            document.getElementById("graf2").style.display = "none";
+            document.getElementById("graf3").style.display = "none";
+            document.getElementById("graf4").style.display = "block";
+        }
+    }
     function getHistorialDatos(pagina) {
-        if (pagina === undefined) { 
+        if (pagina === undefined) {
             pagina = 1;
         }
         var tipoDato = document.getElementById("tipoDato").value;
         var dispositivo = document.getElementById("dispositivoFiltrar").value;
-        $.get("https://www.cerebro-serviceLayer.com/api/historial/datos", "tipoDato=" + tipoDato + "&dispositivo=" + dispositivo + "&pagina="+pagina, function (response) {
+        $.get("https://www.cerebro-serviceLayer.com/api/historial/datos", "tipoDato=" + tipoDato + "&dispositivo=" + dispositivo + "&pagina=" + pagina + "&municipalidad=" + municipalidad, function (response) {
             if (response !== undefined) {
                 while (document.getElementById("datosTableBody").hasChildNodes()) {
                     document.getElementById("datosTableBody").removeChild(document.getElementById("datosTableBody").lastChild);
@@ -177,25 +299,270 @@
             }
         });
     }
-    $(document).ready(function () {
-        "use strict";
-        var map;
-        var source;
-        var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
-        source = new ol.source.Vector({ wrapX: false });
-        var vector = new ol.layer.Vector({ source: source });
-
-        map = new ol.Map({
-            layers: [raster, vector],
-            target: 'map',
-            view: new ol.View({
-                projection: 'EPSG:4326',
-                center: [-56.22540901390569, -34.86341907811338],
-                zoom: 10
-            })
+    function cargarGraficaDatosNumericos() {
+        var options = {
+            chart: {
+                renderTo: 'graf1',
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            title: { text: '' },
+            yAxis: { title: { text: 'Medida Obtenida' } },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top'
+            },
+            series: []
+        };
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/numerico", function (response) {
+            if (response !== undefined) {
+                $.each(response, function (index, d) {
+                    var newSerie = {
+                        name: d.nombre,
+                        id: d.Id,
+                        data: [{}]
+                    };
+                    options.series.push(newSerie);
+                });
+                chartNumerico = new Highcharts.Chart(options);
+                $.each(chartNumerico.series, function (index, serie) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Numerico&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad, function (response) {
+                        if (response !== undefined) {
+                            $.each(response, function (index, dato) {
+                                //var x = Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', (new Date()).getTime());
+                                var datetime = dato.datetime;
+                                var fecha = datetime.slice(0, datetime.indexOf("T"));
+                                var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                                var x = fecha + " " + hora;
+                                var y = parseFloat(dato.medida);
+                                serie.addPoint([x, y]);
+                            });
+                        }
+                    });
+                });
+            }
         });
-    });
-    function mostrarMapSidebar() {
-        $('#mapSidebar').sidebar('show');
+    }
+    function cargarGraficaDatosImagen() {
+        var options = {
+            chart: {
+                renderTo: 'graf2',
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            title: { text: '' },
+            yAxis: { title: { text: 'Medida Obtenida' } },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top'
+            },
+            series: []
+        };
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Imagen", function (response) {
+            if (response !== undefined) {
+                $.each(response, function (index, d) {
+                    var newSerie = {
+                        name: d.nombre,
+                        id: d.Id,
+                        data: [{}]
+                    };
+                    options.series.push(newSerie);
+                });
+                chartImagen = new Highcharts.Chart(options);
+                $.each(chartImagen.series, function (index, serie) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Imagen&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad, function (response) {
+                        if (response !== undefined) {
+                            $.each(response, function (index, dato) {
+                                //var x = Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', (new Date()).getTime());
+                                var datetime = dato.datetime;
+                                var fecha = datetime.slice(0, datetime.indexOf("T"));
+                                var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                                var x = fecha + " " + hora;
+                                var y = parseFloat(dato.medida);
+                                serie.addPoint([x, y]);
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    }
+    function cargarGraficaDatosVideo() {
+        var options = {
+            chart: {
+                renderTo: 'graf3',
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            title: { text: '' },
+            yAxis: { title: { text: 'Medida Obtenida' } },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top'
+            },
+            series: []
+        };
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Video", function (response) {
+            if (response !== undefined) {
+                $.each(response, function (index, d) {
+                    var newSerie = {
+                        name: d.nombre,
+                        id: d.Id,
+                        data: [{}]
+                    };
+                    options.series.push(newSerie);
+                });
+                chartVideo = new Highcharts.Chart(options);
+                $.each(chartVideo.series, function (index, serie) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Video&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad, function (response) {
+                        if (response !== undefined) {
+                            $.each(response, function (index, dato) {
+                                //var x = Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', (new Date()).getTime());
+                                var datetime = dato.datetime;
+                                var fecha = datetime.slice(0, datetime.indexOf("T"));
+                                var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                                var x = fecha + " " + hora;
+                                var y = parseFloat(dato.medida);
+                                serie.addPoint([x, y]);
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    }
+    function cargarGraficaDatosTexto() {
+        var options = {
+            chart: {
+                renderTo: 'graf4',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: { text: '' },
+            tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: { enabled: false },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'series',
+                colorByPoint: true,
+                data: []
+            }]
+        };
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Texto", function (response) {
+            if (response !== undefined) {
+                $.each(response, function (index, d) {
+                    var newData = {
+                        id: d.Id,
+                        name: d.nombre,
+                        colorByPoint: true,
+                        y: parseFloat(response + ".00")
+                    };
+                    options.series[0].data.push(newData);
+                });
+                chartTexto = new Highcharts.Chart(options);
+                $.each(chartTexto.series[0].data, function (index, serie) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos/total?dispositivo=" + serie.id + "&municipalidad=" + municipalidad, function (response) {
+                        if (response !== undefined) {
+                            serie.y = parseFloat(response);
+                        }
+                    });
+                });
+                chartTexto.redraw();
+            }
+        });
+		/*$.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Texto", function(response){
+			if(response !== undefined){
+				$.each(response, function(index, d){
+					$.get("https://www.cerebro-serviceLayer.com/api/historial/datos/total?dispositivo="+d.Id+ "&municipalidad=Florida", function (response){
+						if(response !== undefined){
+							var newData = {
+								id: d.Id,
+								name: d.nombre,
+								colorByPoint: true,
+								y:parseFloat(response)
+							};
+							options.series[0].data.push(newData);
+						}
+					});
+				});
+				chartTexto = new Highcharts.Chart(options);
+			}
+		});*/
+    }
+    function cargarGraficaEventos() {
+        var options = {
+            chart: {
+                renderTo: 'graf5',
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            title: { text: '' },
+            yAxis: { title: { text: 'Medida Obtenida' } },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top'
+            },
+            series: []
+        };
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Video", function (response) {
+            if (response !== undefined) {
+                $.each(response, function (index, d) {
+                    var newSerie = {
+                        name: d.nombre,
+                        id: d.Id,
+                        data: [{}]
+                    };
+                    options.series.push(newSerie);
+                });
+                chartVideo = new Highcharts.Chart(options);
+                $.each(chartVideo.series, function (index, serie) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Video&pagina=1&dispositivo=" + serie.name, function (response) {
+                        if (response !== undefined) {
+                            $.each(response, function (index, dato) {
+                                //var x = Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', (new Date()).getTime());
+                                var datetime = dato.datetime;
+                                var fecha = datetime.slice(0, datetime.indexOf("T"));
+                                var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                                var x = fecha + " " + hora;
+                                var y = parseFloat(dato.medida);
+                                serie.addPoint([x, y]);
+                            });
+                        }
+                    });
+                });
+            }
+        });
     }
 </script>
