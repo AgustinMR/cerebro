@@ -4,6 +4,7 @@ using cerebro_BusinessLogicLayer;
 using cerebro;
 using System.Collections.Generic;
 using cerebro_ServiceLayer.Models;
+using System;
 
 namespace cerebro_ServiceLayer.Controllers
 {
@@ -246,6 +247,36 @@ namespace cerebro_ServiceLayer.Controllers
         public List<PrivilegiosUsuarios> getPrivilegiosUsuarios(string email, string muni)
         {
             return new BLUsuario().getPrivilegiosUsuarios(email, muni);
+        }
+
+        [HttpPost]
+        [Route("zonas")]
+        public bool addZona(string email, string muni, string ubicacion)
+        {
+            Zonas z = new Zonas();
+            z.emailUsuario = email;
+            z.municipalidadUsuario = muni;
+            string[] tmp = ubicacion.Split(',');
+            double[][] arrayMaestro = new double[tmp.Length / 2][];
+            int j = 0;
+            for (int i = 0; i < (tmp.Length / 2); i++) {
+                string[] tmp2 = tmp[j].Split('.');
+                string[] tmp3 = tmp[j+1].Split('.');
+                double[] doubleArray = new double[2];
+                doubleArray[0] = Double.Parse(tmp2[0].Trim() + "," + tmp2[1].Trim());
+                doubleArray[1] = Double.Parse(tmp3[0].Trim() + "," + tmp3[1].Trim());
+                arrayMaestro[i] = doubleArray;
+                j++;
+                j++;
+            }
+            z.ubicacion = arrayMaestro;
+            return new BLUsuario().addZona(z);
+        }
+
+        [HttpGet]
+        [Route("zonas")]
+        public List<Zonas> getZonas(string email, string muni) {
+            return new BLUsuario().getZonas(email, muni);
         }
     }
 }

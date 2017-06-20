@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using cerebro;
 using System.Data.Entity;
+using MongoDB.Driver;
 
 namespace cerebro_DataAccessLayer
 {
@@ -144,6 +145,24 @@ namespace cerebro_DataAccessLayer
             PrivilegiosUsuarios PrivUsu = context.PrivilegiosUsu.Find(privilegio,muni,email,muni);
             context.PrivilegiosUsu.Remove(PrivUsu);
             return context.SaveChanges() > 0;
+        }
+
+        public bool addZona(Zonas z)
+        {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            var employees = bd.GetCollection<Zonas>("Zonas");
+            employees.InsertOne(z);
+            return true;
+        }
+
+        public List<Zonas> getZonas(string email, string muni)
+        {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            var zonasBD = bd.GetCollection<Zonas>("Zonas");
+            var filter = Builders<Zonas>.Filter.Eq("emailUsuario", email) & Builders<Zonas>.Filter.Eq("municipalidadUsuario", muni);
+            return zonasBD.Find(filter).ToList();
         }
     }
 }

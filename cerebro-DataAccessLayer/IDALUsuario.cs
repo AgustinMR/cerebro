@@ -17,5 +17,7 @@ namespace cerebro_DataAccessLayer
         List<Privilegio> getPrivilegios(string municipalidad);
         List<PrivilegiosUsuarios> getPrivilegiosUsuarios(string email, string muni);
         bool deletePrivilegioUsuario(string email, string muni, string privilegio);
+        bool addZona(Zonas z);
+        List<Zonas> getZonas(string email, string muni);
     }
 }

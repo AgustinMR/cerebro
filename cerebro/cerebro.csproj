@@ -76,6 +76,7 @@
     <Compile Include="Umbral.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Visitante.cs" />
+    <Compile Include="Zonas.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

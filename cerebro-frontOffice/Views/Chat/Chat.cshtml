@@ -68,31 +68,23 @@
         </div>
         <div class="row" id="goyete">
             <div class="ui grid stackable container">
-                <div class="five wide column w3-padding-64">
+                <div class="four wide column w3-padding-64">
                     <div class="ui segments">
-                        <div class="ui segment sticky w3-bottombar" style="background-color: #FBFBFB">
-                            <div class="ui secondary menu">
-                                <div class="ui icon input" style="width: 100%;">
-                                    <input id="tituloFiltro" placeholder="Buscar agrupaciones..." type="text">
-                                    <i class="search circular inverted link icon"></i>
-                                </div>
-                            </div>
+                        <div class="ui segment sticky" style="background-color: #FBFBFB; height: 44px">
+                            <h4 class="ui header text w3-text-cerebro-blue w3-left">Agrupaciones</h4>
                         </div>
                         <div class="ui raised segment">
                             <div class="ui active tab">
-                                <div class="ui divided items w3-padding-16" id="items" style="min-height: 323px">
-                                    <table id="tAgru" class="ui compact celled grey table">
-                                        <tbody id="tbody"></tbody>
-                                    </table>
+                                <div class="ui middle aligned divided animated list" id="agrupacionesList">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="eleven wide column w3-padding-64">
+                <div class="twelve wide column w3-padding-64">
                     <div class="ui segments sticky" id="mapa">
                         <div class="ui grey segment w3-center" style="background-color: #FBFBFB">
-                            <h3 class="ui horizontal divider text header w3-padding small w3-text-cerebro-red">Agrupacion actual</h3>
+                            <h3 class="ui horizontal divider text header w3-padding small w3-text-cerebro-red" id="actual">Agrupacion actual</h3>
                         </div>
                         <div id="chat" class="ui grey segment" style="background-image: url(img/gplay.png); height: 500px; max-height: 500px;overflow-y: auto">
                         </div>
@@ -121,31 +113,30 @@
     function cargarAgru() {
         var body = document.getElementById("tbody");
         $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email, function (response) {
-            for (var res in response) {
-                var row = document.createElement("tr");
-                var agru = document.createElement("td");
-                agru.className = "collapsing";
-                agru.innerHTML = response[res];
-                row.appendChild(agru);
-                body.appendChild(row);
-            }
-
-            var table = document.getElementById("tAgru");
-            if (table != null) {
-                for (var i = 0; i < table.rows.length; i++) {
-                    for (var j = 0; j < table.rows[i].cells.length; j++)
-                        table.rows[i].cells[j].onclick = function () {
-                            tableText(this);
-                        };
+            if (response !== undefined) { 
+                while (document.getElementById("agrupacionesList").hasChildNodes()) {
+                    document.getElementById("agrupacionesList").removeChild(document.getElementById("agrupacionesList").lastChild);
                 }
+                $.each(response, function (index, agrupacion) {
+                    var item = document.createElement("div");
+                    item.className = "item";
+                    var a = document.createElement("a");
+                    a.className = "ui header text small link";
+                    a.innerHTML = agrupacion;
+                    a.addEventListener("click", function () {
+                        tableText(agrupacion);
+                    });
+                    item.appendChild(a);
+                    document.getElementById("agrupacionesList").appendChild(item);
+                });
             }
-
         });
     }
 
-    function tableText(tableCell) {
-        agrupacion = muni + "-" + tableCell.innerHTML;
+    function tableText(agrupacionL) {
+        agrupacion = muni + "-" + agrupacionL;
         document.getElementById("chat").innerHTML = "";
+        document.getElementById("actual").innerHTML = agrupacionL;
 
         var pusher = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
         var channel = pusher.subscribe(agrupacion);
