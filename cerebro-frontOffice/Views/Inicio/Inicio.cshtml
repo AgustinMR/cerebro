@@ -62,23 +62,25 @@
     <div class="ui grid stackable container w3-padding w3-padding-16">
         <div class="row" id="goyete">
             <div class="ui grid stackable container">
-                <div class="six wide column w3-padding-64">
+                <div class="four wide column w3-padding-64">
                     <div class="ui segments">
                         <div class="ui segment sticky" style="background-color: #FBFBFB; height: 40px">
                             <div class="ui two item menu pointing secondary" style="margin-top: -14px">
-                                <a class="active item w3-text-cerebro-red">Dispositivos</a>
-                                <a class="item">Suscripciones</a>
+                                <a id="disTab" class="active w3-text-cerebro-red item"onclick="disp()">Dispositivos</a>
+                                <a id="susTab"class="item" onclick="suscip()">Suscripciones</a>
                             </div>
                         </div>
                         <div class="ui raised segment" id="fletesContext">
                             <div class="ui active tab">
-                                <div class="ui divided items w3-padding-16" id="items" style="min-height: 323px">
+                                <div class="ui divided items w3-padding-16" id="items" style="min-height: 323px; display: none">
+                                </div>
+                                <div class="ui divided items w3-padding-16" id="itemsDiv" style="min-height: 323px">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="ten wide column w3-padding-64">
+                <div class="twelve wide column w3-padding-64">
                     <div class="ui segments sticky" id="mapa">
                         <div class="ui grey segment w3-center w3-bottombar" style="background-color: #FBFBFB">
                             <i class="inverted circular marker link icon" onclick="addSuscripcion()"></i>
@@ -100,6 +102,9 @@
     var fea;
     var geom = "";
     var dispositivos;
+    var zonas;
+    var zonaBool = false;
+    var vector_layer;
     var pusher = new Pusher('474881b81d9d92dd2713', {
         encrypted: true
     });
@@ -222,6 +227,7 @@
                 }
             }
         });
+        cargarZona();
     });
 
     function cargarDispositivos() {
@@ -253,8 +259,61 @@
         map.addInteraction(draw);
     }
 
-    function guardarZona() { 
+    function guardarZona() {
+        $.post("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email="+email+"&muni="+muni+"&ubicacion="+geom, function (res) {
+            console.log("Zona guardada");
+            cargarZona();
+        });
+    }
 
+    function cargarZona() {
+        $.get("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email=" + email + "&muni=" + muni, function (response) {
+            if (response !== undefined) {
+                while (document.getElementById("items").hasChildNodes()) {
+                    document.getElementById("items").removeChild(document.getElementById("items").lastChild);
+                }
+                var num = 0;
+                zonas = response;
+                $.each(response, function (index, zona) {
+                    var item = document.createElement("div");
+                    item.className = "item";
+                    var a = document.createElement("a");
+                    a.className = "ui header text small link";
+                    a.innerHTML = "Zona " + num;
+                    num++;
+                    var tmp1 = zona.ubicacion;
+                    a.addEventListener("click", function () {
+                        if (zonaBool == true) { 
+                            map.removeLayer(vector_layer);
+                        }
+                        tmp = tmp1.toString().split(",");
+                        var array = [];
+
+                        var j = 0;
+                        for (var i = 0; i < (tmp.length /2); i++){
+                            var arraryTmp = [];
+                            arraryTmp[0] = tmp[j]
+                            arraryTmp[1] = tmp[j + 1];
+                            array[i] = arraryTmp;
+                            j++;
+                            j++;
+                        }
+                        var polygon = new ol.geom.Polygon([array]);
+                        var feature = new ol.Feature(polygon);
+                        var vectorSource = new ol.source.Vector();
+                        vectorSource.addFeature(feature);
+
+                        vector_layer = new ol.layer.Vector({
+                            source: vectorSource
+                        });
+                        map.addLayer(vector_layer);
+                        zonaBool = true;
+                    });
+                    item.appendChild(a);
+                    document.getElementById("items").appendChild(item);
+                });
+            }
+        });
     }
 
     function mostrarInfoDispositivo() {
@@ -263,4 +322,18 @@
     function ocultarInfoDispositivo() {
         $('#infoDispositivo').sidebar('hide');
     }
+
+    function suscip() { 
+        $('#susTab').addClass("active w3-text-cerebro-red");
+        $('#disTab').removeClass("active w3-text-cerebro-red");
+        document.getElementById("itemsDiv").style.display = "none";
+        document.getElementById("items").style.display = "block";
+    }
+    function disp() {
+        $('#disTab').addClass("active w3-text-cerebro-red");
+        $('#susTab').removeClass("active w3-text-cerebro-red");
+        document.getElementById("itemsDiv").style.display = "block";
+        document.getElementById("items").style.display = "none";
+    }
+
 </script>
