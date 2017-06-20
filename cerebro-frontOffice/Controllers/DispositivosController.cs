@@ -118,6 +118,20 @@ namespace cerebro_frontOffice.Controllers
                 }
                 if (hayEvento == umbralesEventos.Count)
                 {
+                    double[][] arrayGeom = new double[umbralesEventos.Count][]; ;
+                    for (int t = 0; t < umbralesEventos.Count; t++) {
+                        var FuenteDeDatoBD = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(e => e.Id == ObjectId.Parse(umbralesEventos[t].fuenteDeDatoId)).FirstOrDefault();
+                        arrayGeom[t] = FuenteDeDatoBD.ubicacion;
+                    }
+
+                    var nomEvento = bd.GetCollection<Evento>("Evento").Find(e => e.Id == ObjectId.Parse(eve[j])).FirstOrDefault();
+                    DtEvento DtEve = new DtEvento();
+                    DtEve.nombre = nomEvento.nombre;
+                    DtEve.geom = arrayGeom;
+                    DtEve.fechaHora = DateTime.Now;
+
+                    Eventos(DtEve);
+
                     using (var httpClientHandler = new HttpClientHandler())
                     {
                         httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
@@ -128,13 +142,6 @@ namespace cerebro_frontOffice.Controllers
                     }                                        
                 }
             }
-        }
-
-        private IHostingEnvironment _hostingEnvironment;
-
-        public DispositivosController(IHostingEnvironment environment)
-        {
-            _hostingEnvironment = environment;
         }
 
 
@@ -193,6 +200,16 @@ namespace cerebro_frontOffice.Controllers
 
             FileInfo fi = new FileInfo("C:\\DLLs\\" + id + ".dll");
             fi.Delete();
+        }
+
+        [HttpPost]
+        [Route("evento")]
+        public void Eventos(DtEvento e)
+        {
+            var options = new PusherOptions();
+            options.Cluster = "mt1";
+            var pusher = new Pusher("342739", "474881b81d9d92dd2713", "c14d6443376ba1f06b0f", options);
+            var result = pusher.TriggerAsync("datos-dispositivos", "evento-nuevo", e);
         }
     }
 }

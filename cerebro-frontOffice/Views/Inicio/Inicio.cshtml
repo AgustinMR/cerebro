@@ -108,6 +108,8 @@
     var pusher = new Pusher('474881b81d9d92dd2713', {
         encrypted: true
     });
+
+    var disActual;
     $(document).ready(function () {
         "use strict";
         var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
@@ -144,6 +146,9 @@
         });
 
         cargarDispositivos();
+        cargarZona();
+
+        var channel = pusher.subscribe("datos-dispositivos");
 
         map.on("click", function (e) {
             var feature = map.forEachFeatureAtPixel(e.pixel,
@@ -187,7 +192,6 @@
                                         document.getElementById("imgDis").src = "data:image/png;base64," + data;
                                     });
                                 }
-                                var channel = pusher.subscribe("datos-dispositivos");
                                 channel.bind('dato-nuevo', function (data) {
                                     if (data.dispositivoId === idP) {
                                         if (data.tipoDeDato === "Numerico") {
@@ -220,14 +224,17 @@
                                 mostrarInfoDispositivo();
 
                             } else {
-                                console.log("null");
+                                console.log("null " + idP);
                             }
                         });
                     }
                 }
             }
         });
-        cargarZona();
+
+        channel.bind('evento-nuevo', function (data) {
+            console.log("evento " + data);
+        });
     });
 
     function cargarDispositivos() {
