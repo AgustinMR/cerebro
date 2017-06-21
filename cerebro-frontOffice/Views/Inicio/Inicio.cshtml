@@ -62,11 +62,11 @@
     <div class="ui grid stackable container w3-padding w3-padding-16">
         <div class="row" id="goyete">
             <div class="ui grid stackable container">
-                <div class="four wide column w3-padding-64">
+                <div class="six wide column w3-padding-64">
                     <div class="ui segments">
                         <div class="ui segment sticky" style="background-color: #FBFBFB; height: 40px">
                             <div class="ui two item menu pointing secondary" style="margin-top: -14px">
-                                <a id="disTab" class="active w3-text-cerebro-red item"onclick="disp()">Dispositivos</a>
+                                <a id="disTab" class="active w3-text-cerebro-red item"onclick="disp()">Eventos</a>
                                 <a id="susTab"class="item" onclick="suscip()">Suscripciones</a>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="twelve wide column w3-padding-64">
+                <div class="ten wide column w3-padding-64">
                     <div class="ui segments sticky" id="mapa">
                         <div class="ui grey segment w3-center w3-bottombar" style="background-color: #FBFBFB">
                             <i class="inverted circular marker link icon" onclick="addSuscripcion()"></i>
@@ -233,7 +233,29 @@
         });
 
         channel.bind('evento-nuevo', function (data) {
-            console.log("evento " + data);
+            //console.log("evento " + data.geom.length);
+            var count = 0;
+            $.each(data.geom, function (index, dt) {
+                $.each(dispositivos, function (index, disp) {
+                    if (disp.ubicacion.toString() === dt.toString()) { 
+                        count++;
+                    }
+                });
+            });          
+            var item = document.createElement("div");
+            item.className = "item";
+            var a = document.createElement("a");
+            a.className = "ui header text small link";
+            var dateTime = data.fechaHora.split("T");
+            var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+            var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+            a.innerHTML = data.nombre + " (" + fecha + " - " + hora +")";
+            //a.addEventListener("click", function () {
+
+            //});
+            item.appendChild(a);
+            document.getElementById("itemsDiv").appendChild(item);
+            //document.getElementById("itemsDiv").insertBefore(item, document.getElementById("itemsDiv"));
         });
     });
 
@@ -290,7 +312,7 @@
                     num++;
                     var tmp1 = zona.ubicacion;
                     a.addEventListener("click", function () {
-                        if (zonaBool == true) { 
+                        if (zonaBool == true) {
                             map.removeLayer(vector_layer);
                         }
                         tmp = tmp1.toString().split(",");
@@ -330,7 +352,7 @@
         $('#infoDispositivo').sidebar('hide');
     }
 
-    function suscip() { 
+    function suscip() {
         $('#susTab').addClass("active w3-text-cerebro-red");
         $('#disTab').removeClass("active w3-text-cerebro-red");
         document.getElementById("itemsDiv").style.display = "none";
