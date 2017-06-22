@@ -33,10 +33,22 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpGet]
         [Route("datos/total")]
-        public int getTotalDatosByTipo(string dispositivo) {
+        public async Task<long> getTotalDatosByTipo(string dispositivo, string desde, string hasta) {
             var bd = new MongoClient().GetDatabase("cerebroDB");
             var datos = bd.GetCollection<DatosDispositivo>("DatosDispositivo");
-            return (from x in datos.AsQueryable() where x.dispositivoId == dispositivo group x by x.dispositivoId into g select g.Count()).FirstOrDefault();
+            //var query = (from x in datos.AsQueryable()
+            //        where x.dispositivoId == dispositivo
+            //        where x.datetime >= DateTime.Parse(desde)
+            //        where x.datetime <= DateTime.Parse(hasta)
+            //        select x).ToList();
+
+            var builder = Builders<DatosDispositivo>.Filter;
+            var filter = builder.Eq("dispositivoId", dispositivo);
+            if (desde != null && desde != "") filter = filter & builder.Gte("datetime", DateTime.Parse(desde));
+            if (hasta != null && hasta != "") filter = filter & builder.Lte("datetime", DateTime.Parse(hasta).AddDays(1));
+            return await datos.Find(filter).CountAsync();
+            //return (from x in r.AsQueryable() group x by x.datetime into g select new { fecha = g.Key, cantidad = g.Count() } ).ToList().ToJson();
+            //return await datos.Find(filter).Sort(Builders<DatosDispositivo>.Sort.Descending("datetime")).ToListAsync();
         }
 
         [HttpGet]
