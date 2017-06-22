@@ -12,10 +12,10 @@ export class FuenteDeDatoService {
         return this.http.get("https://www.cerebro-serviceLayer.com/api/tipos/muni/" + muni).map(data => data.json());
     }
 
-    public agregarFuente(dirIp: string, userAgent: string, tipo: string, ubicacion: string, municipalidad: string, nombre: string, privilegios: string, simulado: boolean) {
+    public agregarFuente(dirIp: string, userAgent: string, tipo: string, ubicacion: string, municipalidad: string, nombre: string, privilegios: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        var postInfo = "municipalidad=" + municipalidad + "&ubicacion=" + ubicacion + "&userAgent=" + userAgent + "&direccionIP=" + dirIp + "&tipo=" + tipo + "&nombre=" + nombre + "&privilegios=" + privilegios + "&simulado=" + simulado;
+        var postInfo = "municipalidad=" + municipalidad + "&ubicacion=" + ubicacion + "&userAgent=" + userAgent + "&direccionIP=" + dirIp + "&tipo=" + tipo + "&nombre=" + nombre + "&privilegios=" + privilegios;
         return this.http.post("https://www.cerebro-serviceLayer.com/api/dispositivos?" + postInfo, {}, options).map(data => data.json());
     }
 
