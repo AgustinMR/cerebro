@@ -6,6 +6,7 @@
             .sidebar('setting', 'dimPage', false);
         $('#menuSidebar').sidebar('attach events', '.toc.item');
         $('.ui.dropdown').dropdown();
+        
     });
 </script>
 <div class="ui sidebar vertical left inverted menu w3-cerebro-blue" id="menuSidebar">
@@ -54,14 +55,29 @@
         <div class="row">
             <div class="sixteen wide column">
                 <div class="ui segments">
-                    <div class="ui segment" style="height: 45px">
+                    <div class="ui segment" style="height: 47px">
                         <h4 class="ui header text center aligned w3-text-silver w3-display-middle" style="margin-top: 0px">Dispositivos por tipo</h4>
-                        <select class="ui compact dropdown w3-left" id="tipoGrafica" onChange="changeTipoGrafica()">
-                            <option selected value="NUMERICO">Numerico</option>
-                            <option value="IMAGEN">Imagen</option>
-                            <option value="IMAGEN">Video</option>
-                            <option value="TEXTO">Texto</option>
-                        </select>
+                        <div class="ui labeled basic compact icon top right pointing dropdown button" id="cosoDropdown" style="margin-top: -14px">
+                            <i class="filter icon w3-text-cerebro-red"></i>
+                            <span class="ui text header small w3-text-cerebro-blue" style="margin: 0px">Filtrar</span>
+                            <div class="menu">
+                                <div class="ui header"><i class="calendar icon w3-text-cerebro-blue"></i>fecha</div>
+                                <div class="ui icon input">
+                                    <i class="search link icon w3-hover-text-cerebro-red" onclick="elegirGrafica()"></i>
+                                    <input placeholder="Datos desde..." id="desdeFiltroDatos" type="date">
+                                </div>
+                                <div class="ui icon input">
+                                    <i class="search link icon w3-hover-text-cerebro-red" onclick="elegirGrafica()"></i>
+                                    <input placeholder="Datos hasta..." id="hastaFiltroDatos" type="date">
+                                </div>
+                                <div class="divider"></div>
+                                <div class="ui header w3-text-cerebro-blue"><i class="tags icon"></i> tipo</div>
+                                <a href="javascript:void(0)" class="item w3-hover-text-cerebro-red" onclick="changeTipoGrafica('Numerico')">Numerico</a>
+                                <a href="javascript:void(0)" class="item w3-hover-text-cerebro-red" onclick="changeTipoGrafica('Texto')">Texto</a>
+                                <a href="javascript:void(0)" class="item w3-hover-text-cerebro-red" onclick="changeTipoGrafica('Imagen')">Imagen</a>
+                                <a href="javascript:void(0)" class="item w3-hover-text-cerebro-red" onclick="changeTipoGrafica('Video')">Video</a>
+                            </div>
+                        </div>
                         <button class="circular basic ui icon button compact small w3-right" style="margin-top: -7px; margin-right: -5px"><i class="chevron down icon w3-text-cerebro-red"></i></button>
                     </div>
                     <div class="ui segment grey" style="height: 230px" id="graf1"></div>
@@ -151,7 +167,6 @@
 <script>
     var email = '@User.Claims.ToList()[0].Value';
     var municipalidad = '@User.Claims.ToList()[3].Value';
-    alert(municipalidad);
     var dispositivos;
     var chartNumerico;
     var chartImagen;
@@ -233,8 +248,7 @@
             document.getElementById("paginaActual").innerHTML = (paginaActual - 1).toString();
         }
     }
-    function changeTipoGrafica() {
-        var tipo = document.getElementById("tipoGrafica").value;
+    function changeTipoGrafica(tipo) {
         if (tipo.toLowerCase() === "numerico") {
             cargarGraficaDatosNumericos();
             document.getElementById("graf1").style.display = "block";
@@ -262,6 +276,20 @@
             document.getElementById("graf2").style.display = "none";
             document.getElementById("graf3").style.display = "none";
             document.getElementById("graf4").style.display = "block";
+        }
+    }
+    function elegirGrafica() { 
+        if (document.getElementById("graf1").style.display === "block") {
+            cargarGraficaDatosNumericos();
+        }
+        else if (document.getElementById("graf2").style.display === "block") {
+            cargarGraficaDatosImagen();
+        }
+        else if (document.getElementById("graf3").style.display === "block") {
+            cargarGraficaDatosVideo();
+        }
+        else if (document.getElementById("graf4").style.display === "block") {
+            cargarGraficaDatosTexto();
         }
     }
     function getHistorialDatos(pagina) {
@@ -453,6 +481,51 @@
         var options = {
             chart: {
                 renderTo: 'graf4',
+                type: 'column',
+                animation: Highcharts.svg,
+                marginRight: 10
+            },
+            title: { text: '' },
+            legend: {
+                align: 'center',
+                verticalAlign: 'bottom',
+                layout: 'horizontal'
+            },
+            xAxis: {
+                categories: ['Dispositivos'],
+                labels: { x: 0 }
+            },
+            yAxis: {
+                allowDecimals: false,
+                title: { text: 'Cantidad Enviada' }
+            },
+            series: []
+        };
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Texto", function (response) {
+            if (response !== undefined) {
+                $.each(response, function (index, d) {
+                    var newSerie = {
+                        name: d.nombre,
+                        id: d.Id,
+                        data: [{}]
+                    };
+                    options.series.push(newSerie);
+                });
+                chartTexto = new Highcharts.Chart(options);
+                var desde = document.getElementById("desdeFiltroDatos").value;
+                var hasta = document.getElementById("hastaFiltroDatos").value;
+                $.each(chartTexto.series, function (index, serie) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos/total?dispositivo=" + serie.options.id + "&desde=" + desde + "&hasta=" + hasta, function (response) {
+                        if (response !== undefined) {
+                            serie.setData([response]);
+                        }
+                    });
+                });
+            }
+        });
+        /*var options = {
+            chart: {
+                renderTo: 'graf4',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
@@ -495,7 +568,7 @@
                 });
                 chartTexto.redraw();
             }
-        });
+        });*/
 		/*$.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Texto", function(response){
 			if(response !== undefined){
 				$.each(response, function(index, d){
