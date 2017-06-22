@@ -17,6 +17,7 @@ namespace cerebro
         public string nombre { get; set; }
         [DataMember]
         public bool enabled { get; set; }
+
         public ICollection<Agrupacion_Usuario> AGRUPACIONES_USUARIOS { get; set; }
         public Municipalidad MUNICIPALIDADES { get; set; }
 

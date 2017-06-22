@@ -19,7 +19,7 @@
     </Key>
     <Property Name="nombre_agrupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nombre_municipalidad_agrupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="usuario_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="usuario_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nombre_municipalidad_usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="admin" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="AGRUPACIONES" Relationship="Self.FK__AGRUPACIONES_USU__2B3F6F97" FromRole="AGRUPACIONES_USUARIOS" ToRole="AGRUPACIONES" />
@@ -30,7 +30,7 @@
       <PropertyRef Name="nombre" />
     </Key>
     <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ubicacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ubicacion" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="AGRUPACIONES" Relationship="Self.FK__AGRUPACIO__nombr__286302EC" FromRole="MUNICIPALIDADES" ToRole="AGRUPACIONES" />
     <NavigationProperty Name="USUARIOS" Relationship="Self.FK__USUARIOS__nombre__25869641" FromRole="MUNICIPALIDADES" ToRole="USUARIOS" />
     <NavigationProperty Name="PRIVILEGIOS" Relationship="cerebroADOModel.FK__PRIVILEGI__nombr__286302EC" FromRole="Municipalidad" ToRole="PRIVILEGIOS" />
@@ -40,7 +40,7 @@
       <PropertyRef Name="email" />
       <PropertyRef Name="nombre_municipalidad" />
     </Key>
-    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nombre_municipalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="AGRUPACIONES_USUARIOS" Relationship="Self.FK__AGRUPACIONES_USU__2C3393D0" FromRole="USUARIOS" ToRole="AGRUPACIONES_USUARIOS" />
@@ -172,7 +172,7 @@
     </Key>
     <Property Name="Privilegio_nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="Privilegio_nombre_municipalidad" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="Usuario_email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Usuario_email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Usuario_nombre_municipalidad" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="PrivilegiosUsuariosPrivilegio">

@@ -56,7 +56,7 @@ namespace cerebro_BusinessLogicLayer
             Evento e = dal.getEvento(ObjectId.Parse(idEve));
             if (dal.addDatosEvento(idEve, e.nombre))
             {
-                var DLL = Assembly.LoadFile(@"C:\DLLs\hola.dll");
+                var DLL = Assembly.LoadFile(@"C:\DLLs\"+ idEve + ".dll");
                 Type testType = DLL.GetExportedTypes()[0];
 
                 ConstructorInfo ctor = testType.GetConstructor(System.Type.EmptyTypes);
@@ -64,7 +64,7 @@ namespace cerebro_BusinessLogicLayer
                 {
                     object instance = ctor.Invoke(null);
                     MethodInfo methodInfo = testType.GetMethod("Invocar");
-                    methodInfo.Invoke(instance, /*new object[] {}*/ null);
+                    methodInfo.Invoke(instance, new object[] { e.nombre, DateTime.Now });
                 }
             }
         }

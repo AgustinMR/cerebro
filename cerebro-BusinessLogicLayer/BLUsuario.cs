@@ -78,5 +78,13 @@ namespace cerebro_BusinessLogicLayer
             return dal.deletePrivilegioUsuario(email,muni,privilegio);
         }
 
+        public bool addZona(Zonas z) {
+            return dal.addZona(z);
+        }
+
+        public List<Zonas> getZonas(string email, string muni)
+        {
+            return dal.getZonas(email, muni);
+        }
     }
 }
