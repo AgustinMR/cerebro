@@ -246,23 +246,25 @@
 
             var b = false;
 
-            $.each(data.geom, function (index, dt2) {
-                $.each(zonas, function (index, zona) {
-                    var tmp = zona.ubicacion.toString().split(",");
-                    var array = [];
+            $.each(zonas, function (index, zona) {
+                var tmp = zona.ubicacion.toString().split(",");
+                var array = [];
 
-                    var j = 0;
-                    for (var i = 0; i < (tmp.length / 2); i++) {
-                        var arraryTmp = [];
-                        arraryTmp[0] = tmp[j]
-                        arraryTmp[1] = tmp[j + 1];
-                        array[i] = arraryTmp;
-                        j++;
-                        j++;
-                    }
+                var j = 0;
+                for (var i = 0; i < (tmp.length / 2); i++) {
+                    var arraryTmp = [];
+                    arraryTmp[0] = tmp[j]
+                    arraryTmp[1] = tmp[j + 1];
+                    array[i] = arraryTmp;
+                    j++;
+                    j++;
+                }
+                var polygon = new ol.geom.Polygon([array]);
+                var featurePolygon = new ol.Feature(polygon);
 
-                    var polygon = new ol.geom.Polygon([array]);
-                    var featurePolygon = new ol.Feature(polygon);
+                var countPoint = 0;
+                $.each(data.geom, function (index, dt2) {
+
                     var point = new ol.geom.Point(dt2);
                     var featurePoint = new ol.Feature(point);
 
@@ -274,10 +276,14 @@
                     var polygon2Jsts = geojsonReader.read(
                         format.writeFeatureObject(featurePoint)).geometry;
 
-                    if (polygon1Jsts.contains(polygon2Jsts)){
-                        b = true;
+                    if (polygon1Jsts.contains(polygon2Jsts)) {
+                        countPoint++;
                     }
                 });
+                if (countPoint == data.geom.length) {
+                    b = true;
+                }
+                countPoint = 0;
             });
 
             if (count == data.geom.length && b){
