@@ -54,38 +54,40 @@ namespace cerebro_BusinessLogicLayer
         public void dispararAccionEvento(string idEve)
         {
             Evento e = dal.getEvento(ObjectId.Parse(idEve));
-            if (dal.addDatosEvento(idEve, e.nombre))
-            {
-                var DLL = Assembly.LoadFile(@"C:\DLLs\"+ e.accion.ToString().Trim() + ".dll");
-                Type testType = DLL.GetExportedTypes()[0];
+            var DLL = Assembly.LoadFile(@"C:\DLLs\" + e.accion.ToString().Trim() + ".dll");
+            Type testType = DLL.GetExportedTypes()[0];
 
-                ConstructorInfo ctor = testType.GetConstructor(System.Type.EmptyTypes);
-                if (ctor != null)
-                {
-                    object instance = ctor.Invoke(null);
-                    MethodInfo methodInfo = testType.GetMethod("Invocar");
-                    methodInfo.Invoke(instance, new object[] { e.nombre, DateTime.Now });
-                }
+            ConstructorInfo ctor = testType.GetConstructor(System.Type.EmptyTypes);
+            if (ctor != null)
+            {
+                object instance = ctor.Invoke(null);
+                MethodInfo methodInfo = testType.GetMethod("Invocar");
+                methodInfo.Invoke(instance, new object[] { e.nombre, DateTime.Now });
             }
         }
 
-        public List<Accion> getAcciones(string muni) {
+        public List<Accion> getAcciones(string muni)
+        {
             return dal.getAcciones(muni);
         }
 
-        public List<Evento> getEventosMuni(string muni) {
+        public List<Evento> getEventosMuni(string muni)
+        {
             return dal.getEventosMuni(muni);
         }
 
-        public List<Umbral> getUmbralesEve(string idEve) {
+        public List<Umbral> getUmbralesEve(string idEve)
+        {
             return dal.getUmbralesEve(idEve);
         }
 
-        public bool updateUmbral(Umbral u) {
+        public bool updateUmbral(Umbral u)
+        {
             return dal.updateUmbral(u);
         }
 
-        public bool deleteUmbral(ObjectId id) {
+        public bool deleteUmbral(ObjectId id)
+        {
             return dal.deleteUmbral(id);
         }
     }
