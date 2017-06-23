@@ -122,45 +122,35 @@ namespace cerebro_frontOffice.Controllers
                 {
                     string eveNom = bd.GetCollection<Evento>("Evento").Find(e => e.Id == ObjectId.Parse(eve[j])).FirstOrDefault().nombre;
                     DatosEvento dte = new DatosEvento(eve[j], eveNom);
+                    bd.GetCollection<DatosEvento>("DatosEvento").InsertOne(dte);
 
-                    var builder3 = Builders<DatosEvento>.Filter;
-                    var filter3 = builder3.Eq("eventoId", eve[j]) & builder3.Gt("datetime", DateTime.Now.AddMinutes(-3));
-                    DatosEvento eventoRes = bd.GetCollection<DatosEvento>("DatosEvento")
-                        .Find(filter3)
-                        .SingleOrDefault();
-                    if (eventoRes == null)
+                    List<string> disp = new List<string>();
+                    List<string> priv = new List<string>();
+                    double[][] arrayGeom = new double[umbralesEventos.Count][];
+                    for (int t = 0; t < umbralesEventos.Count; t++)
                     {
-                        bd.GetCollection<DatosEvento>("DatosEvento").InsertOne(dte);
-
-                        List<string> disp = new List<string>();
-                        List<string> priv = new List<string>();
-                        double[][] arrayGeom = new double[umbralesEventos.Count][];
-                        for (int t = 0; t < umbralesEventos.Count; t++)
-                        {
-                            var FuenteDeDatoBD = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(e => e.Id == ObjectId.Parse(umbralesEventos[t].fuenteDeDatoId)).FirstOrDefault();
-                            disp.Add(FuenteDeDatoBD.Id.ToString());
-                            priv.Add(FuenteDeDatoBD.privilegios);
-                            arrayGeom[t] = FuenteDeDatoBD.ubicacion;
-                        }
-                        DtEvento DtEve = new DtEvento();
-                        DtEve.nombre = eveNom;
-
-                        DtEve.geom = arrayGeom;
-                        DtEve.idEve = eve[j];
-                        DtEve.privilegios = priv;
-                        DtEve.dispositivos = disp;
-                        DtEve.fechaHora = DateTime.Now;
-
-                        using (var httpClientHandler = new HttpClientHandler())
-                        {
-                            httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
-                            using (var client = new HttpClient(httpClientHandler))
-                            {
-                                var result = client.PostAsync("https://www.cerebro-servicelayer.com/api/eventos/dll?idEve=" + eve[j], null).Result;
-                            }
-                        }
-                        Eventos(DtEve);
+                        var FuenteDeDatoBD = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(e => e.Id == ObjectId.Parse(umbralesEventos[t].fuenteDeDatoId)).FirstOrDefault();
+                        disp.Add(FuenteDeDatoBD.Id.ToString());
+                        priv.Add(FuenteDeDatoBD.privilegios);
+                        arrayGeom[t] = FuenteDeDatoBD.ubicacion;
                     }
+                    DtEvento DtEve = new DtEvento();
+                    DtEve.nombre = eveNom;
+
+                    DtEve.geom = arrayGeom;
+                    DtEve.privilegios = priv;
+                    DtEve.dispositivos = disp;
+                    DtEve.fechaHora = DateTime.Now;
+
+                    using (var httpClientHandler = new HttpClientHandler())
+                    {
+                        httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                        using (var client = new HttpClient(httpClientHandler))
+                        {
+                            var result = client.PostAsync("https://www.cerebro-servicelayer.com/api/eventos/dll?idEve=" + eve[j], null).Result;
+                        }
+                    }
+                    Eventos(DtEve);
                 }
             }
             //Fin 2
