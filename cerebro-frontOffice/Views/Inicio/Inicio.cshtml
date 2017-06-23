@@ -62,12 +62,12 @@
     <div class="ui grid stackable container w3-padding w3-padding-16">
         <div class="row" id="goyete">
             <div class="ui grid stackable container">
-                <div class="four wide column w3-padding-64">
+                <div class="six wide column w3-padding-64">
                     <div class="ui segments">
                         <div class="ui segment sticky" style="background-color: #FBFBFB; height: 40px">
                             <div class="ui two item menu pointing secondary" style="margin-top: -14px">
-                                <a id="disTab" class="active w3-text-cerebro-red item"onclick="disp()">Dispositivos</a>
-                                <a id="susTab"class="item" onclick="suscip()">Suscripciones</a>
+                                <a id="disTab" class="active w3-text-cerebro-red item" onclick="disp()">Eventos</a>
+                                <a id="susTab" class="item" onclick="suscip()">Suscripciones</a>
                             </div>
                         </div>
                         <div class="ui raised segment" id="fletesContext">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="twelve wide column w3-padding-64">
+                <div class="ten wide column w3-padding-64">
                     <div class="ui segments sticky" id="mapa">
                         <div class="ui grey segment w3-center w3-bottombar" style="background-color: #FBFBFB">
                             <i class="inverted circular marker link icon" onclick="addSuscripcion()"></i>
@@ -105,6 +105,7 @@
     var zonas;
     var zonaBool = false;
     var vector_layer;
+    var arrayFeatures = [];
     var pusher = new Pusher('474881b81d9d92dd2713', {
         encrypted: true
     });
@@ -137,6 +138,7 @@
         draw.on('drawend', function (evt) {
             fea = evt.feature;
             geom = evt.feature.getGeometry().getCoordinates();
+            map.removeInteraction(draw);
             map.addInteraction(modifyInteraction);
         }, this);
 
@@ -233,7 +235,101 @@
         });
 
         channel.bind('evento-nuevo', function (data) {
-            console.log("evento " + data);
+            var count = 0;
+            $.each(data.geom, function (index, dt) {
+                $.each(dispositivos, function (index, disp) {
+                    if (disp.ubicacion.toString() === dt.toString()) {
+                        count++;
+                    }
+                });
+            });
+
+            var b = false;
+
+            $.each(zonas, function (index, zona) {
+                var tmp = zona.ubicacion.toString().split(",");
+                var array = [];
+
+                var j = 0;
+                for (var i = 0; i < (tmp.length / 2); i++) {
+                    var arraryTmp = [];
+                    arraryTmp[0] = tmp[j]
+                    arraryTmp[1] = tmp[j + 1];
+                    array[i] = arraryTmp;
+                    j++;
+                    j++;
+                }
+                var polygon = new ol.geom.Polygon([array]);
+                var featurePolygon = new ol.Feature(polygon);
+
+                var countPoint = 0;
+                $.each(data.geom, function (index, dt2) {
+
+                    var point = new ol.geom.Point(dt2);
+                    var featurePoint = new ol.Feature(point);
+
+                    var format = new ol.format.GeoJSON();
+                    var geojsonReader = new jsts.io.GeoJSONReader();
+
+                    var polygon1Jsts = geojsonReader.read(
+                        format.writeFeatureObject(featurePolygon)).geometry;
+                    var polygon2Jsts = geojsonReader.read(
+                        format.writeFeatureObject(featurePoint)).geometry;
+
+                    if (polygon1Jsts.contains(polygon2Jsts)) {
+                        countPoint++;
+                    }
+                });
+                if (countPoint == data.geom.length) {
+                    b = true;
+                }
+                countPoint = 0;
+            });
+
+            if (count == data.geom.length && b){
+                var item = document.createElement("div");
+                item.className = "item";
+                var a = document.createElement("a");
+                a.className = "ui header text small link";
+                var dateTime = data.fechaHora.split("T");
+                var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                a.innerHTML = data.nombre + " (" + fecha + " - " + hora + ")";
+                a.addEventListener("click", function () {
+                    $.each(arrayFeatures, function (index, feat) {
+                        var normalStyle = new ol.style.Style({
+                            image: new ol.style.Circle({
+                                radius: 5,
+                                fill: new ol.style.Fill({
+                                    color: 'orange'
+                                })
+                            })
+                        });
+                        feat.setStyle(normalStyle);
+                    });
+
+                    $.each(data.geom, function (index, dt) {
+                        var feature = map.forEachFeatureAtPixel(map.getPixelFromCoordinate(dt),
+                            function (feature) {
+                                return feature;
+                            });
+                        if (feature) {
+                            var eventoStyle = new ol.style.Style({
+                                image: new ol.style.Circle({
+                                    radius: 5,
+                                    fill: new ol.style.Fill({
+                                        color: 'red'
+                                    })
+                                })
+                            });
+                            feature.setStyle(eventoStyle);
+                        }
+                    });
+                });
+                item.appendChild(a);
+                document.getElementById("itemsDiv").appendChild(item);
+            }
+            //document.getElementById("itemsDiv").insertBefore(item, document.getElementById("itemsDiv"));
         });
     });
 
@@ -250,19 +346,22 @@
                     }),
                     style: new ol.style.Style({
                         image: new ol.style.Circle({
-                            radius: 7,
+                            radius: 5,
                             fill: new ol.style.Fill({
                                 color: 'orange'
                             })
                         })
                     })
                 });
+
+                arrayFeatures[arrayFeatures.length] = vectorLayer.getSource().getFeatures()[0];
                 map.addLayer(vectorLayer);
             }
         });
     }
 
     function addSuscripcion() {
+        source.clear();
         map.addInteraction(draw);
     }
 
@@ -270,6 +369,7 @@
         $.post("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email="+email+"&muni="+muni+"&ubicacion="+geom, function (res) {
             console.log("Zona guardada");
             cargarZona();
+            source.clear();
         });
     }
 
@@ -290,7 +390,8 @@
                     num++;
                     var tmp1 = zona.ubicacion;
                     a.addEventListener("click", function () {
-                        if (zonaBool == true) { 
+                        source.clear();
+                        if (zonaBool == true) {
                             map.removeLayer(vector_layer);
                         }
                         tmp = tmp1.toString().split(",");
@@ -330,17 +431,27 @@
         $('#infoDispositivo').sidebar('hide');
     }
 
-    function suscip() { 
+    function suscip() {
         $('#susTab').addClass("active w3-text-cerebro-red");
         $('#disTab').removeClass("active w3-text-cerebro-red");
         document.getElementById("itemsDiv").style.display = "none";
         document.getElementById("items").style.display = "block";
+        source.clear();
+        if (zonaBool == true) {
+            map.removeLayer(vector_layer);
+        }
+        zonaBool == false;
     }
     function disp() {
         $('#disTab').addClass("active w3-text-cerebro-red");
         $('#susTab').removeClass("active w3-text-cerebro-red");
         document.getElementById("itemsDiv").style.display = "block";
         document.getElementById("items").style.display = "none";
+        source.clear();
+        if (zonaBool == true) {
+            map.removeLayer(vector_layer);
+        }
+        zonaBool == false;
     }
 
 </script>
