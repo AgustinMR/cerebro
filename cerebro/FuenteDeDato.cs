@@ -26,9 +26,6 @@ namespace cerebro
         public string privilegios { get; set; }
         [BsonElement]
         [DataMember]
-        public Boolean simulado { get; set; }
-        [BsonElement]
-        [DataMember]
         public double[] ubicacion { get; set; }
         [BsonElement]
         [DataMember]

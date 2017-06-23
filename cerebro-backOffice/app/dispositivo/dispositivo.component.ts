@@ -32,7 +32,6 @@ export class FuenteDeDatoComponent implements OnInit {
     tiposRet: any;
     dispositivosMod: any;
     privilegios: any;
-    simuladoMod: any;
 
     tipoDeFuneteDeDatoSelect = "";
     tipoDeFuneteDeDatoSelectMod = "";
@@ -57,14 +56,6 @@ export class FuenteDeDatoComponent implements OnInit {
             $('.ui.dropdown').dropdown();
         });
 
-        $('#sumulado').change(function () {
-            if ($(this).is(":checked")) {
-                document.getElementById("ipCH").style.display = "none";
-            } else {
-                document.getElementById("ipCH").style.display = "block";
-            }
-        });
-
         var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
         this.nombre_municipalidad = muniL[0].toUpperCase();
         for (var h = 1; h < muniL.length; h++) {
@@ -77,7 +68,7 @@ export class FuenteDeDatoComponent implements OnInit {
             source: this.source,
             style: new ol.style.Style({
                 image: new ol.style.Circle({
-                    radius: 7,
+                    radius: 6,
                     fill: new ol.style.Fill({
                         color: 'orange'
                     })
@@ -160,14 +151,8 @@ export class FuenteDeDatoComponent implements OnInit {
         if (this.tipoGuardar == "nuevo") {
             var userAgent = this.userAgentNew;
             var ipNew = this.ipNew;
-            var simulado = false;
-            if ($('#sumulado').is(':checked')) {
-                userAgent = null;
-                ipNew = null;
-                simulado = true;
-            }
             if (this.tipoDeFuneteDeDatoSelect != "" && this.nombreNew != "" && this.geom != "" && this.privilegioSelect != "") {
-                this.dispositivos.agregarFuente(ipNew, userAgent, this.tipoDeFuneteDeDatoSelect, this.geom, this.nombre_municipalidad, this.nombreNew, this.privilegioSelect, simulado).subscribe(
+                this.dispositivos.agregarFuente(ipNew, userAgent, this.tipoDeFuneteDeDatoSelect, this.geom, this.nombre_municipalidad, this.nombreNew, this.privilegioSelect).subscribe(
                     (data: Response) => {
                         this.ipNew = "";
                         this.userAgentNew = "";
@@ -183,10 +168,6 @@ export class FuenteDeDatoComponent implements OnInit {
         } else if (this.tipoGuardar == "modificar") {
             var userAgentMod = this.userAgentMod;
             var ipMod = this.ipMod;
-            if (this.simuladoMod) {
-                userAgentMod = null;
-                ipMod = null;
-            }
             if (this.geomMod != "") {
                 this.dispositivos.modificarFuente(ipMod, userAgentMod, this.geomMod, this.tipoDeFuneteDeDatoSelectMod, this.privilegioSelectMod, this.nombreMod).subscribe(
                     (data: Response) => {
@@ -212,15 +193,8 @@ export class FuenteDeDatoComponent implements OnInit {
     onChange(val: any) {
         for (var dis of this.dispositivosMod) {
             if (dis.Id == val) {
-                if (dis.simulado == true) {
-                    document.getElementById("ipCHMod").style.display = "none";
-                    this.simuladoMod = true;
-                } else {
-                    document.getElementById("ipCHMod").style.display = "block";
-                    this.ipMod = dis.direccionIP;
-                    this.userAgentMod = dis.userAgent;
-                    this.simuladoMod = false;
-                }
+                this.ipMod = dis.direccionIP;
+                this.userAgentMod = dis.userAgent;
                 this.nombreMod = dis.nombre;
                 $('#privilegiosSelectMod').dropdown('set selected', dis.privilegios);
                 $('#privilegiosSelectMod').dropdown('refresh');
@@ -242,7 +216,7 @@ export class FuenteDeDatoComponent implements OnInit {
                     }),
                     style: new ol.style.Style({
                         image: new ol.style.Circle({
-                            radius: 7,
+                            radius: 6,
                             fill: new ol.style.Fill({
                                 color: 'orange'
                             })

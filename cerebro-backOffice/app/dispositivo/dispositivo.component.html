@@ -40,10 +40,6 @@
             <option *ngFor="let tip of tipoDeFuneteDeDato" value="{{tip.Id}}"> {{tip.nombre}} </option>
         </select>
         <div class="container w3-padding w3-padding-24">
-            <div class="ui toggle checkbox w3-margin-bottom">
-                <input name="public" type="checkbox" id="sumulado">
-                <label>Dispositivo simulado.</label>
-            </div>
             <div class="w3-margin-bottom">
                 <select name="origen" [(ngModel)]="privilegioSelect" id="privilegiosSelect" class="ui search dropdown">
                     <option value="" selected disabled>Seleccione un privilegio</option>

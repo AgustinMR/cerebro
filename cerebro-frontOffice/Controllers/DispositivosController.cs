@@ -119,7 +119,8 @@ namespace cerebro_frontOffice.Controllers
                 if (hayEvento == umbralesEventos.Count)
                 {
                     double[][] arrayGeom = new double[umbralesEventos.Count][]; ;
-                    for (int t = 0; t < umbralesEventos.Count; t++) {
+                    for (int t = 0; t < umbralesEventos.Count; t++)
+                    {
                         var FuenteDeDatoBD = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(e => e.Id == ObjectId.Parse(umbralesEventos[t].fuenteDeDatoId)).FirstOrDefault();
                         arrayGeom[t] = FuenteDeDatoBD.ubicacion;
                     }
@@ -130,8 +131,6 @@ namespace cerebro_frontOffice.Controllers
                     DtEve.geom = arrayGeom;
                     DtEve.fechaHora = DateTime.Now;
 
-                    Eventos(DtEve);
-
                     using (var httpClientHandler = new HttpClientHandler())
                     {
                         httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
@@ -139,7 +138,9 @@ namespace cerebro_frontOffice.Controllers
                         {
                             var result = client.PostAsync("https://www.cerebro-servicelayer.com/api/eventos/dll?idEve=" + eve[j], null).Result;
                         }
-                    }                                        
+                    }
+
+                    Eventos(DtEve);                      
                 }
             }
         }

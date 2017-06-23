@@ -18,7 +18,7 @@ namespace cerebro_ServiceLayer.Controllers
     {
         [HttpPost]
         [Route("")]
-        public bool addFuenteDeDato(string municipalidad, string ubicacion, string userAgent, string direccionIP, string tipo, string nombre, string privilegios, Boolean simulado)
+        public bool addFuenteDeDato(string municipalidad, string ubicacion, string userAgent, string direccionIP, string tipo, string nombre, string privilegios)
         {
             FuenteDeDato f = new FuenteDeDato();
             f.municipalidad = municipalidad;
@@ -34,7 +34,6 @@ namespace cerebro_ServiceLayer.Controllers
             f.tipo = new ObjectId(tipo);
             f.nombre = nombre;
             f.privilegios = privilegios;
-            f.simulado = simulado;
             return new BLFuenteDeDato().addFuenteDeDato(f);
         }
 
