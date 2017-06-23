@@ -31,5 +31,11 @@ namespace cerebro_frontOffice.Models
             this.datetime = DateTime.Now;
         }
 
+        public DatosEvento(string idEve, string nombre)
+        {
+            this.eventoId = idEve;
+            this.nombre = nombre;
+            this.datetime = DateTime.Now;
+        }
     }
 }
