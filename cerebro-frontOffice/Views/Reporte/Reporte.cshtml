@@ -794,17 +794,27 @@
                     }
                     $.each(response, function (index, agrupacion) {
                         var item2 = document.createElement("div");
-                        item2.className = "item";
+                        item2.className = "link item";
                         var a2 = document.createElement("a");
                         a2.className = "ui header text small link";
                         a2.innerHTML = agrupacion;
                         a2.addEventListener("click", function () {
+                            alert(agrupacion);
                             chatearAgrupacion(agrupacion);
                             document.getElementById("agrActual").innerHTML = agrupacion;
                         });
                         item2.appendChild(a2);
                         document.getElementById("listAgrupacionChat").appendChild(item2);
                     });
+                    var item = document.createElement("div");
+                    item.className = "item";
+                    item.style.display = "none";
+                    var a = document.createElement("a");
+                    a.className = "ui header text small link";
+                    a.innerHTML = "suds";
+                    a.style.display = "none";
+                    item.appendChild(a);
+                    document.getElementById("listAgrupacionChat").insertBefore(item, document.getElementById("listAgrupacionChat").firstChild);
                 }
             });
         }
