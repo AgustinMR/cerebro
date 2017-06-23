@@ -6,7 +6,7 @@
             .sidebar('setting', 'dimPage', false);
         $('#menuSidebar').sidebar('attach events', '.toc.item');
         $('.ui.dropdown').dropdown();
-        
+
     });
 </script>
 <div class="ui sidebar vertical left inverted menu w3-cerebro-blue" id="menuSidebar">
@@ -78,7 +78,7 @@
                                 <a href="javascript:void(0)" class="item w3-hover-text-cerebro-red" onclick="changeTipoGrafica('Video')">Video</a>
                             </div>
                         </div>
-                        <button class="circular basic ui icon button compact small w3-right" style="margin-top: -7px; margin-right: -5px"><i class="chevron down icon w3-text-cerebro-red"></i></button>
+                        <button class="circular basic ui icon button compact small w3-right" style="margin-top: -7px; margin-right: -5px" onclick="toggleSizeFirst()"><i class="chevron down icon w3-text-cerebro-red"></i></button>
                     </div>
                     <div class="ui segment grey" style="height: 230px" id="graf1"></div>
                     <div class="ui segment grey" style="height: 230px; display: none" id="graf2"></div>
@@ -86,9 +86,25 @@
                     <div class="ui segment grey" style="height: 230px; display: none" id="graf4"></div>
                 </div>
                 <div class="ui segments">
-                    <div class="ui segment" style="height: 40px">
-                        <h4 class="ui header text center aligned w3-text-silver">Eventos por tipo</h4>
-                        <button class="circular basic ui icon button compact small w3-right" style="margin-top: -38px; margin-right: -5px"><i class="chevron down icon w3-text-cerebro-red"></i></button>
+                    <div class="ui segment" style="height: 45px">
+                        <h4 class="ui header text center aligned w3-text-silver w3-display-middle" style="margin-top: 0px">Eventos por tipo</h4>
+                        <div class="ui labeled basic compact icon top right pointing dropdown button" style="margin-top: -14px">
+                            <i class="filter icon w3-text-cerebro-red"></i>
+                            <span class="ui text header small w3-text-cerebro-blue" style="margin: 0px">Filtrar</span>
+                            <div class="menu">
+                                <div class="ui header"><i class="calendar icon w3-text-cerebro-blue"></i>fecha</div>
+                                <div class="ui icon input">
+                                    <i class="search link icon w3-hover-text-cerebro-red" onclick="cargarGraficaEventos()"></i>
+                                    <input id="desdeFiltroEvento" placeholder="Eventos desde..." type="text">
+                                </div>
+                                <div class="ui icon input">
+                                    <i class="search link icon w3-hover-text-cerebro-red" onclick="cargarGraficaEventos()"></i>
+                                    <input id="hastaFiltroEvento" placeholder="Eventos hasta..." type="text">
+                                </div>
+                                <a class="item" style="display: none">s</a>
+                            </div>
+                        </div>
+                        <button class="circular basic ui icon button compact small w3-right" style="margin-top: -7px; margin-right: -5px" onClick="toggleSizeSecond()"><i class="chevron down icon w3-text-cerebro-red"></i></button>
                     </div>
                     <div class="ui segment grey" style="height: 230px" id="graf5"></div>
                 </div>
@@ -109,18 +125,55 @@
                             <a class="item" id="m2" onclick="mostrarReporteEventos()">Historico de Eventos</a>
                         </div>
                     </div>
-                    <div class="ui segment" style="background-color: #FBFBFB">
-                        <select class="ui compact dropdown" id="tipoDato">
-                            <option value="" disabled selected>Tipo de Dato</option>
-                            <option value="NUMERICO">Numerico</option>
-                            <option value="IMAGEN">Imagen</option>
-                            <option value="TEXTO">Texto</option>
-                        </select>
-                        <div class="ui icon input">
-                            <input id="dispositivoFiltrar" placeholder="Buscar por dispositivo..." type="text">
-                            <i class="inverted circular search link icon"></i>
+                    <div class="ui segment" style="background-color: #FBFBFB; height:55px">
+                        <div class="ui labeled basic compact icon top right pointing dropdown button w3-left" style="margin-top: -5px" id="divFiltro1">
+                            <i class="filter icon w3-text-cerebro-red"></i>
+                            <span class="ui text header small w3-text-cerebro-blue" style="margin: 0px" id="tipoActualTabla">Filtrar</span>
+                            <div class="menu">
+                                <div class="ui header"><i class="filter icon w3-text-cerebro-blue"></i>t&iacute;tulo</div>
+                                <div class="ui icon input">
+                                    <input id="dispositivoFiltrar" placeholder="Buscar por dispositivo..." type="text">
+                                    <i class="search link icon w3-hover-text-cerebro-red" onclick="getHistorialDatos(1, document.getElementById('tipoActualTabla').innerHTML)"></i>
+                                </div>
+                                <div class="ui header"><i class="calendar icon w3-text-cerebro-blue"></i>fecha</div>
+                                <div class="ui icon input">
+                                    <i class="search link icon w3-hover-text-cerebro-red" onclick="getHistorialDatos(1, document.getElementById('tipoActualTabla').innerHTML)"></i>
+                                    <input id="desdeFiltroTabla" placeholder="Datos desde..." type="text">
+                                </div>
+                                <div class="ui icon input">
+                                    <i class="search link icon w3-hover-text-cerebro-red" onclick="getHistorialDatos(1, document.getElementById('tipoActualTabla').innerHTML)"></i>
+                                    <input id="hastaFiltroTabla" placeholder="Datos hasta..." type="text">
+                                </div>
+                                <div class="divider"></div>
+                                <div class="ui header w3-text-cerebro-blue"><i class="tags icon"></i> tipo</div>
+                                <a href="javascript:void(0)" class="item w3-hover-text-cerebro-red" onclick="getHistorialDatos(1,'Numerico')">Numerico</a>
+                                <a href="javascript:void(0)" class="item w3-hover-text-cerebro-red" onclick="getHistorialDatos(1, 'Texto')">Texto</a>
+                                <a href="javascript:void(0)" class="item w3-hover-text-cerebro-red" onclick="getHistorialDatos(1, 'Imagen')">Imagen</a>
+                                <a href="javascript:void(0)" class="item w3-hover-text-cerebro-red" onclick="getHistorialDatos(1, 'Video')">Video</a>
+                            </div>
                         </div>
-                        <button class="ui icon button w3-text-cerebro-red w3-right" onclick="mostrarMapSidebar()" data-tooltip="Filtrar por Ubicaci&oacute;n"><i class="ui marker icon"></i></button>
+                        <div class="ui labeled basic compact icon top right pointing dropdown button w3-left" style="margin-top: -5px; display:none" id="divFiltro2">
+                            <i class="filter icon w3-text-cerebro-red"></i>
+                            <span class="ui text header small w3-text-cerebro-blue" style="margin: 0px">Filtrar</span>
+                            <div class="menu">
+                                <div class="ui header"><i class="filter icon w3-text-cerebro-blue"></i>t&iacute;tulo</div>
+                                <div class="ui icon input">
+                                    <input id="eventoFiltrar" placeholder="Buscar por dispositivo..." type="text">
+                                    <i class="search link icon w3-hover-text-cerebro-red"></i>
+                                </div>
+                                <div class="ui header"><i class="calendar icon w3-text-cerebro-blue"></i>fecha</div>
+                                <div class="ui icon input">
+                                    <i onclick="getHistorialEventos(1)" class="search link icon w3-hover-text-cerebro-red"></i>
+                                    <input id="desdeFiltroTabla2" placeholder="Datos desde..." type="text">
+                                </div>
+                                <div class="ui icon input">
+                                    <i onclick="getHistorialEventos(1)" class="search link icon w3-hover-text-cerebro-red"></i>
+                                    <input id="hastaFiltroTabla2" placeholder="Datos hasta..." type="text">
+                                </div>
+                                <a class="item" style="display: none">s</a>
+                            </div>
+                        </div>
+                        <button class="ui icon button w3-text-cerebro-red w3-right" id="mapButton" style="margin-top:-5px" onclick="mostrarMapSidebar()" data-tooltip="Filtrar por Ubicaci&oacute;n"><i class="ui marker icon"></i></button>
                     </div>
                     <div class="ui grey segment" style="padding: 0px" id="tabla1">
                         <table class="ui celled striped table" style="width: 100%">
@@ -140,22 +193,25 @@
                         <table class="ui celled table" style="width: 100%">
                             <thead class="full-width">
                                 <tr>
-                                    <th width="20%" class="ui text header small w3-text-cerebro-blue">Evento</th>
-                                    <th width="10%" class="ui text header small w3-text-cerebro-blue">Tipo</th>
+                                    <th width="80%" class="ui text header small w3-text-cerebro-blue">Evento</th>
                                     <th width="10%" class="ui text header small w3-text-cerebro-blue">Fecha</th>
                                     <th width="10%" class="ui text header small w3-text-cerebro-blue">Hora</th>
-                                    <th width="50%" class="ui text header small w3-text-cerebro-blue">Contenido</th>
                                 </tr>
                             </thead>
                             <tbody id="eventosTableBody"></tbody>
                         </table>
                     </div>
-                    <div class="ui right aligned segment w3-light-gray">
+                    <div class="ui right aligned segment w3-light-gray" style="height:60px">
                         <div class="ui container">
-                            <div class="ui right pagination menu small pointing">
-                                <a onclick="cargarResultadosAnteriores_datos()" class="icon item"><i class="left chevron icon w3-text-cerebro-red"></i></a>
-                                <span class="ui item header small w3-text-cerebro-blue" id="paginaActual">1</span>
-                                <a class="icon item" onclick="cargarResultadosSiguientes_datos()"><i class="right chevron icon w3-text-cerebro-red"></i></a>
+                            <div class="ui right pagination horizontal menu small pointing w3-right" style="margin-top: -5px; width: 125px; height: 40px" id="pagination1">
+                                <a onclick="cargarResultadosAnteriores_datos()" class="icon item w3-left"><i class="left chevron icon w3-text-cerebro-red"></i></a>
+                                <span class="ui item header small w3-text-cerebro-blue w3-left" style="width:45px" id="paginaActual">1</span>
+                                <a class="icon item w3-right" onclick="cargarResultadosSiguientes_datos()"><i class="right chevron icon w3-text-cerebro-red"></i></a>
+                            </div>
+                            <div class="ui right pagination menu small pointing w3-right" style="display:none; width: 125px; margin-top: -5px; height: 40px" id="pagination2">
+                                <a onclick="cargarResultadosAnteriores_eventos()" class="icon item w3-left"><i class="left chevron icon w3-text-cerebro-red"></i></a>
+                                <span class="ui item header small w3-text-cerebro-blue w3-left" style="width:45px" id="paginaActualEvento">1</span>
+                                <a class="icon item w3-right" onclick="cargarResultadosSiguientes_eventos()"><i class="right chevron icon w3-text-cerebro-red"></i></a>
                             </div>
                         </div>
                     </div>
@@ -172,10 +228,12 @@
     var chartImagen;
     var chartVideo;
     var chartTexto;
+    var chartEventos;
     Highcharts.setOptions({ global: { useUTC: false } });
     $(document).ready(function () {
         "use strict";
         cargarGraficaDatosNumericos();
+        cargarGraficaEventos();
         getHistorialDatos(1);
         var pusher = new Pusher('474881b81d9d92dd2713', { encrypted: true });
         var channel = pusher.subscribe("datos-dispositivos");
@@ -192,7 +250,7 @@
                     }
                 });
             } else if (dato.tipoDeDato.toLowerCase() === "imagen") {
-                $.each(chartNumerico.series, function (index, serie) {
+                $.each(chartImagen.series, function (index, serie) {
                     if (serie.name === dato.nombre) {
                         var datetime = dato.datetime;
                         var fecha = datetime.slice(0, datetime.indexOf("T"));
@@ -202,6 +260,23 @@
                         serie.addPoint([x, y]);
                     }
                 });
+            } else if (dato.tipoDeDato.toLowerCase() === "video") {
+                $.each(chartVideo.series, function (index, serie) {
+                    if (serie.name === dato.nombre) {
+                        var datetime = dato.datetime;
+                        var fecha = datetime.slice(0, datetime.indexOf("T"));
+                        var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                        var x = fecha + " " + hora;
+                        var y = parseFloat(dato.medida);
+                        serie.addPoint([x, y]);
+                    }
+                });
+            } else {
+                var serie = chartTexto.get(dato.dispositivoId);
+                if (serie !== undefined) {
+                    var y = serie.data[0].y + 1;
+                    serie.data[0].update(y);
+                }
             }
         });
         var map;
@@ -228,24 +303,48 @@
         document.getElementById("tabla1").style.display = "block";
         document.getElementById("m1").className = "active item w3-text-cerebro-red";
         document.getElementById("m2").className = "item";
+        document.getElementById("divFiltro1").style.display = "block";
+        document.getElementById("divFiltro2").style.display = "none";
+        document.getElementById("pagination1").style.display = "block";
+        document.getElementById("pagination2").style.display = "none";
+        document.getElementById("mapButton").style.display = "block";
     }
     function mostrarReporteEventos() {
+        getHistorialEventos();
         document.getElementById("tabla2").style.display = "block";
         document.getElementById("tabla1").style.display = "none";
         document.getElementById("m2").className = "active item w3-text-cerebro-red";
         document.getElementById("m1").className = "item";
+        document.getElementById("divFiltro1").style.display = "none";
+        document.getElementById("divFiltro2").style.display = "block";
+        document.getElementById("pagination1").style.display = "none";
+        document.getElementById("pagination2").style.display = "block";
+        document.getElementById("mapButton").style.display = "none";
     }
     function cargarResultadosSiguientes_datos() {
         if (document.getElementById("datosTableBody").childNodes.length > 0) {
-            getHistorialDatos((Number(document.getElementById("paginaActual").innerHTML) + 1));
+            getHistorialDatos((Number(document.getElementById("paginaActual").innerHTML) + 1), document.getElementById("tipoActualTabla").innerHTML);
             document.getElementById("paginaActual").innerHTML = (Number(document.getElementById("paginaActual").innerHTML) + 1).toString();
         }
     }
     function cargarResultadosAnteriores_datos() {
         var paginaActual = Number(document.getElementById("paginaActual").innerHTML);
         if (paginaActual > 1) {
-            getHistorialDatos((paginaActual - 1));
+            getHistorialDatos((paginaActual - 1), document.getElementById("tipoActualTabla").innerHTML);
             document.getElementById("paginaActual").innerHTML = (paginaActual - 1).toString();
+        }
+    }
+    function cargarResultadosSiguientes_eventos() {
+        if (document.getElementById("datosTableBody").childNodes.length > 0) {
+            getHistorialEventos((Number(document.getElementById("paginaActualEvento").innerHTML) + 1));
+            document.getElementById("paginaActualEvento").innerHTML = (Number(document.getElementById("paginaActualEvento").innerHTML) + 1).toString();
+        }
+    }
+    function cargarResultadosAnteriores_eventos() {
+        var paginaActual = Number(document.getElementById("paginaActualEvento").innerHTML);
+        if (paginaActual > 1) {
+            getHistorialEventos((paginaActual - 1));
+            document.getElementById("paginaActualEvento").innerHTML = (paginaActual - 1).toString();
         }
     }
     function changeTipoGrafica(tipo) {
@@ -278,7 +377,7 @@
             document.getElementById("graf4").style.display = "block";
         }
     }
-    function elegirGrafica() { 
+    function elegirGrafica() {
         if (document.getElementById("graf1").style.display === "block") {
             cargarGraficaDatosNumericos();
         }
@@ -292,13 +391,20 @@
             cargarGraficaDatosTexto();
         }
     }
-    function getHistorialDatos(pagina) {
+    function getHistorialDatos(pagina, tipo) {
         if (pagina === undefined) {
             pagina = 1;
         }
-        var tipoDato = document.getElementById("tipoDato").value;
+        if (tipo === undefined) {
+            tipo = "Numerico";
+        }
+        if (tipo === "Filtrar") {
+            tipo = "Numerico";
+        }
         var dispositivo = document.getElementById("dispositivoFiltrar").value;
-        $.get("https://www.cerebro-serviceLayer.com/api/historial/datos", "tipoDato=" + tipoDato + "&dispositivo=" + dispositivo + "&pagina=" + pagina + "&municipalidad=" + municipalidad, function (response) {
+        var desde = document.getElementById("desdeFiltroTabla").value;
+        var hasta = document.getElementById("hastaFiltroTabla").value;
+        $.get("https://www.cerebro-serviceLayer.com/api/historial/datos", "tipoDato=" + tipo + "&dispositivo=" + dispositivo + "&pagina=" + pagina + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
             if (response !== undefined) {
                 while (document.getElementById("datosTableBody").hasChildNodes()) {
                     document.getElementById("datosTableBody").removeChild(document.getElementById("datosTableBody").lastChild);
@@ -323,6 +429,36 @@
                     td5.innerHTML = dispositivo.medida;
                     tr.appendChild(td5);
                     document.getElementById("datosTableBody").appendChild(tr);
+                });
+            }
+        });
+    }
+    function getHistorialEventos(pagina) {
+        if (pagina === undefined) {
+            pagina = 1;
+        }
+        var evento = document.getElementById("eventoFiltrar").value;
+        var desde = document.getElementById("desdeFiltroTabla2").value;
+        var hasta = document.getElementById("hastaFiltroTabla2").value;
+        $.get("https://www.cerebro-serviceLayer.com/api/historial/eventos", "evento=" + evento + "&pagina=" + pagina + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
+            if (response !== undefined) {
+                while (document.getElementById("eventosTableBody").hasChildNodes()) {
+                    document.getElementById("eventosTableBody").removeChild(document.getElementById("eventosTableBody").lastChild);
+                }
+                $.each(response, function (index, evento) {
+                    var tr = document.createElement("tr");
+                    var td1 = document.createElement("td");
+                    td1.innerHTML = evento.nombre;
+                    tr.appendChild(td1);
+                    var datetime = evento.datetime;
+                    var fecha = datetime.slice(0, datetime.indexOf("T"));
+                    var td3 = document.createElement("td");
+                    td3.innerHTML = datetime.slice(0, datetime.indexOf("T"));
+                    tr.appendChild(td3);
+                    var td4 = document.createElement("td");
+                    td4.innerHTML = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                    tr.appendChild(td4);
+                    document.getElementById("eventosTableBody").appendChild(tr);
                 });
             }
         });
@@ -359,15 +495,13 @@
                     options.series.push(newSerie);
                 });
                 chartNumerico = new Highcharts.Chart(options);
+                var desde = document.getElementById("desdeFiltroDatos").value;
+                var hasta = document.getElementById("hastaFiltroDatos").value;
                 $.each(chartNumerico.series, function (index, serie) {
-                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Numerico&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad, function (response) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Numerico&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
                         if (response !== undefined) {
                             $.each(response, function (index, dato) {
-                                //var x = Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', (new Date()).getTime());
-                                var datetime = dato.datetime;
-                                var fecha = datetime.slice(0, datetime.indexOf("T"));
-                                var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
-                                var x = fecha + " " + hora;
+                                var x = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(dato.datetime));
                                 var y = parseFloat(dato.medida);
                                 serie.addPoint([x, y]);
                             });
@@ -382,7 +516,7 @@
             chart: {
                 renderTo: 'graf2',
                 type: 'spline',
-                animation: Highcharts.svg, // don't animate in old IE
+                animation: Highcharts.svg,
                 marginRight: 10
             },
             xAxis: {
@@ -409,11 +543,12 @@
                     options.series.push(newSerie);
                 });
                 chartImagen = new Highcharts.Chart(options);
+                var desde = document.getElementById("desdeFiltroDatos").value;
+                var hasta = document.getElementById("hastaFiltroDatos").value;
                 $.each(chartImagen.series, function (index, serie) {
-                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Imagen&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad, function (response) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Imagen&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
                         if (response !== undefined) {
                             $.each(response, function (index, dato) {
-                                //var x = Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', (new Date()).getTime());
                                 var datetime = dato.datetime;
                                 var fecha = datetime.slice(0, datetime.indexOf("T"));
                                 var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
@@ -459,8 +594,10 @@
                     options.series.push(newSerie);
                 });
                 chartVideo = new Highcharts.Chart(options);
+                var desde = document.getElementById("desdeFiltroDatos").value;
+                var hasta = document.getElementById("hastaFiltroDatos").value;
                 $.each(chartVideo.series, function (index, serie) {
-                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Video&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad, function (response) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Video&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
                         if (response !== undefined) {
                             $.each(response, function (index, dato) {
                                 //var x = Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', (new Date()).getTime());
@@ -486,6 +623,15 @@
                 marginRight: 10
             },
             title: { text: '' },
+            plotOptions: {
+                column: {
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black'
+                    }
+                }
+            },
+            credits: { enabled: false },
             legend: {
                 align: 'center',
                 verticalAlign: 'bottom',
@@ -523,93 +669,41 @@
                 });
             }
         });
-        /*var options = {
-            chart: {
-                renderTo: 'graf4',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: { text: '' },
-            tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: { enabled: false },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                name: 'series',
-                colorByPoint: true,
-                data: []
-            }]
-        };
-        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Texto", function (response) {
-            if (response !== undefined) {
-                $.each(response, function (index, d) {
-                    var newData = {
-                        id: d.Id,
-                        name: d.nombre,
-                        colorByPoint: true,
-                        y: parseFloat(response + ".00")
-                    };
-                    options.series[0].data.push(newData);
-                });
-                chartTexto = new Highcharts.Chart(options);
-                $.each(chartTexto.series[0].data, function (index, serie) {
-                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos/total?dispositivo=" + serie.id + "&municipalidad=" + municipalidad, function (response) {
-                        if (response !== undefined) {
-                            serie.y = parseFloat(response);
-                        }
-                    });
-                });
-                chartTexto.redraw();
-            }
-        });*/
-		/*$.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Texto", function(response){
-			if(response !== undefined){
-				$.each(response, function(index, d){
-					$.get("https://www.cerebro-serviceLayer.com/api/historial/datos/total?dispositivo="+d.Id+ "&municipalidad=Florida", function (response){
-						if(response !== undefined){
-							var newData = {
-								id: d.Id,
-								name: d.nombre,
-								colorByPoint: true,
-								y:parseFloat(response)
-							};
-							options.series[0].data.push(newData);
-						}
-					});
-				});
-				chartTexto = new Highcharts.Chart(options);
-			}
-		});*/
     }
     function cargarGraficaEventos() {
         var options = {
             chart: {
                 renderTo: 'graf5',
-                type: 'spline',
-                animation: Highcharts.svg, // don't animate in old IE
+                type: 'column',
+                animation: Highcharts.svg,
                 marginRight: 10
             },
-            xAxis: {
-                type: 'datetime',
-                tickPixelInterval: 150
-            },
             title: { text: '' },
-            yAxis: { title: { text: 'Medida Obtenida' } },
+            plotOptions: {
+                column: {
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black'
+                    }
+                }
+            },
+            credits: { enabled: false },
             legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top'
+                align: 'center',
+                verticalAlign: 'bottom',
+                layout: 'horizontal'
+            },
+            xAxis: {
+                categories: ['Tipos de Evento'],
+                labels: { x: 0 }
+            },
+            yAxis: {
+                allowDecimals: false,
+                title: { text: 'Cantidad Registrados' }
             },
             series: []
         };
-        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Video", function (response) {
+        $.get("https://www.cerebro-serviceLayer.com/api/eventos/muni/" + municipalidad, function (response) {
             if (response !== undefined) {
                 $.each(response, function (index, d) {
                     var newSerie = {
@@ -619,23 +713,47 @@
                     };
                     options.series.push(newSerie);
                 });
-                chartVideo = new Highcharts.Chart(options);
-                $.each(chartVideo.series, function (index, serie) {
-                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Video&pagina=1&dispositivo=" + serie.name, function (response) {
+                chartEventos = new Highcharts.Chart(options);
+                var desde = document.getElementById("desdeFiltroEvento").value;
+                var hasta = document.getElementById("hastaFiltroEvento").value;
+                $.each(chartEventos.series, function (index, serie) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/eventos/total?evento=" + serie.options.id + "&desde=" + desde + "&hasta=" + hasta, function (response) {
                         if (response !== undefined) {
-                            $.each(response, function (index, dato) {
-                                //var x = Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', (new Date()).getTime());
-                                var datetime = dato.datetime;
-                                var fecha = datetime.slice(0, datetime.indexOf("T"));
-                                var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
-                                var x = fecha + " " + hora;
-                                var y = parseFloat(dato.medida);
-                                serie.addPoint([x, y]);
-                            });
+                            serie.setData([response]);
                         }
                     });
                 });
             }
         });
+    }
+    function toggleSizeFirst() {
+        if (document.getElementById('graf1').style.height === "230px") {
+            document.getElementById('graf1').style.height = "450px";
+            document.getElementById('graf2').style.height = "450px";
+            document.getElementById('graf3').style.height = "450px";
+            document.getElementById('graf4').style.height = "450px";
+        } else {
+            document.getElementById('graf1').style.height = "230px";
+            document.getElementById('graf2').style.height = "230px";
+            document.getElementById('graf3').style.height = "230px";
+            document.getElementById('graf4').style.height = "230px";
+        }
+        chartNumerico.setSize(undefined, null);
+        chartTexto.setSize(undefined, null);
+        chartImagen.setSize(undefined, null);
+        chartVideo.setSize(undefined, null);
+        chartNumerico.redraw();
+        chartTexto.redraw();
+        chartImagen.redraw();
+        chartVideo.redraw();
+    }
+    function toggleSizeSecond() {
+        if (document.getElementById('graf5').style.height === "230px") {
+            document.getElementById('graf5').style.height = "450px";
+        } else {
+            document.getElementById('graf5').style.height = "230px";
+        }
+        chartEventos.setSize(undefined, null);
+        chartEventos.redraw();
     }
 </script>
