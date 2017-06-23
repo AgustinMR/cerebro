@@ -6,7 +6,10 @@
             .sidebar('setting', 'dimPage', false);
         $('#menuSidebar').sidebar('attach events', '.toc.item');
         $('.ui.dropdown').dropdown();
-
+        $('#cosoChat').popup({
+            popup: $('#popup'),
+            on: 'click'
+        });
     });
 </script>
 <div class="ui sidebar vertical left inverted menu w3-cerebro-blue" id="menuSidebar">
@@ -49,9 +52,33 @@
                 <div class="divider"> <strong>/</strong> </div>
                 <div class="active section"><h4 class="ui text header w3-text-silver">Reportes</h4></div>
             </div>
+            <div class="right menu"><button class="circular ui icon button" id="cosoChat"><i class="comments icon large w3-text-cerebro-red"></i></button></div>
         </div>
     </div>
     <div class="ui stackable grid container w3-padding-48">
+        <div class="ui segments raised popup bottom right pointing transition hidden" id="popup" style="max-width: 400px; width: 370px; padding: 0px">
+            <div class="ui grey segment" style="padding: 0px">
+                <div class="ui floating basic fluid dropdown labeled icon button w3-border-0">
+                    <i class="list large icon w3-text-cerebro-red"></i>
+                    <span class="ui text header small w3-text-silver" id="agrupacionChatActual" style="margin-top: 0px; margin-bottom: 0px; margin-left: 7px">Seleccionar chat...</span>
+                    <div class="menu">
+                        <div class="ui icon search input">
+                            <i class="search icon"></i>
+                            <input placeholder="buscar agrupaci&oacute;n..." type="text">
+                        </div>
+                        <div class="scrolling menu" id="listAgrupacionChat">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui grey segment" id="chat" style="height: 400px; background-image: url(images/skulls.png); max-height: 400px; overflow-y: auto">
+            </div>
+            <div class="ui grey segment secondary">
+                <div class="ui icon input" style="width: 100%">
+                    <input type="text" id="mensaje" placeholder="Escriba aqu&iacute; su mensaje, precione enter para enviar...">
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="sixteen wide column">
                 <div class="ui segments">
@@ -220,6 +247,7 @@
         </div>
     </div>
 </div>
+<p style="display:none" id="agrActual"></p>
 <script>
     var email = '@User.Claims.ToList()[0].Value';
     var municipalidad = '@User.Claims.ToList()[3].Value';
@@ -235,6 +263,7 @@
         cargarGraficaDatosNumericos();
         cargarGraficaEventos();
         getHistorialDatos(1);
+        getAgrupacionesByUsuario();
         var pusher = new Pusher('474881b81d9d92dd2713', { encrypted: true });
         var channel = pusher.subscribe("datos-dispositivos");
         channel.bind('dato-nuevo', function (dato) {
@@ -756,4 +785,102 @@
         chartEventos.setSize(undefined, null);
         chartEventos.redraw();
     }
+    function getAgrupacionesByUsuario() {
+        if (email !== ""){
+            $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email, function (response) {
+                if (response !== undefined) {
+                    while (document.getElementById("listAgrupacionChat").hasChildNodes()) {
+                        document.getElementById("listAgrupacionChat").removeChild(document.getElementById("listAgrupacionChat").lastChild);
+                    }
+                    $.each(response, function (index, agrupacion) {
+                        var item2 = document.createElement("div");
+                        item2.className = "item";
+                        var a2 = document.createElement("a");
+                        a2.className = "ui header text small link";
+                        a2.innerHTML = agrupacion;
+                        a2.addEventListener("click", function () {
+                            chatearAgrupacion(agrupacion);
+                            document.getElementById("agrActual").innerHTML = agrupacion;
+                        });
+                        item2.appendChild(a2);
+                        document.getElementById("listAgrupacionChat").appendChild(item2);
+                    });
+                }
+            });
+        }
+    }
+    var pusher2 = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
+    function chatearAgrupacion(agr) {
+        var channel = pusher2.subscribe(agr);
+        while (document.getElementById("chat").hasChildNodes()) {
+            document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
+        }
+        channel.bind('mensaje-nuevo', function (data) {
+            var e = JSON.stringify(data);
+            var x = JSON.parse(e);
+            if (x.email !== email) {
+                var ele1 = document.createElement("div");
+                ele1.className = 'w3-row w3-left w3-margin-bottom w3-left';
+                ele1.style.width = "85%";
+                var ele2 = document.createElement("div");
+                ele2.className = 'ui left pointing label w3-left fluid w3-white raised segment';
+                ele2.style.padding = "7px";
+                ele1.appendChild(ele2);
+                var ele3 = document.createElement("div");
+                ele3.className = 'w3-row w3-small';
+                var span1 = document.createElement("span");
+                span1.className = "w3-text-cerebro-red ui header text small";
+                span1.innerHTML = x.autor;
+                ele3.appendChild(span1);
+                var span2 = document.createElement("span");
+                span2.className = "w3-right w3-text-grey";
+                var fecha = x.datetime.toString().split('T', 2);
+                var fecha2 = fecha[1].split(".", 2);
+                span2.innerHTML = fecha2[0];
+                ele3.appendChild(span2);
+                ele2.appendChild(ele3);
+                var ele4 = document.createElement("div");
+                ele4.className = 'w3-row';
+                ele4.style.marginBottom = "3px";
+                ele4.style.marginTop = "7px";
+                ele4.textContent = x.mensaje;
+                ele2.appendChild(ele4);
+                document.getElementById("chat").appendChild(ele1);
+            } else {
+                var ele1 = document.createElement("div");
+                ele1.className = 'w3-row w3-left w3-margin-bottom w3-right';
+                ele1.style.width = "85%";
+                var ele2 = document.createElement("div");
+                ele2.className = 'ui right pointing label w3-right w3-pale-green fluid raised segment';
+                ele2.style.padding = "7px";
+                ele1.appendChild(ele2);
+                var ele3 = document.createElement("div");
+                ele3.className = 'w3-row w3-small';
+                var span2 = document.createElement("span");
+                span2.className = "w3-right w3-text-grey";
+                var fecha = x.datetime.toString().split('T', 2);
+                var fecha2 = fecha[1].split(".", 2);
+                span2.innerHTML = fecha2[0];
+                ele3.appendChild(span2);
+                ele2.appendChild(ele3);
+                var ele4 = document.createElement("div");
+                ele4.className = 'w3-row ui header text small';
+                ele4.style.marginBottom = "3px";
+                ele4.style.marginTop = "7px";
+                ele4.textContent = x.mensaje;
+                ele2.appendChild(ele4);
+                document.getElementById("chat").appendChild(ele1);
+            }
+        });
+    }
+    $("#mensaje").on('keyup', function (e) {
+        if (e.keyCode == 13) {
+            var agr = document.getElementById("agrActual").innerHTML;
+            if (agr !== "" && agr !== "Seleccionar chat..."){
+                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion="+ agr +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
+                    document.getElementById("mensaje").value = "";
+                });
+            }
+        }
+    });
 </script>
