@@ -66,8 +66,11 @@ namespace cerebro_frontOffice.Controllers
             return Ok("OK");
         }
 
+
         private void Evento(string idDis, string medida)
         {
+            //1- Obtengo los eventos asociados al dispositivo
+
             var mongo = new MongoClient();
             var bd = mongo.GetDatabase("cerebroDB");
             List<Umbral> umbrales = bd.GetCollection<Umbral>("Umbral").Find(u => u.fuenteDeDatoId == idDis).ToList();
@@ -78,13 +81,20 @@ namespace cerebro_frontOffice.Controllers
                 eve.Add(umbrales[i].eventoId);
             }
 
+            //Fin 1
+
+            //2- Por cada evento del paso anterior...
             for (int j = 0; j < eve.Count; j++)
             {
+                //... obtengo los dispositivos que lo conforman
                 List<Umbral> umbralesEventos = bd.GetCollection<Umbral>("Umbral").Find(u => u.eventoId == eve[j]).ToList();
                 int hayEvento = 0;
+
+                //para cada dispositivo chequeo los ultimos 5 datos recibidos en los ultimos 5 minutos
                 for (int h = 0; h < umbralesEventos.Count; h++)
                 {
-                    var filter = Builders<DatosDispositivo>.Filter.Eq("dispositivoId", umbralesEventos[h].fuenteDeDatoId);
+                    var builder = Builders<DatosDispositivo>.Filter;
+                    var filter = builder.Eq("dispositivoId", umbralesEventos[h].fuenteDeDatoId) & builder.Gt("datetime", DateTime.Now.AddMinutes(-5));
                     List<DatosDispositivo> umb = bd.GetCollection<DatosDispositivo>("DatosDispositivo")
                         .Find(filter)
                         .Limit(5)
@@ -93,56 +103,67 @@ namespace cerebro_frontOffice.Controllers
                     bool evee = false;
                     for (int z = 0; z < umb.Count; z++)
                     {
-                        var builder = Builders<Umbral>.Filter;
-                        var filter2 = builder.Eq("fuenteDeDatoId", umbralesEventos[h].fuenteDeDatoId) & builder.Eq("eventoId", eve[j]);
-                        if (bd.GetCollection<Umbral>("Umbral").Find(filter2) != null)
+                        if (umb[z].tipoDeDato == "Texto")
                         {
-                            if (umb[z].tipoDeDato == "Texto")
-                            {
-                                if (umb[z].medida.Equals(umbralesEventos[h].valorLimite))
-                                {
-                                    evee = true;
-                                }
-                            }
-                            else
-                            {
-                                if (int.Parse(umb[z].medida) < int.Parse(umbralesEventos[h].valorLimite))
-                                {
-                                    evee = true;
-                                }
-                            }
+                            if (umb[z].medida.Equals(umbralesEventos[h].valorLimite))
+                                evee = true;
+                        }
+                        else
+                        {
+                            if (int.Parse(umb[z].medida) > int.Parse(umbralesEventos[h].valorLimite))
+                                evee = true;
                         }
                     }
+
                     if (evee == true)
                         hayEvento += 1;
                 }
                 if (hayEvento == umbralesEventos.Count)
                 {
-                    double[][] arrayGeom = new double[umbralesEventos.Count][]; ;
-                    for (int t = 0; t < umbralesEventos.Count; t++)
-                    {
-                        var FuenteDeDatoBD = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(e => e.Id == ObjectId.Parse(umbralesEventos[t].fuenteDeDatoId)).FirstOrDefault();
-                        arrayGeom[t] = FuenteDeDatoBD.ubicacion;
-                    }
+                    string eveNom = bd.GetCollection<Evento>("Evento").Find(e => e.Id == ObjectId.Parse(eve[j])).FirstOrDefault().nombre;
+                    DatosEvento dte = new DatosEvento(eve[j], eveNom);
 
-                    var nomEvento = bd.GetCollection<Evento>("Evento").Find(e => e.Id == ObjectId.Parse(eve[j])).FirstOrDefault();
-                    DtEvento DtEve = new DtEvento();
-                    DtEve.nombre = nomEvento.nombre;
-                    DtEve.geom = arrayGeom;
-                    DtEve.fechaHora = DateTime.Now;
-
-                    using (var httpClientHandler = new HttpClientHandler())
+                    var builder3 = Builders<DatosEvento>.Filter;
+                    var filter3 = builder3.Eq("eventoId", eve[j]) & builder3.Gt("datetime", DateTime.Now.AddMinutes(-3));
+                    DatosEvento eventoRes = bd.GetCollection<DatosEvento>("DatosEvento")
+                        .Find(filter3)
+                        .SingleOrDefault();
+                    if (eventoRes == null)
                     {
-                        httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
-                        using (var client = new HttpClient(httpClientHandler))
+                        bd.GetCollection<DatosEvento>("DatosEvento").InsertOne(dte);
+
+                        List<string> disp = new List<string>();
+                        List<string> priv = new List<string>();
+                        double[][] arrayGeom = new double[umbralesEventos.Count][];
+                        for (int t = 0; t < umbralesEventos.Count; t++)
                         {
-                            var result = client.PostAsync("https://www.cerebro-servicelayer.com/api/eventos/dll?idEve=" + eve[j], null).Result;
+                            var FuenteDeDatoBD = bd.GetCollection<FuenteDeDato>("FuenteDeDato").Find(e => e.Id == ObjectId.Parse(umbralesEventos[t].fuenteDeDatoId)).FirstOrDefault();
+                            disp.Add(FuenteDeDatoBD.Id.ToString());
+                            priv.Add(FuenteDeDatoBD.privilegios);
+                            arrayGeom[t] = FuenteDeDatoBD.ubicacion;
                         }
-                    }
+                        DtEvento DtEve = new DtEvento();
+                        DtEve.nombre = eveNom;
 
-                    Eventos(DtEve);                      
+                        DtEve.geom = arrayGeom;
+                        DtEve.idEve = eve[j];
+                        DtEve.privilegios = priv;
+                        DtEve.dispositivos = disp;
+                        DtEve.fechaHora = DateTime.Now;
+
+                        using (var httpClientHandler = new HttpClientHandler())
+                        {
+                            httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                            using (var client = new HttpClient(httpClientHandler))
+                            {
+                                var result = client.PostAsync("https://www.cerebro-servicelayer.com/api/eventos/dll?idEve=" + eve[j], null).Result;
+                            }
+                        }
+                        Eventos(DtEve);
+                    }
                 }
             }
+            //Fin 2
         }
 
 

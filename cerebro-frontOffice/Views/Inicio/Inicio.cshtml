@@ -139,6 +139,7 @@
     var pusher = new Pusher('474881b81d9d92dd2713', {
         encrypted: true
     });
+    var privilegios = [];
 
     var disActual;
     $(document).ready(function () {
@@ -179,6 +180,7 @@
 
         cargarDispositivos();
         cargarZona();
+        cargarPrivilegios();
 
         var channel = pusher.subscribe("datos-dispositivos");
 
@@ -266,100 +268,103 @@
 
         channel.bind('evento-nuevo', function (data) {
             var count = 0;
-            $.each(data.geom, function (index, dt) {
-                $.each(dispositivos, function (index, disp) {
-                    if (disp.ubicacion.toString() === dt.toString()) {
+            //PRIVILEGIOS
+
+            $.each(data.privilegios, function (index, priv) {
+                $.each(privilegios, function (index, pr) {
+                    if (pr == priv) {
                         count++;
                     }
                 });
             });
 
-            var b = false;
+            if (count == data.privilegios.length) {
+                //SUSCRIPCIONES
+                var b = false;
+                $.each(zonas, function (index, zona) {
+                    var tmp = zona.ubicacion.toString().split(",");
+                    var array = [];
 
-            $.each(zonas, function (index, zona) {
-                var tmp = zona.ubicacion.toString().split(",");
-                var array = [];
-
-                var j = 0;
-                for (var i = 0; i < (tmp.length / 2); i++) {
-                    var arraryTmp = [];
-                    arraryTmp[0] = tmp[j]
-                    arraryTmp[1] = tmp[j + 1];
-                    array[i] = arraryTmp;
-                    j++;
-                    j++;
-                }
-                var polygon = new ol.geom.Polygon([array]);
-                var featurePolygon = new ol.Feature(polygon);
-
-                var countPoint = 0;
-                $.each(data.geom, function (index, dt2) {
-
-                    var point = new ol.geom.Point(dt2);
-                    var featurePoint = new ol.Feature(point);
-
-                    var format = new ol.format.GeoJSON();
-                    var geojsonReader = new jsts.io.GeoJSONReader();
-
-                    var polygon1Jsts = geojsonReader.read(
-                        format.writeFeatureObject(featurePolygon)).geometry;
-                    var polygon2Jsts = geojsonReader.read(
-                        format.writeFeatureObject(featurePoint)).geometry;
-
-                    if (polygon1Jsts.contains(polygon2Jsts)) {
-                        countPoint++;
+                    var j = 0;
+                    for (var i = 0; i < (tmp.length / 2); i++) {
+                        var arraryTmp = [];
+                        arraryTmp[0] = tmp[j]
+                        arraryTmp[1] = tmp[j + 1];
+                        array[i] = arraryTmp;
+                        j++;
+                        j++;
                     }
-                });
-                if (countPoint == data.geom.length) {
-                    b = true;
-                }
-                countPoint = 0;
-            });
+                    var polygon = new ol.geom.Polygon([array]);
+                    var featurePolygon = new ol.Feature(polygon);
 
-            if (count == data.geom.length && b){
-                var item = document.createElement("div");
-                item.className = "item";
-                var a = document.createElement("a");
-                a.className = "ui header text small link";
-                var dateTime = data.fechaHora.split("T");
-                var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
-                var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
-                a.innerHTML = data.nombre + " (" + fecha + " - " + hora + ")";
-                a.addEventListener("click", function () {
-                    $.each(arrayFeatures, function (index, feat) {
-                        var normalStyle = new ol.style.Style({
-                            image: new ol.style.Circle({
-                                radius: 5,
-                                fill: new ol.style.Fill({
-                                    color: 'orange'
-                                })
-                            })
-                        });
-                        feat.setStyle(normalStyle);
+                    var countPoint = 0;
+                    $.each(data.geom, function (index, dt2) {
+
+                        var point = new ol.geom.Point(dt2);
+                        var featurePoint = new ol.Feature(point);
+
+                        var format = new ol.format.GeoJSON();
+                        var geojsonReader = new jsts.io.GeoJSONReader();
+
+                        var polygon1Jsts = geojsonReader.read(
+                            format.writeFeatureObject(featurePolygon)).geometry;
+                        var polygon2Jsts = geojsonReader.read(
+                            format.writeFeatureObject(featurePoint)).geometry;
+
+                        if (polygon1Jsts.contains(polygon2Jsts)) {
+                            countPoint++;
+                        }
                     });
+                    if (countPoint == data.geom.length) {
+                        b = true;
+                    }
+                    countPoint = 0;
+                });
 
-                    $.each(data.geom, function (index, dt) {
-                        var feature = map.forEachFeatureAtPixel(map.getPixelFromCoordinate(dt),
-                            function (feature) {
-                                return feature;
-                            });
-                        if (feature) {
-                            var eventoStyle = new ol.style.Style({
+                if (b) {
+                    var item = document.createElement("div");
+                    item.className = "item";
+                    var a = document.createElement("a");
+                    a.className = "ui header text small link";
+                    var dateTime = data.fechaHora.split("T");
+                    var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                    var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                    a.innerHTML = data.nombre + " (" + fecha + " - " + hora + ")";
+                    a.addEventListener("click", function () {
+                        $.each(arrayFeatures, function (index, feat) {
+                            var normalStyle = new ol.style.Style({
                                 image: new ol.style.Circle({
                                     radius: 5,
                                     fill: new ol.style.Fill({
-                                        color: 'red'
+                                        color: 'orange'
                                     })
                                 })
                             });
-                            feature.setStyle(eventoStyle);
-                        }
+                            feat.setStyle(normalStyle);
+                        });
+                        $.each(data.geom, function (index, dt) {
+                            var feature = map.forEachFeatureAtPixel(map.getPixelFromCoordinate(dt),
+                                function (feature) {
+                                    return feature;
+                                });
+                            if (feature) {
+                                var eventoStyle = new ol.style.Style({
+                                    image: new ol.style.Circle({
+                                        radius: 5,
+                                        fill: new ol.style.Fill({
+                                            color: 'red'
+                                        })
+                                    })
+                                });
+                                feature.setStyle(eventoStyle);
+                            }
+                        });
                     });
-                });
-                item.appendChild(a);
-                document.getElementById("itemsDiv").appendChild(item);
+                    item.appendChild(a);
+                    document.getElementById("itemsDiv").appendChild(item);
+                }
+                //document.getElementById("itemsDiv").insertBefore(item, document.getElementById("itemsDiv"));
             }
-            //document.getElementById("itemsDiv").insertBefore(item, document.getElementById("itemsDiv"));
         });
     });
 
@@ -396,10 +401,18 @@
     }
 
     function guardarZona() {
-        $.post("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email="+email+"&muni="+muni+"&ubicacion="+geom, function (res) {
+        $.post("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email=" + email + "&muni=" + muni + "&ubicacion=" + geom, function (res) {
             console.log("Zona guardada");
             cargarZona();
             source.clear();
+        });
+    }
+
+    function cargarPrivilegios() {
+        $.get("https://www.cerebro-servicelayer.com/api/usuarios/privilegiosUsu?email=" + email + "&muni=" + muni, function (res) {
+            for (var i = 0; i < res.length; i++) {
+                privilegios[privilegios.length] = res[i].Privilegio_nombre;
+            }
         });
     }
 
