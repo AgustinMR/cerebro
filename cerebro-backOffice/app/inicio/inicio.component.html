@@ -1,91 +1,98 @@
-﻿
-<div class="ui vertical thin menu sidebar inverted vertical menu w3-cerebro-blue">
-    <div class="w3-center w3-margin-top"><img src="../../Content/cerebro.png" alt="Cerebro" style="height: 30px"></div>
-    <a href="javascript:void(0);" class="toc item w3-margin-top w3-center" (click)="showTipo()">Tipos</a>
-    <a href="javascript:void(0);" class="toc item w3-center" (click)="showDispositivo()">Dispositivos</a>
-    <a href="javascript:void(0);" class="toc item w3-center" (click)="showEvento()">Eventos</a>
-    <a href="javascript:void(0);" class="toc item w3-center" (click)="showAcciones()">Acciones</a>
-    <a href="javascript:void(0);" class="toc item w3-center" (click)="showUsuario()">Usuarios</a>
-    <a href="javascript:void(0);" class="toc item w3-center">Salir</a>
+﻿<div class="ui active page dimmer w3-display-container" style="display:none" id="dimmerM">
+    <div class="ui text container w3-display-middle" id="exitoM" style="display:none">
+        <h1 class="ui center aligned inverted header">Municipalidad creada correctamente!</h1>
+        <button class="ui circular huge inverted green icon button" (click)="ocultarDimmerMunicipalidad()"><i class="ui large checkmark icon"></i></button>
+    </div>
+    <div class="ui text container w3-display-middle" id="errorL" style="display:none">
+        <h1 class="ui center aligned inverted header">Error!</h1>
+        <div class="divider"></div>
+        <h3 class="ui center aligned inverted header">Usuario no existe, o no est&aacute; habilitado para iniciar sesi&aacute;n en esta municipalidad</h3>
+        <button class="ui circular huge inverted red icon button" (click)="ocultarDimmerLogin()"><i class="ui large checkmark icon"></i></button>
+    </div>
 </div>
-<div class="pusher">
-    <div class="ui stackable text container w3-display-middle" *ngIf="login">
-        <img src="../../Content/cerebro-logo.png" style="height: 45px" class="ui center aligned header icon">
-        <div class="ui piled raised segments">
-            <div class="ui segment w3-display-container" style="min-width: 300px">
-                <h3 class="ui horizontal divider header w3-padding w3-padding-16 w3-text-cerebro-blue">Iniciar Sesi&oacute;n</h3>
-                <div class="ui labeled fluid input w3-padding">
-                    <div class="ui basic label w3-text-cerebro-blue">Email:</div>
-                    <input [(ngModel)]="email" id="email" type="email" name="email" placeholder="Email del administrador..." required>
-                </div>
-                <div class="ui labeled fluid input w3-margin-bottom w3-padding">
-                    <div class="ui basic label">Contrase&ntilde;a:</div>
-                    <input  [(ngModel)]="pass" placeholder="Contrase&ntilde;a del administrador..." id="pass" type="password" name="pass" required>
-                </div>
+<div class="ui stackable text container w3-display-middle" *ngIf="login">
+    <img src="../../Content/cerebro-logo.png" style="height: 45px" class="ui center aligned header icon">
+    <div class="ui piled raised segments">
+        <div class="ui segment w3-display-container" style="min-width: 300px">
+            <h3 class="ui horizontal divider header w3-padding w3-padding-16 w3-text-cerebro-blue">Iniciar Sesi&oacute;n</h3>
+            <div class="ui labeled fluid input w3-padding">
+                <div class="ui basic label w3-text-cerebro-blue">Email:</div>
+                <input [(ngModel)]="email" id="email" type="email" name="email" placeholder="Email del administrador..." required>
             </div>
-            <div class="ui grey secondary segment center aligned">
-                <button type="submit" class="ui right labeled icon button w3-cerebro-blue" (click)="ingresar()"><i class="sign in icon"></i>Ingresar</button>
+            <div class="ui labeled fluid input w3-margin-bottom w3-padding">
+                <div class="ui basic label">Contrase&ntilde;a:</div>
+                <input [(ngModel)]="pass" placeholder="Contrase&ntilde;a del administrador..." id="pass" type="password" name="pass" required>
             </div>
         </div>
-        <div class="w3-center">
-            <p class="ui header text small center aligned" style="margin-top: -20px">&iquest;Tu Municipalidad no est&aacute; en la Lista?</p>
-            <a class="link ui header text w3-text-cerebro-red" href="javascript:void(0);" (click)="showCrearMunicipalidad()">Crear Nueva</a>
+        <div class="ui grey secondary segment center aligned">
+            <button type="submit" class="ui right labeled icon button w3-cerebro-blue" (click)="ingresar()"><i class="sign in icon"></i>Ingresar</button>
         </div>
     </div>
-    <div class="ui stackable text container w3-display-middle" *ngIf="registrarMunicipalidad">
-        <img src="../../Content/cerebro-logo.png" style="height: 45px" class="ui center aligned header icon">
-        <div class="ui piled raised segments">
-            <div class="ui segment w3-display-container" style="min-width: 300px">
-                <h3 class="ui horizontal divider header w3-padding w3-padding-16 w3-text-cerebro-blue">Crear Municipalidad</h3>
-                <div class="ui labeled fluid input w3-margin-bottom w3-padding">
-                    <div class="ui basic label w3-text-cerebro-blue">Nombre:</div>
-                    <input [(ngModel)]="nomMuni" id="muni" type="text" name="muni" placeholder="Ingrese el nombre de la municipalidad..." required>
-                </div>
-                <h5 class="ui horizontal divider header w3-padding w3-text-cerebro-red">Administrador</h5>
-                <div class="ui labeled fluid input w3-padding">
-                    <div class="ui basic label w3-text-cerebro-blue">Nombre:</div>
-                    <input [(ngModel)]="nomAdmin" id="nombreAdmin" type="text" name="nombre" placeholder="Nombre del administrador..." required>
-                </div>
-                <div class="ui labeled fluid input w3-padding">
-                    <div class="ui basic label w3-text-cerebro-blue">Email:</div>
-                    <input [(ngModel)]="emailAdmin" id="emailAdmin" type="email" name="email" placeholder="Email del administrador..." required>
-                </div>
-                <div class="ui labeled fluid input w3-margin-bottom w3-padding">
-                    <div class="ui basic label">Contrase&ntilde;a:</div>
-                    <input [(ngModel)]="passAdmin" placeholder="Contrase&ntilde;a del administrador..." id="passAdmin" type="password" name="pass" required>
-                </div>
-                <i class="circular marker large link icon w3-display-bottommiddle w3-cerebro-blue" style="margin-bottom: -20px; z-index: 999" (click)="mapa()"></i>
+    <div class="w3-center">
+        <p class="ui header text small center aligned" style="margin-top: -20px">&iquest;Tu Municipalidad no est&aacute; en la Lista?</p>
+        <a class="link ui header text w3-text-cerebro-red" href="javascript:void(0);" (click)="showCrearMunicipalidad()">Crear Nueva</a>
+    </div>
+</div>
+<div class="ui stackable text container w3-display-middle" *ngIf="registrarMunicipalidad">
+    <img src="../../Content/cerebro-logo.png" style="height: 45px" class="ui center aligned header icon">
+    <div class="ui piled raised segments">
+        <div class="ui segment w3-display-container" style="min-width: 300px">
+            <h3 class="ui horizontal divider header w3-padding w3-padding-16 w3-text-cerebro-blue">Crear Municipalidad</h3>
+            <div class="ui labeled fluid input w3-margin-bottom w3-padding">
+                <div class="ui basic label w3-text-cerebro-blue">Nombre:</div>
+                <input [(ngModel)]="nomMuni" id="muni" type="text" name="muni" placeholder="Ingrese el nombre de la municipalidad..." required>
             </div>
-            <div class="ui grey segment" id="map" style="height: 350px; padding: 0px">
+            <h5 class="ui horizontal divider header w3-padding w3-text-cerebro-red">Administrador</h5>
+            <div class="ui labeled fluid input w3-padding">
+                <div class="ui basic label w3-text-cerebro-blue">Nombre:</div>
+                <input [(ngModel)]="nomAdmin" id="nombreAdmin" type="text" name="nombre" placeholder="Nombre del administrador..." required>
+            </div>
+            <div class="ui labeled fluid input w3-padding">
+                <div class="ui basic label w3-text-cerebro-blue">Email:</div>
+                <input [(ngModel)]="emailAdmin" id="emailAdmin" type="email" name="email" placeholder="Email del administrador..." required>
+            </div>
+            <div class="ui labeled fluid input w3-margin-bottom w3-padding">
+                <div class="ui basic label">Contrase&ntilde;a:</div>
+                <input [(ngModel)]="passAdmin" placeholder="Contrase&ntilde;a del administrador..." id="passAdmin" type="password" name="pass" required>
+            </div>
+            <i class="circular marker large link icon w3-display-bottommiddle w3-cerebro-blue" style="margin-bottom: -20px; z-index: 999" (click)="mapa()"></i>
+        </div>
+        <div class="ui grey segment" id="map" style="height: 350px; padding: 0px">
 
-            </div>
-            <div class="ui grey secondary segment center aligned">
-                <button type="submit" class="ui right labeled icon button green" (click)="addMuni()"><i class="sign in icon"></i>Confirmar</button>
-            </div>
+        </div>
+        <div class="ui grey secondary segment center aligned">
+            <button type="submit" class="ui right labeled icon button green" (click)="addMuni()"><i class="sign in icon"></i>Confirmar</button>
         </div>
     </div>
-    <header class="w3-card-4 w3-cerebro-blue" *ngIf="inicio">
-        <div class="w3-opacity-max" style="background-image: url(../../Content/pexels-photo-388417.jpeg); background-size: cover; background-attachment: fixed; background-repeat: no-repeat; background-position: right; height: 200px"></div>
-        <div class="w3-bar w3-padding w3-padding-16 w3-display-topmiddle" style="width: 100%; height: 200px">
-            <div class="ui secondary inverted menu w3-pa" style="border-width: 0px; width: 100%">
-                <a class="toc item w3-hide-large"><strong><i class="sidebar icon"></i></strong></a>
-                <img src="../../Content/cerebro.png" style="height: 50px" class="item w3-hide-small">
-                <div class="right menu"><a class="item active"><strong><i class="sign out icon inverted"></i></strong></a></div>
-            </div>
-            <div class="ui inverted secondary menu w3-hide-small" style="margin-top: 90px">
-                <a href="javascript:void(0);" class="item" (click)="showTipo()">Tipos</a>
-                <a href="javascript:void(0);" class="item" (click)="showDispositivo()">Dispositivos</a>
-                <a href="javascript:void(0);" class="item" (click)="showEvento()">Eventos</a>
-                <a href="javascript:void(0);" class="item" (click)="showAcciones()">Acciones</a>
-                <a href="javascript:void(0);" class="item" (click)="showUsuario()">Usuarios</a>
-            </div>
+</div>
+<header class="w3-card-4 w3-cerebro-blue" *ngIf="inicio">
+    <div class="w3-opacity-max" style="background-image: url(../../Content/pexels-photo-388417.jpeg); background-size: cover; background-attachment: fixed; background-repeat: no-repeat; background-position: right; height: 200px"></div>
+    <div class="w3-bar w3-padding w3-padding-16 w3-display-topmiddle" style="width: 100%; height: 200px">
+        <div class="ui secondary inverted menu w3-pa" style="border-width: 0px; width: 100%">
+            <img src="../../Content/cerebro.png" style="height: 50px" class="item w3-hide-small">
+            <div class="right menu"><a class="item active"><strong><i class="sign out icon inverted"></i></strong></a></div>
         </div>
-    </header>
-    <div class="ui container w3-padding w3-padding-48" *ngIf="inicio">
-        <cerebro-dispositivo *ngIf="dispositivo"></cerebro-dispositivo>
-        <cerebro-tipo-de-fuente-de-dato *ngIf="tipo"></cerebro-tipo-de-fuente-de-dato>
-        <cerebro-evento *ngIf="evento"></cerebro-evento>
-        <cerebro-usuario *ngIf="usuario"></cerebro-usuario>
-        <cerebro-accion-evento *ngIf="accion"></cerebro-accion-evento>
+        <div class="ui inverted secondary menu" style="margin-top: 90px">
+            <a href="javascript:void(0);" class="item w3-hide-large w3-hide-medium" onclick="toggleMenu()"><i class="sidebar large icon"></i></a>
+            <a href="javascript:void(0);" class="item w3-hide-small" (click)="showTipo()">Tipos</a>
+            <a href="javascript:void(0);" class="item w3-hide-small" (click)="showDispositivo()">Dispositivos</a>
+            <a href="javascript:void(0);" class="item w3-hide-small" (click)="showEvento()">Eventos</a>
+            <a href="javascript:void(0);" class="item w3-hide-small" (click)="showAcciones()">Acciones</a>
+            <a href="javascript:void(0);" class="item w3-hide-small" (click)="showUsuario()">Usuarios</a>
+        </div>
     </div>
+    <div class="ui secondary vertical menu inverted large center aligned fluid w3-center w3-padding" style="display:none" id="menuSmall">
+        <a href="javascript:void(0);" class="item" (click)="showTipo()">Tipos</a>
+        <a href="javascript:void(0);" class="item" (click)="showDispositivo()">Dispositivos</a>
+        <a href="javascript:void(0);" class="item" (click)="showEvento()">Eventos</a>
+        <a href="javascript:void(0);" class="item" (click)="showAcciones()">Acciones</a>
+        <a href="javascript:void(0);" class="item" (click)="showUsuario()">Usuarios</a>
+    </div>
+</header>
+<div class="ui container w3-padding w3-padding-48" *ngIf="inicio">
+    <cerebro-dispositivo *ngIf="dispositivo"></cerebro-dispositivo>
+    <cerebro-tipo-de-fuente-de-dato *ngIf="tipo"></cerebro-tipo-de-fuente-de-dato>
+    <cerebro-evento *ngIf="evento"></cerebro-evento>
+    <cerebro-usuario *ngIf="usuario"></cerebro-usuario>
+    <cerebro-accion-evento *ngIf="accion"></cerebro-accion-evento>
 </div>
