@@ -86,11 +86,31 @@ export class InicioComponent implements OnInit {
         this.accion = true;
     }
 
+    mostrarDimmerMunicipalidad() {
+        document.getElementById('dimmerM').style.display = "block";
+        document.getElementById('exitoM').style.display = "block";
+        document.getElementById('errorL').style.display = "none";
+    }
+    ocultarDimmerMunicipalidad() {
+        document.getElementById('dimmerM').style.display = "none";
+        document.getElementById('exitoM').style.display = "none";
+        document.getElementById('errorL').style.display = "none";
+    }
+    mostrarDimmerLogin() {
+        document.getElementById('dimmerM').style.display = "block";
+        document.getElementById('exitoM').style.display = "none";
+        document.getElementById('errorL').style.display = "block";
+    }
+    ocultarDimmerLogin() {
+        document.getElementById('dimmerM').style.display = "none";
+        document.getElementById('exitoM').style.display = "none";
+        document.getElementById('errorL').style.display = "none";
+    }
+
     constructor(private http: Http, private loginService: LoginService) { }
 
     ngOnInit() {
         $(document).ready(function () {
-            $('.ui.sidebar').sidebar('attach events', '.toc.item');
             $('.ui.dropdown').dropdown();
         });
 
@@ -127,9 +147,11 @@ export class InicioComponent implements OnInit {
         this.loginService.loginAdmin(this.email, this.nombre_municipalidad, this.pass).subscribe(
             (data: Response) => {
                 this.autenticado = data;
-                if (this.autenticado == true) {
+                if (this.autenticado === true) {
                     this.login = false;
                     this.inicio = true;
+                } else {
+                    this.mostrarDimmerLogin();
                 }
             },
             responseError => console.log("Error: " + responseError),
@@ -142,7 +164,11 @@ export class InicioComponent implements OnInit {
             this.loginService.addMuni(this.nomMuni, this.geom).subscribe(
                 (data: Response) => {
                     this.loginService.addAdmin(this.nomMuni, this.emailAdmin, this.nomAdmin, this.passAdmin).subscribe(
-                        (data: Response) => { },
+                        (data: Response) => {
+                            this.mostrarDimmerMunicipalidad();
+                            this.registrarMunicipalidad = false;
+                            this.login = true;
+                        },
                         responseError => console.log("Error: " + responseError),
                         () => console.log("Usuario creado")
                     );
@@ -151,8 +177,7 @@ export class InicioComponent implements OnInit {
                 () => console.log("Municipalidad creada")
             );
         }
-        this.registrarMunicipalidad = false;
-        this.login = true;
+
     }
 
     mapa() {
