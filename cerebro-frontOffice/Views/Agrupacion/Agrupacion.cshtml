@@ -81,18 +81,9 @@
     <div class="ui grid stackable container w3-padding w3-padding-16">
         <div class="ui segments raised popup bottom right pointing transition hidden" id="popup" style="max-width: 400px; width: 370px; padding: 0px">
             <div class="ui grey segment" style="padding: 0px">
-                <div class="ui floating basic fluid dropdown labeled icon button w3-border-0">
-                    <i class="list large icon w3-text-cerebro-red"></i>
-                    <span class="ui text header small w3-text-silver" id="agrupacionChatActual" style="margin-top: 0px; margin-bottom: 0px; margin-left: 7px">Seleccionar chat...</span>
-                    <div class="menu">
-                        <div class="ui icon search input">
-                            <i class="search icon"></i>
-                            <input placeholder="buscar agrupaci&oacute;n..." type="text">
-                        </div>
-                        <div class="scrolling menu" id="listAgrupacionChat">
-                        </div>
-                    </div>
-                </div>
+                <select class="ui basic fluid dropdown" id="listAgrupacionChat" onchange="chatearAgrupacion()">
+                    <option value="" selected disabled>Seleccionar agrupaci&oacute;n...</option>
+                </select>
             </div>
             <div class="ui grey segment" id="chat" style="height: 400px; background-image: url(images/skulls.png); max-height: 400px; overflow-y: auto">
             </div>
@@ -120,27 +111,27 @@
                 </div>
                 <div class="twelve wide column w3-padding-32">
                     <div class="ui segments">
+                        <div class="ui segment">
+                            <h4 class="ui horizontal divider text header w3-text-cerebro-red w3-padding" id="agrupacionActual">rf</h4>
+                        </div>
                         <div class="ui segment blurring grey">
                             <div class="ui active inverted dimmer" style="display: none" id="dimmerAdmin"></div>
                             <select id="usuariosMunicipalidad" class="ui fluid dropdown w3-padding" onchange="addUsuarioAgrupacion()">
                                 <option value="">Seleccione usuarios para agregarlos a la agrupaci&oacute;n...</option>
                             </select>
                         </div>
-                        <div class="ui raised blurring segment" style="min-height: 300px">
+                        <div class="ui raised blurring segment" style="min-height: 300px; padding: 0px">
                             <div class="ui active inverted dimmer" style="display: none" id="dimmerAdmin2"></div>
-                            <div class="ui active tab w3-padding">
-                                <h4 class="ui horizontal divider text header w3-text-cerebro-red w3-padding" id="agrupacionActual"></h4>
-                                <table class="ui compact celled grey table" id="tabla">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 10%">esAdmin</th>
-                                            <th>E-mail</th>
-                                            <th style="width: 10%">Acci&oacute;n</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="usuariosActualesBody"></tbody>
-                                </table>
-                            </div>
+                            <table class="ui compact celled table" id="tabla" style="margin-top: 0px">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%">esAdmin</th>
+                                        <th>E-mail</th>
+                                        <th style="width: 10%">Acci&oacute;n</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usuariosActualesBody"></tbody>
+                            </table>
                         </div>
                         <div class="ui right aligned grey secondary segment">
                             <h4 class="ui horizontal divider text header w3-text-cerebro-red small w3-padding">Crear agrupacion</h4>
@@ -168,6 +159,9 @@
                     while (document.getElementById("agrupacionesList").hasChildNodes()) {
                         document.getElementById("agrupacionesList").removeChild(document.getElementById("agrupacionesList").lastChild);
                     }
+                    while (document.getElementById("listAgrupacionChat").hasChildNodes()) {
+                        document.getElementById("listAgrupacionChat").removeChild(document.getElementById("listAgrupacionChat").lastChild);
+                    }
                     $.each(response, function (index, agrupacion) {
                         var item = document.createElement("div");
                         item.className = "item";
@@ -179,25 +173,25 @@
                         });
                         item.appendChild(a);
                         document.getElementById("agrupacionesList").appendChild(item);
-                        var item2 = document.createElement("div");
-                        item2.className = "item";
-                        var a2 = document.createElement("a");
-                        a2.className = "ui header text small link";
-                        a2.innerHTML = agrupacion;
-                        a2.addEventListener("click", function () { 
-                            chatearAgrupacion(agrupacion);
-                            document.getElementById("agrActual").innerHTML = agrupacion;
-                        });
-                        item2.appendChild(a2);
-                        document.getElementById("listAgrupacionChat").appendChild(item2);
+                        var option = document.createElement("option");
+                        option.innerHTML = agrupacion;
+                        option.value = agrupacion;
+                        document.getElementById("listAgrupacionChat").appendChild(option);
                     });
+                    var option2 = document.createElement("option");
+                    option2.innerHTML = "Seleccionar agrupaci&oacute;n...";
+                    option2.value = "";
+                    option2.selected = true;
+                    option2.disabled = true;
+                    document.getElementById("listAgrupacionChat").appendChild(option2);
                 }
             });
         }
     }
-    var pusher = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
-    function chatearAgrupacion(agr) { 
-        var channel = pusher.subscribe(agr);
+    var pusher2 = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
+    function chatearAgrupacion() {
+        var agrupacion = document.getElementById("listAgrupacionChat").value;
+        var channel = pusher2.subscribe(agrupacion);
         while (document.getElementById("chat").hasChildNodes()) {
             document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
         }
@@ -261,9 +255,9 @@
     }
     $("#mensaje").on('keyup', function (e) {
         if (e.keyCode == 13) {
-            var agr = document.getElementById("agrActual").innerHTML;
-            if (agr !== "" && agr !== "Seleccionar chat..."){
-                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion="+ agr +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
+            var agrupacion = document.getElementById("listAgrupacionChat").value;
+            if (agrupacion !== ""){
+                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
                     document.getElementById("mensaje").value = "";
                 });
             }
