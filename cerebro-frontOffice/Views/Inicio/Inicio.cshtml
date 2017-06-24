@@ -68,18 +68,9 @@
     <div class="ui grid stackable container w3-padding w3-padding-32">
         <div class="ui segments raised popup bottom right pointing transition hidden" id="popup" style="max-width: 400px; width: 370px; padding: 0px">
             <div class="ui grey segment" style="padding: 0px">
-                <div class="ui floating basic fluid dropdown labeled icon button w3-border-0">
-                    <i class="list large icon w3-text-cerebro-red"></i>
-                    <span class="ui text header small w3-text-silver" id="agrupacionChatActual" style="margin-top: 0px; margin-bottom: 0px; margin-left: 7px">Seleccionar chat...</span>
-                    <div class="menu">
-                        <div class="ui icon search input">
-                            <i class="search icon"></i>
-                            <input placeholder="buscar agrupaci&oacute;n..." type="text">
-                        </div>
-                        <div class="scrolling menu" id="listAgrupacionChat">
-                        </div>
-                    </div>
-                </div>
+                <select class="ui basic fluid dropdown" id="listAgrupacionChat" onchange="chatearAgrupacion()">
+                    <option value="" selected disabled>Seleccionar agrupaci&oacute;n...</option>
+                </select>
             </div>
             <div class="ui grey segment" id="chat" style="height: 400px; background-image: url(images/skulls.png); max-height: 400px; overflow-y: auto">
             </div>
@@ -296,7 +287,6 @@
                     }
                     var polygon = new ol.geom.Polygon([array]);
                     var featurePolygon = new ol.Feature(polygon);
-
                     var countPoint = 0;
                     $.each(data.geom, function (index, dt2) {
 
@@ -320,7 +310,6 @@
                     }
                     countPoint = 0;
                 });
-
                 if (b) {
                     var item = document.createElement("div");
                     item.className = "item";
@@ -504,25 +493,25 @@
                         document.getElementById("listAgrupacionChat").removeChild(document.getElementById("listAgrupacionChat").lastChild);
                     }
                     $.each(response, function (index, agrupacion) {
-                        var item2 = document.createElement("div");
-                        item2.className = "item";
-                        var a2 = document.createElement("a");
-                        a2.className = "ui header text small link";
-                        a2.innerHTML = agrupacion;
-                        a2.addEventListener("click", function () {
-                            chatearAgrupacion(agrupacion);
-                            document.getElementById("agrActual").innerHTML = agrupacion;
-                        });
-                        item2.appendChild(a2);
-                        document.getElementById("listAgrupacionChat").appendChild(item2);
+                        var option = document.createElement("option");
+                        option.innerHTML = agrupacion;
+                        option.value = agrupacion;
+                        document.getElementById("listAgrupacionChat").appendChild(option);
                     });
+                    var option2 = document.createElement("option");
+                    option2.innerHTML = "Seleccionar agrupaci&oacute;n...";
+                    option2.value = "";
+                    option2.selected = true;
+                    option2.disabled = true;
+                    document.getElementById("listAgrupacionChat").appendChild(option2);
                 }
             });
         }
     }
     var pusher2 = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
-    function chatearAgrupacion(agr) {
-        var channel = pusher2.subscribe(agr);
+    function chatearAgrupacion() {
+        var agrupacion = document.getElementById("listAgrupacionChat").value;
+        var channel = pusher2.subscribe(agrupacion);
         while (document.getElementById("chat").hasChildNodes()) {
             document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
         }
@@ -586,9 +575,9 @@
     }
     $("#mensaje").on('keyup', function (e) {
         if (e.keyCode == 13) {
-            var agr = document.getElementById("agrActual").innerHTML;
-            if (agr !== "" && agr !== "Seleccionar chat..."){
-                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion="+ agr +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
+            var agrupacion = document.getElementById("listAgrupacionChat").value;
+            if (agrupacion !== ""){
+                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
                     document.getElementById("mensaje").value = "";
                 });
             }
