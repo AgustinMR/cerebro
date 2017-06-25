@@ -83,7 +83,7 @@
             <div class="ui divider"></div>
             <div class="container w3-padding">
                 <div class="ui labeled input w3-margin-bottom">
-                    <div class="ui label basic w3-text-silver">Direcci&oacute;n IP:</div>
+                    <div class="ui label basic w3-text-silver">Privilegio requerido:</div>
                     <select name="origen" [(ngModel)]="privilegioSelectMod" id="privilegiosSelectMod" class="ui search dropdown">
                         <option value="" selected disabled>Seleccione un privilegio</option>
                         <option *ngFor="let p of privilegios" value="{{p.nombre}}"> {{p.nombre}} </option>

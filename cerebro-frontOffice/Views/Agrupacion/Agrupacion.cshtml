@@ -2,6 +2,8 @@
     $(document).ready(function () {
         getAgrupacionesByUsuario();
         getUsuariosByMunicipalidad();
+        cargarPrivilegios();
+        cargarZona();
         $('.ui.sidebar')
             .sidebar('attach events', '.toc.item')
             .sidebar('setting', 'transition', 'overlay')
@@ -78,6 +80,8 @@
             <div class="right menu"><button class="circular ui icon button" id="cosoChat"><i class="comments icon large w3-text-cerebro-red"></i></button></div>
         </div>
     </div>
+    <div class="ui list" id="listaNotificaciones" style="width: 400px; display: inline-block; position: fixed; right: 0px; z-index: 999">
+    </div>
     <div class="ui grid stackable container w3-padding w3-padding-16">
         <div class="ui segments raised popup bottom right pointing transition hidden" id="popup" style="max-width: 400px; width: 370px; padding: 0px">
             <div class="ui grey segment" style="padding: 0px">
@@ -151,7 +155,12 @@
 <p style="display:none" id="agrActual"></p>
 <script>
     var email = '@User.Claims.ToList()[0].Value';
-	var municipalidad = '@User.Claims.ToList()[3].Value';
+    var municipalidad = '@User.Claims.ToList()[3].Value';
+    var zonas;
+    var privilegios = [];
+    var pusher = new Pusher('474881b81d9d92dd2713', { encrypted: true });
+    var channel2 = pusher.subscribe("datos-dispositivos");
+    var pusher2 = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
     function getAgrupacionesByUsuario() {
         if (email !== ""){
             $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email, function (response) {
@@ -188,7 +197,6 @@
             });
         }
     }
-    var pusher2 = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
     function chatearAgrupacion() {
         var agrupacion = document.getElementById("listAgrupacionChat").value;
         var channel = pusher2.subscribe(agrupacion);
@@ -419,6 +427,104 @@
             });
         }
     }
+
+    function cargarPrivilegios() {
+        $.get("https://www.cerebro-servicelayer.com/api/usuarios/privilegiosUsu?email=" + email + "&muni=" + municipalidad, function (res) {
+            for (var i = 0; i < res.length; i++) {
+                privilegios[privilegios.length] = res[i].Privilegio_nombre;
+            }
+        });
+    }
+
+    function cargarZona() {
+        $.get("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email=" + email + "&muni=" + municipalidad, function (response) {
+            if (response !== undefined) {
+                zonas = response;
+            }
+        });
+    }
+    channel2.bind('evento-nuevo', function (data) {
+        var count = 0;
+        $.each(data.privilegios, function (index, priv) {
+            $.each(privilegios, function (index, pr) {
+                if (pr == priv) {
+                    count++;
+                }
+            });
+        });
+        if (count == data.privilegios.length) {
+            var b = false;
+            $.each(zonas, function (index, zona) {
+                var tmp = zona.ubicacion.toString().split(",");
+                var array = [];
+                var j = 0;
+                for (var i = 0; i < (tmp.length / 2); i++) {
+                    var arraryTmp = [];
+                    arraryTmp[0] = tmp[j]
+                    arraryTmp[1] = tmp[j + 1];
+                    array[i] = arraryTmp;
+                    j++;
+                    j++;
+                }
+                var polygon = new ol.geom.Polygon([array]);
+                var featurePolygon = new ol.Feature(polygon);
+                var countPoint = 0;
+                $.each(data.geom, function (index, dt2) {
+                    var point = new ol.geom.Point(dt2);
+                    var featurePoint = new ol.Feature(point);
+                    var format = new ol.format.GeoJSON();
+                    var geojsonReader = new jsts.io.GeoJSONReader();
+                    var polygon1Jsts = geojsonReader.read(
+                        format.writeFeatureObject(featurePolygon)).geometry;
+                    var polygon2Jsts = geojsonReader.read(
+                        format.writeFeatureObject(featurePoint)).geometry;
+                    if (polygon1Jsts.contains(polygon2Jsts)) {
+                        countPoint++;
+                    }
+                });
+                if (countPoint == data.geom.length) {
+                    b = true;
+                }
+                countPoint = 0;
+            });
+            alert(b);
+            if (b) {
+                var item = document.createElement("div");
+                item.className = "item";
+                var message = document.createElement("div");
+                message.className = "ui icon message info w3-animate-right";
+                var i1 = document.createElement("i");
+                i1.className = "info icon left aligned w3-left";
+                message.appendChild(i1);
+                var i2 = document.createElement("i");
+                i2.className = "close icon";
+                message.appendChild(i2);
+                i.addEventListener("click", function () { 
+                    document.getElementById("listaNotificaciones").removeChild(item);
+                });
+                var content = document.createElement("div");
+                content.className = "content";
+                var h3 = document.createElement("h3");
+                h3.className = "ui header w3-margin-right";
+                h3.style.marginTop = "4px";
+                h3.innerHTML = "Se ha registrado el evento:&nbsp;";
+                var span = document.createElement("span");
+                span.className = "w3-text-cerebro-red";
+                span.innerHTML = data.nombre;
+                h3.appendChild(span);
+                var p = document.createElement("p");
+                p.className = "ui sub header large";
+                var dateTime = data.fechaHora.split("T");
+                var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                p.innerHTML = hora;
+                content.appendChild(h3);
+                content.appendChild(p);
+                message.appendChild(content);
+                item.appendChild(message);
+                document.getElementById("listaNotificaciones").insertBefore(item, document.getElementById("listaNotificaciones"));
+            }
+        }
+    });
     function mostrarMensajeExito() {
         document.getElementById("dimmer").style.display = "block";
         document.getElementById("exito").style.display = "block";
