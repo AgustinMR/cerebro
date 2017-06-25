@@ -22,6 +22,10 @@ export class LoginService {
         return this.http.post("https://www.cerebro-servicelayer.com/api/municipalidades?" + postInfo, options).map(data => data.json());
     }
 
+    public getMunicipalidades() {
+        return this.http.get("https://www.cerebro-serviceLayer.com/api/municipalidades").map(data => data.json());
+    }
+
     public addAdmin(nombreMuni: string, email: string, nombre: string, pass: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });

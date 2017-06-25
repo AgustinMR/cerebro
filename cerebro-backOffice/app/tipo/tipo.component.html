@@ -1,4 +1,4 @@
-﻿<div class="ui raised segment w3-padding w3-padding-16 w3-display-container" style="background-color: #FDFDFD">
+﻿<div class="ui stocked raised segments">
     <div class="ui active inverted dimmer" style="display: none" id="message">
         <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
         <div class="w3-display-middle" id="success" style="display: none">
@@ -31,24 +31,28 @@
             </div>
         </div>
     </div>
-    <img src="../../Content/cerebro-logo.png" style="height: 40px; margin-top: -20px" class="w3-display-topmiddle">
-    <h4 class="ui horizontal divider header">Tipos de Dispositivos</h4>
-    <div class="ui secondary center pointing aligned menu">
-        <a onclick="changeTab(event, 'nuevo')" class="item tabButtons active w3-text-cerebro-red">Nuevo</a>
-        <a onclick="changeTab(event, 'modificar')" class="item tabButtons">Modificar</a>
+    <div class="ui segment secondary" style="background-color: #FDFDFD; height: 65px">
+        <h4 class="ui horizontal divider header w3-padding-16 w3-text-cerebro-red">Tipos de Dispositivo</h4>
+        <img src="../../Content/cerebro-logo.png" style="height: 37px; margin-top: -20px" class="w3-display-topmiddle">
     </div>
-    <div id="nuevo" class="tab w3-container">
-        <div class="container w3-padding w3-padding-24">
+    <div class="ui segment secondary" style="padding: 0px">
+        <div class="ui secondary center pointing aligned menu">
+            <a onclick="changeTab(event, 'nuevo')" class="item tabButtons active w3-text-cerebro-red">Nuevo</a>
+            <a onclick="changeTab(event, 'modificar')" class="item tabButtons">Modificar</a>
+        </div>
+    </div>
+    <div class="ui raised segment w3-display-container">
+        <div id="nuevo" class="tab w3-container w3-padding">
             <div class="ui labeled fluid input">
-                <div class="ui label">Nombre:</div>
+                <div class="ui basic label w3-text-silver">Nombre:</div>
                 <input placeholder="Ingrese el nombre del tipo de dispositivo" [(ngModel)]="nombre" name="nombre" id="nombre" type="text">
             </div>
             <div class="ui labeled fluid input w3-margin-top">
-                <div class="ui label">WS a invocar:</div>
+                <div class="ui basic label w3-text-silver">WS a invocar:</div>
                 <input [(ngModel)]="endpointWS" name="ws" id="ws" placeholder="Ingrese el nombre de la agrupaci&oacute;n" type="text">
             </div>
             <div class="ui labeled fluid input w3-margin-top">
-                <div class="ui label">Frec. Lectura:</div>
+                <div class="ui basic label w3-text-silver">Frec. Lectura:</div>
                 <input [(ngModel)]="frecLectura" name="frecuencia" id="frecuencia" placeholder="Ingrese el nombre de la agrupaci&oacute;n" type="text">
             </div>
             <select name="origen" [(ngModel)]="tipoDeDato" id="tipo" class="ui fluid search dropdown w3-margin-top">
@@ -58,32 +62,34 @@
                 <option value="IMAGEN">Imagen</option>
                 <option value="VIDEO">Video</option>
             </select>
-            <button class="ui button w3-margin-top w3-cerebro-blue" (click)="agregarTipoDeFuenteDeDato()">Guardar</button>
+            <div class="ui divider"></div>
+            <button class="ui button green w3-right" (click)="agregarTipoDeFuenteDeDato()">Guardar</button>
         </div>
-    </div>
-    <div id="modificar" class="tab w3-container" style="display:none">
-        <select id="selectTipoMod" class="ui fluid search dropdown w3-margin-top" (change)="onChange($event.target.value)">
-            <option value="" selected disabled>Seleccione un tipo de dispositivo para verlo y modificarlo...</option>
-            <option *ngFor="let tip of tipoMod" value="{{tip.Id}}"> {{tip.nombre}} </option>
-        </select>
-        <div class="ui horizontal divider"></div>
-        <div class="container w3-padding w3-padding-24">
-            <div class="ui labeled fluid input">
-                <div class="ui label">Nombre:</div>
-                <input placeholder="Ingrese el nombre del tipo de dispositivo" [(ngModel)]="nombreMod" type="text">
+        <div id="modificar" class="tab w3-container" style="display:none">
+            <select id="selectTipoMod" class="ui fluid search dropdown w3-margin-top" (change)="onChange($event.target.value)">
+                <option value="" selected>Seleccione un tipo de dispositivo para verlo y modificarlo...</option>
+                <option *ngFor="let tip of tipoMod" value="{{tip.Id}}"> {{tip.nombre}} </option>
+            </select>
+            <div class="ui divider"></div>
+            <div class="container w3-padding w3-padding">
+                <div class="ui labeled fluid input">
+                    <div class="ui label basic w3-text-silver">Nombre:</div>
+                    <input placeholder="Ingrese el nombre del tipo de dispositivo" [(ngModel)]="nombreMod" type="text">
+                </div>
+                <div class="ui labeled fluid input w3-margin-top">
+                    <div class="ui label basic w3-text-silver">WS a invocar:</div>
+                    <input [(ngModel)]="endpointWSMod" name="ws_mod" id="ws_mod" placeholder="Ingrese el nombre de la agrupaci&oacute;n" type="text">
+                </div>
+                <div class="ui labeled fluid input w3-margin-top">
+                    <div class="ui label basic w3-text-silver">Frec. Lectura:</div>
+                    <input [(ngModel)]="frecLecturaMod" placeholder="Ingrese el nombre de la agrupaci&oacute;n" type="text">
+                </div>
             </div>
-            <div class="ui labeled fluid input w3-margin-top">
-                <div class="ui label">WS a invocar:</div>
-                <input [(ngModel)]="endpointWSMod" name="ws_mod" id="ws_mod" placeholder="Ingrese el nombre de la agrupaci&oacute;n" type="text">
+            <div class="ui divider"></div>
+            <div class="w3-margin-bottom w3-margin-top">
+                <button class="ui button secondary positive w3-right" (click)="modificarTipoDeFuenteDeDato()">Guardar</button>
+                <button class="ui button red inverted w3-right" (click)="mostrarMensajeConfirmacion()">Eliminar</button>
             </div>
-            <div class="ui labeled fluid input w3-margin-top">
-                <div class="ui label">Frec. Lectura:</div>
-                <input [(ngModel)]="frecLecturaMod" placeholder="Ingrese el nombre de la agrupaci&oacute;n" type="text">
-            </div>
-        </div>
-        <div class="w3-margin-bottom w3-margin-top">
-            <button class="ui button secondary w3-cerebro-blue w3-right" (click)="modificarTipoDeFuenteDeDato()">Guardar</button>
-            <button class="ui button secondary w3-cerebro-red w3-right" (click)="mostrarMensajeConfirmacion()">Eliminar</button>
         </div>
     </div>
 </div>

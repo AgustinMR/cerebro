@@ -26,6 +26,13 @@ export class UsuarioService {
         return this.http.post("https://www.cerebro-serviceLayer.com/api/usuarios/privilegio?" + postInfo, options).map(data => data.json());
     }
 
+    public crearPrivilegio(privilegio: string, municipalidad: string) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        var postInfo = "privilegio=" + privilegio + "&municipalidad=" + municipalidad;
+        return this.http.post("https://www.cerebro-serviceLayer.com/api/usuarios/privilegio/crear?" + postInfo, options).map(data => data.json());
+    }
+
     public eliminarPrivilegios(email: string, muni: string, privilegio: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });

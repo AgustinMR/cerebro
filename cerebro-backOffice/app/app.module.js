@@ -1,0 +1,49 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var common_1 = require("@angular/common");
+var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/map");
+var app_routing_module_1 = require("./app-routing.module");
+var app_component_1 = require("./app.component");
+// Fuentes de Dato
+var dispositivo_component_1 = require("./dispositivo/dispositivo.component");
+var dispositivo_service_1 = require("./dispositivo/dispositivo.service");
+// Eventos
+var evento_component_1 = require("./evento/evento.component");
+var evento_service_1 = require("./evento/evento.service");
+// Tipos de Fuentes de Datos
+var tipo_component_1 = require("./tipo/tipo.component");
+var tipo_service_1 = require("./tipo/tipo.service");
+// Usuarios
+var usuario_component_1 = require("./usuario/usuario.component");
+var usuario_service_1 = require("./usuario/usuario.service");
+// Inicio
+var inicio_component_1 = require("./inicio/inicio.component");
+var login_service_1 = require("./inicio/login.service");
+// Accion
+var accion_component_1 = require("./acciones/accion.component");
+var accion_service_1 = require("./acciones/accion.service");
+var AppModule = (function () {
+    function AppModule() {
+    }
+    return AppModule;
+}());
+AppModule = __decorate([
+    core_1.NgModule({
+        imports: [platform_browser_1.BrowserModule, app_routing_module_1.AppRoutingModule, common_1.CommonModule, forms_1.ReactiveFormsModule, forms_1.FormsModule, http_1.HttpModule],
+        declarations: [app_component_1.AppComponent, dispositivo_component_1.FuenteDeDatoComponent, tipo_component_1.TipoDeFuenteDeDatoComponent, evento_component_1.EventoComponent, usuario_component_1.UsuarioComponent, inicio_component_1.InicioComponent, accion_component_1.AccionComponent],
+        providers: [dispositivo_service_1.FuenteDeDatoService, tipo_service_1.TipoDeFuenteDeDatoService, evento_service_1.EventoService, usuario_service_1.UsuarioService, http_1.HttpModule, login_service_1.LoginService, accion_service_1.AccionService],
+        bootstrap: [app_component_1.AppComponent]
+    })
+], AppModule);
+exports.AppModule = AppModule;
+//# sourceMappingURL=app.module.js.map

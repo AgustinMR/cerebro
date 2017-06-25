@@ -1,110 +1,131 @@
-﻿<div class="ui raised segment w3-padding w3-padding-16 w3-display-container" style="background-color: #FDFDFD">
-    <div class="ui active inverted dimmer" style="display: none" id="message">
-        <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
+﻿<div class="ui stocked raised segments">
+    <div class="ui active page dimmer" style="display: none" id="dimmer">
+        <div class="ui text loader inverted" style="display: none" id="loading">Por favor espere...</div>
         <div class="w3-display-middle" id="success" style="display: none">
-            <h3 class="ui text header">El Dispositivo se ha creado correctamente!</h3>
-            <button class="circular inverted green ui icon button big"><i class="icon checkmark"></i></button>
+            <h2 class="ui text header inverted">El Dispositivo se ha creado correctamente!</h2>
+            <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
         </div>
         <div class="w3-display-middle" id="dispositivoModificado" style="display: none">
-            <h3 class="ui text header">El Dispositivo se ha modificado correctamente!</h3>
-            <button class="circular inverted green ui icon button big"><i class="icon checkmark"></i></button>
+            <h2 class="ui text header inverted">El Dispositivo se ha modificado correctamente!</h2>
+            <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
         </div>
         <div class="w3-display-middle" id="dispositivoEliminado" style="display: none">
-            <h3 class="ui text header">El Dispositivo se ha modificado correctamente!</h3>
-            <button class="circular inverted green ui icon button big"><i class="icon checkmark"></i></button>
+            <h2 class="ui text header inverted">El Dispositivo se ha eliminado correctamente!</h2>
+            <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
         </div>
         <div class="w3-display-middle" id="error" style="display: none">
-            <h3 class="ui text header">Ha ocurrido un error, por favor vuelve a intentar...</h3>
-            <button class="circular inverted red ui icon button big"><i class="icon warning"></i></button>
+            <h2 class="ui text header inverted">Ha ocurrido un error, por favor vuelve a intentar...</h2>
+            <button class="circular inverted red ui icon button big" (click)="ocultarMensajes()"><i class="icon warning"></i></button>
         </div>
-        <div class="w3-display-middle" id="confirmation" style="display: none">
-            <i class="ui big circular orange warning icon"></i>
-            <h3>Se eliminar&aacute; el Dispositivo<br>&iquest;Continuar?</h3>
-            <div class="ui buttons w3-margin-top">
-                <button class="ui button">Cancelar</button>
-                <div class="or" data-text="o"></div>
-                <button class="ui negative button">Eliminar</button>
-            </div>
+        <div class="w3-display-middle" id="warning" style="display: none">
+            <h2 class="ui text header inverted">Se eliminar&aacute; el dispositivo seleccionado...</h2>
+            <h2 class="ui horizontal divider text header inverted w3-padding w3-margin-bottom">&iquest;Continuar?</h2>
+            <button class="ui inverted button w3-center" (click)="ocultarMensajes()">Cancelar</button>
+            <button class="ui inverted red button w3-center" (click)="deleteDis()">Eliminar</button>
         </div>
     </div>
-    <img src="../../Content/cerebro-logo.png" style="height: 40px; margin-top: -20px" class="w3-display-topmiddle">
-    <h4 class="ui horizontal divider header">Dispositivos</h4>
-    <div class="ui secondary center pointing aligned menu">
-        <a onclick="changeTab(event, 'nuevo')" (click)="borrarMapa('nuevo')" class="item tabButtons active w3-text-cerebro-red">Nuevo</a>
-        <a onclick="changeTab(event, 'modificar')" (click)="borrarMapa('modificar')" class="item tabButtons">Modificar</a>
-        <a onclick="changeTab(event, 'quitar')" (click)="borrarMapa('quitar')" class="item tabButtons">Eliminar</a>
+    <div class="ui segment secondary" style="background-color: #FDFDFD; height: 65px">
+        <h4 class="ui horizontal divider header w3-padding-16 w3-text-cerebro-red">Dispositivos</h4>
+        <img src="../../Content/cerebro-logo.png" style="height: 37px; margin-top: -20px" class="w3-display-topmiddle">
     </div>
-    <div id="nuevo" class="tab w3-container">
-        <select name="tipo" [(ngModel)]="tipoDeFuneteDeDatoSelect" id="tipo" class="ui fluid search dropdown w3-margin-top">
-            <option value="">Seleccione el tipo del Dispositivo</option>
-            <option *ngFor="let tip of tipoDeFuneteDeDato" value="{{tip.Id}}"> {{tip.nombre}} </option>
-        </select>
-        <div class="container w3-padding w3-padding-24">
-            <div class="w3-margin-bottom">
-                <select name="origen" [(ngModel)]="privilegioSelect" id="privilegiosSelect" class="ui search dropdown">
-                    <option value="" selected disabled>Seleccione un privilegio</option>
-                    <option *ngFor="let p of privilegios" value="{{p.nombre}}"> {{p.nombre}} </option>
+    <div class="ui segment secondary" style="padding: 0px">
+        <div class="ui secondary center pointing aligned menu">
+            <a onclick="changeTab(event, 'nuevo')" (click)="borrarMapa('nuevo')" class="item tabButtons active w3-text-cerebro-red">Nuevo</a>
+            <a onclick="changeTab(event, 'modificar')" (click)="borrarMapa('modificar')" class="item tabButtons">Modificar</a>
+            <a onclick="changeTab(event, 'quitar')" (click)="borrarMapa('quitar')" class="item tabButtons">Eliminar</a>
+        </div>
+    </div>
+    <div class="ui raised segment w3-padding-16 w3-display-container">
+        <div id="nuevo" class="tab w3-container w3-padding-16">
+            <div class="ui labeled input">
+                <div class="ui label basic w3-text-silver w3-margin-top">Tipo de dispositivo:</div>
+                <select name="tipo" [(ngModel)]="tipoDeFuneteDeDatoSelect" id="tipo" class="ui search dropdown w3-margin-top w3-padding">
+                    <option value="">Seleccione el tipo del Dispositivo</option>
+                    <option *ngFor="let tip of tipoDeFuneteDeDato" value="{{tip.Id}}"> {{tip.nombre}} </option>
                 </select>
             </div>
-            <div class="ui labeled fluid input">
-                <div class="ui label">Nombre:</div>
-                <input [(ngModel)]="nombreNew" name="nombre" id="nombre" placeholder="Nombre del Dispositivo..." type="text">
-            </div>
-            <div id="ipCH">
-                <div class="ui labeled fluid input w3-margin-top">
-                    <div class="ui label">Direcci&oacute;n IP:</div>
-                    <input [(ngModel)]="ipNew" id="ip" placeholder="Direcci&oacute;n IP desde la cual se enviar&aacute; datos..." type="text">
+            <div class="row">
+                <div class="ui labeled input w3-margin-bottom w3-margin-top">
+                    <div class="ui label basic w3-text-silver">Privilegio requerido:</div>
+                    <select name="origen" [(ngModel)]="privilegioSelect" id="privilegiosSelect" class="ui search dropdown">
+                        <option value="" selected disabled>Seleccione un privilegio</option>
+                        <option *ngFor="let p of privilegios" value="{{p.nombre}}"> {{p.nombre}} </option>
+                    </select>
                 </div>
-                <div class="ui labeled fluid input w3-margin-top">
-                    <div class="ui label">User Agent:</div>
-                    <input [(ngModel)]="userAgentNew" id="userAgent" placeholder="User Agent del dispositivo..." type="text">
+                <div class="ui labeled fluid input">
+                    <div class="ui label basic w3-text-silver">Nombre:</div>
+                    <input [(ngModel)]="nombreNew" name="nombre" id="nombre" placeholder="Nombre del Dispositivo..." type="text">
                 </div>
-            </div>
-            <button class="ui button w3-left w3-margin-top w3-cerebro-blue" (click)="nuevoPunto()">Marcar Ubicaci&oacute;n</button>
-        </div>
-    </div>
-    <div id="modificar" class="tab w3-container" style="display:none">
-        <select name="origen" [(ngModel)]="tipoDeFuneteDeDatoSelectMod" id="tipoMod" class="ui fluid search dropdown w3-margin-top" (change)="onChange($event.target.value)">
-            <option value="">Seleccione un Dispositivo para ver y modificar...</option>
-            <option *ngFor="let dis of dispositivosMod" value="{{dis.Id}}"> {{dis.nombre}} </option>
-        </select>
-        <div class="container w3-padding w3-padding-24">
-            <div class="w3-margin-bottom">
-                <select name="origen" [(ngModel)]="privilegioSelectMod" id="privilegiosSelectMod" class="ui search dropdown">
-                    <option value="" selected disabled>Seleccione un privilegio</option>
-                    <option *ngFor="let p of privilegios" value="{{p.nombre}}"> {{p.nombre}} </option>
-                </select>
-            </div>
-            <div class="ui labeled fluid input">
-                <div class="ui label">Nombre:</div>
-                <input [(ngModel)]="nombreMod" name="nombre" id="nombre" placeholder="Nombre del Dispositivo..." type="text">
-            </div>            
-            <div id="ipCHMod">
-                <div class="ui labeled fluid input w3-margin-top">
-                    <div class="ui label">Direcci&oacute;n IP:</div>
-                    <input [(ngModel)]="ipMod" id="ip_mod" placeholder="Direcci&oacute;n IP desde la cual se enviar&aacute; datos..." type="text">
+                <div id="ipCH">
+                    <div class="ui labeled fluid input w3-margin-top">
+                        <div class="ui label basic w3-text-silver">Direcci&oacute;n IP:</div>
+                        <input [(ngModel)]="ipNew" id="ip" placeholder="Direcci&oacute;n IP desde la cual se enviar&aacute; datos..." type="text">
+                    </div>
+                    <div class="ui labeled fluid input w3-margin-top">
+                        <div class="ui label basic w3-text-silver">User Agent:</div>
+                        <input [(ngModel)]="userAgentNew" id="userAgent" placeholder="User Agent del dispositivo..." type="text">
+                    </div>
+                    <div class="ui icon mini info message">
+                        <i class="info icon"></i>
+                        <div class="content">
+                            <div class="header">Preciona el boton central, y se&ntilde;ala en el mapa la ubicaci&oacute;n del dispositivo!</div>
+                        </div>
+                    </div>
+                    <i class="circular marker large link icon w3-display-bottommiddle w3-cerebro-blue" style="margin-bottom: -20px; z-index: 999" (click)="nuevoPunto()"></i>
                 </div>
-                <div class="ui labeled fluid input w3-margin-top">
-                    <div class="ui label">User Agent:</div>
-                    <input [(ngModel)]="userAgentMod" id="userAgent_mod" placeholder="User Agent del dispositivo..." type="text">
-                </div>
-                <button class="ui button w3-left w3-margin-top w3-cerebro-blue" (click)="nuevoPunto()">Marcar Ubicaci&oacute;n</button>
             </div>
         </div>
-    </div>
-    <div id="quitar" class="tab w3-container" style="display:none">
-        <div class="container w3-padding w3-padding-24">
-            <select id="disDel" [(ngModel)]="selectBorrar" class="ui fluid search dropdown w3-margin-top">
-                <option value="" selected disabled>Seleccione un Dispositivo para eliminarlo...</option>
+        <div id="modificar" class="tab w3-container w3-padding-16" style="display:none">
+            <select name="origen" [(ngModel)]="tipoDeFuneteDeDatoSelectMod" id="tipoMod" class="ui fluid search dropdown w3-margin-top" (change)="onChange($event.target.value)">
+                <option value="">Seleccione un Dispositivo para ver y modificar...</option>
                 <option *ngFor="let dis of dispositivosMod" value="{{dis.Id}}"> {{dis.nombre}} </option>
             </select>
-            <button class="ui button w3-margin-top w3-cerebro-blue" (click)="deleteDis()">Eliminar</button>
+            <div class="ui divider"></div>
+            <div class="container w3-padding">
+                <div class="ui labeled input w3-margin-bottom">
+                    <div class="ui label basic w3-text-silver">Direcci&oacute;n IP:</div>
+                    <select name="origen" [(ngModel)]="privilegioSelectMod" id="privilegiosSelectMod" class="ui search dropdown">
+                        <option value="" selected disabled>Seleccione un privilegio</option>
+                        <option *ngFor="let p of privilegios" value="{{p.nombre}}"> {{p.nombre}} </option>
+                    </select>
+                </div>
+                <div class="ui labeled fluid input">
+                    <div class="ui label basic w3-text-silver">Nombre:</div>
+                    <input [(ngModel)]="nombreMod" name="nombre" id="nombre" placeholder="Nombre del Dispositivo..." type="text">
+                </div>
+                <div id="ipCHMod">
+                    <div class="ui labeled fluid input w3-margin-top">
+                        <div class="ui label basic w3-text-silver">Direcci&oacute;n IP:</div>
+                        <input [(ngModel)]="ipMod" id="ip_mod" placeholder="Direcci&oacute;n IP desde la cual se enviar&aacute; datos..." type="text">
+                    </div>
+                    <div class="ui labeled fluid input w3-margin-top">
+                        <div class="ui label basic w3-text-silver">User Agent:</div>
+                        <input [(ngModel)]="userAgentMod" id="userAgent_mod" placeholder="User Agent del dispositivo..." type="text">
+                    </div>
+                    <div class="ui icon mini info message">
+                        <i class="info icon"></i>
+                        <div class="content">
+                            <div class="header">Preciona el bot&oacute;n central, y se&ntilde;ala una ubicaci&oacute;n en el mapa para modificar la ubicaci&oacute;n del dispositivo.</div>
+                        </div>
+                    </div>
+                    <i class="circular marker large link icon w3-display-bottommiddle w3-cerebro-blue" style="margin-bottom: -20px; z-index: 999" (click)="nuevoPunto()"></i>
+                </div>
+            </div>
+        </div>
+        <div id="quitar" class="tab w3-container" style="display:none">
+            <div class="container w3-padding w3-padding-24">
+                <select id="disDel" [(ngModel)]="selectBorrar" class="ui fluid search dropdown w3-margin-top">
+                    <option value="" selected disabled>Seleccione un Dispositivo para eliminarlo...</option>
+                    <option *ngFor="let dis of dispositivosMod" value="{{dis.Id}}"> {{dis.nombre}} </option>
+                </select>
+                <button class="ui button inverted red w3-margin-top w3-right" (click)="mostrarMensajeWarning()">Eliminar</button>
+            </div>
         </div>
     </div>
-    <div id="mapBtn" class="ui segment w3-padding">
-        <div id="map" class="map w3-card"></div>
-        <div class="w3-row w3-center" id="btnGuardar">
-            <input type="button" class="ui button w3-margin-top w3-cerebro-blue" (click)="guardar()" value="Guardar">
-        </div>
+    <div class="ui segment grey" style="height: 400px; padding: 0px" id="o1">
+        <div id="map" style="height: 400px; width: 100%"></div>
+    </div>
+    <div class="ui grey segment secondary" style="height: 63px" id="o2">
+        <input type="button" class="ui button green w3-right" (click)="guardar()" value="Guardar">
     </div>
 </div>

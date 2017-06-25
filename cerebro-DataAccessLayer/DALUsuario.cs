@@ -164,5 +164,15 @@ namespace cerebro_DataAccessLayer
             var filter = Builders<Zonas>.Filter.Eq("emailUsuario", email) & Builders<Zonas>.Filter.Eq("municipalidadUsuario", muni);
             return zonasBD.Find(filter).ToList();
         }
+
+        public bool agregarPrivilegio(string privilegio, string municipalidad)
+        {
+            var context = new UsuariosDbContext();
+            context.Privilegios.Add(new Privilegio() {
+                nombre = privilegio,
+                nombre_municipalidad = municipalidad
+            });
+            return context.SaveChanges() > 0;
+        }
     }
 }

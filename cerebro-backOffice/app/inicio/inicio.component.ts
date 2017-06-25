@@ -25,6 +25,8 @@ export class InicioComponent implements OnInit {
     inicio = false;
     accion = false;
     registrarMunicipalidad = false;
+    dominio = false;
+    municipalidades: any;
 
     source: any;
     map: any;
@@ -68,6 +70,9 @@ export class InicioComponent implements OnInit {
     showCrearMunicipalidad() {
         this.registrarMunicipalidad = true;
         this.login = false;
+        this.dominio = false;
+        setTimeout(() => this.mapa(), 2000);
+        this.mapa();
     }
 
     showUsuario() {
@@ -120,6 +125,28 @@ export class InicioComponent implements OnInit {
             this.nombre_municipalidad += muniL[h];
         }
 
+        if (this.nombre_municipalidad === "Cerebro-backoffice" || this.nombre_municipalidad === "" || this.nombre_municipalidad === undefined) {
+            this.loginService.getMunicipalidades().subscribe(
+                (data: Response) => {
+                    this.municipalidades = data;
+                    //for (var m of JSON.parse(JSON.stringify())) {
+                    //    var h3 = document.createElement("h3");
+                    //    h3.className = "ui header text item link w3-text-silver w3-hover-text-cerebro-red w3-padding-16";
+                    //    h3.innerHTML = m.nombre;
+                    //    h3.addEventListener("click", function () {
+                    //        window.location.href = "https://www." + m.nombre + ".cerebro-backOffce.com";
+                    //    });
+                    //    document.getElementById("listMunicipalidades").appendChild(h3);
+                    //}
+                },
+                responseError => console.log(responseError),
+                () => console.log("Municipalidades cargadas")
+            );
+            this.dominio = true;
+            this.login = false;
+            this.inicio = false;
+        }
+
         var features = new ol.Collection();
         this.draw = new ol.interaction.Draw({
             source: this.source,
@@ -133,7 +160,6 @@ export class InicioComponent implements OnInit {
             var feature = new ol.Feature(polygon);
             var vectorSource = new ol.source.Vector();
             vectorSource.addFeature(feature);
-
             var vectorLayer = new ol.layer.Vector({
                 source: vectorSource
             });
