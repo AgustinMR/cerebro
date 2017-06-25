@@ -309,8 +309,8 @@
             }
         });
         channel.bind('evento-nuevo', function (data) {
-            alert(data.eventoId);
-            var serie = chartEventos.get(data.eventoId);
+            alert(data.Id);
+            var serie = chartEventos.get(data.Id);
             if (serie !== undefined) {
                 var y = serie.data[0].y + 1;
                 serie.data[0].update(y);
