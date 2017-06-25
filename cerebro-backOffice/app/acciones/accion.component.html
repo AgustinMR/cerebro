@@ -1,75 +1,75 @@
-﻿<div class="ui raised segment w3-padding w3-padding-16 w3-display-container" style="background-color: #FDFDFD">
-    <div class="ui active inverted dimmer" style="display: none" id="message">
-        <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
+﻿<div class="ui stocked raised segments">
+    <div class="ui active page dimmer" style="display: none" id="dimmer">
+        <div class="ui text loader inverted" style="display: none" id="loading">Por favor espere...</div>
         <div class="w3-display-middle" id="success" style="display: none">
-            <h3 class="ui text header">El Evento ha sido creado correctamente!</h3>
-            <button class="circular inverted green ui icon button big"><i class="icon checkmark"></i></button>
+            <h2 class="ui text header inverted">Acci&oacute;n creada correctamente!</h2>
+            <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
+        </div>
+        <div class="w3-display-middle" id="dispositivoModificado" style="display: none">
+            <h2 class="ui text header inverted">Acci&oacute;n modificada correctamente!</h2>
+            <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
+        </div>
+        <div class="w3-display-middle" id="dispositivoEliminado" style="display: none">
+            <h2 class="ui text header inverted">Acci&oacute;n eliminada correctamente!</h2>
+            <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
         </div>
         <div class="w3-display-middle" id="error" style="display: none">
-            <h3 class="ui text header">Ha ocurrido un error, por favor vuelve a intentar...</h3>
-            <button class="circular inverted red ui icon button big"><i class="icon warning"></i></button>
+            <h2 class="ui text header inverted">Ha ocurrido un error, por favor vuelve a intentar...</h2>
+            <button class="circular inverted red ui icon button big" (click)="ocultarMensajes()"><i class="icon warning"></i></button>
         </div>
-        <div class="w3-display-middle" id="confirmation" style="display: none">
-            <i class="ui big circular orange warning icon"></i>
-            <h3>Se eliminar&aacute; el Evento...<br>&iquest;Continuar?</h3>
-            <div class="ui buttons w3-margin-top">
-                <button class="ui button">Cancelar</button>
-                <div class="or" data-text="o"></div>
-                <button class="ui negative button">Eliminar</button>
-            </div>
+        <div class="w3-display-middle" id="warning" style="display: none">
+            <h2 class="ui text header inverted">Se eliminar&aacute; la acci&oacute;n seleccionada...</h2>
+            <h2 class="ui horizontal divider text header inverted w3-padding w3-margin-bottom">&iquest;Continuar?</h2>
+            <button class="ui inverted button w3-center" (click)="ocultarMensajes()">Cancelar</button>
+            <button class="ui inverted red button w3-center" (click)="delAcciones()">Eliminar</button>
         </div>
     </div>
-    <img src="../../Content/cerebro-logo.png" style="height: 40px; margin-top: -20px" class="w3-display-topmiddle">
-    <h4 class="ui horizontal divider header w3-text-cerebro-blue">Acciones</h4>
-    <div class="ui secondary center pointing aligned menu">
-        <a onclick="changeTab(event, 'nuevo')" class="item tabButtons active w3-text-cerebro-red">Nueva</a>
-        <a onclick="changeTab(event, 'modificar')" class="item tabButtons">Modificar</a>
+    <div class="ui segment secondary" style="background-color: #FDFDFD; height: 65px">
+        <h4 class="ui horizontal divider header w3-padding-16 w3-text-cerebro-red">Acciones</h4>
+        <img src="../../Content/cerebro-logo.png" style="height: 37px; margin-top: -20px" class="w3-display-topmiddle">
     </div>
-    <div id="nuevo" class="tab w3-container">
-        <div class="container w3-padding-24">
-            <div class="ui segments">
-                <div class="ui right aligned segment">
-                    <div class="ui labeled fluid input w3-margin-bottom">
-                        <div class="ui basic label w3-text-cerebro-red">Nombre:</div>
-                        <input name="nombre" id="nombre" [(ngModel)]="nombre" placeholder="Ingrese el nombre de la acci&oacute;n..." type="text">
-                    </div>
-                    <div class="ui labeled fluid input">
-                        <div class="ui basic label w3-text-cerebro-red">Acci&oacute;n:</div>
-                        <form enctype="multipart/form-data">
-                            <input name="files" id="files" placeholder="Ingrese el nombre de la acci&oacute;n..." type="file">
-                        </form>
-                    </div>
-                </div>
-                <div class="ui right aligned grey segment">
-                    <button class="ui button w3-cerebro-blue" (click)="enviarDll()">Guardar</button>
-                </div>
-            </div>
+    <div class="ui secondary segment" style="padding: 0px">
+        <div class="ui secondary center pointing aligned menu">
+            <a onclick="changeTab(event, 'nuevo')" class="item tabButtons active w3-text-cerebro-red">Nueva</a>
+            <a onclick="changeTab(event, 'modificar')" class="item tabButtons">Modificar</a>
         </div>
     </div>
-    <div id="modificar" class="tab w3-container" style="display:none">
-        <div class="ui segments">
-            <div class="ui secondary segment">
-                <select class="ui fluid search dropdown" [(ngModel)]="accionSelect" style="padding: 0px; margin: 0px" (change)="onChange($event.target.value)">
-                    <option value="" selected disabled>Seleccione una Accion para ver y modificar...</option>
-                    <option *ngFor="let a of acciones" value="{{a.Id}}"> {{a.nombre}} </option>
-                </select>
-            </div>
-            <div class="ui right aligned segment">
+    <div class="ui raised segment w3-padding w3-padding-16 w3-display-container">
+        <div id="nuevo" class="tab w3-container">
+            <div class="container w3-padding-16">
                 <div class="ui labeled fluid input w3-margin-bottom">
                     <div class="ui basic label w3-text-cerebro-red">Nombre:</div>
-                    <input name="nombreMod" id="nombreMod" [(ngModel)]="nombreMod" placeholder="Ingrese el nombre de la acci&oacute;n..." type="text">
+                    <input name="nombre" id="nombre" [(ngModel)]="nombre" placeholder="Ingrese el nombre de la acci&oacute;n..." type="text">
                 </div>
                 <div class="ui labeled fluid input">
                     <div class="ui basic label w3-text-cerebro-red">Acci&oacute;n:</div>
                     <form enctype="multipart/form-data">
-                        <input name="files" id="filesMod" placeholder="Ingrese el nombre de la acci&oacute;n..." type="file">
+                        <input name="files" id="files" placeholder="Ingrese el nombre de la acci&oacute;n..." type="file">
                     </form>
                 </div>
             </div>
-            <div class="ui right aligned grey segment">
-                <button class="ui button w3-cerebro-red secondary" (click)="delAcciones()">Eliminar</button>
-                <button class="ui button w3-cerebro-blue" (click)="modAcciones()">Guardar</button>
+            <div class="ui divider"></div>
+            <button class="ui button green w3-right" (click)="enviarDll()">Guardar</button>
+        </div>
+        <div id="modificar" class="tab w3-container" style="display:none">
+            <select class="ui fluid search dropdown w3-margin-top" [(ngModel)]="accionSelect" (change)="onChange($event.target.value)">
+                <option value="" selected disabled>Seleccione una Accion para ver y modificar...</option>
+                <option *ngFor="let a of acciones" value="{{a.Id}}"> {{a.nombre}} </option>
+            </select>
+            <div class="ui divider"></div>
+            <div class="ui labeled fluid input w3-padding">
+                <div class="ui basic label w3-text-cerebro-red">Nombre:</div>
+                <input name="nombreMod" id="nombreMod" [(ngModel)]="nombreMod" placeholder="Ingrese el nombre de la acci&oacute;n..." type="text">
             </div>
+            <div class="ui labeled fluid input w3-padding">
+                <div class="ui basic label w3-text-cerebro-red">Acci&oacute;n:</div>
+                <form enctype="multipart/form-data">
+                    <input name="files" id="filesMod" placeholder="Ingrese el nombre de la acci&oacute;n..." type="file">
+                </form>
+            </div>
+            <div class="ui divider"></div>
+            <button class="ui button green w3-right" (click)="modAcciones()">Guardar</button>
+            <button class="ui button inverted red w3-right" (click)="mostrarMensajeWarning()">Eliminar</button>
         </div>
     </div>
 </div>
