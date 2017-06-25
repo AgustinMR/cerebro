@@ -487,7 +487,6 @@
                 }
                 countPoint = 0;
             });
-            alert(b);
             if (b) {
                 var item = document.createElement("div");
                 item.className = "item";
@@ -499,7 +498,7 @@
                 var i2 = document.createElement("i");
                 i2.className = "close icon";
                 message.appendChild(i2);
-                i.addEventListener("click", function () { 
+                i2.addEventListener("click", function () { 
                     document.getElementById("listaNotificaciones").removeChild(item);
                 });
                 var content = document.createElement("div");
