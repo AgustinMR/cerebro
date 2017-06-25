@@ -23,5 +23,6 @@ namespace cerebro_BusinessLogicLayer
         bool deletePrivilegioUsuario(string email, string muni, string privilegio);
         bool addZona(Zonas z);
         List<Zonas> getZonas(string email, string muni);
+        bool agregarPrivilegio(string privilegio, string municipalidad);
     }
 }

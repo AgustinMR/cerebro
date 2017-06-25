@@ -28,10 +28,6 @@
             <button type="submit" class="ui right labeled icon button w3-cerebro-blue" (click)="ingresar()"><i class="sign in icon"></i>Ingresar</button>
         </div>
     </div>
-    <div class="w3-center">
-        <p class="ui header text small center aligned" style="margin-top: -20px">&iquest;Tu Municipalidad no est&aacute; en la Lista?</p>
-        <a class="link ui header text w3-text-cerebro-red" href="javascript:void(0);" (click)="showCrearMunicipalidad()">Crear Nueva</a>
-    </div>
 </div>
 <div class="ui stackable text container w3-display-middle" *ngIf="registrarMunicipalidad">
     <img src="../../Content/cerebro-logo.png" style="height: 45px" class="ui center aligned header icon">
@@ -62,6 +58,30 @@
         </div>
         <div class="ui grey secondary segment center aligned">
             <button type="submit" class="ui right labeled icon button green" (click)="addMuni()"><i class="sign in icon"></i>Confirmar</button>
+        </div>
+    </div>
+</div>
+<div class="ui stackable grid internally celled text container w3-display-topmiddle w3-padding-64" *ngIf="dominio">
+    <div class="one column row w3-padding-16">
+        <div class="center aligned column"><img src="../../Content/cerebro-logo.png" style="height: 40px" class=""></div>
+    </div>
+    <div class="two column row">
+        <div class="ui eight wide right aligned column w3-padding-24">
+            <h1 class="ui header text w3-xxlarge w3-text-cerebro-blue">Bienvenido a</h1>
+            <img src="../../Content/cerebro-text.png" class="w3-image" style="height: 45px">
+            <div class="ui divider"></div>
+            <h2 class="ui header text w3-text-cerebro-blue">Seleccione municipalidad a la c&uacute;al ingresar</h2>
+        </div>
+        <div class="ui eight wide column w3-padding-24">
+            <div class="ui middle aligned animated divided selection list w3-center" id="listMunicipalidades" style="max-height: 500px; overflow-y: auto">
+                <a class="ui header text item link w3-text-silver w3-hover-text-cerebro-red w3-padding-16" *ngFor="let m of municipalidades" href="https://www.{{m.nombre}}.cerebro-backOffice.com">{{ m.nombre }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="one column row w3-padding-24">
+        <div class="center aligned column">
+            <p class="ui header text w3-text-silver">&iquest;Tu Municipalidad no est&aacute; en la Lista?</p>
+            <a href="javascript:void(0)" class="item w3-text-cerebro-red ui header text" (click)="showCrearMunicipalidad()">Crear Nueva</a>
         </div>
     </div>
 </div>

@@ -160,6 +160,7 @@ export class FuenteDeDatoComponent implements OnInit {
                         this.nombreNew = "";
                         this.source.clear();
                         this.cargarTipos();
+                        this.mostrarMensajeExito();
                     },
                     responseError => console.log(responseError),
                     () => console.log("Tipos de fuentes de datos cargadas")
@@ -181,6 +182,7 @@ export class FuenteDeDatoComponent implements OnInit {
                         this.map.removeInteraction(this.selectInteraction);
                         this.map.removeLayer(this.vectorLayerMod);
                         this.cargarDispositivos();
+                        this.mostrarMensajeDispositivoModificado();
                     },
                     responseError => console.log(responseError),
                     () => console.log("Tipos de fuentes de datos cargadas")
@@ -246,88 +248,94 @@ export class FuenteDeDatoComponent implements OnInit {
         }
         this.tipoGuardar = comp;
         if (comp === "quitar") {
-            document.getElementById("mapBtn").style.display = "none";
+            document.getElementById("o1").style.display = "none";
+            document.getElementById("o2").style.display = "none";
         } else {
-            document.getElementById("mapBtn").style.display = "block";
+            document.getElementById("o1").style.display = "block";
+            document.getElementById("o2").style.display = "block";
         }
     }
 
     deleteDis() {
         this.dispositivos.deleteDis(this.selectBorrar).subscribe(
-            (data: Response) => { this.cargarTipos(); console.log(data); },
+            (data: Response) => {
+                this.cargarTipos();
+                console.log(data);
+                this.mostrarMensajeDispositivoEliminado();
+            },
             responseError => { console.log(responseError); },
             () => console.log("Tipo de fuente de datos eliminado")
         );
     }
 
-    //mostrarMensajeExito() {
-    //    document.getElementById("message").style.display = "block";
-    //    document.getElementById("loading").style.display = "none";
-    //    document.getElementById("success").style.display = "block";
-    //    document.getElementById("error").style.display = "none";
-    //    document.getElementById("dispositivoModificado").style.display = "none";
-    //    document.getElementById("dispositivoElimiando").style.display = "none";
-    //    document.getElementById("confirmation").style.display = "none";
-    //}
+    mostrarMensajeExito() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "block";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+    }
 
-    //mostrarMensajeError() {
-    //    document.getElementById("message").style.display = "block";
-    //    document.getElementById("loading").style.display = "none";
-    //    document.getElementById("success").style.display = "none";
-    //    document.getElementById("error").style.display = "block";
-    //    document.getElementById("confirmation").style.display = "none";
-    //    document.getElementById("dispositivoModificado").style.display = "none";
-    //    document.getElementById("dispositivoElimiando").style.display = "none";
-    //}
+    mostrarMensajeError() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "block";
+        document.getElementById("warning").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+    }
 
-    //mostrarMensajeLoading() {
-    //    document.getElementById("message").style.display = "block";
-    //    document.getElementById("loading").style.display = "block";
-    //    document.getElementById("success").style.display = "none";
-    //    document.getElementById("error").style.display = "none";
-    //    document.getElementById("dispositivoModificado").style.display = "none";
-    //    document.getElementById("dispositivoElimiando").style.display = "none";
-    //    document.getElementById("confirmation").style.display = "none";
-    //}
+    mostrarMensajeLoading() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "block";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+    }
 
-    //mostrarMensajeConfirmacion() {
-    //    document.getElementById("message").style.display = "block";
-    //    document.getElementById("loading").style.display = "none";
-    //    document.getElementById("success").style.display = "none";
-    //    document.getElementById("error").style.display = "none";
-    //    document.getElementById("dispositivoModificado").style.display = "none";
-    //    document.getElementById("dispositivoElimiando").style.display = "none";
-    //    document.getElementById("confirmation").style.display = "block";
-    //}
+    mostrarMensajeWarning() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "block";
+    }
 
-    //mostrarMensajeDispositivoModificado() {
-    //    document.getElementById("message").style.display = "block";
-    //    document.getElementById("loading").style.display = "none";
-    //    document.getElementById("success").style.display = "none";
-    //    document.getElementById("error").style.display = "none";
-    //    document.getElementById("dispositivoModificado").style.display = "block";
-    //    document.getElementById("dispositivoElimiando").style.display = "none";
-    //    document.getElementById("confirmation").style.display = "none";
-    //}
+    mostrarMensajeDispositivoModificado() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "block";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+    }
 
-    //mostrarMensajeDispositivoEliminado() {
-    //    document.getElementById("message").style.display = "block";
-    //    document.getElementById("loading").style.display = "none";
-    //    document.getElementById("success").style.display = "none";
-    //    document.getElementById("error").style.display = "none";
-    //    document.getElementById("dispositivoModificado").style.display = "none";
-    //    document.getElementById("dispositivoElimiando").style.display = "block";
-    //    document.getElementById("confirmation").style.display = "none";
-    //}
+    mostrarMensajeDispositivoEliminado() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "block";
+        document.getElementById("warning").style.display = "none";
+    }
 
-    //ocultarMensajes() {
-    //    document.getElementById("message").style.display = "none";
-    //    document.getElementById("loading").style.display = "none";
-    //    document.getElementById("success").style.display = "none";
-    //    document.getElementById("error").style.display = "none";
-    //    document.getElementById("dispositivoModificado").style.display = "none";
-    //    document.getElementById("dispositivoElimiando").style.display = "none";
-    //    document.getElementById("confirmation").style.display = "none";
-    //}
+    ocultarMensajes() {
+        document.getElementById("dimmer").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+    }
 
 }
