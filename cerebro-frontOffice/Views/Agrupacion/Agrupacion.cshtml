@@ -24,7 +24,6 @@
         {
             <h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">@User.Claims.ToList()[0].Value</h3>
         }
-        <a class="ui toc item header small" href="/Chat/Chat">Chat</a>
         <a class="ui toc item header small active" href="/Agrupacion/Agrupacion">Agrupaciones</a>
         <a class="ui toc item header small" href="/Simulador/Simulador">Simulador</a>
         <a class="ui toc item header small" href="/Reporte/Reporte">Reportes</a>
@@ -506,7 +505,7 @@
                 var h3 = document.createElement("h3");
                 h3.className = "ui header w3-margin-right";
                 h3.style.marginTop = "4px";
-                h3.innerHTML = "Se ha registrado el evento:&nbsp;";
+                h3.innerHTML = "Se ha registrado el evento: ";
                 var span = document.createElement("span");
                 span.className = "w3-text-cerebro-red";
                 span.innerHTML = data.nombre;
@@ -520,7 +519,7 @@
                 content.appendChild(p);
                 message.appendChild(content);
                 item.appendChild(message);
-                document.getElementById("listaNotificaciones").insertBefore(item, document.getElementById("listaNotificaciones"));
+                document.getElementById("listaNotificaciones").insertBefore(item, document.getElementById("listaNotificaciones").firstChild);
             }
         }
     });

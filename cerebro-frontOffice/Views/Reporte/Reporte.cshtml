@@ -1,6 +1,8 @@
 ﻿<script>
     $(document).ready(function () {
         getHistorialDatos();
+        cargarPrivilegios();
+        cargarZona();
         $('.ui.sidebar')
             .sidebar('setting', 'transition', 'overlay')
             .sidebar('setting', 'dimPage', false);
@@ -26,7 +28,6 @@
         {
             <h3 class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px">@User.Claims.ToList()[0].Value</h3>
         }
-        <a class="ui toc item header small" href="/Chat/Chat">Chat</a>
         <a class="ui toc item header small" href="/Agrupacion/Agrupacion">Agrupaciones</a>
         <a class="ui toc item header small" href="/Simulador/Simulador">Simulador</a>
         <a class="ui toc item header small active" href="/Reporte/Reporte">Reportes</a>
@@ -60,7 +61,9 @@
             <div class="right menu"><button class="circular ui icon button" id="cosoChat"><i class="comments icon large w3-text-cerebro-red"></i></button></div>
         </div>
     </div>
-    <div class="ui stackable grid container w3-padding-48">
+    <div class="ui list" id="listaNotificaciones" style="width: 400px; display: inline-block; position: fixed; right: 0px; z-index: 999">
+    </div>
+    <div class="ui grid stackable container w3-padding w3-padding-16">
         <div class="ui segments raised popup bottom right pointing transition hidden" id="popup" style="max-width: 400px; width: 370px; padding: 0px">
             <div class="ui grey segment" style="padding: 0px">
                 <select class="ui basic fluid dropdown" id="listAgrupacionChat" onchange="chatearAgrupacion()">
@@ -134,13 +137,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="six wide column">
-                <div class="ui segments">
-                    <div class="ui segment"></div>
-                    <div class="ui segment"></div>
-                </div>
-            </div>
-            <div class="ten wide column">
+            <div class="sixteen wide column">
                 <div class="ui segments">
                     <div class="ui raised segment" style="height: 40px">
                         <div class="ui menu pointing secondary" style="margin-top: -16px; border-bottom-width: 0px">
@@ -253,6 +250,8 @@
     var chartVideo;
     var chartTexto;
     var chartEventos;
+    var zonas;
+    var privilegios = [];
     var map;
     var draw;
     var source;
@@ -306,6 +305,93 @@
                 if (serie !== undefined) {
                     var y = serie.data[0].y + 1;
                     serie.data[0].update(y);
+                }
+            }
+        });
+        channel.bind('evento-nuevo', function (data) {
+            alert(data.eventoId);
+            var serie = chartEventos.get(data.eventoId);
+            if (serie !== undefined) {
+                var y = serie.data[0].y + 1;
+                serie.data[0].update(y);
+            }
+            var count = 0;
+            $.each(data.privilegios, function (index, priv) {
+                $.each(privilegios, function (index, pr) {
+                    if (pr == priv) {
+                        count++;
+                    }
+                });
+            });
+            if (count == data.privilegios.length) {
+                var b = false;
+                $.each(zonas, function (index, zona) {
+                    var tmp = zona.ubicacion.toString().split(",");
+                    var array = [];
+                    var j = 0;
+                    for (var i = 0; i < (tmp.length / 2); i++) {
+                        var arraryTmp = [];
+                        arraryTmp[0] = tmp[j]
+                        arraryTmp[1] = tmp[j + 1];
+                        array[i] = arraryTmp;
+                        j++;
+                        j++;
+                    }
+                    var polygon = new ol.geom.Polygon([array]);
+                    var featurePolygon = new ol.Feature(polygon);
+                    var countPoint = 0;
+                    $.each(data.geom, function (index, dt2) {
+                        var point = new ol.geom.Point(dt2);
+                        var featurePoint = new ol.Feature(point);
+                        var format = new ol.format.GeoJSON();
+                        var geojsonReader = new jsts.io.GeoJSONReader();
+                        var polygon1Jsts = geojsonReader.read(
+                            format.writeFeatureObject(featurePolygon)).geometry;
+                        var polygon2Jsts = geojsonReader.read(
+                            format.writeFeatureObject(featurePoint)).geometry;
+                        if (polygon1Jsts.contains(polygon2Jsts)) {
+                            countPoint++;
+                        }
+                    });
+                    if (countPoint == data.geom.length) {
+                        b = true;
+                    }
+                    countPoint = 0;
+                });
+                if (b) {
+                    var item = document.createElement("div");
+                    item.className = "item";
+                    var message = document.createElement("div");
+                    message.className = "ui icon message info w3-animate-right";
+                    var i1 = document.createElement("i");
+                    i1.className = "info icon left aligned w3-left";
+                    message.appendChild(i1);
+                    var i2 = document.createElement("i");
+                    i2.className = "close icon";
+                    message.appendChild(i2);
+                    i2.addEventListener("click", function () {
+                        document.getElementById("listaNotificaciones").removeChild(item);
+                    });
+                    var content = document.createElement("div");
+                    content.className = "content";
+                    var h3 = document.createElement("h3");
+                    h3.className = "ui header w3-margin-right";
+                    h3.style.marginTop = "4px";
+                    h3.innerHTML = "Se ha registrado el evento: ";
+                    var span = document.createElement("span");
+                    span.className = "w3-text-cerebro-red";
+                    span.innerHTML = data.nombre;
+                    h3.appendChild(span);
+                    var p = document.createElement("p");
+                    p.className = "ui sub header large";
+                    var dateTime = data.fechaHora.split("T");
+                    var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                    p.innerHTML = hora;
+                    content.appendChild(h3);
+                    content.appendChild(p);
+                    message.appendChild(content);
+                    item.appendChild(message);
+                    document.getElementById("listaNotificaciones").insertBefore(item, document.getElementById("listaNotificaciones").firstChild);
                 }
             }
         });
@@ -864,6 +950,22 @@
             });
         }
     }
+    function cargarPrivilegios() {
+        $.get("https://www.cerebro-servicelayer.com/api/usuarios/privilegiosUsu?email=" + email + "&muni=" + municipalidad, function (res) {
+            for (var i = 0; i < res.length; i++) {
+                privilegios[privilegios.length] = res[i].Privilegio_nombre;
+            }
+        });
+    }
+
+    function cargarZona() {
+        $.get("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email=" + email + "&muni=" + municipalidad, function (response) {
+            if (response !== undefined) {
+                zonas = response;
+            }
+        });
+    }
+    
     var pusher2 = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
     function chatearAgrupacion() {
         var agrupacion = document.getElementById("listAgrupacionChat").value;
