@@ -253,6 +253,11 @@
     var chartVideo;
     var chartTexto;
     var chartEventos;
+    var map;
+    var draw;
+    var source;
+    var fea;
+    var dispositivosMuniMapa;
     Highcharts.setOptions({ global: { useUTC: false } });
     $(document).ready(function () {
         "use strict";
@@ -304,8 +309,6 @@
                 }
             }
         });
-        var map;
-        var source;
         var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
         source = new ol.source.Vector({ wrapX: false });
         var vector = new ol.layer.Vector({ source: source });
@@ -318,8 +321,65 @@
                 zoom: 10
             })
         });
+
+        var features = new ol.Collection();
+        draw = new ol.interaction.Draw({
+            source: source,
+            features: features,
+            type: "Polygon"
+        });
+
+        var modifyInteraction = new ol.interaction.Modify({ features: features });
+
+        draw.on('drawend', function (evt) {
+            fea = evt.feature;
+            var listDis = [];
+            $.each(dispositivosMuniMapa, function (index, dispo) {
+                var point = new ol.geom.Point([dispo.ubicacion[0], dispo.ubicacion[1]]);
+                var featurePoint = new ol.Feature(point);
+
+                var format = new ol.format.GeoJSON();
+                var geojsonReader = new jsts.io.GeoJSONReader();
+
+                var polygon1Jsts = geojsonReader.read(
+                    format.writeFeatureObject(evt.feature)).geometry;
+                var polygon2Jsts = geojsonReader.read(
+                    format.writeFeatureObject(featurePoint)).geometry;
+
+                if (polygon1Jsts.contains(polygon2Jsts)) {
+                    listDis[listDis.length] = dispo.Id;
+                }
+            });
+            map.removeInteraction(draw);
+            map.addInteraction(modifyInteraction);
+        }, this);
+
+        modifyInteraction.on('modifyend', function (evt) {
+            var listDis = [];
+            $.each(dispositivosMuniMapa, function (index, dispo) {
+                var point = new ol.geom.Point([dispo.ubicacion[0], dispo.ubicacion[1]]);
+                var featurePoint = new ol.Feature(point);
+
+                var format = new ol.format.GeoJSON();
+                var geojsonReader = new jsts.io.GeoJSONReader();
+
+                var polygon1Jsts = geojsonReader.read(
+                    format.writeFeatureObject(fea)).geometry;
+                var polygon2Jsts = geojsonReader.read(
+                    format.writeFeatureObject(featurePoint)).geometry;
+
+                if (polygon1Jsts.contains(polygon2Jsts)) {
+                    listDis[listDis.length] = dispo.Id;
+                }
+            });
+        });
     });
     function mostrarMapSidebar() {
+        source.clear();
+        map.addInteraction(draw);
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muniUsu?muni=" + municipalidad + "&email=" + email, function (res) {
+            dispositivosMuniMapa = res;
+        });
         $('#mapSidebar').sidebar('show');
     }
     function mostrarReporteDatos() {
