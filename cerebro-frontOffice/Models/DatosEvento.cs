@@ -12,7 +12,6 @@ namespace cerebro_frontOffice.Models
     [DataContract]
     public class DatosEvento
     {
-
         [BsonId]
         [DataMember]
         public ObjectId Id { set; get; }
