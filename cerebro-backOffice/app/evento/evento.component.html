@@ -1,143 +1,172 @@
-﻿<div class="ui raised segment w3-padding w3-padding-16 w3-display-container" style="background-color: #FDFDFD">
-    <div class="ui active inverted dimmer" style="display: none" id="message">
-        <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
+﻿<div class="ui stocked raised segments">
+    <div class="ui active page dimmer" style="display: none" id="dimmer">
+        <div class="ui text loader inverted" style="display: none" id="loading">Por favor espere...</div>
         <div class="w3-display-middle" id="success" style="display: none">
-            <h3 class="ui text header">El Evento ha sido creado correctamente!</h3>
-            <button class="circular inverted green ui icon button big"><i class="icon checkmark"></i></button>
+            <h2 class="ui text header inverted">Evento creado correctamente!</h2>
+            <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
+        </div>
+        <div class="w3-display-middle" id="dispositivoModificado" style="display: none">
+            <h2 class="ui text header inverted">Evento modificado correctamente!</h2>
+            <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
+        </div>
+        <div class="w3-display-middle" id="dispositivoEliminado" style="display: none">
+            <h2 class="ui text header inverted">Evento eliminado correctamente!</h2>
+            <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
         </div>
         <div class="w3-display-middle" id="error" style="display: none">
-            <h3 class="ui text header">Ha ocurrido un error, por favor vuelve a intentar...</h3>
-            <button class="circular inverted red ui icon button big"><i class="icon warning"></i></button>
+            <h2 class="ui text header inverted">Ha ocurrido un error, por favor vuelve a intentar...</h2>
+            <button class="circular inverted red ui icon button big" (click)="ocultarMensajes()"><i class="icon warning"></i></button>
         </div>
-        <div class="w3-display-middle" id="confirmation" style="display: none">
-            <i class="ui big circular orange warning icon"></i>
-            <h3>Se eliminar&aacute; el Evento...<br>&iquest;Continuar?</h3>
-            <div class="ui buttons w3-margin-top">
-                <button class="ui button">Cancelar</button>
-                <div class="or" data-text="o"></div>
-                <button class="ui negative button">Eliminar</button>
-            </div>
+        <div class="w3-display-middle" id="warning" style="display: none">
+            <h2 class="ui text header inverted">Se eliminar&aacute; el evento seleccionado...</h2>
+            <h2 class="ui horizontal divider text header inverted w3-padding w3-margin-bottom">&iquest;Continuar?</h2>
+            <button class="ui inverted button w3-center" (click)="ocultarMensajes()">Cancelar</button>
+            <button class="ui inverted red button w3-center" (click)="borrarEve()">Eliminar</button>
         </div>
     </div>
-    <img src="../../Content/cerebro-logo.png" style="height: 40px; margin-top: -20px" class="w3-display-topmiddle">
-    <h4 class="ui horizontal divider header w3-text-cerebro-blue">Eventos</h4>
-    <div class="ui secondary center pointing aligned menu">
-        <a onclick="changeTab(event, 'nuevo')" class="item tabButtons active w3-text-cerebro-red">Nuevo</a>
-        <a onclick="changeTab(event, 'modificar')" (click)="cargarEventos()" class="item tabButtons">Modificar</a>
+    <div class="ui segment secondary" style="background-color: #FDFDFD; height: 65px">
+        <h4 class="ui horizontal divider header w3-padding-16 w3-text-cerebro-red">Eventos</h4>
+        <img src="../../Content/cerebro-logo.png" style="height: 37px; margin-top: -20px" class="w3-display-topmiddle">
     </div>
-    <div id="nuevo" class="tab w3-container">
-        <div class="container w3-padding-24">
-            <div class="ui three top attached steps">
-                <div class="active link step" id="s1" (click)="mostrarStep1()">
-                    <i class="info icon w3-text-cerebro-red"></i>
-                    <div class="content">
-                        <div class="title">Informaci&oacute;n B&aacute;sica</div>
-                        <div class="description">Para poder crear el evento</div>
-                    </div>
-                </div>
-                <div class="link step" id="s2" (click)="mostrarStep2()">
-                    <i class="settings w3-text-cerebro-red icon"></i>
-                    <div class="content">
-                        <div class="title">Dispositivos asociados</div>
-                        <div class="description">que disparar&aacute;n el evento</div>
-                    </div>
-                </div>
-                <div class="link step" id="s3" (click)="mostrarStep3()">
-                    <i class="lightning icon w3-text-cerebro-red"></i>
-                    <div class="content">
-                        <div class="title">Acciones a realizar</div>
-                        <div class="description">cuando se registre el evento</div>
-                    </div>
+    <div class="ui segment secondary" style="padding: 0px">
+        <div class="ui secondary center pointing aligned menu">
+            <a onclick="changeTab(event, 'nuevo')" class="item tabButtons active w3-text-cerebro-red">Nuevo</a>
+            <a onclick="changeTab(event, 'modificar')" (click)="cargarEventos()" class="item tabButtons">Modificar</a>
+        </div>
+    </div>
+    <div class="ui raised segment w3-padding w3-padding-16 w3-display-container">
+        <div class="ui active inverted dimmer" style="display: none" id="message">
+            <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
+            <div class="w3-display-middle" id="success" style="display: none">
+                <h3 class="ui text header">El Evento ha sido creado correctamente!</h3>
+                <button class="circular inverted green ui icon button big"><i class="icon checkmark"></i></button>
+            </div>
+            <div class="w3-display-middle" id="error" style="display: none">
+                <h3 class="ui text header">Ha ocurrido un error, por favor vuelve a intentar...</h3>
+                <button class="circular inverted red ui icon button big"><i class="icon warning"></i></button>
+            </div>
+            <div class="w3-display-middle" id="confirmation" style="display: none">
+                <i class="ui big circular orange warning icon"></i>
+                <h3>Se eliminar&aacute; el Evento...<br>&iquest;Continuar?</h3>
+                <div class="ui buttons w3-margin-top">
+                    <button class="ui button">Cancelar</button>
+                    <div class="or" data-text="o"></div>
+                    <button class="ui negative button">Eliminar</button>
                 </div>
             </div>
-            <div class="ui attached grey secondary segment w3-topbar">
-                <div id="step1" class="w3-padding">
-                    <div class="ui labeled fluid input">
-                        <div class="ui label w3-text-cerebro-red">Nombre:</div>
-                        <input name="nombre" id="nombre" [(ngModel)]="nombre" placeholder="Ingrese el nombre del Evento..." type="text">
-                    </div>
-                </div>
-                <div id="step2" style="display: none;">
-                    <div class="ui secondary menu">
-                        <div class="right menu">
-                            <button class="circular positive ui icon button" (click)="addDisEvento()"><i class="icon add"></i></button>
+        </div>
+        <div id="nuevo" class="tab w3-container">
+            <div class="container w3-padding-24">
+                <div class="ui three top attached steps">
+                    <div class="active link step" id="s1" (click)="mostrarStep1()">
+                        <i class="info icon w3-text-cerebro-red"></i>
+                        <div class="content">
+                            <div class="title">Informaci&oacute;n B&aacute;sica</div>
+                            <div class="description">Para poder crear el evento</div>
                         </div>
                     </div>
-                    <div id="dispositivosDiv">
-
-                    </div>
-                </div>
-                <div id="step3" style="display: none">
-                    <h5 class="ui horizontal divider header w3-padding">Seleccione acciones pre definidas</h5>
-                    <select id="acciones" class="ui fluid dropdown w3-padding" [(ngModel)]="accionSelect">
-                        <option value="">Seleccione alguna de las acciones pre definidas</option>
-                        <option *ngFor="let a of acciones" value="{{a.Id}}"> {{a.nombre}} </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <button class="ui button w3-margin-top w3-cerebro-blue w3-right" (click)="addEvento()">Guardar</button>
-        </div>
-    </div>
-    <div id="modificar" class="tab w3-container" style="display:none">
-        <select [(ngModel)]="eventoSelect" id="eventoMod" class="ui fluid search dropdown w3-margin-top" (change)="onChange($event.target.value)">
-            <option value="" selected disabled>Seleccione un Evento para ver y modificar...</option>
-            <option *ngFor="let e of eventosMod" value="{{e.Id}}"> {{e.nombre}} </option>
-        </select>
-        <div class="container w3-padding w3-padding-24">
-            <div class="ui three top attached steps">
-                <div class="active link step" id="sm1" (click)="mostrarStep1()">
-                    <i class="info icon w3-text-cerebro-red"></i>
-                    <div class="content">
-                        <div class="title">Informaci&oacute;n B&aacute;sica</div>
-                        <div class="description">Para poder crear el evento</div>
-                    </div>
-                </div>
-                <div class="link step" id="sm2" (click)="mostrarStep2()">
-                    <i class="settings w3-text-cerebro-red icon"></i>
-                    <div class="content">
-                        <div class="title">Dispositivos asociados</div>
-                        <div class="description">que disparar&aacute;n el evento</div>
-                    </div>
-                </div>
-                <div class="link step" id="sm3" (click)="mostrarStep3()">
-                    <i class="lightning icon w3-text-cerebro-red"></i>
-                    <div class="content">
-                        <div class="title">Acciones a realizar</div>
-                        <div class="description">cuando se registre el evento</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui attached grey secondary segment w3-topbar">
-                <div id="stepMod1" class="w3-padding">
-                    <div class="ui labeled fluid input">
-                        <div class="ui label w3-text-cerebro-red">Nombre:</div>
-                        <input name="nombre" id="nombreMod" [(ngModel)]="nombreMod" placeholder="Ingrese el nombre del Evento..." type="text">
-                    </div>
-                </div>
-                <div id="stepMod2" style="display: none;">
-                    <div class="ui secondary menu">
-                        <div class="right menu">
-                            <button class="circular positive ui icon button" (click)="addDisEventoMod()"><i class="icon add"></i></button>
+                    <div class="link step" id="s2" (click)="mostrarStep2()">
+                        <i class="settings w3-text-cerebro-red icon"></i>
+                        <div class="content">
+                            <div class="title">Dispositivos asociados</div>
+                            <div class="description">que disparar&aacute;n el evento</div>
                         </div>
                     </div>
-                    <div id="dispositivosDivMod">
-
+                    <div class="link step" id="s3" (click)="mostrarStep3()">
+                        <i class="lightning icon w3-text-cerebro-red"></i>
+                        <div class="content">
+                            <div class="title">Acciones a realizar</div>
+                            <div class="description">cuando se registre el evento</div>
+                        </div>
                     </div>
                 </div>
-                <div id="stepMod3" style="display: none">
-                    <h5 class="ui horizontal divider header w3-padding">Seleccione acciones pre definidas</h5>
-                    <select id="accionesMod" class="ui fluid dropdown w3-padding" [(ngModel)]="accionSelectMod">
-                        <option value="">Seleccione alguna de las acciones pre definidas</option>
-                        <option *ngFor="let a of acciones" value="{{a.Id}}"> {{a.nombre}} </option>
-                    </select>
+                <div class="ui attached grey secondary segment w3-topbar">
+                    <div id="step1" class="w3-padding">
+                        <div class="ui labeled fluid input">
+                            <div class="ui label w3-text-cerebro-red">Nombre:</div>
+                            <input name="nombre" id="nombre" [(ngModel)]="nombre" placeholder="Ingrese el nombre del Evento..." type="text">
+                        </div>
+                    </div>
+                    <div id="step2" style="display: none;">
+                        <div class="ui secondary menu">
+                            <div class="right menu">
+                                <button class="circular positive ui icon button" (click)="addDisEvento()"><i class="icon add"></i></button>
+                            </div>
+                        </div>
+                        <div id="dispositivosDiv">
+
+                        </div>
+                    </div>
+                    <div id="step3" style="display: none">
+                        <h5 class="ui horizontal divider header w3-padding">Seleccione acciones pre definidas</h5>
+                        <select id="acciones" class="ui fluid dropdown w3-padding" [(ngModel)]="accionSelect">
+                            <option value="">Seleccione alguna de las acciones pre definidas</option>
+                            <option *ngFor="let a of acciones" value="{{a.Id}}"> {{a.nombre}} </option>
+                        </select>
+                    </div>
                 </div>
+                <div class="ui divider"></div>
+                <button class="ui button green w3-right" (click)="addEvento()">Guardar</button>
             </div>
         </div>
-        <div class="row">
-            <button class="ui button w3-margin-top w3-cerebro-blue w3-right" (click)="modificarEve()">Guardar</button>
-            <button class="ui button w3-margin-top w3-cerebro-red w3-right secondary w3-margin-right" (click)="borrarEve()">Eliminar</button>
+        <div id="modificar" class="tab w3-container" style="display:none">
+            <select [(ngModel)]="eventoSelect" id="eventoMod" class="ui fluid search dropdown w3-margin-top" (change)="onChange($event.target.value)">
+                <option value="" selected disabled>Seleccione un Evento para ver y modificar...</option>
+                <option *ngFor="let e of eventosMod" value="{{e.Id}}"> {{e.nombre}} </option>
+            </select>
+            <div class="container w3-padding-24">
+                <div class="ui three top attached steps">
+                    <div class="active link step" id="sm1" (click)="mostrarStep1()">
+                        <i class="info icon w3-text-cerebro-red"></i>
+                        <div class="content">
+                            <div class="title">Informaci&oacute;n B&aacute;sica</div>
+                            <div class="description">Para poder crear el evento</div>
+                        </div>
+                    </div>
+                    <div class="link step" id="sm2" (click)="mostrarStep2()">
+                        <i class="settings w3-text-cerebro-red icon"></i>
+                        <div class="content">
+                            <div class="title">Dispositivos asociados</div>
+                            <div class="description">que disparar&aacute;n el evento</div>
+                        </div>
+                    </div>
+                    <div class="link step" id="sm3" (click)="mostrarStep3()">
+                        <i class="lightning icon w3-text-cerebro-red"></i>
+                        <div class="content">
+                            <div class="title">Acciones a realizar</div>
+                            <div class="description">cuando se registre el evento</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui attached grey secondary segment w3-topbar">
+                    <div id="stepMod1" class="w3-padding">
+                        <div class="ui labeled fluid input">
+                            <div class="ui label w3-text-cerebro-red">Nombre:</div>
+                            <input name="nombre" id="nombreMod" [(ngModel)]="nombreMod" placeholder="Ingrese el nombre del Evento..." type="text">
+                        </div>
+                    </div>
+                    <div id="stepMod2" style="display: none;">
+                        <div class="ui secondary menu">
+                            <div class="right menu">
+                                <button class="circular positive ui icon button" (click)="addDisEventoMod()"><i class="icon add"></i></button>
+                            </div>
+                        </div>
+                        <div id="dispositivosDivMod">
+
+                        </div>
+                    </div>
+                    <div id="stepMod3" style="display: none">
+                        <h5 class="ui horizontal divider header w3-padding">Seleccione acciones pre definidas</h5>
+                        <select id="accionesMod" class="ui fluid dropdown w3-padding" [(ngModel)]="accionSelectMod">
+                            <option value="">Seleccione alguna de las acciones pre definidas</option>
+                            <option *ngFor="let a of acciones" value="{{a.Id}}"> {{a.nombre}} </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ui divider"></div>
+                <button class="ui button green w3-right" (click)="modificarEve()">Guardar</button>
+                <button class="ui button inverted red w3-right w3-margin-right" (click)="mostrarMensajeWarning()">Eliminar</button>
+            </div>
         </div>
     </div>
 </div>
