@@ -27,7 +27,21 @@ namespace cerebro_DataAccessLayer
                 usu.enabled = true;
                 UsuariosDbContext context = new UsuariosDbContext();
                 context.Usuarios.Add(usu);
-                return context.SaveChanges() > 0;
+                if (context.SaveChanges() > 0) {
+                    if (usu.GetType() == typeof(Visitante))
+                    {
+                        setPrivilegioUsuario(usu.email, usu.nombre_municipalidad, "Visitante");
+                    }
+                    else if (usu.GetType() == typeof(Operador))
+                    {
+                        setPrivilegioUsuario(usu.email, usu.nombre_municipalidad, "Operador");
+                    }
+                    else if (usu.GetType() == typeof(Administrador))
+                    {
+                        setPrivilegioUsuario(usu.email, usu.nombre_municipalidad, "Admin");
+                    }
+                }
+                return true;
             }
             return false;
         }

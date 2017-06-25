@@ -26,6 +26,10 @@ namespace cerebro_DataAccessLayer
                 MunicipalidadesDbContext context = new MunicipalidadesDbContext();
                 context.Municipalidades.Add(muni);
                 context.SaveChanges();
+                DALUsuario dal = new DALUsuario();
+                dal.agregarPrivilegio("Visitante",muni.nombre);
+                dal.agregarPrivilegio("Operador", muni.nombre);
+                dal.agregarPrivilegio("Admin", muni.nombre);
                 return true;
             }
             return false;
