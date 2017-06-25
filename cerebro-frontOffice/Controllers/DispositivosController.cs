@@ -137,6 +137,7 @@ namespace cerebro_frontOffice.Controllers
                     DtEvento DtEve = new DtEvento();
                     DtEve.nombre = eveNom;
 
+                    DtEve.Id = eve[j];
                     DtEve.geom = arrayGeom;
                     DtEve.privilegios = priv;
                     DtEve.dispositivos = disp;
