@@ -228,6 +228,13 @@ namespace cerebro_ServiceLayer.Controllers
             return new BLUsuario().setPrivilegioUsuario(email, muni, privilegio);
         }
 
+        [HttpPost]
+        [Route("privilegio/crear")]
+        public bool agregarPrivilegio(string privilegio, string municipalidad)
+        {
+            return new BLUsuario().agregarPrivilegio(privilegio, municipalidad);
+        }
+
         [HttpDelete]
         [Route("privilegio")]
         public bool deletePrivilegioUsuario(string email, string muni, string privilegio)
@@ -259,9 +266,10 @@ namespace cerebro_ServiceLayer.Controllers
             string[] tmp = ubicacion.Split(',');
             double[][] arrayMaestro = new double[tmp.Length / 2][];
             int j = 0;
-            for (int i = 0; i < (tmp.Length / 2); i++) {
+            for (int i = 0; i < (tmp.Length / 2); i++)
+            {
                 string[] tmp2 = tmp[j].Split('.');
-                string[] tmp3 = tmp[j+1].Split('.');
+                string[] tmp3 = tmp[j + 1].Split('.');
                 double[] doubleArray = new double[2];
                 doubleArray[0] = Double.Parse(tmp2[0].Trim() + "," + tmp2[1].Trim());
                 doubleArray[1] = Double.Parse(tmp3[0].Trim() + "," + tmp3[1].Trim());
@@ -275,7 +283,8 @@ namespace cerebro_ServiceLayer.Controllers
 
         [HttpGet]
         [Route("zonas")]
-        public List<Zonas> getZonas(string email, string muni) {
+        public List<Zonas> getZonas(string email, string muni)
+        {
             return new BLUsuario().getZonas(email, muni);
         }
     }

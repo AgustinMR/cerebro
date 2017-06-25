@@ -25,6 +25,8 @@ export class InicioComponent implements OnInit {
     inicio = false;
     accion = false;
     registrarMunicipalidad = false;
+    dominio = false;
+    municipalidades: any;
 
     source: any;
     map: any;
@@ -68,6 +70,9 @@ export class InicioComponent implements OnInit {
     showCrearMunicipalidad() {
         this.registrarMunicipalidad = true;
         this.login = false;
+        this.dominio = false;
+        setTimeout(() => this.mapa(), 2000);
+        this.mapa();
     }
 
     showUsuario() {
@@ -86,11 +91,31 @@ export class InicioComponent implements OnInit {
         this.accion = true;
     }
 
+    mostrarDimmerMunicipalidad() {
+        document.getElementById('dimmerM').style.display = "block";
+        document.getElementById('exitoM').style.display = "block";
+        document.getElementById('errorL').style.display = "none";
+    }
+    ocultarDimmerMunicipalidad() {
+        document.getElementById('dimmerM').style.display = "none";
+        document.getElementById('exitoM').style.display = "none";
+        document.getElementById('errorL').style.display = "none";
+    }
+    mostrarDimmerLogin() {
+        document.getElementById('dimmerM').style.display = "block";
+        document.getElementById('exitoM').style.display = "none";
+        document.getElementById('errorL').style.display = "block";
+    }
+    ocultarDimmerLogin() {
+        document.getElementById('dimmerM').style.display = "none";
+        document.getElementById('exitoM').style.display = "none";
+        document.getElementById('errorL').style.display = "none";
+    }
+
     constructor(private http: Http, private loginService: LoginService) { }
 
     ngOnInit() {
         $(document).ready(function () {
-            $('.ui.sidebar').sidebar('attach events', '.toc.item');
             $('.ui.dropdown').dropdown();
         });
 
@@ -98,6 +123,28 @@ export class InicioComponent implements OnInit {
         this.nombre_municipalidad = muniL[0].toUpperCase();
         for (var h = 1; h < muniL.length; h++) {
             this.nombre_municipalidad += muniL[h];
+        }
+
+        if (this.nombre_municipalidad === "Cerebro-backoffice" || this.nombre_municipalidad === "" || this.nombre_municipalidad === undefined) {
+            this.loginService.getMunicipalidades().subscribe(
+                (data: Response) => {
+                    this.municipalidades = data;
+                    //for (var m of JSON.parse(JSON.stringify())) {
+                    //    var h3 = document.createElement("h3");
+                    //    h3.className = "ui header text item link w3-text-silver w3-hover-text-cerebro-red w3-padding-16";
+                    //    h3.innerHTML = m.nombre;
+                    //    h3.addEventListener("click", function () {
+                    //        window.location.href = "https://www." + m.nombre + ".cerebro-backOffce.com";
+                    //    });
+                    //    document.getElementById("listMunicipalidades").appendChild(h3);
+                    //}
+                },
+                responseError => console.log(responseError),
+                () => console.log("Municipalidades cargadas")
+            );
+            this.dominio = true;
+            this.login = false;
+            this.inicio = false;
         }
 
         var features = new ol.Collection();
@@ -113,7 +160,6 @@ export class InicioComponent implements OnInit {
             var feature = new ol.Feature(polygon);
             var vectorSource = new ol.source.Vector();
             vectorSource.addFeature(feature);
-
             var vectorLayer = new ol.layer.Vector({
                 source: vectorSource
             });
@@ -127,9 +173,11 @@ export class InicioComponent implements OnInit {
         this.loginService.loginAdmin(this.email, this.nombre_municipalidad, this.pass).subscribe(
             (data: Response) => {
                 this.autenticado = data;
-                if (this.autenticado == true) {
+                if (this.autenticado === true) {
                     this.login = false;
                     this.inicio = true;
+                } else {
+                    this.mostrarDimmerLogin();
                 }
             },
             responseError => console.log("Error: " + responseError),
@@ -142,7 +190,11 @@ export class InicioComponent implements OnInit {
             this.loginService.addMuni(this.nomMuni, this.geom).subscribe(
                 (data: Response) => {
                     this.loginService.addAdmin(this.nomMuni, this.emailAdmin, this.nomAdmin, this.passAdmin).subscribe(
-                        (data: Response) => { },
+                        (data: Response) => {
+                            this.mostrarDimmerMunicipalidad();
+                            this.registrarMunicipalidad = false;
+                            this.login = true;
+                        },
                         responseError => console.log("Error: " + responseError),
                         () => console.log("Usuario creado")
                     );
@@ -151,8 +203,7 @@ export class InicioComponent implements OnInit {
                 () => console.log("Municipalidad creada")
             );
         }
-        this.registrarMunicipalidad = false;
-        this.login = true;
+
     }
 
     mapa() {

@@ -86,5 +86,10 @@ namespace cerebro_BusinessLogicLayer
         {
             return dal.getZonas(email, muni);
         }
+
+        public bool agregarPrivilegio(string privilegio, string municipalidad)
+        {
+            return dal.agregarPrivilegio(privilegio, municipalidad);
+        }
     }
 }

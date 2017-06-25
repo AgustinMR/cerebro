@@ -92,7 +92,10 @@ export class EventoComponent implements OnInit {
         var num = document.getElementById("dispositivosDiv").getElementsByTagName('SELECT').length;
         if (this.nombre != "" && this.accionSelect != "" && num > 0) {
             this.eventos.addEvento(this.nombre, this.nombre_municipalidad, this.accionSelect).subscribe(
-                (data: Response) => this.eventoAgregado = data,
+                (data: Response) => {
+                    this.eventoAgregado = data;
+                    this.mostrarMensajeExito();
+                },
                 responseError => console.log(responseError),
                 () => {
                     for (var i = 0; i < num; i++) {
@@ -143,8 +146,12 @@ export class EventoComponent implements OnInit {
                 this.nombreMod = "";
                 document.getElementById("dispositivosDivMod").innerHTML = "";
                 this.cargarEventos();
+                this.mostrarMensajeEventoEliminado();
             },
-            responseError => console.log(responseError),
+            responseError => {
+                console.log(responseError);
+                this.mostrarMensajeError();
+            },
             () => console.log("Evento borrado")
         );
     }
@@ -154,8 +161,12 @@ export class EventoComponent implements OnInit {
         this.eventos.updateEvento(this.eventoSelect, this.nombreMod, this.accionSelectMod).subscribe(
             (data: Response) => {
                 this.cargarEventos();
+                this.mostrarMensajeEventoModificado();
             },
-            responseError => console.log(responseError),
+            responseError => {
+                console.log(responseError);
+                this.mostrarMensajeError();
+            },
             () => {
                 var umbralesTmp = this.umbralesMod;
                 for (var i = 0; i < num; i++) {
@@ -369,5 +380,75 @@ export class EventoComponent implements OnInit {
         document.getElementById("sm1").className = "link step";
         document.getElementById("sm2").className = "link step";
         document.getElementById("sm3").className = "active step";
+    }
+
+    mostrarMensajeExito() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "block";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+    }
+
+    mostrarMensajeError() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "block";
+        document.getElementById("warning").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+    }
+
+    mostrarMensajeLoading() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "block";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+    }
+
+    mostrarMensajeWarning() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "block";
+    }
+
+    mostrarMensajeEventoModificado() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "block";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+    }
+
+    mostrarMensajeEventoEliminado() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "block";
+        document.getElementById("warning").style.display = "none";
+    }
+
+    ocultarMensajes() {
+        document.getElementById("dimmer").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
     }
 }

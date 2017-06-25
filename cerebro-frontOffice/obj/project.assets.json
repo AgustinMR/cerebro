@@ -6224,7 +6224,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
+      "sha512": "SvSFOt/fOvTmeiUCfhttvwA919BJLVlGWOcnjzRGg50saft+A9xM5yqer1gaCCm8tUoJmCthNQWQaOnmYQij5w==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [
@@ -7039,7 +7039,7 @@
       ]
     },
     "System.Data.Common/4.3.0": {
-      "sha512": "AjAjbXNxYP1SRYpJ2Q6VCrndAJ6qnpnj2XaasQZNUh0JE6w/V84uxF2U/UaMHs427UBjKN7Ry8VsSqJmexkX7Q==",
+      "sha512": "qZfW8UxVBxBA04CXKNhSHvxAVS3XZzm6xy9iNk4F+mclajzwbfKhAJZLjq/O5NvU5wjvz7nLr2jYHlI4pq8XZw==",
       "type": "package",
       "path": "system.data.common/4.3.0",
       "files": [
@@ -7809,7 +7809,7 @@
       ]
     },
     "System.Interactive.Async/3.0.0": {
-      "sha512": "iyrgkZz9Dzm0fiPouQszFC3SO/46k6AYd/jG9bu+/o0AoDMaRXtlo3TIuWVNtOuJFd1noL963QouroJ0T3rImw==",
+      "sha512": "RSK16FvaefH5+gUjI+CFawAO2wt8rvB8kWwb6+u2mLVuxMUEbTtk2J79nJh9wWXL1D3T1MEldmwyFRSx/Zi3JQ==",
       "type": "package",
       "path": "system.interactive.async/3.0.0",
       "files": [
@@ -11444,15 +11444,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\bruno\\.nuget\\packages\\": {}
+    "C:\\Users\\Agustin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
+      "projectUniqueName": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
       "projectName": "cerebro-frontOffice",
-      "projectPath": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
-      "outputPath": "C:\\GitHub\\cerebro\\cerebro-frontOffice\\obj\\",
+      "projectPath": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\cerebro-frontOffice.csproj",
+      "outputPath": "C:\\Users\\Agustin\\Documents\\Proyectos\\cerebro\\cerebro-frontOffice\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"

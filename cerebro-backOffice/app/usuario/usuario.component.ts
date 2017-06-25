@@ -21,6 +21,8 @@ export class UsuarioComponent implements OnInit {
     estadoActual = "";
     privilegios: any;
     privilegiosUsuario: any;
+    privilegioNuevo: any;
+    privilegioCreado: any;
 
     constructor(private usuarios: UsuarioService) {
     }
@@ -40,6 +42,23 @@ export class UsuarioComponent implements OnInit {
 
         this.cargarUsuarios();
         this.cargarPrivilegios();
+    }
+
+    guardarPrivilegio() {
+        this.mostrarMensajeLoading();
+        this.usuarios.crearPrivilegio(this.privilegioNuevo, this.nombre_municipalidad).subscribe(
+            (data: Response) => {
+                this.privilegioCreado = data;
+                if (this.privilegioCreado == true) {
+                    this.privilegioNuevo = "";
+                    this.mostrarMensajeExitoPrivilegio();
+                } else {
+                    this.mostrarMensajeError();
+                }
+            },
+            responseError => console.log(responseError),
+            () => { }
+        );
     }
 
     getUsuario(email: string) {
@@ -89,6 +108,7 @@ export class UsuarioComponent implements OnInit {
     }
 
     guardar() {
+        this.mostrarMensajeLoading();
         var b = false;
         if ($('#estadoActual').is(':checked')) {
             b = true;
@@ -123,6 +143,47 @@ export class UsuarioComponent implements OnInit {
                 () => { }
             );
         }
+        this.mostrarMensajeExito();
+    }
+
+    mostrarMensajeExito() {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("exito").style.display = "block";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("exitoPrivilegio").style.display = "none";
+    }
+
+    mostrarMensajeError() {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "block";
+        document.getElementById("exitoPrivilegio").style.display = "none";
+    }
+
+    mostrarMensajeLoading() {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "block";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("exitoPrivilegio").style.display = "none";
+    }
+
+    mostrarMensajeExitoPrivilegio() {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("exitoPrivilegio").style.display = "block";
+    }
+
+    ocultarMensajes() {
+        document.getElementById("message").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("exito").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("exitoPrivilegio").style.display = "none";
     }
 
 }

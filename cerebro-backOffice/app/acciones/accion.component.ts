@@ -63,7 +63,7 @@ export class AccionComponent implements OnInit {
                 (<HTMLInputElement>document.getElementById("nombre")).value = "";
                 forms[0][0].value = "";
                 _this.getAcciones();
-                //alert("done");
+                _this.mostrarMensajeExito();
             });
         } else {
             console.log("error");
@@ -113,6 +113,7 @@ export class AccionComponent implements OnInit {
                 (<HTMLInputElement>document.getElementById("nombreMod")).value = "";
                 forms[0][0].value = "";
                 _this.getAcciones();
+                _this.mostrarMensajeAccionEliminada();
             });
         }
     }
@@ -143,6 +144,7 @@ export class AccionComponent implements OnInit {
                     (<HTMLInputElement>document.getElementById("nombreMod")).value = "";
                     forms[0][0].value = "";
                     _this.getAcciones();
+                    _this.mostrarMensajeAccionModificada();
                 });
                 this.getAcciones();
             } else {
@@ -172,5 +174,75 @@ export class AccionComponent implements OnInit {
                 this.getAcciones();
             }
         }
+    }
+
+    mostrarMensajeExito() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "block";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+    }
+
+    mostrarMensajeError() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "block";
+        document.getElementById("warning").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+    }
+
+    mostrarMensajeLoading() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "block";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+    }
+
+    mostrarMensajeWarning() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "block";
+    }
+
+    mostrarMensajeAccionModificada() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "block";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
+    }
+
+    mostrarMensajeAccionEliminada() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "block";
+        document.getElementById("warning").style.display = "none";
+    }
+
+    ocultarMensajes() {
+        document.getElementById("dimmer").style.display = "none";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
+        document.getElementById("warning").style.display = "none";
     }
 }
