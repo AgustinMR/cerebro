@@ -28,6 +28,12 @@ namespace cerebro_ServiceLayer.Controllers
             return Ok("Ok");
         }
 
+        [HttpPost]
+        [Route("nuevo")]
+        public void agregarMensaje(ChatMensaje m) {
+            new MongoClient().GetDatabase("cerebroDB").GetCollection<ChatMensaje>("Chats").InsertOne(m);
+        }
+
         [HttpGet]
         [Route("")]
         public async Task<List<ChatMensaje>> getMensajes(string agrupacion)

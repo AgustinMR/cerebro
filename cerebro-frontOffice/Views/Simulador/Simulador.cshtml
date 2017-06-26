@@ -163,7 +163,7 @@
         while (document.getElementById("chat").hasChildNodes()) {
             document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
         }
-        $.get("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + municipalidad + "-" + agrupacion, function (response) {
+        $.get("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + muni + "-" + agrupacion, function (response) {
             if (response !== undefined) {
                 $.each(response, function (index, mensaje) {
                     var fecha = mensaje.datetime.toString().split('T', 2);
@@ -187,6 +187,7 @@
             var fecha2 = fecha[1].split(".", 2);
             if (x.email !== email) {
                 crearMensajeReceptor(x.autor, fecha2[0], x.mensaje);
+                $.post("https://www.cerebro-serviceLayer.com/api/chats/nuevo?agrupacion=" + x.agrupacion + "&autor=" + x.autor + "&mensaje=" + x.mensaje + "&email=" + x.email, function () { });
             } else {
                 crearMensajeEmisor(fecha2[0], x.mensaje);
             }
