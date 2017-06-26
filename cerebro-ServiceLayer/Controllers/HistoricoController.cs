@@ -34,6 +34,19 @@ namespace cerebro_ServiceLayer.Controllers
         }
 
         [HttpGet]
+        [Route("datos/zona")]
+        public async Task<List<DatosDispositivo>> getDatosDispositivosByZona(string dispositivo, int pagina, string desde, string hasta) {
+            var bd = new MongoClient().GetDatabase("cerebroDB");
+            var datos = bd.GetCollection<DatosDispositivo>("DatosDispositivo");
+            int skip = ((pagina * 20) - 20);
+            var builder = Builders<DatosDispositivo>.Filter;
+            var filter = builder.Eq("dispositivoId", ObjectId.Parse(dispositivo));
+            if (desde != null && desde != "") filter = filter & builder.Gte("datetime", DateTime.Parse(desde));
+            if (hasta != null && hasta != "") filter = filter & builder.Lte("datetime", DateTime.Parse(hasta).AddDays(1));
+            return await datos.Find(filter).Skip(skip).Limit(20).Sort(Builders<DatosDispositivo>.Sort.Descending("datetime")).ToListAsync();
+        }
+
+        [HttpGet]
         [Route("datos/total")]
         public async Task<long> getTotalDatosByTipo(string dispositivo, string desde, string hasta) {
             var bd = new MongoClient().GetDatabase("cerebroDB");
@@ -43,6 +56,24 @@ namespace cerebro_ServiceLayer.Controllers
             if (desde != null && desde != "") filter = filter & builder.Gte("datetime", DateTime.Parse(desde));
             if (hasta != null && hasta != "") filter = filter & builder.Lte("datetime", DateTime.Parse(hasta).AddDays(1));
             return await datos.Find(filter).CountAsync();
+        }
+
+        [HttpGet]
+        [Route("datos/totalConNombre")]
+        public Object[] getTotalDatosByTipoConNombre(string dispositivo, string desde, string hasta)
+        {
+            var bd = new MongoClient().GetDatabase("cerebroDB");
+            var datos = bd.GetCollection<DatosDispositivo>("DatosDispositivo");
+            var builder = Builders<DatosDispositivo>.Filter;
+            var filter = builder.Eq("dispositivoId", dispositivo);
+            if (desde != null && desde != "") filter = filter & builder.Gte("datetime", DateTime.Parse(desde));
+            if (hasta != null && hasta != "") filter = filter & builder.Lte("datetime", DateTime.Parse(hasta).AddDays(1));
+            long cant = datos.Find(filter).Count();
+            var disp = datos.Find(filter).FirstOrDefault();
+            if (disp != null) {
+                return new Object[] { disp.nombre, cant };
+            }
+            return null;
         }
 
         [HttpGet]
