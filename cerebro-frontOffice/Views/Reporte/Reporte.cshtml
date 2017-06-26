@@ -104,12 +104,14 @@
                                 <a href="javascript:void(0)" class="item w3-hover-text-cerebro-red" onclick="changeTipoGrafica('Video')">Video</a>
                             </div>
                         </div>
+                        <button class="ui icon basic button" id="mapButton" onclick="mostrarMapSidebar()" style="margin-top: -7px" data-tooltip="Filtrar por Ubicaci&oacute;n"><i class="ui marker icon w3-text-cerebro-red"></i></button>
                         <button class="circular basic ui icon button compact small w3-right" style="margin-top: -7px; margin-right: -5px" onclick="toggleSizeFirst()"><i class="chevron down icon w3-text-cerebro-red"></i></button>
                     </div>
-                    <div class="ui segment grey" style="height: 230px" id="graf1"></div>
+                    <div class="ui segment grey" style="height: 230px; display: block" id="graf1"></div>
                     <div class="ui segment grey" style="height: 230px; display: none" id="graf2"></div>
                     <div class="ui segment grey" style="height: 230px; display: none" id="graf3"></div>
                     <div class="ui segment grey" style="height: 230px; display: none" id="graf4"></div>
+                    <div class="ui segment grey" style="height: 230px; display: none" id="graf6"></div>
                 </div>
                 <div class="ui segments">
                     <div class="ui segment" style="height: 45px">
@@ -193,7 +195,6 @@
                                 <a class="item" style="display: none">s</a>
                             </div>
                         </div>
-                        <button class="ui icon button w3-text-cerebro-red w3-right" id="mapButton" style="margin-top:-5px" onclick="mostrarMapSidebar()" data-tooltip="Filtrar por Ubicaci&oacute;n"><i class="ui marker icon"></i></button>
                     </div>
                     <div class="ui grey segment" style="padding: 0px" id="tabla1">
                         <table class="ui celled striped table" style="width: 100%">
@@ -250,6 +251,7 @@
     var chartVideo;
     var chartTexto;
     var chartEventos;
+    var chartZona;
     var zonas;
     var privilegios = [];
     var map;
@@ -307,9 +309,28 @@
                     serie.data[0].update(y);
                 }
             }
+            var tr = document.createElement("tr");
+            var td1 = document.createElement("td");
+            td1.innerHTML = dato.nombre;
+            tr.appendChild(td1);
+            var td2 = document.createElement("td");
+            td2.innerHTML = dato.tipoDeDato;
+            tr.appendChild(td2);
+            var datetime = dato.datetime;
+            var fecha = datetime.slice(0, datetime.indexOf("T"));
+            var td3 = document.createElement("td");
+            td3.innerHTML = datetime.slice(0, datetime.indexOf("T"));
+            tr.appendChild(td3);
+            var td4 = document.createElement("td");
+            td4.innerHTML = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+            tr.appendChild(td4);
+            var td5 = document.createElement("td");
+            td5.innerHTML = dato.medida;
+            tr.appendChild(td5);
+            document.getElementById("datosTableBody").insertBefore(tr, document.getElementById("datosTableBody").firstChild);
+            document.getElementById("datosTableBody").removeChild(document.getElementById("datosTableBody").lastChild);
         });
         channel.bind('evento-nuevo', function (data) {
-            alert(data.Id);
             var serie = chartEventos.get(data.Id);
             if (serie !== undefined) {
                 var y = serie.data[0].y + 1;
@@ -392,6 +413,21 @@
                     message.appendChild(content);
                     item.appendChild(message);
                     document.getElementById("listaNotificaciones").insertBefore(item, document.getElementById("listaNotificaciones").firstChild);
+                    // tabla
+                    var tr = document.createElement("tr");
+                    var td1 = document.createElement("td");
+                    td1.innerHTML = data.nombre;
+                    tr.appendChild(td1);
+                    var datetime = data.fechaHora;
+                    var fecha = datetime.slice(0, datetime.indexOf("T"));
+                    var td3 = document.createElement("td");
+                    td3.innerHTML = datetime.slice(0, datetime.indexOf("T"));
+                    tr.appendChild(td3);
+                    var td4 = document.createElement("td");
+                    td4.innerHTML = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                    tr.appendChild(td4);
+                    document.getElementById("eventosTableBody").insertBefore(tr, document.getElementById("eventosTableBody").firstChild);
+                    document.getElementById("eventosTableBody").removeChild(document.getElementById("eventosTableBody").lastChild);
                 }
             }
         });
@@ -436,6 +472,7 @@
                     listDis[listDis.length] = dispo.Id;
                 }
             });
+            filtrarPorZona(listDis);
             map.removeInteraction(draw);
             map.addInteraction(modifyInteraction);
         }, this);
@@ -458,8 +495,38 @@
                     listDis[listDis.length] = dispo.Id;
                 }
             });
+            filtrarPorZona(listDis);
         });
     });
+    function filtrarPorZona(dispositivos) {
+        document.getElementById("graf1").style.display = "none";
+        document.getElementById("graf2").style.display = "none";
+        document.getElementById("graf3").style.display = "none";
+        document.getElementById("graf4").style.display = "none";
+        document.getElementById("graf6").style.display = "block";
+        if (dispositivos !== undefined) { 
+            var options = { chart: { renderTo: 'graf6', type: 'column', animation: Highcharts.svg, marginRight: 10 }, title: { text: '' }, plotOptions: { column: { dataLabels: { enabled: true, color: 'black' } } }, credits: { enabled: false }, legend: { align: 'center', verticalAlign: 'bottom', layout: 'horizontal' }, xAxis: { categories: ['Dispositivos'], labels: { x: 0 } }, yAxis: { allowDecimals: false, title: { text: 'Cantidad Enviada' } }, series: [] };
+            $.each(dispositivos, function (index, d) {
+                var newSerie = {
+                    visible: false,
+                    id: d,
+                    data: [{}]
+                };
+                options.series.push(newSerie);
+            });
+            chartZona = new Highcharts.Chart(options);
+        }
+        var desde = document.getElementById("desdeFiltroDatos").value;
+        var hasta = document.getElementById("hastaFiltroDatos").value;
+        $.each(chartZona.series, function (index, serie) {
+            $.get("https://www.cerebro-serviceLayer.com/api/historial/datos/totalConNombre?dispositivo=" + serie.options.id + "&desde=" + desde + "&hasta=" + hasta, function (response) {
+                if (response !== undefined || response !== null) {
+                    serie.update({ name: response[0], visible: true });
+                    serie.setData([response[1]]);
+                }
+            });
+        });
+    }
     function mostrarMapSidebar() {
         source.clear();
         map.addInteraction(draw);
@@ -525,6 +592,7 @@
             document.getElementById("graf2").style.display = "none";
             document.getElementById("graf3").style.display = "none";
             document.getElementById("graf4").style.display = "none";
+            document.getElementById("graf6").style.display = "none";
         }
         else if (tipo.toLowerCase() === "imagen") {
             cargarGraficaDatosImagen();
@@ -532,6 +600,7 @@
             document.getElementById("graf2").style.display = "block";
             document.getElementById("graf3").style.display = "none";
             document.getElementById("graf4").style.display = "none";
+            document.getElementById("graf6").style.display = "none";
         }
         else if (tipo.toLowerCase() === "video") {
             cargarGraficaDatosVideo();
@@ -539,6 +608,7 @@
             document.getElementById("graf2").style.display = "none";
             document.getElementById("graf3").style.display = "block";
             document.getElementById("graf4").style.display = "none";
+            document.getElementById("graf6").style.display = "none";
         }
         else if (tipo.toLowerCase() === "texto") {
             cargarGraficaDatosTexto();
@@ -546,6 +616,7 @@
             document.getElementById("graf2").style.display = "none";
             document.getElementById("graf3").style.display = "none";
             document.getElementById("graf4").style.display = "block";
+            document.getElementById("graf6").style.display = "none";
         }
     }
     function elegirGrafica() {
@@ -561,6 +632,9 @@
         else if (document.getElementById("graf4").style.display === "block") {
             cargarGraficaDatosTexto();
         }
+        else if (document.getElementById("graf6").style.display === "block") {
+            filtrarPorZona(undefined);
+        }
     }
     function getHistorialDatos(pagina, tipo) {
         if (pagina === undefined) {
@@ -575,7 +649,7 @@
         var dispositivo = document.getElementById("dispositivoFiltrar").value;
         var desde = document.getElementById("desdeFiltroTabla").value;
         var hasta = document.getElementById("hastaFiltroTabla").value;
-        $.get("https://www.cerebro-serviceLayer.com/api/historial/datos", "tipoDato=" + tipo + "&dispositivo=" + dispositivo + "&pagina=" + pagina + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
+        $.get("https://www.cerebro-serviceLayer.com/api/historial/datos", "idDispositivo=&tipoDato=" + tipo + "&dispositivo=" + dispositivo + "&pagina=" + pagina + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
             if (response !== undefined) {
                 while (document.getElementById("datosTableBody").hasChildNodes()) {
                     document.getElementById("datosTableBody").removeChild(document.getElementById("datosTableBody").lastChild);
@@ -635,26 +709,7 @@
         });
     }
     function cargarGraficaDatosNumericos() {
-        var options = {
-            chart: {
-                renderTo: 'graf1',
-                type: 'spline',
-                animation: Highcharts.svg, // don't animate in old IE
-                marginRight: 10
-            },
-            xAxis: {
-                type: 'datetime',
-                tickPixelInterval: 150
-            },
-            title: { text: '' },
-            yAxis: { title: { text: 'Medida Obtenida' } },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top'
-            },
-            series: []
-        };
+        var options = { chart: { renderTo: 'graf1', type: 'spline', animation: Highcharts.svg, marginRight: 10 }, xAxis: { type: 'datetime', tickPixelInterval: 150 }, title: { text: '' }, yAxis: { title: { text: 'Medida Obtenida' } }, legend: { layout: 'vertical', align: 'right', verticalAlign: 'top' }, series: [] };
         $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/numerico", function (response) {
             if (response !== undefined) {
                 $.each(response, function (index, d) {
@@ -669,7 +724,7 @@
                 var desde = document.getElementById("desdeFiltroDatos").value;
                 var hasta = document.getElementById("hastaFiltroDatos").value;
                 $.each(chartNumerico.series, function (index, serie) {
-                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Numerico&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Numerico&idDispositivo=&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
                         if (response !== undefined) {
                             $.each(response, function (index, dato) {
                                 var x = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(dato.datetime));
@@ -683,26 +738,7 @@
         });
     }
     function cargarGraficaDatosImagen() {
-        var options = {
-            chart: {
-                renderTo: 'graf2',
-                type: 'spline',
-                animation: Highcharts.svg,
-                marginRight: 10
-            },
-            xAxis: {
-                type: 'datetime',
-                tickPixelInterval: 150
-            },
-            title: { text: '' },
-            yAxis: { title: { text: 'Medida Obtenida' } },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top'
-            },
-            series: []
-        };
+        var options = { chart: { renderTo: 'graf2', type: 'spline', animation: Highcharts.svg, marginRight: 10 }, xAxis: { type: 'datetime', tickPixelInterval: 150 }, title: { text: '' }, yAxis: { title: { text: 'Medida Obtenida' } }, legend: { layout: 'vertical', align: 'right', verticalAlign: 'top' }, series: [] };
         $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Imagen", function (response) {
             if (response !== undefined) {
                 $.each(response, function (index, d) {
@@ -717,7 +753,7 @@
                 var desde = document.getElementById("desdeFiltroDatos").value;
                 var hasta = document.getElementById("hastaFiltroDatos").value;
                 $.each(chartImagen.series, function (index, serie) {
-                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Imagen&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Imagen&idDispositivo=&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
                         if (response !== undefined) {
                             $.each(response, function (index, dato) {
                                 var datetime = dato.datetime;
@@ -734,26 +770,7 @@
         });
     }
     function cargarGraficaDatosVideo() {
-        var options = {
-            chart: {
-                renderTo: 'graf3',
-                type: 'spline',
-                animation: Highcharts.svg, // don't animate in old IE
-                marginRight: 10
-            },
-            xAxis: {
-                type: 'datetime',
-                tickPixelInterval: 150
-            },
-            title: { text: '' },
-            yAxis: { title: { text: 'Medida Obtenida' } },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top'
-            },
-            series: []
-        };
+        var options = { chart: {  renderTo: 'graf3', type: 'spline', animation: Highcharts.svg, marginRight: 10 }, xAxis: { type: 'datetime', tickPixelInterval: 150 }, title: { text: '' }, yAxis: { title: { text: 'Medida Obtenida' } }, legend: { layout: 'vertical', align: 'right', verticalAlign: 'top' }, series: [] };
         $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Video", function (response) {
             if (response !== undefined) {
                 $.each(response, function (index, d) {
@@ -768,7 +785,7 @@
                 var desde = document.getElementById("desdeFiltroDatos").value;
                 var hasta = document.getElementById("hastaFiltroDatos").value;
                 $.each(chartVideo.series, function (index, serie) {
-                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Video&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Video&idDispositivo=&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
                         if (response !== undefined) {
                             $.each(response, function (index, dato) {
                                 //var x = Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', (new Date()).getTime());
@@ -786,38 +803,7 @@
         });
     }
     function cargarGraficaDatosTexto() {
-        var options = {
-            chart: {
-                renderTo: 'graf4',
-                type: 'column',
-                animation: Highcharts.svg,
-                marginRight: 10
-            },
-            title: { text: '' },
-            plotOptions: {
-                column: {
-                    dataLabels: {
-                        enabled: true,
-                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black'
-                    }
-                }
-            },
-            credits: { enabled: false },
-            legend: {
-                align: 'center',
-                verticalAlign: 'bottom',
-                layout: 'horizontal'
-            },
-            xAxis: {
-                categories: ['Dispositivos'],
-                labels: { x: 0 }
-            },
-            yAxis: {
-                allowDecimals: false,
-                title: { text: 'Cantidad Enviada' }
-            },
-            series: []
-        };
+        var options = { chart: { renderTo: 'graf4', type: 'column', animation: Highcharts.svg, marginRight: 10 }, title: { text: '' }, plotOptions: { column: { dataLabels: { enabled: true, color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black' } } }, credits: { enabled: false }, legend: { align: 'center', verticalAlign: 'bottom', layout: 'horizontal' }, xAxis: { categories: ['Dispositivos'], labels: { x: 0 } }, yAxis: { allowDecimals: false, title: { text: 'Cantidad Enviada' } }, series: [] };
         $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Texto", function (response) {
             if (response !== undefined) {
                 $.each(response, function (index, d) {
@@ -965,77 +951,107 @@
             }
         });
     }
-    
-    var pusher2 = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
+    var pusherChat = new Pusher('016fdcbcf95a1344ca6a', { cluster: 'us2', encrypted: true });
+    var channelChat;
     function chatearAgrupacion() {
         var agrupacion = document.getElementById("listAgrupacionChat").value;
-        var channel = pusher2.subscribe(agrupacion);
+        if (channelChat !== undefined) {
+            channelChat.unbind();
+        }
+        channelChat = pusherChat.subscribe(municipalidad + "-" + agrupacion);
         while (document.getElementById("chat").hasChildNodes()) {
             document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
         }
-        channel.bind('mensaje-nuevo', function (data) {
-            var e = JSON.stringify(data);
-            var x = JSON.parse(e);
-            if (x.email !== email) {
-                var ele1 = document.createElement("div");
-                ele1.className = 'w3-row w3-left w3-margin-bottom w3-left';
-                ele1.style.width = "85%";
-                var ele2 = document.createElement("div");
-                ele2.className = 'ui left pointing label w3-left fluid w3-white raised segment';
-                ele2.style.padding = "7px";
-                ele1.appendChild(ele2);
-                var ele3 = document.createElement("div");
-                ele3.className = 'w3-row w3-small';
-                var span1 = document.createElement("span");
-                span1.className = "w3-text-cerebro-red ui header text small";
-                span1.innerHTML = x.autor;
-                ele3.appendChild(span1);
-                var span2 = document.createElement("span");
-                span2.className = "w3-right w3-text-grey";
-                var fecha = x.datetime.toString().split('T', 2);
-                var fecha2 = fecha[1].split(".", 2);
-                span2.innerHTML = fecha2[0];
-                ele3.appendChild(span2);
-                ele2.appendChild(ele3);
-                var ele4 = document.createElement("div");
-                ele4.className = 'w3-row';
-                ele4.style.marginBottom = "3px";
-                ele4.style.marginTop = "7px";
-                ele4.textContent = x.mensaje;
-                ele2.appendChild(ele4);
-                document.getElementById("chat").appendChild(ele1);
-            } else {
-                var ele1 = document.createElement("div");
-                ele1.className = 'w3-row w3-left w3-margin-bottom w3-right';
-                ele1.style.width = "85%";
-                var ele2 = document.createElement("div");
-                ele2.className = 'ui right pointing label w3-right w3-pale-green fluid raised segment';
-                ele2.style.padding = "7px";
-                ele1.appendChild(ele2);
-                var ele3 = document.createElement("div");
-                ele3.className = 'w3-row w3-small';
-                var span2 = document.createElement("span");
-                span2.className = "w3-right w3-text-grey";
-                var fecha = x.datetime.toString().split('T', 2);
-                var fecha2 = fecha[1].split(".", 2);
-                span2.innerHTML = fecha2[0];
-                ele3.appendChild(span2);
-                ele2.appendChild(ele3);
-                var ele4 = document.createElement("div");
-                ele4.className = 'w3-row ui header text small';
-                ele4.style.marginBottom = "3px";
-                ele4.style.marginTop = "7px";
-                ele4.textContent = x.mensaje;
-                ele2.appendChild(ele4);
-                document.getElementById("chat").appendChild(ele1);
+        $.get("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + municipalidad + "-" + agrupacion, function (response) {
+            if (response !== undefined) {
+                $.each(response, function (index, mensaje) {
+                    var fecha = mensaje.datetime.toString().split('T', 2);
+                    var fecha2 = fecha[1].split(".", 2);
+                    if (mensaje.email !== email) {
+                        crearMensajeReceptor(mensaje.autor, fecha2[0], mensaje.mensaje);
+                    } else {
+                        crearMensajeEmisor(fecha2[0], mensaje.mensaje);
+                    }
+                });
+                var div = document.getElementById("chat");
+                $('#chat').animate({
+                    scrollTop: div.scrollHeight - div.clientHeight
+                }, 400);
             }
         });
+        channelChat.bind('mensaje-nuevo', function (data) {
+            var e = JSON.stringify(data);
+            var x = JSON.parse(e);
+            var fecha = x.datetime.toString().split('T', 2);
+            var fecha2 = fecha[1].split(".", 2);
+            if (x.email !== email) {
+                crearMensajeReceptor(x.autor, fecha2[0], x.mensaje);
+            } else {
+                crearMensajeEmisor(fecha2[0], x.mensaje);
+            }
+            var div = document.getElementById("chat");
+            $('#chat').animate({
+                scrollTop: div.scrollHeight - div.clientHeight
+            }, 70);
+        });
+    }
+    function crearMensajeEmisor(fecha, mensaje) {
+        var ele1 = document.createElement("div");
+        ele1.className = 'w3-row w3-left w3-margin-bottom w3-right';
+        ele1.style.width = "70%";
+        var ele2 = document.createElement("div");
+        ele2.className = 'ui right pointing label w3-right w3-pale-green fluid raised segment';
+        ele2.style.padding = "7px";
+        ele1.appendChild(ele2);
+        var ele3 = document.createElement("div");
+        ele3.className = 'w3-row w3-small';
+        var span2 = document.createElement("span");
+        span2.className = "w3-right w3-text-grey";
+        span2.innerHTML = fecha;
+        ele3.appendChild(span2);
+        ele2.appendChild(ele3);
+        var ele4 = document.createElement("div");
+        ele4.className = 'w3-row ui header text small';
+        ele4.style.marginBottom = "3px";
+        ele4.style.marginTop = "5px";
+        ele4.style.marginLeft = "3px";
+        ele4.textContent = mensaje;
+        ele2.appendChild(ele4);
+        document.getElementById("chat").appendChild(ele1);
+    }
+    function crearMensajeReceptor(autor, fecha, mensaje) {
+        var ele1 = document.createElement("div");
+        ele1.className = 'w3-row w3-left w3-margin-bottom w3-left';
+        ele1.style.width = "70%";
+        var ele2 = document.createElement("div");
+        ele2.className = 'ui left pointing label w3-left fluid w3-white raised segment';
+        ele2.style.padding = "7px";
+        ele1.appendChild(ele2);
+        var ele3 = document.createElement("div");
+        ele3.className = 'w3-row w3-small';
+        var span1 = document.createElement("span");
+        span1.className = "w3-text-cerebro-red ui header text small";
+        span1.innerHTML = autor;
+        ele3.appendChild(span1);
+        var span2 = document.createElement("span");
+        span2.className = "w3-right w3-text-grey";
+        span2.innerHTML = fecha;
+        ele3.appendChild(span2);
+        ele2.appendChild(ele3);
+        var ele4 = document.createElement("div");
+        ele4.className = 'w3-row';
+        ele4.style.marginBottom = "3px";
+        ele4.style.marginTop = "7px";
+        ele4.style.marginLeft = "3px";
+        ele4.textContent = mensaje;
+        ele2.appendChild(ele4);
+        document.getElementById("chat").appendChild(ele1);
     }
     $("#mensaje").on('keyup', function (e) {
         if (e.keyCode == 13) {
             var agrupacion = document.getElementById("listAgrupacionChat").value;
             if (agrupacion !== ""){
-                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
+                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + municipalidad + "-" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
                     document.getElementById("mensaje").value = "";
                 });
             }
