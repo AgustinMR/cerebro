@@ -153,12 +153,33 @@
         }
     }
     var pusherChat = new Pusher('016fdcbcf95a1344ca6a', { cluster: 'us2', encrypted: true });
+    var channelChat;
     function chatearAgrupacion() {
         var agrupacion = document.getElementById("listAgrupacionChat").value;
-        var channelChat = pusherChat.subscribe(muni + "-" + agrupacion);
+        if (channelChat !== undefined) {
+            channelChat.unbind();
+        }
+        channelChat = pusherChat.subscribe(municipalidad + "-" + agrupacion);
         while (document.getElementById("chat").hasChildNodes()) {
             document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
         }
+        $.get("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + municipalidad + "-" + agrupacion, function (response) {
+            if (response !== undefined) {
+                $.each(response, function (index, mensaje) {
+                    var fecha = mensaje.datetime.toString().split('T', 2);
+                    var fecha2 = fecha[1].split(".", 2);
+                    if (mensaje.email !== email) {
+                        crearMensajeReceptor(mensaje.autor, fecha2[0], mensaje.mensaje);
+                    } else {
+                        crearMensajeEmisor(fecha2[0], mensaje.mensaje);
+                    }
+                });
+                var div = document.getElementById("chat");
+                $('#chat').animate({
+                    scrollTop: div.scrollHeight - div.clientHeight
+                }, 400);
+            }
+        });
         channelChat.bind('mensaje-nuevo', function (data) {
             var e = JSON.stringify(data);
             var x = JSON.parse(e);
@@ -169,12 +190,16 @@
             } else {
                 crearMensajeEmisor(fecha2[0], x.mensaje);
             }
+            var div = document.getElementById("chat");
+            $('#chat').animate({
+                scrollTop: div.scrollHeight - div.clientHeight
+            }, 70);
         });
     }
     function crearMensajeEmisor(fecha, mensaje) {
         var ele1 = document.createElement("div");
         ele1.className = 'w3-row w3-left w3-margin-bottom w3-right';
-        ele1.style.width = "85%";
+        ele1.style.width = "70%";
         var ele2 = document.createElement("div");
         ele2.className = 'ui right pointing label w3-right w3-pale-green fluid raised segment';
         ele2.style.padding = "7px";
@@ -189,7 +214,8 @@
         var ele4 = document.createElement("div");
         ele4.className = 'w3-row ui header text small';
         ele4.style.marginBottom = "3px";
-        ele4.style.marginTop = "7px";
+        ele4.style.marginTop = "5px";
+        ele4.style.marginLeft = "3px";
         ele4.textContent = mensaje;
         ele2.appendChild(ele4);
         document.getElementById("chat").appendChild(ele1);
@@ -197,7 +223,7 @@
     function crearMensajeReceptor(autor, fecha, mensaje) {
         var ele1 = document.createElement("div");
         ele1.className = 'w3-row w3-left w3-margin-bottom w3-left';
-        ele1.style.width = "85%";
+        ele1.style.width = "70%";
         var ele2 = document.createElement("div");
         ele2.className = 'ui left pointing label w3-left fluid w3-white raised segment';
         ele2.style.padding = "7px";
@@ -217,6 +243,7 @@
         ele4.className = 'w3-row';
         ele4.style.marginBottom = "3px";
         ele4.style.marginTop = "7px";
+        ele4.style.marginLeft = "3px";
         ele4.textContent = mensaje;
         ele2.appendChild(ele4);
         document.getElementById("chat").appendChild(ele1);
@@ -225,7 +252,7 @@
         if (e.keyCode == 13) {
             var agrupacion = document.getElementById("listAgrupacionChat").value;
             if (agrupacion !== ""){
-                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + muni + "-" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
+                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + municipalidad + "-" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
                     document.getElementById("mensaje").value = "";
                 });
             }

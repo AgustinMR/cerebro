@@ -33,7 +33,7 @@ namespace cerebro_ServiceLayer.Controllers
         public async Task<List<ChatMensaje>> getMensajes(string agrupacion)
         {
             var filter = Builders<ChatMensaje>.Filter.Eq("agrupacion", agrupacion);
-            var sort = Builders<ChatMensaje>.Sort.Descending("datetime");
+            var sort = Builders<ChatMensaje>.Sort.Ascending("datetime");
             return await new MongoClient().GetDatabase("cerebroDB").GetCollection<ChatMensaje>("Chats").Find(filter).Sort(sort).Limit(20).ToListAsync();
         }
     }
