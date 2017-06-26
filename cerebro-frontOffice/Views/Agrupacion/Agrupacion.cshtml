@@ -159,7 +159,6 @@
     var privilegios = [];
     var pusher = new Pusher('474881b81d9d92dd2713', { encrypted: true });
     var channel2 = pusher.subscribe("datos-dispositivos");
-    var pusher2 = new Pusher('5b358aae693e596e8b06', { encrypted: true, cluster: "us2" });
     function getAgrupacionesByUsuario() {
         if (email !== ""){
             $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email, function (response) {
@@ -196,75 +195,80 @@
             });
         }
     }
+    var pusherChat = new Pusher('016fdcbcf95a1344ca6a', { cluster: 'us2', encrypted: true });
     function chatearAgrupacion() {
         var agrupacion = document.getElementById("listAgrupacionChat").value;
-        var channel = pusher2.subscribe(agrupacion);
+        var channelChat = pusherChat.subscribe(municipalidad + "-" + agrupacion);
         while (document.getElementById("chat").hasChildNodes()) {
             document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
         }
-        channel.bind('mensaje-nuevo', function (data) {
+        channelChat.bind('mensaje-nuevo', function (data) {
             var e = JSON.stringify(data);
             var x = JSON.parse(e);
+            var fecha = x.datetime.toString().split('T', 2);
+            var fecha2 = fecha[1].split(".", 2);
             if (x.email !== email) {
-                var ele1 = document.createElement("div");
-                ele1.className = 'w3-row w3-left w3-margin-bottom w3-left';
-                ele1.style.width = "85%";
-                var ele2 = document.createElement("div");
-                ele2.className = 'ui left pointing label w3-left fluid w3-white raised segment';
-                ele2.style.padding = "7px";
-                ele1.appendChild(ele2);
-                var ele3 = document.createElement("div");
-                ele3.className = 'w3-row w3-small';
-                var span1 = document.createElement("span");
-                span1.className = "w3-text-cerebro-red ui header text small";
-                span1.innerHTML = x.autor;
-                ele3.appendChild(span1);
-                var span2 = document.createElement("span");
-                span2.className = "w3-right w3-text-grey";
-                var fecha = x.datetime.toString().split('T', 2);
-                var fecha2 = fecha[1].split(".", 2);
-                span2.innerHTML = fecha2[0];
-                ele3.appendChild(span2);
-                ele2.appendChild(ele3);
-                var ele4 = document.createElement("div");
-                ele4.className = 'w3-row';
-                ele4.style.marginBottom = "3px";
-                ele4.style.marginTop = "7px";
-                ele4.textContent = x.mensaje;
-                ele2.appendChild(ele4);
-                document.getElementById("chat").appendChild(ele1);
+                crearMensajeReceptor(x.autor, fecha2[0], x.mensaje);
             } else {
-                var ele1 = document.createElement("div");
-                ele1.className = 'w3-row w3-left w3-margin-bottom w3-right';
-                ele1.style.width = "85%";
-                var ele2 = document.createElement("div");
-                ele2.className = 'ui right pointing label w3-right w3-pale-green fluid raised segment';
-                ele2.style.padding = "7px";
-                ele1.appendChild(ele2);
-                var ele3 = document.createElement("div");
-                ele3.className = 'w3-row w3-small';
-                var span2 = document.createElement("span");
-                span2.className = "w3-right w3-text-grey";
-                var fecha = x.datetime.toString().split('T', 2);
-                var fecha2 = fecha[1].split(".", 2);
-                span2.innerHTML = fecha2[0];
-                ele3.appendChild(span2);
-                ele2.appendChild(ele3);
-                var ele4 = document.createElement("div");
-                ele4.className = 'w3-row ui header text small';
-                ele4.style.marginBottom = "3px";
-                ele4.style.marginTop = "7px";
-                ele4.textContent = x.mensaje;
-                ele2.appendChild(ele4);
-                document.getElementById("chat").appendChild(ele1);
+                crearMensajeEmisor(fecha2[0], x.mensaje);
             }
         });
+    }
+    function crearMensajeEmisor(fecha, mensaje) { 
+        var ele1 = document.createElement("div");
+        ele1.className = 'w3-row w3-left w3-margin-bottom w3-right';
+        ele1.style.width = "85%";
+        var ele2 = document.createElement("div");
+        ele2.className = 'ui right pointing label w3-right w3-pale-green fluid raised segment';
+        ele2.style.padding = "7px";
+        ele1.appendChild(ele2);
+        var ele3 = document.createElement("div");
+        ele3.className = 'w3-row w3-small';
+        var span2 = document.createElement("span");
+        span2.className = "w3-right w3-text-grey";
+        span2.innerHTML = fecha;
+        ele3.appendChild(span2);
+        ele2.appendChild(ele3);
+        var ele4 = document.createElement("div");
+        ele4.className = 'w3-row ui header text small';
+        ele4.style.marginBottom = "3px";
+        ele4.style.marginTop = "7px";
+        ele4.textContent = mensaje;
+        ele2.appendChild(ele4);
+        document.getElementById("chat").appendChild(ele1);
+    }
+    function crearMensajeReceptor(autor, fecha, mensaje) { 
+        var ele1 = document.createElement("div");
+        ele1.className = 'w3-row w3-left w3-margin-bottom w3-left';
+        ele1.style.width = "85%";
+        var ele2 = document.createElement("div");
+        ele2.className = 'ui left pointing label w3-left fluid w3-white raised segment';
+        ele2.style.padding = "7px";
+        ele1.appendChild(ele2);
+        var ele3 = document.createElement("div");
+        ele3.className = 'w3-row w3-small';
+        var span1 = document.createElement("span");
+        span1.className = "w3-text-cerebro-red ui header text small";
+        span1.innerHTML = autor;
+        ele3.appendChild(span1);
+        var span2 = document.createElement("span");
+        span2.className = "w3-right w3-text-grey";
+        span2.innerHTML = fecha;
+        ele3.appendChild(span2);
+        ele2.appendChild(ele3);
+        var ele4 = document.createElement("div");
+        ele4.className = 'w3-row';
+        ele4.style.marginBottom = "3px";
+        ele4.style.marginTop = "7px";
+        ele4.textContent = mensaje;
+        ele2.appendChild(ele4);
+        document.getElementById("chat").appendChild(ele1);
     }
     $("#mensaje").on('keyup', function (e) {
         if (e.keyCode == 13) {
             var agrupacion = document.getElementById("listAgrupacionChat").value;
             if (agrupacion !== ""){
-                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
+                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + municipalidad + "-" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
                     document.getElementById("mensaje").value = "";
                 });
             }
@@ -497,7 +501,7 @@
                 var i2 = document.createElement("i");
                 i2.className = "close icon";
                 message.appendChild(i2);
-                i2.addEventListener("click", function () { 
+                i2.addEventListener("click", function () {
                     document.getElementById("listaNotificaciones").removeChild(item);
                 });
                 var content = document.createElement("div");
