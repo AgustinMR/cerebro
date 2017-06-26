@@ -199,7 +199,7 @@
     var channelChat;
     function chatearAgrupacion() {
         var agrupacion = document.getElementById("listAgrupacionChat").value;
-        if (channelChat !== undefined) { 
+        if (channelChat !== undefined) {
             channelChat.unbind();
         }
         channelChat = pusherChat.subscribe(municipalidad + "-" + agrupacion);
@@ -230,6 +230,7 @@
             var fecha2 = fecha[1].split(".", 2);
             if (x.email !== email) {
                 crearMensajeReceptor(x.autor, fecha2[0], x.mensaje);
+                $.post("https://www.cerebro-serviceLayer.com/api/chats/nuevo?agrupacion=" + x.agrupacion + "&autor=" + x.autor + "&mensaje=" + x.mensaje + "&email=" + x.email, function () {});
             } else {
                 crearMensajeEmisor(fecha2[0], x.mensaje);
             }
@@ -239,7 +240,7 @@
             }, 70);
         });
     }
-    function crearMensajeEmisor(fecha, mensaje) { 
+    function crearMensajeEmisor(fecha, mensaje) {
         var ele1 = document.createElement("div");
         ele1.className = 'w3-row w3-left w3-margin-bottom w3-right';
         ele1.style.width = "70%";
@@ -263,7 +264,7 @@
         ele2.appendChild(ele4);
         document.getElementById("chat").appendChild(ele1);
     }
-    function crearMensajeReceptor(autor, fecha, mensaje) { 
+    function crearMensajeReceptor(autor, fecha, mensaje) {
         var ele1 = document.createElement("div");
         ele1.className = 'w3-row w3-left w3-margin-bottom w3-left';
         ele1.style.width = "70%";
