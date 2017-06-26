@@ -169,6 +169,10 @@ export class InicioComponent implements OnInit {
         }, this);
     }
 
+    gotoMunicipalidad() {
+
+    }
+
     ingresar() {
         this.loginService.loginAdmin(this.email, this.nombre_municipalidad, this.pass).subscribe(
             (data: Response) => {
@@ -192,8 +196,6 @@ export class InicioComponent implements OnInit {
                     this.loginService.addAdmin(this.nomMuni, this.emailAdmin, this.nomAdmin, this.passAdmin).subscribe(
                         (data: Response) => {
                             this.mostrarDimmerMunicipalidad();
-                            this.registrarMunicipalidad = false;
-                            this.login = true;
                         },
                         responseError => console.log("Error: " + responseError),
                         () => console.log("Usuario creado")
