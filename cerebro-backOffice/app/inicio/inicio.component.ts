@@ -169,10 +169,6 @@ export class InicioComponent implements OnInit {
         }, this);
     }
 
-    gotoMunicipalidad() {
-
-    }
-
     ingresar() {
         this.loginService.loginAdmin(this.email, this.nombre_municipalidad, this.pass).subscribe(
             (data: Response) => {
@@ -205,7 +201,14 @@ export class InicioComponent implements OnInit {
                 () => console.log("Municipalidad creada")
             );
         }
+    }
 
+    gotoMunicipalidad() {
+        document.getElementById('dimmerM').style.display = "none";
+        document.getElementById('exitoM').style.display = "none";
+        document.getElementById('errorL').style.display = "none";
+        this.registrarMunicipalidad = false;
+        window.location.href = "https://www." + this.nomMuni + ".cerebro-backOffice.com";
     }
 
     mapa() {
