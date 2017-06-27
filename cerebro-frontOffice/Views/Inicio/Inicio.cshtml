@@ -12,6 +12,14 @@
             on: 'click'
         });
         $('.ui.modal').modal();
+        $('#coso2').popup({
+            popup: $('#popup2'),
+            on: 'click'
+        });
+        $('#infoDispositivo').sidebar({
+            context: $('.pushable.segment')
+        }).sidebar('setting', 'transition', 'overlay')
+            .sidebar('setting', 'dimPage', false);;
     });
 </script>
 <div class="ui sidebar vertical left inverted menu w3-cerebro-blue" id="menuSidebar">
@@ -26,21 +34,6 @@
         <a class="ui toc item header small" href="/Agrupacion/Agrupacion">Agrupaciones</a>
         <a class="ui toc item header small" href="/Simulador/Simulador">Simulador</a>
         <a class="ui toc item header small" href="/Reporte/Reporte">Reportes</a>
-    </div>
-</div>
-<div class="ui sidebar wide vertical right inverted menu" id="infoDispositivo">
-    <div class="ui horizontal divider"></div>
-    <div class="w3-center">
-        <i class="info big icon circular inverted active"></i>
-        <h3 id="nomDis" class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px"></h3>
-        <h4 id="fechaHoraDis" class="ui text header inverted"></h4>
-        <h4 id="tipoDis" class="ui text header inverted"></h4>
-        <div class="ui horizontal header divider small inverted w3-padding">Ultima medici&oacute;n</div>
-        <h4 id="contenidoDis" class="ui header text small inverted w3-padding w3-margin"></h4>
-            <img src="" id="imgDis" class="w3-image link item" onclick="mostrarModalImagen()" style="width: 100%">
-        <div class="w3-center w3-padding-48 w3-dark-gray w3-card-4" id="videoDiv" style="display: none">
-            <i class="big circular play link basic inverted icon" id="playBtn" onclick="mostrarModalVideo()"></i>
-        </div>
     </div>
 </div>
 <div class="pusher" style="background-image:url(images/ub1610v2.jpg); background-attachment:fixed; background-size:cover">
@@ -96,40 +89,55 @@
             </div>
         </div>
         <div class="row" id="goyete">
-            <div class="ui grid stackable container">
-                <div class="six wide column w3-padding-64">
-                    <div class="ui segments">
-                        <div class="ui segment sticky" style="background-color: #FBFBFB; height: 40px">
-                            <div class="ui two item menu pointing secondary" style="margin-top: -14px">
-                                <a id="disTab" class="active w3-text-cerebro-red item" onclick="disp()">Eventos</a>
-                                <a id="susTab" class="item" onclick="suscip()">Suscripciones</a>
-                            </div>
+            <div class="ui grid stackable container w3-padding-16">
+                <div class="ui sixteen wide column w3-padding-32">
+                    <div class="ui raised segments">
+                        <div class="ui segment" style="height: 50px; background-color: #FBFBFB">
+                            <h3 class="ui header text w3-text-silver w3-display-middle" style="margin-top: 0px">Mapa de la municipalidad</h3>
+                            <button class="circular basic ui icon button compact small w3-right" id="coso2" style="margin-top: -5px; margin-right: -5px"><i class="ellipsis horizontal large icon w3-text-cerebro-red" ></i></button>
                         </div>
-                        <div class="ui raised segment" id="fletesContext">
-                            <div class="ui active tab">
-                                <div class="ui divided items w3-padding-16" id="items" style="min-height: 323px; display: none">
-                                </div>
-                                <div class="ui divided items w3-padding-16" id="itemsDiv" style="min-height: 323px">
+                        <div class="ui segments raised popup bottom left pointing transition hidden" id="popup2" style="max-width: 400px; width: 370px; padding: 0px">
+                            <div class="ui segment sticky" style="background-color: #FBFBFB; height: 40px">
+                                <div class="ui two item menu pointing secondary" style="margin-top: -14px">
+                                    <a id="disTab" class="active w3-text-cerebro-red item" onclick="disp()">Eventos</a>
+                                    <a id="susTab" class="item" onclick="suscip()">Suscripciones</a>
                                 </div>
                             </div>
+                            <div class="ui raised segment" id="fletesContext">
+                                <div class="ui active tab">
+                                    <div class="ui divided items w3-padding-16" id="items" style="min-height: 323px; display: none">
+                                    </div>
+                                    <div class="ui divided items w3-padding-16" id="itemsDiv" style="min-height: 323px">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="ten wide column w3-padding-64">
-                    <div class="ui segments sticky" id="mapa">
-                        <div class="ui grey segment w3-center w3-bottombar" style="background-color: #FBFBFB">
-                            <i class="inverted circular marker link icon" onclick="addSuscripcion()"></i>
-                            <button class="ui button w3-cerebro-blue w3-right" onclick="guardarZona()">Guardar</button>
+                        <div class="ui bottom attached segment grey pushable">
+                            <div class="ui inverted labeled icon right inline large vertical sidebar menu" id="infoDispositivo">
+                                <div class="ui horizontal divider"></div>
+                                <div class="w3-center">
+                                    <i class="info big icon circular inverted active"></i>
+                                    <h3 id="nomDis" class="ui horizontal divider w3-padding header small inverted" style="margin-top: 5px"></h3>
+                                    <h4 id="fechaHoraDis" class="ui text header inverted"></h4>
+                                    <h4 id="tipoDis" class="ui text header inverted"></h4>
+                                    <div class="ui horizontal header divider small inverted w3-padding">Ultima medici&oacute;n</div>
+                                    <h4 id="contenidoDis" class="ui header text small inverted w3-padding w3-margin"></h4>
+                                    <img id="imgDis" class="w3-image link item" onclick="mostrarModalImagen()" style="width: 100%">
+                                    <div class="w3-center w3-padding-48 w3-dark-gray w3-card-4" id="videoDiv" style="display: none">
+                                        <i class="big circular play link basic inverted icon" id="playBtn" onclick="mostrarModalVideo()"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pusher">
+                                <div id="map" class="" style="height: 600px; width: 100%"></div>
+                            </div>
                         </div>
-                        <div id="map" class="w3-card" style="width: 100%; height: 520px"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<p style="display:none" id="agrActual"></p>
-<script>
+    <script>
     var email = '@User.Claims.ToList()[0].Value';
     var muni = '@User.Claims.ToList()[3].Value';
     var map;
@@ -699,4 +707,6 @@
             }
         }
     });
-</script>
+    </script>
+</div>
+
