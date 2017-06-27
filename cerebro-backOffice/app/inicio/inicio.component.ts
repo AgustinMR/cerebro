@@ -192,8 +192,6 @@ export class InicioComponent implements OnInit {
                     this.loginService.addAdmin(this.nomMuni, this.emailAdmin, this.nomAdmin, this.passAdmin).subscribe(
                         (data: Response) => {
                             this.mostrarDimmerMunicipalidad();
-                            this.registrarMunicipalidad = false;
-                            this.login = true;
                         },
                         responseError => console.log("Error: " + responseError),
                         () => console.log("Usuario creado")
@@ -203,7 +201,14 @@ export class InicioComponent implements OnInit {
                 () => console.log("Municipalidad creada")
             );
         }
+    }
 
+    gotoMunicipalidad() {
+        document.getElementById('dimmerM').style.display = "none";
+        document.getElementById('exitoM').style.display = "none";
+        document.getElementById('errorL').style.display = "none";
+        this.registrarMunicipalidad = false;
+        window.location.href = "https://www." + this.nomMuni + ".cerebro-backOffice.com";
     }
 
     mapa() {

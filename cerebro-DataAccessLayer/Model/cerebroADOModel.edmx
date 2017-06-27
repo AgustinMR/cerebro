@@ -61,7 +61,7 @@
           <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="nombre_municipalidad" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="30" />
-          <Property Name="password" Type="varchar" MaxLength="30" />
+          <Property Name="password" Type="varchar" MaxLength="32" />
           <Property Name="tipo" Type="int" Nullable="false" />
           <Property Name="enabled" Type="bit" Nullable="false" />
         </EntityType>
@@ -335,10 +335,10 @@
         <EntityType Name="Visitante" BaseType="cerebroADOModel.Usuario" >
         </EntityType>
         <EntityType Name="Operador" BaseType="cerebroADOModel.Usuario" >
-          <Property Name="password" Type="String" Unicode="false" FixedLength="false" MaxLength="30" />
+          <Property Name="password" Type="String" Unicode="false" FixedLength="false" MaxLength="32" />
         </EntityType>
         <EntityType Name="Administrador" BaseType="cerebroADOModel.Usuario" >
-          <Property Name="password" Type="String" Unicode="false" FixedLength="false" MaxLength="30" />
+          <Property Name="password" Type="String" Unicode="false" FixedLength="false" MaxLength="32" />
         </EntityType>
         <EntityType Name="Privilegio">
           <Key>

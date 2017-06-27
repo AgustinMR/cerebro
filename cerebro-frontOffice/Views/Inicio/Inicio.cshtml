@@ -11,6 +11,7 @@
             popup: $('#popup'),
             on: 'click'
         });
+        $('.ui.modal').modal();
     });
 </script>
 <div class="ui sidebar vertical left inverted menu w3-cerebro-blue" id="menuSidebar">
@@ -36,10 +37,25 @@
         <h4 id="tipoDis" class="ui text header inverted"></h4>
         <div class="ui horizontal header divider small inverted w3-padding">Ultima medici&oacute;n</div>
         <h4 id="contenidoDis" class="ui header text small inverted w3-padding w3-margin"></h4>
-        <img id="imgDis" src="" />
+            <img src="" id="imgDis" class="w3-image link item" onclick="mostrarModalImagen()" style="width: 100%">
+        <div class="w3-center w3-padding-48 w3-dark-gray w3-card-4" id="videoDiv" style="display: none">
+            <i class="big circular play link basic inverted icon" id="playBtn" onclick="mostrarModalVideo()"></i>
+        </div>
     </div>
 </div>
 <div class="pusher" style="background-image:url(images/ub1610v2.jpg); background-attachment:fixed; background-size:cover">
+    <div class="ui basic modal" id="videoModal">
+        <div class="content">
+            <div class="ui embed" id="videoEmbed"></div>
+        </div>
+    </div>
+    <div class="ui basic modal" id="imagenModal">
+        <div class="ui container">
+            <div class="ui container">
+                <img src="" class="w3-image" id="imgEmbed">
+            </div>
+        </div>
+    </div>
     <div class="w3-bar w3-card" style="background-color: #FBFBFB">
         <div class="ui menu secondary" style="background-color: #FBFBFB; padding-bottom: 0px">
             <a class="ui toc item left aligned"><i class="sidebar icon"></i></a>
@@ -185,6 +201,9 @@
                 document.getElementById("tipoDis").innerHTML = "";
                 document.getElementById("contenidoDis").innerHTML = "";
                 document.getElementById("imgDis").src = "";
+                document.getElementById("imgEmbed").src = "";
+                document.getElementById("imgDis").style.display = "none";
+                document.getElementById("videoDiv").style.display = "none";
                 for (var dis of dispositivos) {
                     if (String(dis.ubicacion) === String(feature.getGeometry().getCoordinates())) {
                         var nombre = dis.nombre;
@@ -213,18 +232,44 @@
                                     }
 
                                     $.ajax(settings).done(function (data) {
+                                        document.getElementById("imgDis").style.display = "block";
+                                        document.getElementById("imgEmbed").src = "data:image/png;base64," + data;
                                         document.getElementById("imgDis").src = "data:image/png;base64," + data;
+                                        document.getElementById("imgDis").addEventListener("click", function () {
+                                            $('#imagenModal').modal('show');
+                                        });
+
+                                    });
+                                }
+                                else if (String(response.tipoDeDato) === "Video") {
+                                    document.getElementById("videoDiv").style.display = "block";
+                                    document.getElementById("playBtn").addEventListener("click", function () {
+                                        //document.getElementById("videoEmbed").setAttribute("data-url", response.medida);
+                                        var videoid = response.medida.toString().match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+                                        if (videoid != null) {
+                                            console.log("video id = ", videoid[1]);
+                                            $('#videoEmbed').embed({
+                                                source: 'youtube',
+                                                id: videoid[1]
+                                            });
+                                        } else {
+                                            console.log("The youtube url is not valid.");
+                                            $('#videoEmbed').embed({
+                                                url: String(response.medida)
+                                            });
+                                        }
+                                        $('#videoModal').modal({ blurring: true }).modal('show');
                                     });
                                 }
                                 channel.bind('dato-nuevo', function (data) {
                                     if (data.dispositivoId === idP) {
-                                        if (data.tipoDeDato === "Numerico") {
+                                        if (data.tipoDeDato === "Numerico" || data.tipoDeDato === "Texto") {
                                             var dateTime = data.datetime.split("T");
                                             var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
                                             var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
                                             document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
                                             document.getElementById("contenidoDis").innerHTML = data.medida;
-                                        } else {
+                                        } else if (data.tipoDeDato === "Imagen") {
                                             var dateTime = data.datetime.split("T");
                                             var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
                                             var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
@@ -240,7 +285,39 @@
                                             }
 
                                             $.ajax(settings).done(function (data2) {
+                                                document.getElementById("imgDis").style.display = "block";
+                                                document.getElementById("imgEmbed").src = "data:image/png;base64," + data2;
                                                 document.getElementById("imgDis").src = "data:image/png;base64," + data2;
+                                                document.getElementById("imgDis").addEventListener("click", function () {
+                                                    $('#imagenModal').modal('show');
+                                                });
+                                            });
+                                        }
+                                        else if (data.tipoDeDato === "Video") {
+                                            var dateTime = data.datetime.split("T");
+                                            var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                                            var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                                            document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
+                                            document.getElementById("videoDiv").style.display = "block";
+                                            document.getElementById("playBtn").addEventListener("click", function () {
+                                                //document.getElementById("videoEmbed").setAttribute("data-url", response.medida);
+                                                var videoid = data.medida.toString().match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+                                                if (videoid != null) {
+                                                    console.log("video id = ", videoid[1]);
+                                                    if ($('#videoEmbed').embed('get id') !== undefined) {
+                                                        $('#videoEmbed').embed('change', 'youtube', videoid[1]);
+                                                    }
+                                                    $('#videoEmbed').embed({
+                                                        source: 'youtube',
+                                                        id: videoid[1]
+                                                    });
+                                                } else {
+                                                    console.log("The youtube url is not valid.");
+                                                    $('#videoEmbed').embed({
+                                                        url: String(data.medida)
+                                                    });
+                                                }
+                                                $('#videoModal').modal({ blurring: true }).modal('show');
                                             });
                                         }
                                     }
@@ -255,7 +332,15 @@
                 }
             }
         });
-
+        function mostrarModalVideo() {
+            $('#videoModal').modal({ blurring: true }).modal('show');
+        }
+        function mostrarModalImagen() {
+            //$('#imagenModal').modal('show');
+            $('#imagenModal').modal({ blurring: true }).modal('show');
+            //alert();
+            //document.getElementById("imagenModal").style.display = "block";
+        }
         channel.bind('evento-nuevo', function (data) {
             var count = 0;
             //PRIVILEGIOS
@@ -514,7 +599,7 @@
         if (channelChat !== undefined) {
             channelChat.unbind();
         }
-        channelChat = pusherChat.subscribe(municipalidad + "-" + agrupacion);
+        channelChat = pusherChat.subscribe(muni + "-" + agrupacion);
         while (document.getElementById("chat").hasChildNodes()) {
             document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
         }
@@ -542,7 +627,7 @@
             var fecha2 = fecha[1].split(".", 2);
             if (x.email !== email) {
                 crearMensajeReceptor(x.autor, fecha2[0], x.mensaje);
-                $.post("https://www.cerebro-serviceLayer.com/api/chats/nuevo?agrupacion=" + x.agrupacion + "&autor=" + x.autor + "&mensaje=" + x.mensaje + "&email=" + x.email, function () { });
+                //$.post("https://www.cerebro-serviceLayer.com/api/chats/nuevo?agrupacion=" + muni + "-" + x.agrupacion + "&autor=" + x.autor + "&mensaje=" + x.mensaje + "&email=" + x.email, function () { });
             } else {
                 crearMensajeEmisor(fecha2[0], x.mensaje);
             }
@@ -608,7 +693,7 @@
         if (e.keyCode == 13) {
             var agrupacion = document.getElementById("listAgrupacionChat").value;
             if (agrupacion !== ""){
-                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + municipalidad + "-" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
+                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + muni + "-" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
                     document.getElementById("mensaje").value = "";
                 });
             }

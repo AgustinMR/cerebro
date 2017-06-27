@@ -1,16 +1,16 @@
 ﻿<div class="ui stocked raised segments">
-    <div class="ui active inverted dimmer" style="display: none" id="message">
+    <div class="ui active page dimmer" style="display: none" id="message">
         <div class="ui text loader" style="display: none" id="loading">Por favor espere...</div>
         <div class="w3-display-middle" id="exito" style="display: none">
-            <h3 class="ui text header">Informaci&oacute;n actualizada correctamente!</h3>
+            <h2 class="ui text header inverted">Informaci&oacute;n actualizada correctamente!</h2>
             <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
         </div>
         <div class="w3-display-middle" id="error" style="display: none">
-            <h3 class="ui text header">Ha ocurrido un error, por favor vuelve a intentar...</h3>
+            <h2 class="ui text header inverted">Ha ocurrido un error, por favor vuelve a intentar...</h2>
             <button class="circular inverted red ui icon button big" (click)="ocultarMensajes()"><i class="icon warning"></i></button>
         </div>
         <div class="w3-display-middle" id="exitoPrivilegio" style="display: none">
-            <h3 class="ui text header">Tipo de Privilegio ingresado correctamente!</h3>
+            <h2 class="ui text header inverted">Tipo de Privilegio ingresado correctamente!</h2>
             <button class="circular inverted green ui icon button big" (click)="ocultarMensajes()"><i class="icon checkmark"></i></button>
         </div>
     </div>
