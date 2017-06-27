@@ -522,7 +522,7 @@
                         var array = [];
 
                         var j = 0;
-                        for (var i = 0; i < (tmp.length /2); i++){
+                        for (var i = 0; i < (tmp.length / 2); i++) {
                             var arraryTmp = [];
                             arraryTmp[0] = tmp[j]
                             arraryTmp[1] = tmp[j + 1];
@@ -541,7 +541,30 @@
                         map.addLayer(vector_layer);
                         zonaBool = true;
                     });
+                    var btn = document.createElement("button");
+                    btn.className = "ui icon button w3-right";
+                    btn.addEventListener("click", function () {
+                        //alert("Borrar " + zona.Id);
+                        var settings = {
+                            "async": true,
+                            "crossDomain": true,
+                            "url": "https://www.cerebro-servicelayer.com/api/usuarios/zonas?id="+ zona.Id,
+                            "method": "DELETE",
+                            "headers": {
+                                "cache-control": "no-cache"
+                            }
+                        }
+
+                        $.ajax(settings).done(function (response) {
+                            cargarZona();
+                            console.log(response);
+                        });
+                    });
+                    var i1 = document.createElement("i");
+                    i1.className = "trash icon w3-text-cerebro-red";
+                    btn.appendChild(i1);
                     item.appendChild(a);
+                    item.appendChild(btn);
                     document.getElementById("items").appendChild(item);
                 });
             }
@@ -565,6 +588,17 @@
             map.removeLayer(vector_layer);
         }
         zonaBool == false;
+        $.each(arrayFeatures, function (index, feat) {
+            var normalStyle = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 5,
+                    fill: new ol.style.Fill({
+                        color: 'orange'
+                    })
+                })
+            });
+            feat.setStyle(normalStyle);
+        });
     }
     function disp() {
         $('#disTab').addClass("active w3-text-cerebro-red");
