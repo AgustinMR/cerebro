@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using cerebro;
 using System.Data.Entity;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace cerebro_DataAccessLayer
 {
@@ -27,7 +28,8 @@ namespace cerebro_DataAccessLayer
                 usu.enabled = true;
                 UsuariosDbContext context = new UsuariosDbContext();
                 context.Usuarios.Add(usu);
-                if (context.SaveChanges() > 0) {
+                if (context.SaveChanges() > 0)
+                {
                     if (usu.GetType() == typeof(Visitante))
                     {
                         setPrivilegioUsuario(usu.email, usu.nombre_municipalidad, "Visitante");
@@ -154,9 +156,10 @@ namespace cerebro_DataAccessLayer
             return (from u in new UsuariosDbContext().PrivilegiosUsu where u.Usuario_email == email where u.Usuario_nombre_municipalidad == muni where u.Privilegio_nombre_municipalidad == muni select u).ToList();
         }
 
-        public bool deletePrivilegioUsuario(string email, string muni, string privilegio) {
+        public bool deletePrivilegioUsuario(string email, string muni, string privilegio)
+        {
             UsuariosDbContext context = new UsuariosDbContext();
-            PrivilegiosUsuarios PrivUsu = context.PrivilegiosUsu.Find(privilegio,muni,email,muni);
+            PrivilegiosUsuarios PrivUsu = context.PrivilegiosUsu.Find(privilegio, muni, email, muni);
             context.PrivilegiosUsu.Remove(PrivUsu);
             return context.SaveChanges() > 0;
         }
@@ -182,11 +185,21 @@ namespace cerebro_DataAccessLayer
         public bool agregarPrivilegio(string privilegio, string municipalidad)
         {
             var context = new UsuariosDbContext();
-            context.Privilegios.Add(new Privilegio() {
+            context.Privilegios.Add(new Privilegio()
+            {
                 nombre = privilegio,
                 nombre_municipalidad = municipalidad
             });
             return context.SaveChanges() > 0;
+        }
+
+        public bool deleteZona(ObjectId id)
+        {
+            var mongo = new MongoClient();
+            var bd = mongo.GetDatabase("cerebroDB");
+            var zona = bd.GetCollection<Zonas>("Zonas");
+            DeleteResult r = zona.DeleteOne(e => e.Id == id);
+            return r.DeletedCount == 1;
         }
     }
 }
