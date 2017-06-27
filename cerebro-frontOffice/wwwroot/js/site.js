@@ -92,7 +92,7 @@ function sendVid(id, frec, web, nombre) {
                     $.post("https://www.cerebro-frontOffice.com/api/dispositivos?dispositivoId=" + id + "&nombre=" + nombre + "&tipoDeDato=Video&medida=" + medida + "&imagenId=", function (res) {
                         console.log(res);
                     });
-                    sendTxt(id, frec, web, nombre);
+                    sendVid(id, frec, web, nombre);
                 }
                 catch (err) {
                     console.log("Div borrado");
