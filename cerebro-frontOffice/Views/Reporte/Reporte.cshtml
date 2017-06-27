@@ -986,7 +986,7 @@
             var fecha2 = fecha[1].split(".", 2);
             if (x.email !== email) {
                 crearMensajeReceptor(x.autor, fecha2[0], x.mensaje);
-                $.post("https://www.cerebro-serviceLayer.com/api/chats/nuevo?agrupacion=" + x.agrupacion + "&autor=" + x.autor + "&mensaje=" + x.mensaje + "&email=" + x.email, function () { });
+                //$.post("https://www.cerebro-serviceLayer.com/api/chats/nuevo?agrupacion=" + x.agrupacion + "&autor=" + x.autor + "&mensaje=" + x.mensaje + "&email=" + x.email, function () { });
             } else {
                 crearMensajeEmisor(fecha2[0], x.mensaje);
             }

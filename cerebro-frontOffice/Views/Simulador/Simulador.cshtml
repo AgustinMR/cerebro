@@ -161,7 +161,7 @@
         if (channelChat !== undefined) {
             channelChat.unbind();
         }
-        channelChat = pusherChat.subscribe(municipalidad + "-" + agrupacion);
+        channelChat = pusherChat.subscribe(muni + "-" + agrupacion);
         while (document.getElementById("chat").hasChildNodes()) {
             document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
         }
@@ -189,7 +189,7 @@
             var fecha2 = fecha[1].split(".", 2);
             if (x.email !== email) {
                 crearMensajeReceptor(x.autor, fecha2[0], x.mensaje);
-                $.post("https://www.cerebro-serviceLayer.com/api/chats/nuevo?agrupacion=" + x.agrupacion + "&autor=" + x.autor + "&mensaje=" + x.mensaje + "&email=" + x.email, function () { });
+                //$.post("https://www.cerebro-serviceLayer.com/api/chats/nuevo?agrupacion=" + muni + "-" + x.agrupacion + "&autor=" + x.autor + "&mensaje=" + x.mensaje + "&email=" + x.email, function () { });
             } else {
                 crearMensajeEmisor(fecha2[0], x.mensaje);
             }
@@ -255,7 +255,7 @@
         if (e.keyCode == 13) {
             var agrupacion = document.getElementById("listAgrupacionChat").value;
             if (agrupacion !== ""){
-                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + municipalidad + "-" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
+                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + muni + "-" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
                     document.getElementById("mensaje").value = "";
                 });
             }
