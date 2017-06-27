@@ -92,7 +92,7 @@
     var zonas;
     var privilegios = [];
     function getDispositivosByMunicipalidad() {
-        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muni/" + muni, function (data) {
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muniUsu?muni=" + muni + "&email=" + email, function (data) {
             if (data !== undefined) {
                 dispositivos = data;
                 while (document.getElementById("dispositivosList").firstChild) {

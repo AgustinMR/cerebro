@@ -1,5 +1,5 @@
 CREATE TABLE MUNICIPALIDADES (
-  nombre varchar(32) NOT NULL,
+  nombre varchar(30) NOT NULL,
   ubicacion varchar(5000) NOT NULL,
   PRIMARY KEY (nombre)
 );
@@ -8,7 +8,7 @@ CREATE TABLE USUARIOS (
   email varchar(50) NOT NULL,
   nombre_municipalidad varchar(30) NOT NULL,
   nombre varchar(30) NULL,
-  password varchar(30) NULL,
+  password varchar(32) NULL,
   tipo integer NOT NULL,
   enabled bit NOT NULL DEFAULT 0,
   PRIMARY KEY (email, nombre_municipalidad),
