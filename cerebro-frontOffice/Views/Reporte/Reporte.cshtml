@@ -292,16 +292,21 @@
                     }
                 });
             } else if (dato.tipoDeDato.toLowerCase() === "video") {
-                $.each(chartVideo.series, function (index, serie) {
-                    if (serie.name === dato.nombre) {
-                        var datetime = dato.datetime;
-                        var fecha = datetime.slice(0, datetime.indexOf("T"));
-                        var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
-                        var x = fecha + " " + hora;
-                        var y = parseFloat(dato.medida);
-                        serie.addPoint([x, y]);
-                    }
-                });
+                var serie = chartVideo.get(dato.dispositivoId);
+                if (serie !== undefined) {
+                    var y = serie.data[0].y + 1;
+                    serie.data[0].update(y);
+                }
+                //$.each(chartVideo.series, function (index, serie) {
+                //    if (serie.name === dato.nombre) {
+                //        var datetime = dato.datetime;
+                //        var fecha = datetime.slice(0, datetime.indexOf("T"));
+                //        var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
+                //        var x = fecha + " " + hora;
+                //        var y = parseFloat(dato.medida);
+                //        serie.addPoint([x, y]);
+                //    }
+                //});
             } else {
                 var serie = chartTexto.get(dato.dispositivoId);
                 if (serie !== undefined) {
@@ -709,7 +714,8 @@
         });
     }
     function cargarGraficaDatosNumericos() {
-        var options = { chart: { renderTo: 'graf1', type: 'spline', animation: Highcharts.svg, marginRight: 10 }, xAxis: { type: 'datetime', tickPixelInterval: 150 }, title: { text: '' }, yAxis: { title: { text: 'Medida Obtenida' } }, legend: { layout: 'vertical', align: 'right', verticalAlign: 'top' }, series: [] };
+        var options = {
+            chart: { renderTo: 'graf1', type: 'spline', animation: Highcharts.svg, marginRight: 10 }, xAxis: { type: 'datetime', dateTimeLabelFormats: { day: '%d-%m %H:%M', month: '%d-%m', hour: '%H', minute: '%M' } }, title: { text: '' }, yAxis: { title: { text: 'Medida Obtenida' } }, legend: { layout: 'vertical', align: 'right', verticalAlign: 'top' }, series: [] };
         $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/numerico", function (response) {
             if (response !== undefined) {
                 $.each(response, function (index, d) {
@@ -727,7 +733,7 @@
                     $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Numerico&idDispositivo=&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
                         if (response !== undefined) {
                             $.each(response, function (index, dato) {
-                                var x = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(dato.datetime));
+                                var x = Highcharts.dateFormat('%d-%m %H:%M', new Date(dato.datetime));
                                 var y = parseFloat(dato.medida);
                                 serie.addPoint([x, y]);
                             });
@@ -770,8 +776,8 @@
         });
     }
     function cargarGraficaDatosVideo() {
-        var options = { chart: {  renderTo: 'graf3', type: 'spline', animation: Highcharts.svg, marginRight: 10 }, xAxis: { type: 'datetime', tickPixelInterval: 150 }, title: { text: '' }, yAxis: { title: { text: 'Medida Obtenida' } }, legend: { layout: 'vertical', align: 'right', verticalAlign: 'top' }, series: [] };
-        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Video", function (response) {
+        var options = { chart: { renderTo: 'graf3', type: 'column', animation: Highcharts.svg, marginRight: 10 }, title: { text: '' }, plotOptions: { column: { dataLabels: { enabled: true, color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black' } } }, credits: { enabled: false }, legend: { align: 'center', verticalAlign: 'bottom', layout: 'horizontal' }, xAxis: { categories: ['Dispositivos'], labels: { x: 0 } }, yAxis: { allowDecimals: false, title: { text: 'Cantidad Enviada' } }, series: [] };
+        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/municipalidad/" + municipalidad + "/Video", function (response) { 
             if (response !== undefined) {
                 $.each(response, function (index, d) {
                     var newSerie = {
@@ -785,17 +791,9 @@
                 var desde = document.getElementById("desdeFiltroDatos").value;
                 var hasta = document.getElementById("hastaFiltroDatos").value;
                 $.each(chartVideo.series, function (index, serie) {
-                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos?tipoDato=Video&idDispositivo=&pagina=1&dispositivo=" + serie.name + "&municipalidad=" + municipalidad + "&desde=" + desde + "&hasta=" + hasta, function (response) {
+                    $.get("https://www.cerebro-serviceLayer.com/api/historial/datos/total?dispositivo=" + serie.options.id + "&desde=" + desde + "&hasta=" + hasta, function (response) {
                         if (response !== undefined) {
-                            $.each(response, function (index, dato) {
-                                //var x = Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', (new Date()).getTime());
-                                var datetime = dato.datetime;
-                                var fecha = datetime.slice(0, datetime.indexOf("T"));
-                                var hora = datetime.slice((datetime.indexOf("T") + 1), datetime.indexOf("."));
-                                var x = fecha + " " + hora;
-                                var y = parseFloat(dato.medida);
-                                serie.addPoint([x, y]);
-                            });
+                            serie.setData([response]);
                         }
                     });
                 });
@@ -828,38 +826,7 @@
         });
     }
     function cargarGraficaEventos() {
-        var options = {
-            chart: {
-                renderTo: 'graf5',
-                type: 'column',
-                animation: Highcharts.svg,
-                marginRight: 10
-            },
-            title: { text: '' },
-            plotOptions: {
-                column: {
-                    dataLabels: {
-                        enabled: true,
-                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black'
-                    }
-                }
-            },
-            credits: { enabled: false },
-            legend: {
-                align: 'center',
-                verticalAlign: 'bottom',
-                layout: 'horizontal'
-            },
-            xAxis: {
-                categories: ['Tipos de Evento'],
-                labels: { x: 0 }
-            },
-            yAxis: {
-                allowDecimals: false,
-                title: { text: 'Cantidad Registrados' }
-            },
-            series: []
-        };
+        var options = { chart: { renderTo: 'graf5', type: 'column', animation: Highcharts.svg, marginRight: 10 }, title: { text: '' }, plotOptions: { column: { dataLabels: { enabled: true, color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black' } } }, credits: { enabled: false }, legend: { align: 'center', verticalAlign: 'bottom', layout: 'horizontal' }, xAxis: { categories: ['Tipos de Evento'], labels: { x: 0 } }, yAxis: { allowDecimals: false, title: { text: 'Cantidad Registrados' } }, series: [] };
         $.get("https://www.cerebro-serviceLayer.com/api/eventos/muni/" + municipalidad, function (response) {
             if (response !== undefined) {
                 $.each(response, function (index, d) {
@@ -884,25 +851,56 @@
         });
     }
     function toggleSizeFirst() {
-        if (document.getElementById('graf1').style.height === "230px") {
-            document.getElementById('graf1').style.height = "450px";
-            document.getElementById('graf2').style.height = "450px";
-            document.getElementById('graf3').style.height = "450px";
-            document.getElementById('graf4').style.height = "450px";
-        } else {
-            document.getElementById('graf1').style.height = "230px";
-            document.getElementById('graf2').style.height = "230px";
-            document.getElementById('graf3').style.height = "230px";
-            document.getElementById('graf4').style.height = "230px";
+        if (document.getElementById('graf1').style.display === "block") { 
+            if (document.getElementById('graf1').style.height === "230px") {
+                document.getElementById('graf1').style.height = "450px";
+            }
+            else { 
+                document.getElementById('graf1').style.height = "230px";
+            }
+            chartNumerico.setSize(undefined, null);
+            chartNumerico.redraw();
         }
-        chartNumerico.setSize(undefined, null);
-        chartTexto.setSize(undefined, null);
-        chartImagen.setSize(undefined, null);
-        chartVideo.setSize(undefined, null);
-        chartNumerico.redraw();
-        chartTexto.redraw();
-        chartImagen.redraw();
-        chartVideo.redraw();
+        if (document.getElementById('graf2').style.display === "block") {
+            if (document.getElementById('graf2').style.height === "230px") {
+                document.getElementById('graf2').style.height = "450px";
+            }
+            else {
+                document.getElementById('graf2').style.height = "230px";
+            }
+            chartImagen.setSize(undefined, null);
+            chartImagen.redraw();
+        }
+        if (document.getElementById('graf3').style.display === "block") {
+            if (document.getElementById('graf3').style.height === "230px") {
+                document.getElementById('graf3').style.height = "450px";
+            }
+            else {
+                document.getElementById('graf3').style.height = "230px";
+            }
+            chartVideo.setSize(undefined, null);
+            chartVideo.redraw();
+        }
+        if (document.getElementById('graf4').style.display === "block") {
+            if (document.getElementById('graf4').style.height === "230px") {
+                document.getElementById('graf4').style.height = "450px";
+            }
+            else {
+                document.getElementById('graf4').style.height = "230px";
+            }
+            chartTexto.setSize(undefined, null);
+            chartTexto.redraw();
+        }
+        if (document.getElementById('graf6').style.display === "block") {
+            if (document.getElementById('graf6').style.height === "230px") {
+                document.getElementById('graf6').style.height = "450px";
+            }
+            else {
+                document.getElementById('graf6').style.height = "230px";
+            }
+            chartImagen.setSize(undefined, null);
+            chartImagen.redraw();
+        }
     }
     function toggleSizeSecond() {
         if (document.getElementById('graf5').style.height === "230px") {
