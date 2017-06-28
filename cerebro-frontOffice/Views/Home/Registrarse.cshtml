@@ -13,6 +13,18 @@
     <script src="js/site.js"></script>
 </head>
 <body class="w3-cerebro-blue">
+    <div class="ui active page dimmer" style="display: none" id="dimmer">
+        <div class="ui text loader big" id="loading" style="display: none">Por favor espere...</div>
+        <div class="w3-display-middle" id="exito" style="display: none">
+            <h1 class="ui header text inverted">Registro completado con exito!</h1>
+            <h3 class="ui header text inverted horizontal divider">Ser&aacute;s llevado a la p&aacute;gina de inicio</h3>
+            <button class="ui circular green huge icon button inverted" onclick="ocultarDimmerConLogin()"><i class="checkmark icon"></i></button>
+        </div>
+        <div class="w3-display-middle" id="error" style="display: none">
+            <h1 class="ui header text inverted">Ha ocurrido un error, por favor vuelve a intentar...</h1>
+            <button class="ui circular orange huge icon button inverted" onclick="ocultarDimmer()"><i class="warning icon"></i></button>
+        </div>
+    </div>
     <div class="w3-cerebro-blue" style="height:100%; width:100%"><div class="bgimg-4" id="backgr" style="height: 100%"></div></div>
     <div class="w3-bar w3-top">
         <div class="w3-content">
@@ -44,6 +56,11 @@
             <div class="w3-center"><button class="ui button secondary w3-cerebro-red w3-margin" onclick="addOperador()">Registrarse</button></div>
         </div>
     </div>
+    <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" id="form" role="form" style="display:none">
+        <input name="email" id="emailLogin" type="text" required>
+        <input name="pass" id="passLogin" type="password" required>
+        <input name="muni" id="muniLogin" required>
+    </form>
     <script>
         $(document).ready(function () {
             "use strict";
@@ -64,12 +81,56 @@
         }
 
         function addOperador() {
+            mostrarMensajeLoading();
             var postInfo = "email=" + document.getElementById("email").value + "&nombre_municipalidad=" + document.getElementById("muni").value + "&nombre=" + document.getElementById("nombre").value + "&password=" + document.getElementById("pass").value;
             $.post("https://www.cerebro-serviceLayer.com/api/usuarios/operador?" + postInfo, function (response) {
-                document.getElementById("email").value = "";
-                document.getElementById("nombre").value = "";
-                document.getElementById("pass").value = "";
+                if (response === "OK") {
+                    document.getElementById("emailLogin").value = document.getElementById("email").value;
+                    document.getElementById("passLogin").value = document.getElementById("pass").value;
+                    document.getElementById("muniLogin").value = document.getElementById("muni").value;
+                    mostrarMensajeExito();
+                } else {
+                    mostrarMensajeError();
+                }
+            }).error(function () {
+                mostrarMensajeError();
             });
+        }
+
+        function ocultarDimmerConLogin() {
+            document.getElementById("dimmer").style.display = "none";
+            document.getElementById("exito").style.display = "none";
+            document.getElementById("error").style.display = "none";
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("form").submit();
+        }
+
+        function mostrarMensajeExito() {
+            document.getElementById("dimmer").style.display = "block";
+            document.getElementById("exito").style.display = "block";
+            document.getElementById("error").style.display = "none";
+            document.getElementById("loading").style.display = "none";
+        }
+
+        function mostrarMensajeError() {
+            document.getElementById("dimmer").style.display = "block";
+            document.getElementById("exito").style.display = "none";
+            document.getElementById("error").style.display = "block";
+            document.getElementById("loading").style.display = "none";
+        }
+
+        function mostrarMensajeLoading() {
+            document.getElementById("dimmer").style.display = "block";
+            document.getElementById("exito").style.display = "none";
+            document.getElementById("error").style.display = "none";
+            document.getElementById("loading").style.display = "block";
+        }
+
+        function ocultarDimmer() {
+            document.getElementById("dimmer").style.display = "none";
+            document.getElementById("exito").style.display = "none";
+            document.getElementById("error").style.display = "none";
+            document.getElementById("loading").style.display = "none";
         }
     </script>
 </body>
