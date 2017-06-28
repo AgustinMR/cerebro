@@ -13,6 +13,6 @@ namespace cerebro_DataAccessLayer
         bool borrarUsuarioAgrupaciones(Usuario usu);
         Agrupacion obtenerAgrupacion(string nombre, string municipalidad);
         List<Agrupacion_Usuario> obtenerUsuariosAgrupacion(string nombre);
-        List<string> obtenerAgrupacionesByUsuario(string email);
+        List<string> obtenerAgrupacionesByUsuario(Agrupacion_Usuario a);
     }
 }
