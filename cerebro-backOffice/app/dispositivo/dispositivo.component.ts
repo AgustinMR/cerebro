@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 declare var ol: any;
 declare var $: any;
+declare var jsts: any;
 
 @Component({
     selector: 'cerebro-dispositivo',
@@ -32,6 +33,9 @@ export class FuenteDeDatoComponent implements OnInit {
     tiposRet: any;
     dispositivosMod: any;
     privilegios: any;
+
+    munis: any;
+    featureMuni: any;
 
     tipoDeFuneteDeDatoSelect = "";
     tipoDeFuneteDeDatoSelectMod = "";
@@ -92,11 +96,29 @@ export class FuenteDeDatoComponent implements OnInit {
             type: "Point"
         });
         this.draw.on('drawend', function (evt: any) {
-            this.geom = evt.feature.getGeometry().getCoordinates();
-            this.geomMod = evt.feature.getGeometry().getCoordinates();
-            this.map.removeInteraction(this.draw);
+            var format = new ol.format.GeoJSON();
+            var geojsonReader = new jsts.io.GeoJSONReader();
+
+            var polygon1Jsts = geojsonReader.read(
+                format.writeFeatureObject(this.featureMuni)).geometry;
+            var polygon2Jsts = geojsonReader.read(
+                format.writeFeatureObject(evt.feature)).geometry;
+
+            if (polygon1Jsts.contains(polygon2Jsts)) {
+                this.geom = evt.feature.getGeometry().getCoordinates();
+                this.geomMod = evt.feature.getGeometry().getCoordinates();
+                this.map.removeInteraction(this.draw);
+            } else {
+                this.mostrarMensajeErrorMapa();
+                this.map.removeInteraction(this.draw);
+                this.geom = "";
+                this.geomMod = "";
+                this.source.clear();
+            }            
         }, this);
         this.cargarTipos();
+
+        this.cargarMapaMuni();
     }
 
     cargarTipos() {
@@ -108,6 +130,43 @@ export class FuenteDeDatoComponent implements OnInit {
             },
             responseError => console.log(responseError),
             () => console.log("Tipos de fuentes de datos cargadas")
+        );
+    }
+
+    cargarMapaMuni() {
+        this.dispositivos.obtenerMunis().subscribe(
+            (data: Response) => {
+                this.munis = data;
+                for (var muni of this.munis) {
+                    if (muni.nombre == this.nombre_municipalidad) {
+                        //alert(muni.nombre);
+                        var tmp = muni.ubicacion.toString().split(",");
+                        var array = [];
+
+                        var j = 0;
+                        for (var i = 0; i < (tmp.length / 2); i++) {
+                            var arraryTmp = [];
+                            arraryTmp[0] = tmp[j]
+                            arraryTmp[1] = tmp[j + 1];
+                            array[i] = arraryTmp;
+                            j++;
+                            j++;
+                        }
+                        var polygon = new ol.geom.Polygon([array]);
+                        var feature = new ol.Feature(polygon);
+                        this.featureMuni = feature;
+                        var vectorSource = new ol.source.Vector();
+                        vectorSource.addFeature(feature);
+
+                        var vector_layer = new ol.layer.Vector({
+                            source: vectorSource
+                        });
+                        this.map.addLayer(vector_layer);
+                    }
+                }
+            },
+            responseError => console.log(responseError),
+            () => { }
         );
     }
 
@@ -273,6 +332,7 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "block";
         document.getElementById("error").style.display = "none";
+        document.getElementById("errorMapa").style.display = "none";
         document.getElementById("dispositivoModificado").style.display = "none";
         document.getElementById("dispositivoEliminado").style.display = "none";
         document.getElementById("warning").style.display = "none";
@@ -283,6 +343,7 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "block";
+        document.getElementById("errorMapa").style.display = "none";
         document.getElementById("warning").style.display = "none";
         document.getElementById("dispositivoModificado").style.display = "none";
         document.getElementById("dispositivoEliminado").style.display = "none";
@@ -293,6 +354,7 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "block";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
+        document.getElementById("errorMapa").style.display = "none";
         document.getElementById("dispositivoModificado").style.display = "none";
         document.getElementById("dispositivoEliminado").style.display = "none";
         document.getElementById("warning").style.display = "none";
@@ -303,6 +365,7 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
+        document.getElementById("errorMapa").style.display = "none";
         document.getElementById("dispositivoModificado").style.display = "none";
         document.getElementById("dispositivoEliminado").style.display = "none";
         document.getElementById("warning").style.display = "block";
@@ -313,6 +376,7 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
+        document.getElementById("errorMapa").style.display = "none";
         document.getElementById("dispositivoModificado").style.display = "block";
         document.getElementById("dispositivoEliminado").style.display = "none";
         document.getElementById("warning").style.display = "none";
@@ -323,8 +387,20 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
+        document.getElementById("errorMapa").style.display = "none";
         document.getElementById("dispositivoModificado").style.display = "none";
         document.getElementById("dispositivoEliminado").style.display = "block";
+        document.getElementById("warning").style.display = "none";
+    }
+
+    mostrarMensajeErrorMapa() {
+        document.getElementById("dimmer").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("success").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("errorMapa").style.display = "block";
+        document.getElementById("dispositivoModificado").style.display = "none";
+        document.getElementById("dispositivoEliminado").style.display = "none";
         document.getElementById("warning").style.display = "none";
     }
 
@@ -333,6 +409,7 @@ export class FuenteDeDatoComponent implements OnInit {
         document.getElementById("loading").style.display = "none";
         document.getElementById("success").style.display = "none";
         document.getElementById("error").style.display = "none";
+        document.getElementById("errorMapa").style.display = "none";
         document.getElementById("dispositivoModificado").style.display = "none";
         document.getElementById("dispositivoEliminado").style.display = "none";
         document.getElementById("warning").style.display = "none";
