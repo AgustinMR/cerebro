@@ -119,9 +119,9 @@ namespace cerebro_DataAccessLayer
             return (from a in new AgrupacionesDbContext().Agrupaciones_Usuarios where a.nombre_agrupacion == nombre select a).ToList();
         }
 
-        public List<string> obtenerAgrupacionesByUsuario(string email)
+        public List<string> obtenerAgrupacionesByUsuario(Agrupacion_Usuario aa)
         {
-            return (from a in new AgrupacionesDbContext().Agrupaciones_Usuarios where a.usuario_email == email select a.nombre_agrupacion).ToList();
+            return (from a in new AgrupacionesDbContext().Agrupaciones_Usuarios where a.usuario_email == aa.usuario_email where a.nombre_municipalidad_agrupacion == aa.nombre_municipalidad_agrupacion select a.nombre_agrupacion).ToList();
         }
     }
 }
