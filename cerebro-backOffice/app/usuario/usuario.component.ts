@@ -68,6 +68,8 @@ export class UsuarioComponent implements OnInit {
                 document.getElementById("emailAct").innerHTML = this.usuariosMunicipalidad[x].email;
                 if (this.usuariosMunicipalidad[x].enabled == true) {
                     $('#estadoActual').prop('checked', true);
+                } else {
+                    $('#estadoActual').prop('checked', false);
                 }
                 this.usuarios.obtenerPrivilegiosUsu(this.usuariosMunicipalidad[x].email, this.nombre_municipalidad).subscribe(
                     (data: Response) => {
@@ -116,7 +118,9 @@ export class UsuarioComponent implements OnInit {
         this.usuarios.toggleEnabled(this.usuarioSelect, this.nombre_municipalidad, b).subscribe(
             (data: Response) => { },
             responseError => console.log(responseError),
-            () => { }
+            () => {
+                this.cargarUsuarios();
+            }
         );
         var e = $('#privilegiosSelect').dropdown("get value");
         var pirvTmp = this.privilegiosUsuario;

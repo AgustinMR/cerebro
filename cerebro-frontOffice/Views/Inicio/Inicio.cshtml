@@ -95,15 +95,20 @@
                         <div class="ui segment" style="height: 50px; background-color: #FBFBFB">
                             <h3 class="ui header text w3-text-silver w3-display-middle" style="margin-top: 0px">Mapa de la municipalidad</h3>
                             <button class="circular basic ui icon button compact small w3-right" id="coso2" style="margin-top: -5px; margin-right: -5px"><i class="ellipsis horizontal large icon w3-text-cerebro-red" ></i></button>
+                            <button class="positive ui button compact small w3-right" onclick="guardarZona()" style="margin-top: -2px; margin-right: 10px">Suscribirse</button>
                         </div>
-                        <div class="ui segments raised popup bottom left pointing transition hidden" id="popup2" style="max-width: 400px; width: 370px; padding: 0px">
-                            <div class="ui segment sticky" style="background-color: #FBFBFB; height: 40px">
+                        <div class="ui segments raised popup bottom left pointing transition hidden" id="popup2" style="max-width: 400px; width: 340px; padding: 0px">
+                            <div class="ui segment sticky" style="background-color: #FBFBFB; height: 40px; padding:0px">
                                 <div class="ui two item menu pointing secondary" style="margin-top: -14px">
                                     <a id="disTab" class="active w3-text-cerebro-red item" onclick="disp()">Eventos</a>
                                     <a id="susTab" class="item" onclick="suscip()">Suscripciones</a>
                                 </div>
                             </div>
-                            <div class="ui raised segment" id="fletesContext">
+                            <div class="ui segment secondary" id="menuSuscripcion" style="height: 45px; display:none">
+                                <button class="ui icon button compact small w3-right positive" onclick="addSuscripcion()" style="margin-top: -5px; margin-right: -5px"><i class="add icon"></i></button>
+                                <button class="ui icon button compact small w3-right negative" style="margin-top: -5px; margin-right: 3px"><i class="remove icon"></i></button>
+                            </div>
+                            <div class="ui raised segment">
                                 <div class="ui active tab">
                                     <div class="ui divided items w3-padding-16" id="items" style="min-height: 323px; display: none">
                                     </div>
@@ -583,6 +588,7 @@
         $('#disTab').removeClass("active w3-text-cerebro-red");
         document.getElementById("itemsDiv").style.display = "none";
         document.getElementById("items").style.display = "block";
+        document.getElementById("menuSuscripcion").style.display = "block";
         source.clear();
         if (zonaBool == true) {
             map.removeLayer(vector_layer);
@@ -605,6 +611,7 @@
         $('#susTab').removeClass("active w3-text-cerebro-red");
         document.getElementById("itemsDiv").style.display = "block";
         document.getElementById("items").style.display = "none";
+        document.getElementById("menuSuscripcion").style.display = "none";
         source.clear();
         if (zonaBool == true) {
             map.removeLayer(vector_layer);
