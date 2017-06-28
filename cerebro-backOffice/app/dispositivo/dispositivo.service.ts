@@ -40,4 +40,8 @@ export class FuenteDeDatoService {
         return this.http.get("https://www.cerebro-servicelayer.com/api/usuarios/privilegios?muni=" + muni).map(data => data.json());
     }
 
+    public obtenerMunis() {
+        return this.http.get("https://www.cerebro-serviceLayer.com/api/municipalidades").map(data => data.json());
+    }
+
 }
