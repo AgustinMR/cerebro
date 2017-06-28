@@ -118,13 +118,11 @@
                             <h4 class="ui horizontal divider text header w3-text-cerebro-red w3-padding" id="agrupacionActual"></h4>
                         </div>
                         <div class="ui segment blurring grey">
-                            <div class="ui active inverted dimmer" style="display: none" id="dimmerAdmin"></div>
                             <select id="usuariosMunicipalidad" class="ui fluid dropdown w3-padding" onchange="addUsuarioAgrupacion()">
                                 <option value="">Seleccione usuarios para agregarlos a la agrupaci&oacute;n...</option>
                             </select>
                         </div>
                         <div class="ui raised blurring segment" style="min-height: 300px; padding: 0px">
-                            <div class="ui active inverted dimmer" style="display: none" id="dimmerAdmin2"></div>
                             <table class="ui compact celled table" id="tabla" style="margin-top: 0px">
                                 <thead>
                                     <tr>
@@ -304,10 +302,10 @@
     });
     function addAgrupacion() {
         "use strict";
-        mostrarMensajeLoading();
 		var agrupacion = document.getElementById("nombre").value;
-        var postInfo = "nombre_agrupacion=" + agrupacion + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=true";
-        if (agrupacion !== "") {
+        if (agrupacion !== "" && agrupacion.replace(" ", "").length <= 30) {
+            mostrarMensajeLoading();
+            var postInfo = "nombre_agrupacion=" + agrupacion.replace(" ", "") + "&nombre_municipalidad_agrupacion=" + municipalidad + "&usuario_email=" + email + "&nombre_municipalidad_usuario=" + municipalidad + "&admin=true";
             $.post("https://www.cerebro-serviceLayer.com/api/agrupaciones?" + postInfo, function (response) {
                 if (response === "ok") {
                     getAgrupacionesByUsuario(email);
@@ -319,7 +317,9 @@
                 else {
                     mostrarMensajeError();
 				}
-			});
+            }).error(function () {
+                mostrarMensajeError();
+            });
 		}
     }
     function addUsuarioAgrupacion() {
@@ -389,20 +389,12 @@
         if (agrupacion !== "") {
             $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/" + agrupacion, function (response) {
                 if (response !== undefined) {
-                    var admin = false;
                     document.getElementById("agrupacionActual").innerHTML = agrupacion;
-                    document.getElementById("dimmerAdmin").style.display = "none";
-                    document.getElementById("dimmerAdmin2").style.display = "none";
                     document.getElementById("botonEliminar").className = "ui icon button w3-right";
                     while (document.getElementById("usuariosActualesBody").hasChildNodes()) {
                         document.getElementById("usuariosActualesBody").removeChild(document.getElementById("usuariosActualesBody").lastChild);
                     }
                     $.each(response, function (index, usuario) {
-                        if (usuario.usuario_email === email) {
-                            if (usuario.admin === true) {
-                                admin = true;
-                            }
-                        }
                         var tr = document.createElement("tr");
                         var td = document.createElement("td");
                         td.className = "collapsing";
@@ -435,11 +427,6 @@
                         tr.appendChild(td4);
                         document.getElementById("usuariosActualesBody").appendChild(tr);
                     });
-                    if (!admin) {
-                        document.getElementById("dimmerAdmin").style.display = "block";
-                        document.getElementById("dimmerAdmin2").style.display = "block";
-                        document.getElementById("botonEliminar").className = "ui icon disabled button w3-right";
-                    }
                 }
             });
         }
@@ -562,8 +549,6 @@
         document.getElementById("warning").style.display = "none";
         document.getElementById("loading").style.display = "none";
         document.getElementById("exitoMod").style.display = "none";
-        document.getElementById("dimmerAdmin").style.display = "none";
-        document.getElementById("dimmerAdmin2").style.display = "none";
         document.getElementById("exitoEliminar").style.display = "none";
     }
 
