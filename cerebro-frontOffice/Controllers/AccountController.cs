@@ -34,7 +34,7 @@ namespace cerebro_frontOffice.Controllers
             {
                 return Redirect("/");
             }
-            else
+            else if (usuarios.Enabled == true)
             {
                 if (usuarios.Tipo == 0)
                 {
