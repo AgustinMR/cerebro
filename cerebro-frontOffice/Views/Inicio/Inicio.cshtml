@@ -37,6 +37,27 @@
     </div>
 </div>
 <div class="pusher" style="background-image:url(images/ub1610v2.jpg); background-attachment:fixed; background-size:cover">
+    <div class="ui active dimmer" style="display: none" id="dimmer">
+        <div class="ui text loader big" id="loading" style="display: none">Por favor espere...</div>
+        <div class="w3-display-middle" id="exito" style="display: none">
+            <h1 class="ui header text inverted">Suscripci&oacute;n creada correctamente!</h1>
+            <button class="ui circular green huge icon button inverted" onclick="ocultarMensajes()"><i class="checkmark icon"></i></button>
+        </div>
+        <div class="w3-display-middle" id="exitoEliminar" style="display: none">
+            <h1 class="ui header text inverted">Suscripci&oacute;n eliminada correctamente.</h1>
+            <button class="ui circular green huge icon button inverted" onclick="ocultarMensajes()"><i class="checkmark icon"></i></button>
+        </div>
+        <div class="w3-display-middle" id="error" style="display: none">
+            <h1 class="ui header text inverted">Ha ocurrido un error, por favor vuelve a intentar...</h1>
+            <button class="ui circular orange huge icon button inverted" onclick="ocultarMensajes()"><i class="warning icon"></i></button>
+        </div>
+        <div class="w3-display-middle" id="warning" style="display: none">
+            <h2 style="color: white" class="ui text header inverted">Se eliminar&aacute; la suscripci&oacute;n <span id="zonaEliminar" class="ui orange text header small"></span></h2>
+            <h2 class="ui horizontal divider text header inverted w3-padding w3-margin-bottom">&iquest;Continuar?</h2>
+            <button class="ui inverted button w3-center" onclick="ocultarMensajes()">Cancelar</button>
+            <button class="ui inverted red button w3-center" onclick="borrarZona()">Eliminar</button>
+        </div>
+    </div>
     <div class="ui basic modal" id="videoModal">
         <div class="content">
             <div class="ui embed" id="videoEmbed"></div>
@@ -94,11 +115,11 @@
                     <div class="ui raised segments">
                         <div class="ui segment" style="height: 50px; background-color: #FBFBFB">
                             <h3 class="ui header text w3-text-silver w3-display-middle" style="margin-top: 0px">Mapa de la municipalidad</h3>
-                            <button class="circular basic ui icon button compact small w3-right" id="coso2" style="margin-top: -5px; margin-right: -5px"><i class="ellipsis horizontal large icon w3-text-cerebro-red" ></i></button>
-                            <button class="positive ui button compact small w3-right" onclick="guardarZona()" style="margin-top: -2px; margin-right: 10px">Suscribirse</button>
+                            <button class="circular basic ui icon button compact small w3-right" id="coso2" style="margin-top: -5px; margin-right: -5px"><i class="ellipsis horizontal large icon w3-text-cerebro-red"></i></button>
+                            <button class="positive ui button compact small w3-right" onclick="guardarZona()" id="btnSuscribirse" style="margin-top: -2px; margin-right: 10px; display:none">Suscribirse</button>
                         </div>
-                        <div class="ui segments raised popup bottom left pointing transition hidden" id="popup2" style="max-width: 400px; width: 340px; padding: 0px">
-                            <div class="ui segment sticky" style="background-color: #FBFBFB; height: 40px; padding:0px">
+                        <div class="ui segments raised popup top left pointing transition hidden" id="popup2" style="max-width: 400px; width: 340px; padding: 0px">
+                            <div class="ui segment sticky" style="background-color: #FBFBFB; height: 40px; padding-left:0px; padding-right:0px; padding-bottom:0px">
                                 <div class="ui two item menu pointing secondary" style="margin-top: -14px">
                                     <a id="disTab" class="active w3-text-cerebro-red item" onclick="disp()">Eventos</a>
                                     <a id="susTab" class="item" onclick="suscip()">Suscripciones</a>
@@ -106,7 +127,7 @@
                             </div>
                             <div class="ui segment secondary" id="menuSuscripcion" style="height: 45px; display:none">
                                 <button class="ui icon button compact small w3-right positive" onclick="addSuscripcion()" style="margin-top: -5px; margin-right: -5px"><i class="add icon"></i></button>
-                                <button class="ui icon button compact small w3-right negative" style="margin-top: -5px; margin-right: 3px"><i class="remove icon"></i></button>
+                                <button class="ui icon button compact small w3-right negative" onclick="mostrarMensajeWarning()" style="margin-top: -5px; margin-right: 3px"><i class="remove icon"></i></button>
                             </div>
                             <div class="ui raised segment">
                                 <div class="ui active tab">
@@ -143,387 +164,235 @@
         </div>
     </div>
     <script>
-    var email = '@User.Claims.ToList()[0].Value';
-    var muni = '@User.Claims.ToList()[3].Value';
-    var map;
-    var source;
-    var draw;
-    var fea;
-    var geom = "";
-    var dispositivos;
-    var zonas;
-    var zonaBool = false;
-    var vector_layer;
-    var arrayFeatures = [];
-    var pusher = new Pusher('474881b81d9d92dd2713', {
-        encrypted: true
-    });
-    var privilegios = [];
-
-    var disActual;
-    $(document).ready(function () {
-        "use strict";
-        var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
-        source = new ol.source.Vector({ wrapX: false });
-        var vector = new ol.layer.Vector({ source: source });
-
-        map = new ol.Map({
-            layers: [raster, vector],
-            target: 'map',
-            view: new ol.View({
-                projection: 'EPSG:4326',
-                center: [-56.22540901390569, -34.86341907811338],
-                zoom: 10
-            })
+        var email = '@User.Claims.ToList()[0].Value';
+        var muni = '@User.Claims.ToList()[3].Value';
+        var map;
+        var source;
+        var draw;
+        var fea;
+        var geom = "";
+        var dispositivos;
+        var zonas;
+        var zonaBool = false;
+        var vector_layer;
+        var zonaEliminar = "";
+        var arrayFeatures = [];
+        var pusher = new Pusher('474881b81d9d92dd2713', {
+            encrypted: true
         });
+        var privilegios = [];
 
-        var features = new ol.Collection();
-        draw = new ol.interaction.Draw({
-            source: source,
-            features: features,
-            type: "Polygon"
-        });
-        var modifyInteraction = new ol.interaction.Modify({ features: features });
+        var disActual;
+        $(document).ready(function () {
+            "use strict";
+            var raster = new ol.layer.Tile({ source: new ol.source.OSM() });
+            source = new ol.source.Vector({ wrapX: false });
+            var vector = new ol.layer.Vector({ source: source });
 
-        draw.on('drawend', function (evt) {
-            fea = evt.feature;
-            geom = evt.feature.getGeometry().getCoordinates();
-            map.removeInteraction(draw);
-            map.addInteraction(modifyInteraction);
-        }, this);
-
-        modifyInteraction.on('modifyend', function (evt) {
-            geom = fea.getGeometry().getCoordinates();
-            //alert(geom);
-        });
-
-        cargarDispositivos();
-        cargarZona();
-        cargarPrivilegios();
-
-        var channel = pusher.subscribe("datos-dispositivos");
-
-        map.on("click", function (e) {
-            var feature = map.forEachFeatureAtPixel(e.pixel,
-                function (feature) {
-                    return feature;
-                });
-            if (feature) {
-                document.getElementById("nomDis").innerHTML = "";
-                document.getElementById("fechaHoraDis").innerHTML = "";
-                document.getElementById("tipoDis").innerHTML = "";
-                document.getElementById("contenidoDis").innerHTML = "";
-                document.getElementById("imgDis").src = "";
-                document.getElementById("imgEmbed").src = "";
-                document.getElementById("imgDis").style.display = "none";
-                document.getElementById("videoDiv").style.display = "none";
-                for (var dis of dispositivos) {
-                    if (String(dis.ubicacion) === String(feature.getGeometry().getCoordinates())) {
-                        var nombre = dis.nombre;
-                        var idP = dis.Id;
-                        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/datos/" + dis.Id, function (response) {
-                            if (response != null) {
-
-                                document.getElementById("nomDis").innerHTML = nombre;
-
-                                var dateTime = response.datetime.split("T");
-                                var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
-                                var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
-                                document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
-                                document.getElementById("tipoDis").innerHTML = response.tipoDeDato;
-                                if (String(response.tipoDeDato) === "Texto" || String(response.tipoDeDato) === "Numerico") {
-                                    document.getElementById("contenidoDis").innerHTML = response.medida;
-                                } else if (String(response.tipoDeDato) === "Imagen") {
-                                    var settings = {
-                                        "async": true,
-                                        "crossDomain": true,
-                                        "url": "https://www.cerebro-servicelayer.com/api/dispositivos/img/" + response.imagenId,
-                                        "method": "GET",
-                                        "headers": {
-                                            "cache-control": "no-cache"
-                                        }
-                                    }
-
-                                    $.ajax(settings).done(function (data) {
-                                        document.getElementById("imgDis").style.display = "block";
-                                        document.getElementById("imgEmbed").src = "data:image/png;base64," + data;
-                                        document.getElementById("imgDis").src = "data:image/png;base64," + data;
-                                        document.getElementById("imgDis").addEventListener("click", function () {
-                                            $('#imagenModal').modal('show');
-                                        });
-
-                                    });
-                                }
-                                else if (String(response.tipoDeDato) === "Video") {
-                                    document.getElementById("videoDiv").style.display = "block";
-                                    document.getElementById("playBtn").addEventListener("click", function () {
-                                        //document.getElementById("videoEmbed").setAttribute("data-url", response.medida);
-                                        var videoid = response.medida.toString().match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
-                                        if (videoid != null) {
-                                            console.log("video id = ", videoid[1]);
-                                            $('#videoEmbed').embed({
-                                                source: 'youtube',
-                                                id: videoid[1]
-                                            });
-                                        } else {
-                                            console.log("The youtube url is not valid.");
-                                            $('#videoEmbed').embed({
-                                                url: String(response.medida)
-                                            });
-                                        }
-                                        $('#videoModal').modal({ blurring: true }).modal('show');
-                                    });
-                                }
-                                channel.bind('dato-nuevo', function (data) {
-                                    if (data.dispositivoId === idP) {
-                                        if (data.tipoDeDato === "Numerico" || data.tipoDeDato === "Texto") {
-                                            var dateTime = data.datetime.split("T");
-                                            var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
-                                            var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
-                                            document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
-                                            document.getElementById("contenidoDis").innerHTML = data.medida;
-                                        } else if (data.tipoDeDato === "Imagen") {
-                                            var dateTime = data.datetime.split("T");
-                                            var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
-                                            var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
-                                            document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
-                                            var settings = {
-                                                "async": true,
-                                                "crossDomain": true,
-                                                "url": "https://www.cerebro-servicelayer.com/api/dispositivos/img/" + data.imagenId,
-                                                "method": "GET",
-                                                "headers": {
-                                                    "cache-control": "no-cache"
-                                                }
-                                            }
-
-                                            $.ajax(settings).done(function (data2) {
-                                                document.getElementById("imgDis").style.display = "block";
-                                                document.getElementById("imgEmbed").src = "data:image/png;base64," + data2;
-                                                document.getElementById("imgDis").src = "data:image/png;base64," + data2;
-                                                document.getElementById("imgDis").addEventListener("click", function () {
-                                                    $('#imagenModal').modal('show');
-                                                });
-                                            });
-                                        }
-                                        else if (data.tipoDeDato === "Video") {
-                                            var dateTime = data.datetime.split("T");
-                                            var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
-                                            var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
-                                            document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
-                                            document.getElementById("videoDiv").style.display = "block";
-                                            document.getElementById("playBtn").addEventListener("click", function () {
-                                                //document.getElementById("videoEmbed").setAttribute("data-url", response.medida);
-                                                var videoid = data.medida.toString().match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
-                                                if (videoid != null) {
-                                                    console.log("video id = ", videoid[1]);
-                                                    if ($('#videoEmbed').embed('get id') !== undefined) {
-                                                        $('#videoEmbed').embed('change', 'youtube', videoid[1]);
-                                                    }
-                                                    $('#videoEmbed').embed({
-                                                        source: 'youtube',
-                                                        id: videoid[1]
-                                                    });
-                                                } else {
-                                                    console.log("The youtube url is not valid.");
-                                                    $('#videoEmbed').embed({
-                                                        url: String(data.medida)
-                                                    });
-                                                }
-                                                $('#videoModal').modal({ blurring: true }).modal('show');
-                                            });
-                                        }
-                                    }
-                                });
-                                mostrarInfoDispositivo();
-
-                            } else {
-                                console.log("null " + idP);
-                            }
-                        });
-                    }
-                }
-            }
-        });
-        function mostrarModalVideo() {
-            $('#videoModal').modal({ blurring: true }).modal('show');
-        }
-        function mostrarModalImagen() {
-            //$('#imagenModal').modal('show');
-            $('#imagenModal').modal({ blurring: true }).modal('show');
-            //alert();
-            //document.getElementById("imagenModal").style.display = "block";
-        }
-        channel.bind('evento-nuevo', function (data) {
-            var count = 0;
-            //PRIVILEGIOS
-
-            $.each(data.privilegios, function (index, priv) {
-                $.each(privilegios, function (index, pr) {
-                    if (pr == priv) {
-                        count++;
-                    }
-                });
+            map = new ol.Map({
+                layers: [raster, vector],
+                target: 'map',
+                view: new ol.View({
+                    projection: 'EPSG:4326',
+                    center: [-56.22540901390569, -34.86341907811338],
+                    zoom: 10
+                })
             });
 
-            if (count == data.privilegios.length) {
-                //SUSCRIPCIONES
-                var b = false;
-                $.each(zonas, function (index, zona) {
-                    var tmp = zona.ubicacion.toString().split(",");
-                    var array = [];
+            var features = new ol.Collection();
+            draw = new ol.interaction.Draw({
+                source: source,
+                features: features,
+                type: "Polygon"
+            });
+            var modifyInteraction = new ol.interaction.Modify({ features: features });
 
-                    var j = 0;
-                    for (var i = 0; i < (tmp.length / 2); i++) {
-                        var arraryTmp = [];
-                        arraryTmp[0] = tmp[j]
-                        arraryTmp[1] = tmp[j + 1];
-                        array[i] = arraryTmp;
-                        j++;
-                        j++;
-                    }
-                    var polygon = new ol.geom.Polygon([array]);
-                    var featurePolygon = new ol.Feature(polygon);
-                    var countPoint = 0;
-                    $.each(data.geom, function (index, dt2) {
+            draw.on('drawend', function (evt) {
+                fea = evt.feature;
+                geom = evt.feature.getGeometry().getCoordinates();
+                map.removeInteraction(draw);
+                map.addInteraction(modifyInteraction);
+            }, this);
 
-                        var point = new ol.geom.Point(dt2);
-                        var featurePoint = new ol.Feature(point);
+            modifyInteraction.on('modifyend', function (evt) {
+                geom = fea.getGeometry().getCoordinates();
+                //alert(geom);
+            });
 
-                        var format = new ol.format.GeoJSON();
-                        var geojsonReader = new jsts.io.GeoJSONReader();
-
-                        var polygon1Jsts = geojsonReader.read(
-                            format.writeFeatureObject(featurePolygon)).geometry;
-                        var polygon2Jsts = geojsonReader.read(
-                            format.writeFeatureObject(featurePoint)).geometry;
-
-                        if (polygon1Jsts.contains(polygon2Jsts)) {
-                            countPoint++;
-                        }
-                    });
-                    if (countPoint == data.geom.length) {
-                        b = true;
-                    }
-                    countPoint = 0;
-                });
-                if (b) {
-                    var item = document.createElement("div");
-                    item.className = "item";
-                    var a = document.createElement("a");
-                    a.className = "ui header text small link";
-                    var dateTime = data.fechaHora.split("T");
-                    var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
-                    var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
-                    a.innerHTML = data.nombre + " (" + fecha + " - " + hora + ")";
-                    a.addEventListener("click", function () {
-                        $.each(arrayFeatures, function (index, feat) {
-                            var normalStyle = new ol.style.Style({
-                                image: new ol.style.Circle({
-                                    radius: 5,
-                                    fill: new ol.style.Fill({
-                                        color: 'orange'
-                                    })
-                                })
-                            });
-                            feat.setStyle(normalStyle);
-                        });
-                        $.each(data.geom, function (index, dt) {
-                            var feature = map.forEachFeatureAtPixel(map.getPixelFromCoordinate(dt),
-                                function (feature) {
-                                    return feature;
-                                });
-                            if (feature) {
-                                var eventoStyle = new ol.style.Style({
-                                    image: new ol.style.Circle({
-                                        radius: 5,
-                                        fill: new ol.style.Fill({
-                                            color: 'red'
-                                        })
-                                    })
-                                });
-                                feature.setStyle(eventoStyle);
-                            }
-                        });
-                    });
-                    item.appendChild(a);
-                    document.getElementById("itemsDiv").appendChild(item);
-                }
-                //document.getElementById("itemsDiv").insertBefore(item, document.getElementById("itemsDiv"));
-            }
-        });
-    });
-
-    function cargarDispositivos() {
-        $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muniUsu?muni=" + muni + "&email=" + email, function (response) {
-            dispositivos = response;
-            for (var res in response) {
-                var point_feature = new ol.Feature({});
-                var point_geom = new ol.geom.Point(response[res].ubicacion);
-                point_feature.setGeometry(point_geom);
-                var vectorLayer = new ol.layer.Vector({
-                    source: new ol.source.Vector({
-                        features: [point_feature]
-                    }),
-                    style: new ol.style.Style({
-                        image: new ol.style.Circle({
-                            radius: 5,
-                            fill: new ol.style.Fill({
-                                color: 'orange'
-                            })
-                        })
-                    })
-                });
-
-                arrayFeatures[arrayFeatures.length] = vectorLayer.getSource().getFeatures()[0];
-                map.addLayer(vectorLayer);
-            }
-        });
-    }
-
-    function addSuscripcion() {
-        source.clear();
-        map.addInteraction(draw);
-    }
-
-    function guardarZona() {
-        $.post("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email=" + email + "&muni=" + muni + "&ubicacion=" + geom, function (res) {
-            console.log("Zona guardada");
+            cargarDispositivos();
             cargarZona();
-            source.clear();
-        });
-    }
+            cargarPrivilegios();
 
-    function cargarPrivilegios() {
-        $.get("https://www.cerebro-servicelayer.com/api/usuarios/privilegiosUsu?email=" + email + "&muni=" + muni, function (res) {
-            for (var i = 0; i < res.length; i++) {
-                privilegios[privilegios.length] = res[i].Privilegio_nombre;
-            }
-        });
-    }
+            var channel = pusher.subscribe("datos-dispositivos");
 
-    function cargarZona() {
-        $.get("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email=" + email + "&muni=" + muni, function (response) {
-            if (response !== undefined) {
-                while (document.getElementById("items").hasChildNodes()) {
-                    document.getElementById("items").removeChild(document.getElementById("items").lastChild);
-                }
-                var num = 0;
-                zonas = response;
-                $.each(response, function (index, zona) {
-                    var item = document.createElement("div");
-                    item.className = "item";
-                    var a = document.createElement("a");
-                    a.className = "ui header text small link";
-                    a.innerHTML = "Zona " + num;
-                    num++;
-                    var tmp1 = zona.ubicacion;
-                    a.addEventListener("click", function () {
-                        source.clear();
-                        if (zonaBool == true) {
-                            map.removeLayer(vector_layer);
+            map.on("click", function (e) {
+                var feature = map.forEachFeatureAtPixel(e.pixel,
+                    function (feature) {
+                        return feature;
+                    });
+                if (feature) {
+                    document.getElementById("nomDis").innerHTML = "";
+                    document.getElementById("fechaHoraDis").innerHTML = "";
+                    document.getElementById("tipoDis").innerHTML = "";
+                    document.getElementById("contenidoDis").innerHTML = "";
+                    document.getElementById("imgDis").src = "";
+                    document.getElementById("imgEmbed").src = "";
+                    document.getElementById("imgDis").style.display = "none";
+                    document.getElementById("videoDiv").style.display = "none";
+                    for (var dis of dispositivos) {
+                        if (String(dis.ubicacion) === String(feature.getGeometry().getCoordinates())) {
+                            var nombre = dis.nombre;
+                            var idP = dis.Id;
+                            $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/datos/" + dis.Id, function (response) {
+                                if (response != null) {
+
+                                    document.getElementById("nomDis").innerHTML = nombre;
+
+                                    var dateTime = response.datetime.split("T");
+                                    var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                                    var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                                    document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
+                                    document.getElementById("tipoDis").innerHTML = response.tipoDeDato;
+                                    if (String(response.tipoDeDato) === "Texto" || String(response.tipoDeDato) === "Numerico") {
+                                        document.getElementById("contenidoDis").innerHTML = response.medida;
+                                    } else if (String(response.tipoDeDato) === "Imagen") {
+                                        var settings = {
+                                            "async": true,
+                                            "crossDomain": true,
+                                            "url": "https://www.cerebro-servicelayer.com/api/dispositivos/img/" + response.imagenId,
+                                            "method": "GET",
+                                            "headers": {
+                                                "cache-control": "no-cache"
+                                            }
+                                        }
+
+                                        $.ajax(settings).done(function (data) {
+                                            document.getElementById("imgDis").style.display = "block";
+                                            document.getElementById("imgEmbed").src = "data:image/png;base64," + data;
+                                            document.getElementById("imgDis").src = "data:image/png;base64," + data;
+                                            document.getElementById("imgDis").addEventListener("click", function () {
+                                                $('#imagenModal').modal('show');
+                                            });
+
+                                        });
+                                    }
+                                    else if (String(response.tipoDeDato) === "Video") {
+                                        document.getElementById("videoDiv").style.display = "block";
+                                        document.getElementById("playBtn").addEventListener("click", function () {
+                                            //document.getElementById("videoEmbed").setAttribute("data-url", response.medida);
+                                            var videoid = response.medida.toString().match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+                                            if (videoid != null) {
+                                                console.log("video id = ", videoid[1]);
+                                                $('#videoEmbed').embed({
+                                                    source: 'youtube',
+                                                    id: videoid[1]
+                                                });
+                                            } else {
+                                                console.log("The youtube url is not valid.");
+                                                $('#videoEmbed').embed({
+                                                    url: String(response.medida)
+                                                });
+                                            }
+                                            $('#videoModal').modal({ blurring: true }).modal('show');
+                                        });
+                                    }
+                                    channel.bind('dato-nuevo', function (data) {
+                                        if (data.dispositivoId === idP) {
+                                            if (data.tipoDeDato === "Numerico" || data.tipoDeDato === "Texto") {
+                                                var dateTime = data.datetime.split("T");
+                                                var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                                                var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                                                document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
+                                                document.getElementById("contenidoDis").innerHTML = data.medida;
+                                            } else if (data.tipoDeDato === "Imagen") {
+                                                var dateTime = data.datetime.split("T");
+                                                var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                                                var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                                                document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
+                                                var settings = {
+                                                    "async": true,
+                                                    "crossDomain": true,
+                                                    "url": "https://www.cerebro-servicelayer.com/api/dispositivos/img/" + data.imagenId,
+                                                    "method": "GET",
+                                                    "headers": {
+                                                        "cache-control": "no-cache"
+                                                    }
+                                                }
+
+                                                $.ajax(settings).done(function (data2) {
+                                                    document.getElementById("imgDis").style.display = "block";
+                                                    document.getElementById("imgEmbed").src = "data:image/png;base64," + data2;
+                                                    document.getElementById("imgDis").src = "data:image/png;base64," + data2;
+                                                    document.getElementById("imgDis").addEventListener("click", function () {
+                                                        $('#imagenModal').modal('show');
+                                                    });
+                                                });
+                                            }
+                                            else if (data.tipoDeDato === "Video") {
+                                                var dateTime = data.datetime.split("T");
+                                                var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                                                var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                                                document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
+                                                document.getElementById("videoDiv").style.display = "block";
+                                                document.getElementById("playBtn").addEventListener("click", function () {
+                                                    //document.getElementById("videoEmbed").setAttribute("data-url", response.medida);
+                                                    var videoid = data.medida.toString().match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+                                                    if (videoid != null) {
+                                                        console.log("video id = ", videoid[1]);
+                                                        if ($('#videoEmbed').embed('get id') !== undefined) {
+                                                            $('#videoEmbed').embed('change', 'youtube', videoid[1]);
+                                                        }
+                                                        $('#videoEmbed').embed({
+                                                            source: 'youtube',
+                                                            id: videoid[1]
+                                                        });
+                                                    } else {
+                                                        console.log("The youtube url is not valid.");
+                                                        $('#videoEmbed').embed({
+                                                            url: String(data.medida)
+                                                        });
+                                                    }
+                                                    $('#videoModal').modal({ blurring: true }).modal('show');
+                                                });
+                                            }
+                                        }
+                                    });
+                                    mostrarInfoDispositivo();
+
+                                } else {
+                                    console.log("null " + idP);
+                                }
+                            });
                         }
-                        tmp = tmp1.toString().split(",");
+                    }
+                }
+            });
+            function mostrarModalVideo() {
+                $('#videoModal').modal({ blurring: true }).modal('show');
+            }
+            function mostrarModalImagen() {
+                //$('#imagenModal').modal('show');
+                $('#imagenModal').modal({ blurring: true }).modal('show');
+                //alert();
+                //document.getElementById("imagenModal").style.display = "block";
+            }
+            channel.bind('evento-nuevo', function (data) {
+                var count = 0;
+                //PRIVILEGIOS
+
+                $.each(data.privilegios, function (index, priv) {
+                    $.each(privilegios, function (index, pr) {
+                        if (pr == priv) {
+                            count++;
+                        }
+                    });
+                });
+
+                if (count == data.privilegios.length) {
+                    //SUSCRIPCIONES
+                    var b = false;
+                    $.each(zonas, function (index, zona) {
+                        var tmp = zona.ubicacion.toString().split(",");
                         var array = [];
 
                         var j = 0;
@@ -536,218 +405,433 @@
                             j++;
                         }
                         var polygon = new ol.geom.Polygon([array]);
-                        var feature = new ol.Feature(polygon);
-                        var vectorSource = new ol.source.Vector();
-                        vectorSource.addFeature(feature);
+                        var featurePolygon = new ol.Feature(polygon);
+                        var countPoint = 0;
+                        $.each(data.geom, function (index, dt2) {
+                            var point = new ol.geom.Point(dt2);
+                            var featurePoint = new ol.Feature(point);
 
-                        vector_layer = new ol.layer.Vector({
-                            source: vectorSource
-                        });
-                        map.addLayer(vector_layer);
-                        zonaBool = true;
-                    });
-                    var btn = document.createElement("button");
-                    btn.className = "ui icon button w3-right";
-                    btn.addEventListener("click", function () {
-                        //alert("Borrar " + zona.Id);
-                        var settings = {
-                            "async": true,
-                            "crossDomain": true,
-                            "url": "https://www.cerebro-servicelayer.com/api/usuarios/zonas?id="+ zona.Id,
-                            "method": "DELETE",
-                            "headers": {
-                                "cache-control": "no-cache"
+                            var format = new ol.format.GeoJSON();
+                            var geojsonReader = new jsts.io.GeoJSONReader();
+
+                            var polygon1Jsts = geojsonReader.read(
+                                format.writeFeatureObject(featurePolygon)).geometry;
+                            var polygon2Jsts = geojsonReader.read(
+                                format.writeFeatureObject(featurePoint)).geometry;
+
+                            if (polygon1Jsts.contains(polygon2Jsts)) {
+                                countPoint++;
                             }
-                        }
-
-                        $.ajax(settings).done(function (response) {
-                            cargarZona();
-                            console.log(response);
                         });
+                        if (countPoint == data.geom.length) {
+                            b = true;
+                        }
+                        countPoint = 0;
                     });
-                    var i1 = document.createElement("i");
-                    i1.className = "trash icon w3-text-cerebro-red";
-                    btn.appendChild(i1);
-                    item.appendChild(a);
-                    item.appendChild(btn);
-                    document.getElementById("items").appendChild(item);
-                });
-            }
-        });
-    }
-
-    function mostrarInfoDispositivo() {
-        $('#infoDispositivo').sidebar('show');
-    }
-    function ocultarInfoDispositivo() {
-        $('#infoDispositivo').sidebar('hide');
-    }
-
-    function suscip() {
-        $('#susTab').addClass("active w3-text-cerebro-red");
-        $('#disTab').removeClass("active w3-text-cerebro-red");
-        document.getElementById("itemsDiv").style.display = "none";
-        document.getElementById("items").style.display = "block";
-        document.getElementById("menuSuscripcion").style.display = "block";
-        source.clear();
-        if (zonaBool == true) {
-            map.removeLayer(vector_layer);
-        }
-        zonaBool == false;
-        $.each(arrayFeatures, function (index, feat) {
-            var normalStyle = new ol.style.Style({
-                image: new ol.style.Circle({
-                    radius: 5,
-                    fill: new ol.style.Fill({
-                        color: 'orange'
-                    })
-                })
-            });
-            feat.setStyle(normalStyle);
-        });
-    }
-    function disp() {
-        $('#disTab').addClass("active w3-text-cerebro-red");
-        $('#susTab').removeClass("active w3-text-cerebro-red");
-        document.getElementById("itemsDiv").style.display = "block";
-        document.getElementById("items").style.display = "none";
-        document.getElementById("menuSuscripcion").style.display = "none";
-        source.clear();
-        if (zonaBool == true) {
-            map.removeLayer(vector_layer);
-        }
-        zonaBool == false;
-    }
-    function getAgrupacionesByUsuario() {
-        if (email !== ""){
-            $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email + "&nombre_municipalidad_agrupacion=" + muni, function (response) {
-                if (response !== undefined) {
-                    while (document.getElementById("listAgrupacionChat").hasChildNodes()) {
-                        document.getElementById("listAgrupacionChat").removeChild(document.getElementById("listAgrupacionChat").lastChild);
+                    if (b) {
+                        var item = document.createElement("div");
+                        item.className = "item";
+                        var a = document.createElement("a");
+                        a.className = "ui header text small link";
+                        var dateTime = data.fechaHora.split("T");
+                        var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
+                        var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
+                        a.innerHTML = data.nombre + " (" + fecha + " - " + hora + ")";
+                        a.addEventListener("click", function () {
+                            $.each(arrayFeatures, function (index, feat) {
+                                var normalStyle = new ol.style.Style({
+                                    image: new ol.style.Circle({
+                                        radius: 5,
+                                        fill: new ol.style.Fill({
+                                            color: 'orange'
+                                        })
+                                    })
+                                });
+                                feat.setStyle(normalStyle);
+                            });
+                            $.each(data.geom, function (index, dt) {
+                                var feature = map.forEachFeatureAtPixel(map.getPixelFromCoordinate(dt),
+                                    function (feature) {
+                                        return feature;
+                                    });
+                                if (feature) {
+                                    var eventoStyle = new ol.style.Style({
+                                        image: new ol.style.Circle({
+                                            radius: 5,
+                                            fill: new ol.style.Fill({
+                                                color: 'red'
+                                            })
+                                        })
+                                    });
+                                    feature.setStyle(eventoStyle);
+                                }
+                            });
+                        });
+                        item.appendChild(a);
+                        document.getElementById("itemsDiv").appendChild(item);
                     }
-                    $.each(response, function (index, agrupacion) {
-                        var option = document.createElement("option");
-                        option.innerHTML = agrupacion;
-                        option.value = agrupacion;
-                        document.getElementById("listAgrupacionChat").appendChild(option);
+                }
+            });
+        });
+
+        function cargarDispositivos() {
+            $.get("https://www.cerebro-serviceLayer.com/api/dispositivos/muniUsu?muni=" + muni + "&email=" + email, function (response) {
+                dispositivos = response;
+                for (var res in response) {
+                    var point_feature = new ol.Feature({});
+                    var point_geom = new ol.geom.Point(response[res].ubicacion);
+                    point_feature.setGeometry(point_geom);
+                    var vectorLayer = new ol.layer.Vector({
+                        source: new ol.source.Vector({
+                            features: [point_feature]
+                        }),
+                        style: new ol.style.Style({
+                            image: new ol.style.Circle({
+                                radius: 5,
+                                fill: new ol.style.Fill({
+                                    color: 'orange'
+                                })
+                            })
+                        })
                     });
-                    var option2 = document.createElement("option");
-                    option2.innerHTML = "Seleccionar agrupaci&oacute;n...";
-                    option2.value = "";
-                    option2.selected = true;
-                    option2.disabled = true;
-                    document.getElementById("listAgrupacionChat").appendChild(option2);
+
+                    arrayFeatures[arrayFeatures.length] = vectorLayer.getSource().getFeatures()[0];
+                    map.addLayer(vectorLayer);
                 }
             });
         }
-    }
-    var pusherChat = new Pusher('016fdcbcf95a1344ca6a', { cluster: 'us2', encrypted: true });
-    var channelChat;
-    function chatearAgrupacion() {
-        var agrupacion = document.getElementById("listAgrupacionChat").value;
-        if (channelChat !== undefined) {
-            channelChat.unbind();
+
+        function addSuscripcion() {
+            source.clear();
+            map.addInteraction(draw);
+            document.getElementById("btnSuscribirse").style.display = "block";
         }
-        channelChat = pusherChat.subscribe(muni + "-" + agrupacion);
-        while (document.getElementById("chat").hasChildNodes()) {
-            document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
+
+        function guardarZona() {
+            mostrarMensajeLoading();
+            $.post("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email=" + email + "&muni=" + muni + "&ubicacion=" + geom, function (response) {
+                if (response !== undefined && response === true) {
+                    console.log("Zona guardada");
+                    mostrarMensajeExito();
+                    document.getElementById("btnSuscribirse").style.display = "none";
+                    cargarZona();
+                    source.clear();
+                } else {
+                    mostrarMensajeError();
+                }
+            }).error(function () {
+                mostrarMensajeError();
+            });
         }
-        $.get("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + muni + "-" + agrupacion, function (response) {
-            if (response !== undefined) {
-                $.each(response, function (index, mensaje) {
-                    var fecha = mensaje.datetime.toString().split('T', 2);
-                    var fecha2 = fecha[1].split(".", 2);
-                    if (mensaje.email !== email) {
-                        crearMensajeReceptor(mensaje.autor, fecha2[0], mensaje.mensaje);
-                    } else {
-                        crearMensajeEmisor(fecha2[0], mensaje.mensaje);
+
+        function cargarPrivilegios() {
+            $.get("https://www.cerebro-servicelayer.com/api/usuarios/privilegiosUsu?email=" + email + "&muni=" + muni, function (res) {
+                for (var i = 0; i < res.length; i++) {
+                    privilegios[privilegios.length] = res[i].Privilegio_nombre;
+                }
+            });
+        }
+
+        function cargarZona() {
+            $.get("https://www.cerebro-serviceLayer.com/api/usuarios/zonas?email=" + email + "&muni=" + muni, function (response) {
+                if (response !== undefined) {
+                    while (document.getElementById("items").hasChildNodes()) {
+                        document.getElementById("items").removeChild(document.getElementById("items").lastChild);
+                    }
+                    var num = 0;
+                    zonas = response;
+                    $.each(response, function (index, zona) {
+                        var item = document.createElement("div");
+                        item.className = "item";
+                        var a = document.createElement("a");
+                        a.className = "ui header text small link";
+                        a.innerHTML = "Zona " + num;
+                        num++;
+                        var tmp1 = zona.ubicacion;
+                        a.addEventListener("click", function () {
+                            zonaEliminar = zona.Id;
+                            document.getElementById("zonaEliminar").innerHTML = a.innerHTML;
+                            source.clear();
+                            if (zonaBool == true) {
+                                map.removeLayer(vector_layer);
+                            }
+                            tmp = tmp1.toString().split(",");
+                            var array = [];
+
+                            var j = 0;
+                            for (var i = 0; i < (tmp.length / 2); i++) {
+                                var arraryTmp = [];
+                                arraryTmp[0] = tmp[j]
+                                arraryTmp[1] = tmp[j + 1];
+                                array[i] = arraryTmp;
+                                j++;
+                                j++;
+                            }
+                            var polygon = new ol.geom.Polygon([array]);
+                            var feature = new ol.Feature(polygon);
+                            var vectorSource = new ol.source.Vector();
+                            vectorSource.addFeature(feature);
+
+                            vector_layer = new ol.layer.Vector({
+                                source: vectorSource
+                            });
+                            map.addLayer(vector_layer);
+                            zonaBool = true;
+                        });
+                        item.appendChild(a);
+                        document.getElementById("items").appendChild(item);
+                    });
+                }
+            });
+        }
+        function borrarZona() {
+            if (zonaEliminar !== undefined && zonaEliminar !== "") {
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://www.cerebro-servicelayer.com/api/usuarios/zonas?id=" + zonaEliminar,
+                    "method": "DELETE",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+
+                $.ajax(settings).done(function (response) {
+                    if (response === true) {
+                        zonaEliminar = "";
+                        mostrarMensajeExitoEliminar();
+                        cargarZona();
+                    }
+                    else {
+                        mostrarMensajeError();
+                    }
+                    console.log(response);
+                });
+            }
+        }
+        function mostrarInfoDispositivo() {
+            $('#infoDispositivo').sidebar('show');
+        }
+        function ocultarInfoDispositivo() {
+            $('#infoDispositivo').sidebar('hide');
+        }
+
+        function suscip() {
+            $('#susTab').addClass("active w3-text-cerebro-red");
+            $('#disTab').removeClass("active w3-text-cerebro-red");
+            document.getElementById("itemsDiv").style.display = "none";
+            document.getElementById("items").style.display = "block";
+            document.getElementById("menuSuscripcion").style.display = "block";
+            source.clear();
+            if (zonaBool == true) {
+                map.removeLayer(vector_layer);
+            }
+            zonaBool == false;
+            $.each(arrayFeatures, function (index, feat) {
+                var normalStyle = new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 5,
+                        fill: new ol.style.Fill({
+                            color: 'orange'
+                        })
+                    })
+                });
+                feat.setStyle(normalStyle);
+            });
+        }
+        function disp() {
+            $('#disTab').addClass("active w3-text-cerebro-red");
+            $('#susTab').removeClass("active w3-text-cerebro-red");
+            document.getElementById("itemsDiv").style.display = "block";
+            document.getElementById("items").style.display = "none";
+            document.getElementById("menuSuscripcion").style.display = "none";
+            source.clear();
+            if (zonaBool == true) {
+                map.removeLayer(vector_layer);
+            }
+            zonaBool == false;
+        }
+        function getAgrupacionesByUsuario() {
+            if (email !== ""){
+                $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email + "&nombre_municipalidad_agrupacion=" + muni, function (response) {
+                    if (response !== undefined) {
+                        while (document.getElementById("listAgrupacionChat").hasChildNodes()) {
+                            document.getElementById("listAgrupacionChat").removeChild(document.getElementById("listAgrupacionChat").lastChild);
+                        }
+                        $.each(response, function (index, agrupacion) {
+                            var option = document.createElement("option");
+                            option.innerHTML = agrupacion;
+                            option.value = agrupacion;
+                            document.getElementById("listAgrupacionChat").appendChild(option);
+                        });
+                        var option2 = document.createElement("option");
+                        option2.innerHTML = "Seleccionar agrupaci&oacute;n...";
+                        option2.value = "";
+                        option2.selected = true;
+                        option2.disabled = true;
+                        document.getElementById("listAgrupacionChat").appendChild(option2);
                     }
                 });
+            }
+        }
+        var pusherChat = new Pusher('016fdcbcf95a1344ca6a', { cluster: 'us2', encrypted: true });
+        var channelChat;
+        function chatearAgrupacion() {
+            var agrupacion = document.getElementById("listAgrupacionChat").value;
+            if (channelChat !== undefined) {
+                channelChat.unbind();
+            }
+            channelChat = pusherChat.subscribe(muni + "-" + agrupacion);
+            while (document.getElementById("chat").hasChildNodes()) {
+                document.getElementById("chat").removeChild(document.getElementById("chat").lastChild);
+            }
+            $.get("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + muni + "-" + agrupacion, function (response) {
+                if (response !== undefined) {
+                    $.each(response, function (index, mensaje) {
+                        var fecha = mensaje.datetime.toString().split('T', 2);
+                        var fecha2 = fecha[1].split(".", 2);
+                        if (mensaje.email !== email) {
+                            crearMensajeReceptor(mensaje.autor, fecha2[0], mensaje.mensaje);
+                        } else {
+                            crearMensajeEmisor(fecha2[0], mensaje.mensaje);
+                        }
+                    });
+                    var div = document.getElementById("chat");
+                    $('#chat').animate({
+                        scrollTop: div.scrollHeight - div.clientHeight
+                    }, 400);
+                }
+            });
+            channelChat.bind('mensaje-nuevo', function (data) {
+                var e = JSON.stringify(data);
+                var x = JSON.parse(e);
+                var fecha = x.datetime.toString().split('T', 2);
+                var fecha2 = fecha[1].split(".", 2);
+                if (x.email !== email) {
+                    crearMensajeReceptor(x.autor, fecha2[0], x.mensaje);
+                    //$.post("https://www.cerebro-serviceLayer.com/api/chats/nuevo?agrupacion=" + muni + "-" + x.agrupacion + "&autor=" + x.autor + "&mensaje=" + x.mensaje + "&email=" + x.email, function () { });
+                } else {
+                    crearMensajeEmisor(fecha2[0], x.mensaje);
+                }
                 var div = document.getElementById("chat");
                 $('#chat').animate({
                     scrollTop: div.scrollHeight - div.clientHeight
-                }, 400);
-            }
-        });
-        channelChat.bind('mensaje-nuevo', function (data) {
-            var e = JSON.stringify(data);
-            var x = JSON.parse(e);
-            var fecha = x.datetime.toString().split('T', 2);
-            var fecha2 = fecha[1].split(".", 2);
-            if (x.email !== email) {
-                crearMensajeReceptor(x.autor, fecha2[0], x.mensaje);
-                //$.post("https://www.cerebro-serviceLayer.com/api/chats/nuevo?agrupacion=" + muni + "-" + x.agrupacion + "&autor=" + x.autor + "&mensaje=" + x.mensaje + "&email=" + x.email, function () { });
-            } else {
-                crearMensajeEmisor(fecha2[0], x.mensaje);
-            }
-            var div = document.getElementById("chat");
-            $('#chat').animate({
-                scrollTop: div.scrollHeight - div.clientHeight
-            }, 70);
-        });
-    }
-    function crearMensajeEmisor(fecha, mensaje) {
-        var ele1 = document.createElement("div");
-        ele1.className = 'w3-row w3-left w3-margin-bottom w3-right';
-        ele1.style.width = "70%";
-        var ele2 = document.createElement("div");
-        ele2.className = 'ui right pointing label w3-right w3-pale-green fluid raised segment';
-        ele2.style.padding = "7px";
-        ele1.appendChild(ele2);
-        var ele3 = document.createElement("div");
-        ele3.className = 'w3-row w3-small';
-        var span2 = document.createElement("span");
-        span2.className = "w3-right w3-text-grey";
-        span2.innerHTML = fecha;
-        ele3.appendChild(span2);
-        ele2.appendChild(ele3);
-        var ele4 = document.createElement("div");
-        ele4.className = 'w3-row ui header text small';
-        ele4.style.marginBottom = "3px";
-        ele4.style.marginTop = "5px";
-        ele4.style.marginLeft = "3px";
-        ele4.textContent = mensaje;
-        ele2.appendChild(ele4);
-        document.getElementById("chat").appendChild(ele1);
-    }
-    function crearMensajeReceptor(autor, fecha, mensaje) {
-        var ele1 = document.createElement("div");
-        ele1.className = 'w3-row w3-left w3-margin-bottom w3-left';
-        ele1.style.width = "70%";
-        var ele2 = document.createElement("div");
-        ele2.className = 'ui left pointing label w3-left fluid w3-white raised segment';
-        ele2.style.padding = "7px";
-        ele1.appendChild(ele2);
-        var ele3 = document.createElement("div");
-        ele3.className = 'w3-row w3-small';
-        var span1 = document.createElement("span");
-        span1.className = "w3-text-cerebro-red ui header text small";
-        span1.innerHTML = autor;
-        ele3.appendChild(span1);
-        var span2 = document.createElement("span");
-        span2.className = "w3-right w3-text-grey";
-        span2.innerHTML = fecha;
-        ele3.appendChild(span2);
-        ele2.appendChild(ele3);
-        var ele4 = document.createElement("div");
-        ele4.className = 'w3-row';
-        ele4.style.marginBottom = "3px";
-        ele4.style.marginTop = "7px";
-        ele4.style.marginLeft = "3px";
-        ele4.textContent = mensaje;
-        ele2.appendChild(ele4);
-        document.getElementById("chat").appendChild(ele1);
-    }
-    $("#mensaje").on('keyup', function (e) {
-        if (e.keyCode == 13) {
-            var agrupacion = document.getElementById("listAgrupacionChat").value;
-            if (agrupacion !== ""){
-                $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + muni + "-" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
-                    document.getElementById("mensaje").value = "";
-                });
-            }
+                }, 70);
+            });
         }
-    });
+        function crearMensajeEmisor(fecha, mensaje) {
+            var ele1 = document.createElement("div");
+            ele1.className = 'w3-row w3-left w3-margin-bottom w3-right';
+            ele1.style.width = "70%";
+            var ele2 = document.createElement("div");
+            ele2.className = 'ui right pointing label w3-right w3-pale-green fluid raised segment';
+            ele2.style.padding = "7px";
+            ele1.appendChild(ele2);
+            var ele3 = document.createElement("div");
+            ele3.className = 'w3-row w3-small';
+            var span2 = document.createElement("span");
+            span2.className = "w3-right w3-text-grey";
+            span2.innerHTML = fecha;
+            ele3.appendChild(span2);
+            ele2.appendChild(ele3);
+            var ele4 = document.createElement("div");
+            ele4.className = 'w3-row ui header text small';
+            ele4.style.marginBottom = "3px";
+            ele4.style.marginTop = "5px";
+            ele4.style.marginLeft = "3px";
+            ele4.textContent = mensaje;
+            ele2.appendChild(ele4);
+            document.getElementById("chat").appendChild(ele1);
+        }
+        function crearMensajeReceptor(autor, fecha, mensaje) {
+            var ele1 = document.createElement("div");
+            ele1.className = 'w3-row w3-left w3-margin-bottom w3-left';
+            ele1.style.width = "70%";
+            var ele2 = document.createElement("div");
+            ele2.className = 'ui left pointing label w3-left fluid w3-white raised segment';
+            ele2.style.padding = "7px";
+            ele1.appendChild(ele2);
+            var ele3 = document.createElement("div");
+            ele3.className = 'w3-row w3-small';
+            var span1 = document.createElement("span");
+            span1.className = "w3-text-cerebro-red ui header text small";
+            span1.innerHTML = autor;
+            ele3.appendChild(span1);
+            var span2 = document.createElement("span");
+            span2.className = "w3-right w3-text-grey";
+            span2.innerHTML = fecha;
+            ele3.appendChild(span2);
+            ele2.appendChild(ele3);
+            var ele4 = document.createElement("div");
+            ele4.className = 'w3-row';
+            ele4.style.marginBottom = "3px";
+            ele4.style.marginTop = "7px";
+            ele4.style.marginLeft = "3px";
+            ele4.textContent = mensaje;
+            ele2.appendChild(ele4);
+            document.getElementById("chat").appendChild(ele1);
+        }
+        $("#mensaje").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                var agrupacion = document.getElementById("listAgrupacionChat").value;
+                if (agrupacion !== ""){
+                    $.post("https://www.cerebro-serviceLayer.com/api/chats?agrupacion=" + muni + "-" + agrupacion +"&autor=" + '@User.Claims.ToList()[1].Value' + "&mensaje=" + document.getElementById("mensaje").value + "&email=" + email, function (response) {
+                        document.getElementById("mensaje").value = "";
+                    });
+                }
+            }
+        });
+
+        function mostrarMensajeExito() {
+            document.getElementById("dimmer").style.display = "block";
+            document.getElementById("exito").style.display = "block";
+            document.getElementById("error").style.display = "none";
+            document.getElementById("warning").style.display = "none";
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("exitoEliminar").style.display = "none";
+        }
+
+        function mostrarMensajeError() {
+            document.getElementById("dimmer").style.display = "block";
+            document.getElementById("exito").style.display = "none";
+            document.getElementById("error").style.display = "block";
+            document.getElementById("warning").style.display = "none";
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("exitoEliminar").style.display = "none";
+        }
+
+        function mostrarMensajeWarning() {
+            document.getElementById("dimmer").style.display = "block";
+            document.getElementById("exito").style.display = "none";
+            document.getElementById("error").style.display = "none";
+            document.getElementById("warning").style.display = "block";
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("exitoEliminar").style.display = "none";
+        }
+
+        function mostrarMensajeLoading() {
+            document.getElementById("dimmer").style.display = "block";
+            document.getElementById("exito").style.display = "none";
+            document.getElementById("error").style.display = "none";
+            document.getElementById("warning").style.display = "none";
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("exitoEliminar").style.display = "none";
+        }
+        function mostrarMensajeExitoEliminar() {
+            document.getElementById("dimmer").style.display = "block";
+            document.getElementById("exito").style.display = "none";
+            document.getElementById("error").style.display = "none";
+            document.getElementById("warning").style.display = "none";
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("exitoEliminar").style.display = "block";
+        }
+        function ocultarMensajes() {
+            document.getElementById("dimmer").style.display = "none";
+            document.getElementById("exito").style.display = "none";
+            document.getElementById("error").style.display = "none";
+            document.getElementById("warning").style.display = "none";
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("exitoEliminar").style.display = "none";
+        }
     </script>
 </div>
-
