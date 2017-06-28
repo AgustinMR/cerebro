@@ -1,4 +1,5 @@
 ﻿using cerebro;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,6 @@ namespace cerebro_BusinessLogicLayer
         bool addZona(Zonas z);
         List<Zonas> getZonas(string email, string muni);
         bool agregarPrivilegio(string privilegio, string municipalidad);
+        bool deleteZona(ObjectId id);
     }
 }

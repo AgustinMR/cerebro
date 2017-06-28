@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using cerebro;
 using cerebro_DataAccessLayer;
 using System.Reflection;
+using MongoDB.Bson;
 
 namespace cerebro_BusinessLogicLayer
 {
@@ -90,6 +91,10 @@ namespace cerebro_BusinessLogicLayer
         public bool agregarPrivilegio(string privilegio, string municipalidad)
         {
             return dal.agregarPrivilegio(privilegio, municipalidad);
+        }
+
+        public bool deleteZona(ObjectId id) {
+            return dal.deleteZona(id);
         }
     }
 }

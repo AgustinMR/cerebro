@@ -5,6 +5,7 @@ using cerebro;
 using System.Collections.Generic;
 using cerebro_ServiceLayer.Models;
 using System;
+using MongoDB.Bson;
 
 namespace cerebro_ServiceLayer.Controllers
 {
@@ -286,6 +287,13 @@ namespace cerebro_ServiceLayer.Controllers
         public List<Zonas> getZonas(string email, string muni)
         {
             return new BLUsuario().getZonas(email, muni);
+        }
+
+        [HttpDelete]
+        [Route("zonas")]
+        public bool deleteZona(string id)
+        {
+            return new BLUsuario().deleteZona(ObjectId.Parse(id));
         }
     }
 }
