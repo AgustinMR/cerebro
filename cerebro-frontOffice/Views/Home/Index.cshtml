@@ -4,7 +4,6 @@
         $('.ui.sidebar').sidebar('attach events', '.toc.item');
         $('.ui.embed').embed();
     });
-    document.getElementById("codigoPin").value = "";
 </script>
 <div class="ui inverted vertical center aligned w3-display-container w3-cerebro-blue">
     <div class="ui active page dimmer" style="display: none" id="dimmer">
@@ -150,6 +149,7 @@
     <input name="muni" id="muniLogin" type="password" required>
 </form>
 <script>
+    document.getElementById("codigoPin").value = "";
     window.fbAsyncInit = function () {
         FB.init({ appId: '623498791182427', cookie: true, xfbml: true, version: 'v2.8' });
     };

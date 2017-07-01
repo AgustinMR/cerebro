@@ -45,7 +45,6 @@
 <script>
     $(document).ready(function () {
         "use strict";
-        cargarMunicipalidades();
         $('.ui.dropdown').dropdown();
         blurBackground();
         var muniL = window.location.toString().split("/")[2].split(".")[1].split("");
@@ -115,23 +114,6 @@
                 }
             );
         }
-    }
-    function cargarMunicipalidades() {
-        $.get("https://www.cerebro-serviceLayer.com/api/municipalidades", function (response) {
-            $.each(response, function (index, municipalidad) {
-                var x = JSON.parse(JSON.stringify(municipalidad));
-                var option = document.createElement("option");
-                option.value = x.nombre;
-                option.innerHTML = x.nombre;
-                document.getElementById("muni").appendChild(option);
-            });
-            var option2 = document.createElement("option");
-            option2.value = "";
-            option2.selected = true;
-            option2.disabled = true;
-            option2.innerHTML = "Seleccione su municipalidad...";
-            document.getElementById("muni").appendChild(option2);
-        });
     }
     function mostrarDialogoTwitter() {
         cb.__call(
