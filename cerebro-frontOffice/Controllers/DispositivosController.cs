@@ -110,9 +110,9 @@ namespace cerebro_frontOffice.Controllers
                         }
                         else
                         {
-                            if (int.Parse(umb[z].medida) < 0)
+                            if (int.Parse(umbralesEventos[h].valorLimite) < 0)
                             {
-                                if ((int.Parse(umb[z].medida) * -1) < int.Parse(umbralesEventos[h].valorLimite))
+                                if (int.Parse(umb[z].medida) < (int.Parse(umbralesEventos[h].valorLimite) * -1))
                                     evee = true;
                             }
                             else
