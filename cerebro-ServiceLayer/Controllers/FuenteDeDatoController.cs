@@ -13,7 +13,7 @@ using System.Web.Http.Cors;
 namespace cerebro_ServiceLayer.Controllers
 {
     [RoutePrefix("api/dispositivos")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "www.cerebro-frontOffice.com,www.*.cerebro-frontOffice.com,www.cerebro-backOffice.com,www.*.cerebro-backOffice.com", headers: "*", methods: "*")]
     public class FuenteDeDatoController : ApiController
     {
         [HttpPost]
