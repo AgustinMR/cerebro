@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 declare var ol: any;
 declare var $: any;
+declare var md5: any;
 
 @Component({
     selector: 'cerebro-backoffice-inicio',
@@ -170,7 +171,8 @@ export class InicioComponent implements OnInit {
     }
 
     ingresar() {
-        this.loginService.loginAdmin(this.email, this.nombre_municipalidad, this.pass).subscribe(
+        var p = md5(this.pass);
+        this.loginService.loginAdmin(this.email, this.nombre_municipalidad,p).subscribe(
             (data: Response) => {
                 this.autenticado = data;
                 if (this.autenticado === true) {
@@ -189,7 +191,7 @@ export class InicioComponent implements OnInit {
         if (this.nomMuni != "" && this.nomAdmin != "" && this.passAdmin != "" && this.emailAdmin != "") {
             this.loginService.addMuni(this.nomMuni, this.geom).subscribe(
                 (data: Response) => {
-                    this.loginService.addAdmin(this.nomMuni, this.emailAdmin, this.nomAdmin, this.passAdmin).subscribe(
+                    this.loginService.addAdmin(this.nomMuni, this.emailAdmin, this.nomAdmin, md5(this.passAdmin)).subscribe(
                         (data: Response) => {
                             this.mostrarDimmerMunicipalidad();
                         },
