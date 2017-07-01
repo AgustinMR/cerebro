@@ -8,7 +8,7 @@ using System.Web.Http.Cors;
 namespace cerebro_ServiceLayer.Controllers
 {
     [RoutePrefix("api/tipos")]
-    [EnableCors(origins: "www.cerebro-frontOffice.com,www.*.cerebro-frontOffice.com,www.cerebro-backOffice.com,www.*.cerebro-backOffice.com", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class TipoDeFuenteDeDatoController : ApiController
     {
         [HttpPost]

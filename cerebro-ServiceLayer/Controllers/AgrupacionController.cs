@@ -11,7 +11,7 @@ using cerebro_BusinessLogicLayer;
 namespace cerebro_ServiceLayer.Controllers
 {
     [RoutePrefix("api/agrupaciones")]
-    [EnableCors(origins: "www.cerebro-frontOffice.com,www.*.cerebro-frontOffice.com,www.cerebro-backOffice.com,www.*.cerebro-backOffice.com", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AgrupacionController : ApiController
     {
         [HttpPost]

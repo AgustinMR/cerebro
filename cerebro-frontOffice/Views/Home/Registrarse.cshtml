@@ -82,7 +82,7 @@
 
         function addOperador() {
             mostrarMensajeLoading();
-            var postInfo = "email=" + document.getElementById("email").value + "&nombre_municipalidad=" + document.getElementById("muni").value + "&nombre=" + document.getElementById("nombre").value + "&password=" + document.getElementById("pass").value;
+            var postInfo = "email=" + document.getElementById("email").value + "&nombre_municipalidad=" + document.getElementById("muni").value + "&nombre=" + document.getElementById("nombre").value + "&password=" + md5(document.getElementById("pass").value);
             $.post("https://www.cerebro-serviceLayer.com/api/usuarios/operador?" + postInfo, function (response) {
                 if (response === "OK") {
                     document.getElementById("emailLogin").value = document.getElementById("email").value;
@@ -92,8 +92,6 @@
                 } else {
                     mostrarMensajeError();
                 }
-            }).error(function () {
-                mostrarMensajeError();
             });
         }
 
