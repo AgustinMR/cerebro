@@ -1,0 +1,54 @@
+﻿
+<div class="bgimg-4 w3-cerebro-blue w3-opacity" id="backgr" style="height: 100%"></div>
+<div class="w3-bar w3-top">
+    <div class="w3-content">
+        <img src="~/images/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
+    </div>
+</div>
+<div class="ui stackable text container w3-display-middle">
+    <div class="ui raised blurring segment">
+        <div class="w3-center"><img src="~/images/cerebro-logo.png" class="w3-image" style="height: 40px"></div>
+        <h3 class="ui horizontal divider header text w3-text-cerebro-blue w3-margin">Ha ocurrido un error!</h3>
+        <h4 class="ui text header w3-margin-left">Por favor verifica lo siguiente, y vuelve a intentar:</h4>
+        <div class="w3-margin-left w3-padding">
+            <ul class="ui list w3-margin-bottom w3-text-dark-gray">
+                <li>Tener conexi&oacute;n a internet.</li>
+                <li>Haber iniciado sesi&oacute;n</li>
+                <li>Tener permisos para acceder al recurso</li>
+            </ul>
+        </div>
+        <div class="ui divider"></div>
+        <div class="w3-center">
+            <div class="ui buttons">
+                <button class="ui icon button"><i class="left arrow icon"></i> Retrodecer&nbsp;&nbsp;</button>
+                <div class="or" data-text="&oacute;"></div>
+                <button class="ui blue icon button">&nbsp;<i class="home icon"></i> Volver al inicio</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+		$(document).ready(function() {
+			"use strict";
+			cargarMunicipalidades();
+			$('.ui.dropdown').dropdown();
+			blurBackground();
+		});
+		function cargarMunicipalidades() {
+			$.get("https://www.cerebro-serviceLayer.com/api/municipalidades", function (response) {
+				$.each(response, function (index, municipalidad) {
+					var x = JSON.parse(JSON.stringify(municipalidad));
+					var option = document.createElement("option");
+					option.value = x.nombre;
+					option.innerHTML = x.nombre;
+					document.getElementById("muni").appendChild(option);
+				});
+				var option2 = document.createElement("option");
+				option2.value = "";
+				option2.selected = true;
+				option2.disabled = true;
+				option2.innerHTML = "Seleccione su municipalidad...";
+				document.getElementById("muni").appendChild(option2);
+			});
+    	}
+</script>
