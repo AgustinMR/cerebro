@@ -30,5 +30,11 @@ namespace cerebro_frontOffice.Controllers
             ViewData["Title"] = "Municipalidades";
             return View();
         }
+
+        public IActionResult Error()
+        {
+            ViewData["Title"] = "Error";
+            return View();
+        }
     }
 }
