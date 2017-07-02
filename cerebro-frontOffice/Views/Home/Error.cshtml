@@ -1,5 +1,5 @@
 ﻿
-<div class="bgimg-4 w3-cerebro-blue w3-opacity" id="backgr" style="height: 100%"></div>
+<div class="w3-cerebro-blue" style="height:100%; width:100%"><div class="bgimg-4" id="backgr" style="height: 100%"></div></div>
 <div class="w3-bar w3-top">
     <div class="w3-content">
         <img src="~/images/cerebro.png" style="height:30px; margin-left: 16px; margin-top: 6px">
@@ -12,17 +12,14 @@
         <h4 class="ui text header w3-margin-left">Por favor verifica lo siguiente, y vuelve a intentar:</h4>
         <div class="w3-margin-left w3-padding">
             <ul class="ui list w3-margin-bottom w3-text-dark-gray">
-                <li>Tener conexi&oacute;n a internet.</li>
-                <li>Haber iniciado sesi&oacute;n</li>
-                <li>Tener permisos para acceder al recurso</li>
+                <li>Estar ubicado en la municipalidad en la que creo su usuario</li>
+                <li>Que su correo electrónico y contraseña sean correctos</li>
             </ul>
         </div>
         <div class="ui divider"></div>
         <div class="w3-center">
             <div class="ui buttons">
-                <button class="ui icon button"><i class="left arrow icon"></i> Retrodecer&nbsp;&nbsp;</button>
-                <div class="or" data-text="&oacute;"></div>
-                <button class="ui blue icon button">&nbsp;<i class="home icon"></i> Volver al inicio</button>
+                <button class="ui blue icon button" onclick="inicio()">&nbsp;<i class="home icon"></i> Volver al inicio</button>
             </div>
         </div>
     </div>
@@ -50,5 +47,8 @@
 				option2.innerHTML = "Seleccione su municipalidad...";
 				document.getElementById("muni").appendChild(option2);
 			});
-    	}
+        }
+        function inicio() {
+            window.location = "https://www.cerebro-frontOffice.com";
+        }
 </script>
