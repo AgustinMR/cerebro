@@ -309,6 +309,7 @@
                                                 var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
                                                 var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
                                                 document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
+                                                document.getElementById("contenidoDis").innerHTML = "";
                                                 var settings = {
                                                     "async": true,
                                                     "crossDomain": true,
@@ -327,12 +328,12 @@
                                                         $('#imagenModal').modal('show');
                                                     });
                                                 });
-                                            }
-                                            else if (data.tipoDeDato === "Video") {
+                                            }else if (data.tipoDeDato === "Video") {
                                                 var dateTime = data.datetime.split("T");
                                                 var fecha = dateTime[0].split("-")[0] + "/" + dateTime[0].split("-")[1] + "/" + dateTime[0].split("-")[2];
                                                 var hora = dateTime[1].split(":")[0] + ":" + dateTime[1].split(":")[1];
                                                 document.getElementById("fechaHoraDis").innerHTML = fecha + " - " + hora;
+                                                document.getElementById("contenidoDis").innerHTML = "";
                                                 document.getElementById("videoDiv").style.display = "block";
                                                 document.getElementById("playBtn").addEventListener("click", function () {
                                                     //document.getElementById("videoEmbed").setAttribute("data-url", response.medida);
@@ -360,7 +361,24 @@
                                     mostrarInfoDispositivo();
 
                                 } else {
-                                    console.log("null " + idP);
+                                    document.getElementById("nomDis").innerHTML = nombre;
+                                    document.getElementById("contenidoDis").innerHTML = "No se han registrado mediciones"
+                                    mostrarInfoDispositivo();
+                                    $.get("https://www.cerebro-serviceLayer.com/api/tipos/" + dis.tipo,function (res) { 
+                                        if (res != null) { 
+                                            if (res.tipo == 0) {
+                                                document.getElementById("tipoDis").innerHTML = "Texto";
+                                            } else if (res.tipo == 1) {
+                                                document.getElementById("tipoDis").innerHTML = "Numerico";
+                                            } else if (res.tipo == 2) {
+                                                document.getElementById("tipoDis").innerHTML = "Imagen";
+                                            } else { 
+                                                document.getElementById("tipoDis").innerHTML = "Video";
+                                            }
+                                        }
+                                        mostrarInfoDispositivo();
+                                    });
+                                    //console.log("null " + idP);
                                 }
                             });
                         }
