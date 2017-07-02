@@ -71,7 +71,7 @@ namespace cerebro_frontOffice.Controllers
                         sb.Append(hash[i].ToString("x2"));
                     }
                     sb.ToString();
-                    if (!string.IsNullOrWhiteSpace(pass) && pass == usuarios.Password)
+                    if (!string.IsNullOrWhiteSpace(pass) && sb.ToString() == usuarios.Password)
                     {
                         var claims = new List<Claim>
                         {
