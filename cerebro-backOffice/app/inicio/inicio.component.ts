@@ -189,9 +189,14 @@ export class InicioComponent implements OnInit {
 
     addMuni() {
         if (this.nomMuni != "" && this.nomAdmin != "" && this.passAdmin != "" && this.emailAdmin != "") {
-            this.loginService.addMuni(this.nomMuni, this.geom).subscribe(
+            var MuniNomTmp = this.nomMuni.split("")
+            var MuniNom = MuniNomTmp[0].toUpperCase();
+            for (var h = 1; h < MuniNomTmp.length; h++) {
+                MuniNom += MuniNomTmp[h].toLowerCase();
+            }
+            this.loginService.addMuni(MuniNom, this.geom).subscribe(
                 (data: Response) => {
-                    this.loginService.addAdmin(this.nomMuni, this.emailAdmin, this.nomAdmin, md5(this.passAdmin)).subscribe(
+                    this.loginService.addAdmin(MuniNom, this.emailAdmin, this.nomAdmin, md5(this.passAdmin)).subscribe(
                         (data: Response) => {
                             this.mostrarDimmerMunicipalidad();
                         },

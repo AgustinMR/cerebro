@@ -34,7 +34,7 @@ namespace cerebro_frontOffice.Controllers
 
             if (usuarios == null)
             {
-                return Redirect("/");
+                return Redirect("/Home/Error");
             }
             else if (usuarios.Enabled == true)
             {
@@ -90,11 +90,11 @@ namespace cerebro_frontOffice.Controllers
                 }
                 else
                 {
-                    return Redirect("/");
+                    return Redirect("/Home/Error");
                 }
 
             }
-            return Redirect("/");
+            return Redirect("/Home/Error");
         }
 
         public async Task<IActionResult> Logout()
