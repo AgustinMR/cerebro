@@ -44,7 +44,7 @@ namespace cerebro_ServiceLayer.Controllers
         [Route("byUsuario")]
         public List<string> getAgrupacionesByUsuario([FromUri]Agrupacion_Usuario a)
         {
-            return new BLAgrupacion().obtenerAgrupacionesByUsuario(a.usuario_email);
+            return new BLAgrupacion().obtenerAgrupacionesByUsuario(a);
         }
 
         [HttpGet]

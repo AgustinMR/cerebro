@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace cerebro_frontOffice.Controllers
 {
@@ -34,7 +36,7 @@ namespace cerebro_frontOffice.Controllers
             {
                 return Redirect("/");
             }
-            else
+            else if (usuarios.Enabled == true)
             {
                 if (usuarios.Tipo == 0)
                 {
@@ -57,6 +59,18 @@ namespace cerebro_frontOffice.Controllers
                 }
                 else if (usuarios.Tipo == 1)
                 {
+                    MD5 md5 = MD5.Create();
+
+                    byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(pass);
+
+                    byte[] hash = md5.ComputeHash(inputBytes);
+
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < hash.Length; i++)
+                    {
+                        sb.Append(hash[i].ToString("x2"));
+                    }
+                    sb.ToString();
                     if (!string.IsNullOrWhiteSpace(pass) && pass == usuarios.Password)
                     {
                         var claims = new List<Claim>

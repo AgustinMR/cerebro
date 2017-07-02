@@ -913,7 +913,7 @@
     }
     function getAgrupacionesByUsuario() {
         if (email !== ""){
-            $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email, function (response) {
+            $.get("https://www.cerebro-serviceLayer.com/api/agrupaciones/byUsuario?usuario_email=" + email + "&nombre_municipalidad_agrupacion=" + municipalidad, function (response) {
                 if (response !== undefined) {
                     while (document.getElementById("listAgrupacionChat").hasChildNodes()) {
                         document.getElementById("listAgrupacionChat").removeChild(document.getElementById("listAgrupacionChat").lastChild);
